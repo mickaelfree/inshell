@@ -4,7 +4,7 @@ CFLAGS = -Wall -Wextra -Werror -I./includes
 
 # Sources
 SRC_DIR = src/
-SRCS = $(SRC_DIR)core/main.c \
+SRCS = main.c \
        # $(SRC_DIR)core/init.c \
        # $(SRC_DIR)core/cleanup.c \
        # $(SRC_DIR)parsing/parser_map.c \
@@ -41,11 +41,11 @@ OBJS = $(SRCS:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(OBJS) $(LIBS) -o $(NAME)
+	$(CC) -lreadline $(OBJS) $(LIBS) -o $(NAME)
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c Makefile ./includes/inshell.h
 	@mkdir -p $(@D)
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	$(CC) $(CFLAGS)  $(INCLUDES) -c $< -o $@
 
 
 clean:
