@@ -7,9 +7,11 @@ SRC_DIR = src/
 SRCS = main.c \
         $(SRC_DIR)utils/ft_split.c \
         $(SRC_DIR)utils/str_utils.c \
+	$(SRC_DIR)utils/ft_is.c \
         $(SRC_DIR)builtins/echo.c \
         $(SRC_DIR)builtins/pwd.c \
         $(SRC_DIR)builtins/env.c \
+        $(SRC_DIR)builtins/unset.c \
        # $(SRC_DIR)core/cleanup.c \
        # $(SRC_DIR)parsing/parser_map.c \
        # $(SRC_DIR)parsing/checker.c \
