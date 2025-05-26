@@ -6,11 +6,20 @@
 /*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 21:30:44 by mickmart          #+#    #+#             */
-/*   Updated: 2025/05/26 17:11:42 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/05/26 18:04:02 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/inshell.h"
+
+int is_builtin(char **args)
+{
+	if (!strcmp(args[0], "echo"))
+			builtin_echo(args);
+	if (!strcmp(args[0], "pwd"))
+			builtin_pwd(args);
+	return (0);
+}
 
 int	main(void)
 {
@@ -26,8 +35,7 @@ int	main(void)
 		add_history(line);
 		//printf(" %s\n", line);
 		args = ft_split(line, ' ');
-		if (!strcmp(args[0], "echo"))
-			builtin_echo(args);
+                is_builtin(args);
 		printf("args: %s\n", args[0]);
 		printf("args: %s\n", args[1]);
 		// exec(line);

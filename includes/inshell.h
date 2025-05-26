@@ -6,7 +6,7 @@
 /*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 22:12:48 by mickmart          #+#    #+#             */
-/*   Updated: 2025/05/26 15:47:59 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/05/26 17:58:28 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef INSHELL_H
@@ -22,6 +22,7 @@
 //INFO: builtin_echo est un test pour le moment
 
 int	builtin_echo(char **args);
+int	builtin_pwd(char **args);
 
 //INFO: header pour les utils
 
