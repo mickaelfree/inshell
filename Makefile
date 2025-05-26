@@ -5,7 +5,8 @@ CFLAGS = -Wall -Wextra -Werror -I./includes
 # Sources
 SRC_DIR = src/
 SRCS = main.c \
-       # $(SRC_DIR)core/init.c \
+        $(SRC_DIR)utils/ft_split.c \
+        $(SRC_DIR)utils/str_utils.c \
        # $(SRC_DIR)core/cleanup.c \
        # $(SRC_DIR)parsing/parser_map.c \
        # $(SRC_DIR)parsing/checker.c \

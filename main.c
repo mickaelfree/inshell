@@ -6,7 +6,7 @@
 /*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 21:30:44 by mickmart          #+#    #+#             */
-/*   Updated: 2025/05/23 22:30:59 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/05/26 15:33:55 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	main(void)
                 //TODO:
                 //ajouter la logique de parsing
 		printf(" %s\n", line);
+                args = ft_split(line, ' ');
                 //exec(line);
 		free(line);
 	}
