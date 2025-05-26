@@ -6,19 +6,36 @@
 /*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:35:33 by mickmart          #+#    #+#             */
-/*   Updated: 2025/05/26 15:32:06 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/05/26 17:10:32 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 //TODO::
 #include "../../includes/inshell.h"
 
-int builtin_echo(char **args)
+int	builtin_echo(char **args)
 {
+        int flag;
+
+       flag= 0; 
         if (args[1] == NULL)
         {
                 write(1, "\n", 1);
                 return (0);
         }
+        args++;
+        while (*args)
+        {
+                if (!strncmp(*args, "-n", 2))
+                {
+                        flag = 1;
+                        args++;
+                        continue;
+                }
+                write(1, *args, strlen(*args));
+                write(1, " ", 1);
+                args++;
+        }
+       if (!flag) 
+                write(1, "\n", 1);
         return (0);
-
 }

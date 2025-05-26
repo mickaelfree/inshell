@@ -6,7 +6,7 @@
 /*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 21:30:44 by mickmart          #+#    #+#             */
-/*   Updated: 2025/05/26 15:33:55 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/05/26 17:11:42 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,23 @@
 
 int	main(void)
 {
-        //TODO:
 	char	*line;
+	char	**args;
 
+	// TODO:
 	while (1)
 	{
-                line = readline("Inshell>");
+		line = readline("Inshell>");
 		if (!line)
 			break ;
 		add_history(line);
-                //TODO:
-                //ajouter la logique de parsing
-		printf(" %s\n", line);
-                args = ft_split(line, ' ');
-                //exec(line);
+		//printf(" %s\n", line);
+		args = ft_split(line, ' ');
+		if (!strcmp(args[0], "echo"))
+			builtin_echo(args);
+		printf("args: %s\n", args[0]);
+		printf("args: %s\n", args[1]);
+		// exec(line);
 		free(line);
 	}
 	return (0);

@@ -7,6 +7,7 @@ SRC_DIR = src/
 SRCS = main.c \
         $(SRC_DIR)utils/ft_split.c \
         $(SRC_DIR)utils/str_utils.c \
+        $(SRC_DIR)builtins/echo.c \
        # $(SRC_DIR)core/cleanup.c \
        # $(SRC_DIR)parsing/parser_map.c \
        # $(SRC_DIR)parsing/checker.c \
@@ -48,6 +49,8 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c Makefile ./includes/inshell.h
 	@mkdir -p $(@D)
 	$(CC) $(CFLAGS)  $(INCLUDES) -c $< -o $@
 
+run: all
+	./$(NAME)
 
 clean:
 	rm -rf $(OBJ_DIR)
