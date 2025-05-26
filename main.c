@@ -6,22 +6,24 @@
 /*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 21:30:44 by mickmart          #+#    #+#             */
-/*   Updated: 2025/05/26 18:16:02 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/05/26 18:41:23 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/inshell.h"
 
-int is_builtin(char **args)
+int is_builtin(char **args, char **envp)
 {
 	if (!strcmp(args[0], "echo"))
 			builtin_echo(args);
 	if (!strcmp(args[0], "pwd"))
 			builtin_pwd();
+	if (!strcmp(args[0], "env"))
+			builtin_env(args,envp);
 	return (0);
 }
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
 	char	*line;
 	char	**args;
@@ -35,7 +37,7 @@ int	main(void)
 		add_history(line);
 		//printf(" %s\n", line);
 		args = ft_split(line, ' ');
-                is_builtin(args);
+                is_builtin(args, envp);
 		printf("args: %s\n", args[0]);
 		printf("args: %s\n", args[1]);
 		// exec(line);

@@ -6,7 +6,7 @@
 /*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 22:12:48 by mickmart          #+#    #+#             */
-/*   Updated: 2025/05/26 18:15:14 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/05/26 18:41:08 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef INSHELL_H
@@ -23,6 +23,7 @@
 
 int	builtin_echo(char **args);
 int	builtin_pwd(void);
+int builtin_env(char **args, char **envp);
 
 //INFO: header pour les utils
 
