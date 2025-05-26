@@ -6,7 +6,7 @@
 /*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 21:30:44 by mickmart          #+#    #+#             */
-/*   Updated: 2025/05/26 18:04:02 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/05/26 18:16:02 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int is_builtin(char **args)
 	if (!strcmp(args[0], "echo"))
 			builtin_echo(args);
 	if (!strcmp(args[0], "pwd"))
-			builtin_pwd(args);
+			builtin_pwd();
 	return (0);
 }
 
