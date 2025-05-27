@@ -6,7 +6,7 @@
 /*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:36:20 by mickmart          #+#    #+#             */
-/*   Updated: 2025/05/27 15:36:37 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/05/27 16:03:19 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 // TODO::
@@ -24,7 +24,7 @@ int	builtin_unset(char **args, char **envp)
 		i = 1;
 		while (envp[i])
 		{
-			if (!strcmp(envp[i], args[1]))
+			if (!strcmp(envp[i], *args))
 			{
 				free(envp[i]);
 				while (envp[i + 1])
