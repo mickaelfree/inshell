@@ -6,7 +6,7 @@
 /*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 22:12:48 by mickmart          #+#    #+#             */
-/*   Updated: 2025/05/26 19:05:55 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/05/27 14:03:18 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef INSHELL_H
@@ -24,12 +24,14 @@
 int	builtin_echo(char **args);
 int	builtin_pwd(void);
 int builtin_env(char **args, char **envp);
+int builtin_export(char **args, char **envp);
 int builtin_unset(char **args, char **envp);
 
 //INFO: header pour les utils
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t sz);
 char	**ft_split(char const *s, char c);
+char	*ft_strdup(const char *s);
 
 //INFO:
 //ft_is

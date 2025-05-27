@@ -6,7 +6,7 @@
 /*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 21:30:44 by mickmart          #+#    #+#             */
-/*   Updated: 2025/05/26 19:07:58 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/05/27 14:03:40 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int is_builtin(char **args, char **envp)
 			builtin_pwd();
 	if (!strcmp(args[0], "env"))
 			builtin_env(args,envp);
+	if (!strcmp(args[0], "export"))
+			builtin_export(args,envp);
 	if (!strcmp(args[0], "unset"))
 			builtin_unset(args,envp);
 	return (0);
