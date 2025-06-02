@@ -11,16 +11,17 @@
 /* ************************************************************************** */
 //TODO::
 #include "../../includes/inshell.h"
+#include <stdlib.h>
 
 int	builtin_echo(char **args)
 {
         int flag;
 
        flag= 0; 
-        if (args[1] == NULL)
+        if (!args[1] )
         {
                 write(1, "\n", 1);
-                return (0);
+                return (EXIT_SUCCESS);
         }
         args++;
         while (*args)
@@ -38,5 +39,5 @@ int	builtin_echo(char **args)
         }
        if (!flag) 
                 write(1, "\n", 1);
-        return (0);
+        return (EXIT_SUCCESS);
 }

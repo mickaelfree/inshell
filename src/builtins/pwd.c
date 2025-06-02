@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 //TODO::
 #include "../../includes/inshell.h"
+#include <stdlib.h>
 
 int builtin_pwd(void)
 {
@@ -18,8 +19,8 @@ int builtin_pwd(void)
 
         line = getcwd(line, 0);
         if (!line)
-                return (1);
+                return (EXIT_FAILURE);
         printf("%s\n", line);
         free(line);
-        return (0);
+        return (EXIT_SUCCESS);
 }
