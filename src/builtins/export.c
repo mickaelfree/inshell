@@ -11,14 +11,13 @@
 /* ************************************************************************** */
 // TODO::
 #include "../../includes/inshell.h"
-#include <stdlib.h>
 
 int	is_valide_export(char **args)
 {
 	int	i;
 
 	i = 0;
-	if (!ft_isalpha(args[0][0]))
+        if (ft_isdigit(args[0][i++]))
 		return (EXIT_FAILURE);
 	while (args[0][i])
 	{
