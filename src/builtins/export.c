@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 // TODO::
 #include "../../includes/inshell.h"
+#include <stdlib.h>
 
 int	is_valide_export(char **args)
 {
@@ -18,16 +19,16 @@ int	is_valide_export(char **args)
 
 	i = 0;
 	if (!ft_isalpha(args[0][0]))
-		return (0);
+		return (EXIT_FAILURE);
 	while (args[0][i])
 	{
 		if (!ft_isalnum(args[0][i]) && args[0][i] != '_')
-			return (0);
+			return (EXIT_FAILURE);
 		i++;
 	}
-	return (1);
+	return (EXIT_SUCCESS);
 }
-int	is_no_arg(char **args, char **envp)
+int	is_args(char **args, char **envp)
 {
 	int	i;
 
@@ -39,25 +40,25 @@ int	is_no_arg(char **args, char **envp)
 			printf("export %s\n", envp[i]);
 			i++;
 		}
-		return (1);
+		return (EXIT_FAILURE);
 	}
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
 int	builtin_export(char **args, char **envp)
 {
 	int	i;
 
-	if (is_no_arg(args, envp))
-		return (1);
+	if (is_args(args, envp) == EXIT_FAILURE)
+		return (EXIT_SUCCESS);
 	args++;
 	while (*args)
 	{
 		i = 1;
-		if (!is_valide_export(args))
+		if (is_valide_export(args)==EXIT_FAILURE)
 		{
 			printf("export: `%s':not a valid identifier\n", *args);
-			return (0);
+			return (EXIT_SUCCESS);
 		}
 		while (envp[i])
 		{
@@ -65,7 +66,7 @@ int	builtin_export(char **args, char **envp)
 			{
 				free(envp[i]);
 				envp[i] = ft_strdup(*args);
-				return (0);
+				return (EXIT_SUCCESS);
 			}
 			i++;
 		}
@@ -73,5 +74,5 @@ int	builtin_export(char **args, char **envp)
 		envp[i + 1] = NULL;
 		args++;
 	}
-	return (0);
+	return (EXIT_SUCCESS);
 }
