@@ -6,7 +6,7 @@
 /*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 22:12:48 by mickmart          #+#    #+#             */
-/*   Updated: 2025/06/02 20:12:02 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/06/03 23:43:27 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef INSHELL_H
@@ -22,6 +22,7 @@
 
 int		builtin_echo(char **args);
 int		builtin_pwd(void);
+int		builtin_cd(char **args, char **envp);
 int		builtin_env(char **args, char **envp);
 int		builtin_export(char **args, char **envp);
 int		builtin_unset(char **args, char **envp);

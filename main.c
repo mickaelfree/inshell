@@ -18,6 +18,8 @@ int is_builtin(char **args, char **envp)
 			builtin_echo(args);
 	if (!strcmp(args[0], "pwd"))
 			builtin_pwd();
+	if (!strcmp(args[0], "cd"))
+			builtin_cd(args,envp);
 	if (!strcmp(args[0], "env"))
 			builtin_env(args,envp);
 	if (!strcmp(args[0], "export"))

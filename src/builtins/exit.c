@@ -12,7 +12,6 @@
 
 #include "../../includes/inshell.h"
 
-//commentaire abrash 
 int is_numeric(char *str)
 {
         int i;
