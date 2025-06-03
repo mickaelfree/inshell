@@ -15,14 +15,14 @@
 int	is_valide_export(char *args)
 {
 	int	i;
-        int is_valid;
+	int	is_valid;
 
-	if (!args|| ft_isdigit(args[0]))
+	if (!args || ft_isdigit(args[0]))
 		return (0);
 	i = 0;
 	while (args[i])
 	{
-                is_valid = (!(ft_isalnum(args[i]) || args[i] == '_'));
+		is_valid = ((ft_isalnum(args[i]) || args[i] == '_'));
 		if (!is_valid)
 			return (0);
 		i++;
@@ -39,27 +39,27 @@ static void	print_export_env(char **envp)
 int	builtin_export(char **args, char **envp)
 {
 	int	i;
-        int found;
+	int	found;
 
 	if (!args[1])
 	{
 		print_export_env(envp);
 		return (EXIT_SUCCESS);
 	}
-        args++;
+	args++;
 	while (*args)
 	{
 		if (!is_valide_export(*args))
 		{
 			printf("export: `%s':not a valid identifier\n", *args);
-                        args++;
-                        continue;
+			args++;
+			continue ;
 		}
 		i = 0;
 		found = 0;
 		while (envp[i])
 		{
-                        found = !strcmp(envp[i], *args);
+			found = !strcmp(envp[i], *args);
 			if (found)
 			{
 				free(envp[i]);
@@ -73,7 +73,7 @@ int	builtin_export(char **args, char **envp)
 			envp[i] = ft_strdup(*args);
 			envp[i + 1] = NULL;
 		}
-                args++;
+		args++;
 	}
 	return (EXIT_SUCCESS);
 }
