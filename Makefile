@@ -13,6 +13,7 @@ SRCS = main.c \
         $(SRC_DIR)builtins/env.c \
         $(SRC_DIR)builtins/unset.c \
         $(SRC_DIR)builtins/export.c \
+        $(SRC_DIR)builtins/exit.c \
        # $(SRC_DIR)core/cleanup.c \
        # $(SRC_DIR)parsing/parser_map.c \
        # $(SRC_DIR)parsing/checker.c \

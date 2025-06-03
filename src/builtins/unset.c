@@ -15,7 +15,7 @@
 int	builtin_unset(char **args, char **envp)
 {
 	int	i;
-	int	j;
+        int found;
 
 	if (!args[1])
 		return (1);
@@ -23,20 +23,21 @@ int	builtin_unset(char **args, char **envp)
 	while (*args)
 	{
 		i = 0;
+                found = 0;
 		while (envp[i])
 		{
-			if (!strcmp(envp[i], *args))
+                        found = !strcmp(envp[i], *args);
+			if (found)
 			{
 				free(envp[i]);
-				j = i;
-				while (envp[j + 1])
+				while (envp[i + 1])
 				{
-					envp[j] = envp[j + 1];
-					j++;
+					envp[i] = envp[i + 1];
+					i++;
 				}
-				envp[j] = NULL;
+				envp[i] = NULL;
+                                break;
 			}
-			else
 				i++;
 		}
 		args++;

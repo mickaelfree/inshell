@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 //TODO::
 #include "../../includes/inshell.h"
-#include <stdlib.h>
 
 int	builtin_echo(char **args)
 {
