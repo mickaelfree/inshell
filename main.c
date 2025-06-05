@@ -6,7 +6,7 @@
 /*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 21:30:44 by mickmart          #+#    #+#             */
-/*   Updated: 2025/06/05 00:17:05 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/06/05 04:34:29 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	main(int argc, char **argv, char **envp)
 		add_history(line);
 		args = ft_split(line, ' ');
 		if(!is_builtin(args, envp))
-                        execute(args, envp);
+                        execute_cmd(args, envp);
 		//printf("args: %s\n", args[0]);
 		//printf("args: %s\n", args[1]);
 		// exec(line);

@@ -6,7 +6,7 @@
 /*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 22:12:48 by mickmart          #+#    #+#             */
-/*   Updated: 2025/06/04 22:09:15 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/06/05 04:41:16 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef INSHELL_H
@@ -27,6 +27,7 @@ void	ft_error(char *msg);
 void	ft_free(char **tab);
 size_t	ft_strlen(const char *str);
 void	execute(char **av, char **env);
+void	execute_cmd(char **av, char **env);
 char	*ft_strnstr(const char *big, const char *little, size_t len);
 char	*find_path(char *cmd, char **env);
 size_t	ft_strlcpy(char *dst, const char *src, size_t sz);
