@@ -6,7 +6,7 @@
 /*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 21:30:44 by mickmart          #+#    #+#             */
-/*   Updated: 2025/06/05 04:34:29 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/06/11 16:00:50 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,9 @@ int	main(int argc, char **argv, char **envp)
 	char	*line;
 	char	**args;
 
-	// TODO:
+        
+	// TODO: recuper les envp
+
 	while (1)
 	{
 		line = readline("Inshell>");
