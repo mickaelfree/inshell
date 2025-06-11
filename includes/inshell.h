@@ -49,7 +49,7 @@ void	builtin_exit(char **args);
 size_t	ft_strlcpy(char *dst, const char *src, size_t sz);
 char	**ft_split(char const *s, char c);
 char	*ft_strdup(const char *s);
-
+char  **ft_env(char **envp);
 // INFO:
 // ft_is
 int		ft_isalpha(int c);

@@ -56,9 +56,11 @@ int	main(int argc, char **argv, char **envp)
 {
 	char	*line;
 	char	**args;
+        char    **new_env;
 
         
 	// TODO: recuper les envp
+        new_env = ft_env(envp);
 
 	while (1)
 	{
@@ -67,8 +69,8 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		add_history(line);
 		args = ft_split(line, ' ');
-		if(!is_builtin(args, envp))
-                        execute_cmd(args, envp);
+		if(!is_builtin(args, new_env))
+                        execute_cmd(args, new_env);
 		//printf("args: %s\n", args[0]);
 		//printf("args: %s\n", args[1]);
 		// exec(line);

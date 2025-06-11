@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 // TODO::
 #include "../../includes/inshell.h"
+#include <stdio.h>
 
 int	is_valide_export(char *args)
 {
@@ -41,6 +42,9 @@ int	builtin_export(char **args, char **envp)
 	int	i;
 	int	found;
 
+
+        if (!envp)
+                printf("ya pa de paneau");
 	if (!args[1])
 	{
 		print_export_env(envp);
@@ -62,7 +66,7 @@ int	builtin_export(char **args, char **envp)
 			found = !strcmp(envp[i], *args);
 			if (found)
 			{
-				free(envp[i]);
+				//free(envp[i]);
 				envp[i] = ft_strdup(*args);
 				break ;
 			}

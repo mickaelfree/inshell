@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 // TODO::
 #include "../../includes/inshell.h"
+#include <string.h>
 
 int	builtin_unset(char **args, char **envp)
 {
@@ -29,7 +30,7 @@ int	builtin_unset(char **args, char **envp)
                         found = !strcmp(envp[i], *args);
 			if (found)
 			{
-				free(envp[i]);
+				//free(envp[i]);
 				while (envp[i + 1])
 				{
 					envp[i] = envp[i + 1];
