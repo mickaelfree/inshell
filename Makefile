@@ -1,6 +1,6 @@
 NAME = inshell
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I./includes
+CFLAGS = -Wall -Wextra -Werror -I./includes -g
 
 # Sources
 SRC_DIR = src/
@@ -67,11 +67,11 @@ run: all
 
 clean:
 	rm -rf $(OBJ_DIR)
-	make -C $(MLX_DIR) clean
+#	make -C  clean
 
 fclean: clean
-	make -C $(MLX_DIR) clean
 	rm -f $(NAME)
+	#make -C  clean
 
 re: fclean all
 
