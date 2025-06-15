@@ -6,7 +6,7 @@
 /*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 22:12:48 by mickmart          #+#    #+#             */
-/*   Updated: 2025/06/15 18:06:41 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/06/15 18:16:38 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef INSHELL_H
@@ -26,11 +26,13 @@
 
 typedef struct s_pre_token
 { 
-        char *pre_toke;
-        char len;
-
+        char *start;
+        int len;
+        struct s_pre_token *next;
 }
 t_pre_token;
+
+void pre_token(char *line);
 
 void	ft_error(char *msg);
 void	ft_free(char **tab);
