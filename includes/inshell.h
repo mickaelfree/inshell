@@ -28,7 +28,9 @@ typedef struct s_pre_token
 { 
         char *start;
         int len;
+        int type;
         struct s_pre_token *next;
+        
 }
 t_pre_token;
 

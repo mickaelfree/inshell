@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 #include "../../includes/inshell.h"
 #include <ctype.h>
+#include <stdio.h>
 int iswhitespace(char c)
 {
         return(c && ((c >= 9 && c <= 13) || c == ' '));
@@ -28,10 +29,11 @@ void ft_state(char c ,int *i)
         }
         if(isalnum(c)&& *i==0)
         {
-          printf("n");
+          printf("w");
                 return;
         }
-        printf("q");
+        if(*i== 2) 
+          printf(" ");
 
 
 
@@ -44,20 +46,26 @@ void pre_token(char *line)
         int i;
         i = 0;
         state = 0;
-        prevous_state= 0;
+        prevous_state= 1;
 
          while(*line&&iswhitespace(*line))
                  line++;
 
                 printf("{");
+
+        //INFO:
+        //objetif determiner les changement de type  
+        //commen on fait pour faire un zero coppi en troncan la partie indesirable >> fwrite peut imprimer en fonction de la len
+        //stock le tout dans un liste chainer
         while(line[i])
         {
-                ft_state(line[i],&state);
                 if(state != prevous_state)
                 {
-                        printf(" ");
                         prevous_state = state;
+                        
+                        printf(" ");
                 }
+                ft_state(line[i],&state);
                 i++;
         }
                 printf("}\n");
