@@ -49,6 +49,11 @@ int	is_builtin(char **args, char **envp)
 		builtin_exit(args);
 		return (1);
 	}
+	if (!strcmp(args[0], ">>"))
+	{
+		builtin_exit(args);
+		return (1);
+	}
 	return (0);
 }
 

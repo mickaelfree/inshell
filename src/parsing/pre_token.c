@@ -34,9 +34,6 @@ void ft_state(char c ,int *i)
         }
         if(*i== 2) 
           printf(" ");
-
-
-
 }
 void pre_token(char *line)
 {
