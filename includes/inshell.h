@@ -6,7 +6,7 @@
 /*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 22:12:48 by mickmart          #+#    #+#             */
-/*   Updated: 2025/06/05 04:41:16 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/06/15 18:06:41 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef INSHELL_H
@@ -22,6 +22,15 @@
 # include <sys/wait.h>
 # include <string.h>
 # include <errno.h>
+
+
+typedef struct s_pre_token
+{ 
+        char *pre_toke;
+        char len;
+
+}
+t_pre_token;
 
 void	ft_error(char *msg);
 void	ft_free(char **tab);
