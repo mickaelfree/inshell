@@ -13,13 +13,13 @@
 #include "includes/inshell.h"
 
 static const builtin_func_t builtin_functions[] = {
-    [BUILTIN_ECHO]   = builtin_echo,    // Index 0 → adresse de builtin_echo
-    [BUILTIN_PWD]    = builtin_pwd,     // Index 1 → adresse de builtin_pwd  
-    [BUILTIN_CD]     = builtin_cd,      // Index 2 → adresse de builtin_cd
-    [BUILTIN_ENV]    = builtin_env,     // Index 3 → adresse de builtin_env
-    [BUILTIN_EXPORT] = builtin_export,  // Index 4 → adresse de builtin_export
-    [BUILTIN_UNSET]  = builtin_unset,   // Index 5 → adresse de builtin_unset
-    [BUILTIN_EXIT]   = builtin_exit     // Index 6 → adresse de builtin_exit
+    [BUILTIN_ECHO]   = builtin_echo,
+    [BUILTIN_PWD]    = builtin_pwd,
+    [BUILTIN_CD]     = builtin_cd,
+    [BUILTIN_ENV]    = builtin_env,
+    [BUILTIN_EXPORT] = builtin_export,
+    [BUILTIN_UNSET]  = builtin_unset,
+    [BUILTIN_EXIT]   = builtin_exit,
 };
 static const t_builtin_entry builtin_lookup[] = {
     {"echo",   BUILTIN_ECHO},
@@ -43,16 +43,12 @@ t_builtin_type get_builtin_type(const char *cmd)
 //int is_execute_builtin(char **args, char **envp)
 int	is_builtin(char **args, char **envp)
 {
-    // Étape 1: String → Enum (O(n) unavoidable pour la recherche)
     t_builtin_type type = get_builtin_type(args[0]);
     
     if (type == BUILTIN_UNKNOWN)
-        return 0;  // Pas un builtin
+        return 0;
         
-    // Étape 2: Enum → Function Call (O(1) pur !)
     return builtin_functions[type](args, envp);
-    //     ^^^^^^^^^^^^^^^^^^^^^^^
-    //     Jump direct via array indexing !
 }
 //int	is_builtin(char **args, char **envp)
 // {

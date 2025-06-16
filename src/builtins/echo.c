@@ -12,9 +12,10 @@
 //TODO::
 #include "../../includes/inshell.h"
 
-int	builtin_echo(char **args)
+int	builtin_echo(char **args,char **envp)
 {
         int flag;
+        (void)envp;
 
        flag= 0; 
         if (!args[1] )

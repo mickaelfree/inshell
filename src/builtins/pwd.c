@@ -12,8 +12,10 @@
 //TODO::
 #include "../../includes/inshell.h"
 
-int builtin_pwd(void)
+int builtin_pwd(char **argv,char **envp)
 {
+        (void)argv;
+        (void)envp;
         char *line = NULL;
 
         line = getcwd(line, 0);

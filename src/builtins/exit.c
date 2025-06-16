@@ -50,10 +50,10 @@ int ft_atoi(char *str)
                 i++;
         }
         if (result > 255)
-                return (result % 256);
+                return (result << 8);
         return (result * sign);
 }
-void	builtin_exit(char **args)
+int	builtin_exit(char **args,char **envp)
 {
         if (args[1] && !is_numeric(args[1]))
         {
