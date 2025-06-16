@@ -23,6 +23,23 @@
 # include <string.h>
 # include <errno.h>
 
+typedef enum e_builtin_type {
+        BUILTIN_ECHO,
+        BUILTIN_CD,
+        BUILTIN_EXIT,
+        BUILTIN_ENV,
+        BUILTIN_EXPORT,
+        BUILTIN_PWD,
+        BUILTIN_UNSET,
+        BUILTIN_UNKNOWN,
+} t_builtin_type;
+
+typedef struct s_builtin_entry {
+        const char *name;
+        t_builtin_type type;
+} t_builtin_entry;
+
+typedef int (*builtin_func_t)(char **args, char **envp);
 
 typedef struct s_pre_token
 { 
@@ -30,7 +47,6 @@ typedef struct s_pre_token
         int len;
         int type;
         struct s_pre_token *next;
-        
 }
 t_pre_token;
 
@@ -49,13 +65,13 @@ char	*ft_strjoin(char const *s1, char const *s2);
 // TODO:
 // la stuctur pour le parsing la tokenisation etc
 
-int		builtin_echo(char **args);
-int		builtin_pwd(void);
+int		builtin_echo(char **args,char **envp);
+int		builtin_pwd(char **args,char **envp);
 int		builtin_cd(char **args, char **envp);
 int		builtin_env(char **args, char **envp);
 int		builtin_export(char **args, char **envp);
 int		builtin_unset(char **args, char **envp);
-void	builtin_exit(char **args);
+int	        builtin_exit(char **args,char **envp);
 
 // INFO: header pour les utils
 
