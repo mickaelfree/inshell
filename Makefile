@@ -1,7 +1,6 @@
 NAME = inshell
 CC = cc
-#$CFLAGS = -Wall -Wextra -Werror -I./includes
-CFLAGS =  -I./includes
+$CFLAGS = -Wall -Wextra -Werror -I./includes
 
 # Sources
 SRC_DIR = src/
@@ -19,6 +18,7 @@ SRCS = main.c \
         $(SRC_DIR)builtins/exit.c \
 	$(SRC_DIR)exec/execute.c \
 	$(SRC_DIR)exec/execute_cmd.c \
+	$(SRC_DIR)exec/heredoc.c \
 	$(SRC_DIR)exec/utils.c \
 	$(SRC_DIR)exec/find_path.c \
 	$(SRC_DIR)parsing/pre_token.c \
