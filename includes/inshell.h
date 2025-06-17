@@ -6,7 +6,7 @@
 /*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 22:12:48 by mickmart          #+#    #+#             */
-/*   Updated: 2025/06/17 16:24:30 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/06/17 19:18:31 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef INSHELL_H
@@ -39,7 +39,7 @@ typedef struct s_builtin_entry {
         t_builtin_type type;
 } t_builtin_entry;
 
-typedef int (*builtin_func_t)(char **args, char **envp);
+typedef int (*builtin_func)(char **args, char **envp);
 
 typedef struct s_pre_token
 { 

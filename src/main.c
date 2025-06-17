@@ -6,11 +6,11 @@
 /*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 21:30:44 by mickmart          #+#    #+#             */
-/*   Updated: 2025/06/17 19:25:08 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/06/17 19:27:14 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/inshell.h"
+#include "../includes/inshell.h"
 
 void	init_builtin(builtin_func *builtin)
 {
@@ -49,7 +49,6 @@ t_builtin_type	get_builtin_type(const char *cmd)
 	}
 	return (BUILTIN_UNKNOWN);
 }
-// int is_execute_builtin(char **args, char **envp)
 int	is_builtin(char **args, char **envp)
 {
 	t_builtin_type	type;
