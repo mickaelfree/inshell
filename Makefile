@@ -1,10 +1,11 @@
 NAME = inshell
 CC = cc
-$CFLAGS = -Wall -Wextra -Werror -I./includes
+#$CFLAGS = -Wall -Wextra -Werror -I./includes
+CFLAGS = -g3 -I./includes
 
 # Sources
 SRC_DIR = src/
-SRCS = main.c \
+SRCS = $(SRC_DIR)main.c \
         $(SRC_DIR)utils/env.c \
         $(SRC_DIR)utils/ft_split.c \
         $(SRC_DIR)utils/str_utils.c \
@@ -45,16 +46,6 @@ SRCS = main.c \
 OBJ_DIR = obj/
 OBJS = $(SRCS:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 
-# Libraries
-#MLX_DIR = libs/mlx/
-#MLX = $(MLX_DIR)libmlx.a
-
-# Includes
-#INCLUDES = -I./includes -I$(MLX_DIR)
-
-# Libraries flags
-#LIBS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
-
 all: $(NAME)
 
 $(NAME): $(OBJS)
@@ -67,6 +58,8 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c Makefile ./includes/inshell.h
 run: all
 	./$(NAME)
 
+gdb:all
+	gdb ./$(NAME) -ex "break main"
 clean:
 	rm -rf $(OBJ_DIR)
 #	make -C  clean
