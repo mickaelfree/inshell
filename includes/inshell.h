@@ -22,7 +22,16 @@
 # include <sys/wait.h>
 # include <string.h>
 # include <errno.h>
-
+typedef enum e_token_type {
+    TOKEN_WORD,
+    TOKEN_QUOTED,
+    TOKEN_PIPE,
+    TOKEN_REDIR_IN,
+    TOKEN_REDIR_OUT,
+    TOKEN_HEREDOC,
+    TOKEN_APPEND,
+} t_token_type;
+///
 typedef enum e_builtin_type {
         BUILTIN_ECHO,
         BUILTIN_CD,

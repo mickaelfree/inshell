@@ -12,28 +12,28 @@
 #include "../../includes/inshell.h"
 #include <ctype.h>
 #include <stdio.h>
+//INFO:
+//separer en fonction des etats 
+//double quote = tant que je trouve pas de nouvel " jidentifie tout comme quoted 
+//operateur separer la commande 
 int iswhitespace(char c)
 {
         return(c && ((c >= 9 && c <= 13) || c == ' '));
 }
+int isoperator(char c)
+{
+        return(c == '|' || c == '>' || c == '<');
+}
 void ft_state(char c ,int *i)
 {
-        if(c =='"')
-        {
-          printf("q");
-                if(*i==2)
-                        *i =0;
-                else
-                        *i = 2;
-                return;
-        }
-        if(isalnum(c)&& *i==0)
-        {
-          printf("w");
-                return;
-        }
-        if(*i== 2) 
-          printf(" ");
+        if (c == '"')
+                *i = 2;
+        else if (iswhitespace(c))
+                *i = 1;
+        else if (isoperator(c))
+                *i = 3;
+        else
+                *i = 0;
 }
 void pre_token(char *line)
 {
@@ -56,11 +56,10 @@ void pre_token(char *line)
         //stock le tout dans un liste chainer
         while(line[i])
         {
-                if(state != prevous_state)
+                if (state != prevous_state)
                 {
+                        printf(" %d",prevous_state);
                         prevous_state = state;
-                        
-                        printf(" ");
                 }
                 ft_state(line[i],&state);
                 i++;
@@ -70,10 +69,5 @@ void pre_token(char *line)
         token.len = strlen(line);
         token.start = line;
         token.next = NULL;
-        
-
-        printf(" %s\n",token.start);
-        printf("%d\n",token.len);
-        printf("%d\n",token.next); 
 
 }
