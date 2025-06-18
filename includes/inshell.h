@@ -6,7 +6,7 @@
 /*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 22:12:48 by mickmart          #+#    #+#             */
-/*   Updated: 2025/06/17 19:18:31 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/06/18 15:45:10 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef INSHELL_H
@@ -22,6 +22,17 @@
 # include <string.h>
 # include <errno.h>
 //parsing
+typedef enum e_char_type
+{
+    CHAR_NORMAL,
+    CHAR_WHITESPACE,
+    CHAR_PIPE,
+    CHAR_REDIR,
+    CHAR_QUOTE,
+    CHAR_ESCAPE,
+    CHAR_SPECIAL,
+} t_char_type;
+
 typedef enum e_token_type {
     TOKEN_WORD,
     TOKEN_QUOTED,
