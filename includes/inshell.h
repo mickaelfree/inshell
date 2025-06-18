@@ -6,7 +6,7 @@
 /*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 22:12:48 by mickmart          #+#    #+#             */
-/*   Updated: 2025/06/18 16:01:07 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/06/18 18:01:49 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef INSHELL_H
@@ -107,8 +107,10 @@ int		ft_isdigit(int c);
 int		ft_isalnum(int c);
 //INFO:
 //utils_parsr
+
+int             char_type(char c);
 int		is_whitespace(char c);
-int     is_operator(char c);
+int             is_operator(char c);
 int     is_pipe(char c);
 int     is_redir(char c);
 int     is_escape(char c);
