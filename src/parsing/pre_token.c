@@ -6,31 +6,21 @@
 /*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 18:00:45 by mickmart          #+#    #+#             */
-/*   Updated: 2025/06/15 18:40:38 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/06/18 15:57:51 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../includes/inshell.h"
-#include <ctype.h>
-#include <stdio.h>
 //INFO:
 //separer en fonction des etats 
 //double quote = tant que je trouve pas de nouvel " jidentifie tout comme quoted 
 //operateur separer la commande 
-int iswhitespace(char c)
-{
-        return(c && ((c >= 9 && c <= 13) || c == ' '));
-}
-int isoperator(char c)
-{
-        return(c == '|' || c == '>' || c == '<');
-}
 void ft_state(char c ,int *i)
 {
         if (c == '"')
                 *i = 2;
-        else if (iswhitespace(c))
+        else if (is_whitespace(c))
                 *i = 1;
-        else if (isoperator(c))
+        else if (is_operator(c))
                 *i = 3;
         else
                 *i = 0;
