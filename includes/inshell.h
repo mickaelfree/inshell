@@ -16,12 +16,12 @@
 # include <readline/readline.h>
 # include <stdlib.h>
 # include <unistd.h>
-//pipex
 # include <fcntl.h>
 # include <stddef.h>
 # include <sys/wait.h>
 # include <string.h>
 # include <errno.h>
+//parsing
 typedef enum e_token_type {
     TOKEN_WORD,
     TOKEN_QUOTED,
@@ -60,17 +60,15 @@ typedef struct s_pre_token
 t_pre_token;
 
 void pre_token(char *line);
+t_pre_token *tokenize_input(char *line);
+void free_token_list(t_pre_token *head);
 
 void	ft_error(char *msg);
 void	ft_free(char **tab);
-size_t	ft_strlen(const char *str);
 void	execute(char **av, char **env);
 void	execute_cmd(char **av, char **env);
 char	*ft_strnstr(const char *big, const char *little, size_t len);
 char	*find_path(char *cmd, char **env);
-size_t	ft_strlcpy(char *dst, const char *src, size_t sz);
-char	*ft_strjoin(char const *s1, char const *s2);
-//pipex
 // TODO:
 // la stuctur pour le parsing la tokenisation etc
 
@@ -84,9 +82,12 @@ int	        builtin_exit(char **args,char **envp);
 
 // INFO: header pour les utils
 
+size_t	ft_strlen(const char *str);
 size_t	ft_strlcpy(char *dst, const char *src, size_t sz);
+char	*ft_strjoin(char const *s1, char const *s2);
 char	**ft_split(char const *s, char c);
 char	*ft_strdup(const char *s);
+
 char  **ft_env(char **envp);
 // INFO:
 // ft_is
