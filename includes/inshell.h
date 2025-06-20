@@ -6,7 +6,7 @@
 /*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 22:12:48 by mickmart          #+#    #+#             */
-/*   Updated: 2025/06/18 18:01:49 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/06/20 17:58:23 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef INSHELL_H
@@ -90,6 +90,7 @@ int		builtin_env(char **args, char **envp);
 int		builtin_export(char **args, char **envp);
 int		builtin_unset(char **args, char **envp);
 int	        builtin_exit(char **args,char **envp);
+int	is_builtin(char **args, char **envp);
 
 // INFO: header pour les utils
 

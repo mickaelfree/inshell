@@ -10,6 +10,7 @@ SRCS = $(SRC_DIR)main.c \
         $(SRC_DIR)utils/ft_split.c \
         $(SRC_DIR)utils/str_utils.c \
 	$(SRC_DIR)utils/ft_is.c \
+        $(SRC_DIR)builtins/isbuiltin.c \
         $(SRC_DIR)builtins/echo.c \
         $(SRC_DIR)builtins/pwd.c \
         $(SRC_DIR)builtins/cd.c \
