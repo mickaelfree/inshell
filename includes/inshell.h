@@ -6,7 +6,7 @@
 /*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 22:12:48 by mickmart          #+#    #+#             */
-/*   Updated: 2025/06/20 17:58:23 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/06/20 20:10:00 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef INSHELL_H
@@ -80,8 +80,6 @@ void	execute(char **av, char **env);
 void	execute_cmd(char **av, char **env);
 char	*ft_strnstr(const char *big, const char *little, size_t len);
 char	*find_path(char *cmd, char **env);
-// TODO:
-// la stuctur pour le parsing la tokenisation etc
 
 int		builtin_echo(char **args,char **envp);
 int		builtin_pwd(char **args,char **envp);
@@ -91,6 +89,7 @@ int		builtin_export(char **args, char **envp);
 int		builtin_unset(char **args, char **envp);
 int	        builtin_exit(char **args,char **envp);
 int	is_builtin(char **args, char **envp);
+void	skip_whitespace(char **line);
 
 // INFO: header pour les utils
 
@@ -109,6 +108,13 @@ int		ft_isalnum(int c);
 //INFO:
 //utils_parsr
 
+int parse_token(char *line);
+t_pre_token *add_new_token(t_pre_token **head, t_pre_token **current, 
+                                 char *start, int len, int type);
+t_pre_token *identify_token(char *line);
+
+void print_token(t_pre_token *token);
+void	skip_whitespace(char **line);
 int             char_type(char c);
 int		is_whitespace(char c);
 int             is_operator(char c);

@@ -23,9 +23,10 @@ SRCS = $(SRC_DIR)main.c \
 	$(SRC_DIR)exec/heredoc.c \
 	$(SRC_DIR)exec/utils.c \
 	$(SRC_DIR)exec/find_path.c \
-	$(SRC_DIR)parsing/pre_token.c \
+	$(SRC_DIR)parsing/indentyfy_token.c \
 	$(SRC_DIR)parsing/token_utils.c \
 	$(SRC_DIR)parsing/char_utils.c \
+	$(SRC_DIR)parsing/parsing.c \
 	#$(SRC_DIR)exec/pipex.c \
        # $(SRC_DIR)core/cleanup.c \
        # $(SRC_DIR)parsing/parser_map.c \

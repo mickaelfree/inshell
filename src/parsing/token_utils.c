@@ -6,34 +6,56 @@
 /*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 15:48:37 by mickmart          #+#    #+#             */
-/*   Updated: 2025/06/18 18:21:11 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/06/20 19:37:21 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../includes/inshell.h"
 
-static inline void skip_whitespace(char **line)
+void	skip_whitespace(char **line)
 
 {
-    while (**line && is_whitespace((unsigned char)**line))
-        (*line)++;
+	while (**line && is_whitespace((unsigned char)**line))
+		(*line)++;
+}
+t_pre_token *add_new_token(t_pre_token **head, t_pre_token **current, 
+                                 char *start, int len, int type)
+{
+    t_pre_token *new = malloc(sizeof(t_pre_token));
+    if (!new)
+        return NULL;
+        
+    // Initialize token
+    new->start = start;
+    new->len = len;
+    new->type = type;
+    new->next = NULL;
+    
+    // Add to list
+    if (!*head)
+        *head = new;
+    else
+        (*current)->next = new;
+    *current = new;
+    
+    return new;
 }
 
-int char_type(char c)
+int	char_type(char c)
 {
-    if (is_whitespace(c))
-        return (CHAR_WHITESPACE);
-    else if (is_quote(c))
-        return (CHAR_QUOTE);
-    else if (is_pipe(c))
-        return (CHAR_PIPE);
-    else if (is_redir(c))
-        return (CHAR_REDIR);
-    else if (is_escape(c))
-        return (CHAR_ESCAPE);
-    else if (is_special(c))
-        return (CHAR_SPECIAL);
-    else
-        return (CHAR_NORMAL);
+	if (is_whitespace(c))
+		return (CHAR_WHITESPACE);
+	else if (is_quote(c))
+		return (CHAR_QUOTE);
+	else if (is_pipe(c))
+		return (CHAR_PIPE);
+	else if (is_redir(c))
+		return (CHAR_REDIR);
+	else if (is_escape(c))
+		return (CHAR_ESCAPE);
+	else if (is_special(c))
+		return (CHAR_SPECIAL);
+	else
+		return (CHAR_NORMAL);
 }
 // int main(void)
 // {
