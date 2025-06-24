@@ -18,7 +18,7 @@ int check_quotes(t_pre_token *head)
     int quote_count = 0;
     while (head)
     {
-        if (head->type == CHAR_QUOTE)
+        if (head->type == CHAR_SINGLE_QUOTE || head->type == CHAR_DOUBLE_QUOTE)
             quote_count++;
         head = head->next;
     }

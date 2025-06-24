@@ -14,7 +14,8 @@
 //separer en fonction des etats 
 //double quote = tant que je trouve pas de nouvel " jidentifie tout comme quoted 
 //operateur separer la commande 
-char *type_token []= {"NORMAL","WHITESPACE","PIPE","REDIR","QUOTE","ESCAPE","SPECIAL"};
+char *type_token []= {"NORMAL","WHITESPACE","PIPE","REDIR","APPEND","HEREDOC","SINGLE_QUOTE","DOUBLE_QUOTE","ESCAPE","SPECIAL"};
+
 
 t_pre_token *identify_token(char *line)
 {
@@ -26,11 +27,13 @@ t_pre_token *identify_token(char *line)
     
     skip_whitespace(&ptr);
     token_start = ptr;
-    state = char_type(*ptr);
+    state = char_type(ptr);
     prev_state = state;
+        if(state== CHAR_APPEND || state == CHAR_HEREDOC)
+                ptr++;
     while (*ptr)
     {
-        state = char_type(*ptr);
+        state = char_type(ptr);
         if (state != prev_state)
         {
             if (!add_new_token(&head, &current, token_start, 
@@ -38,6 +41,8 @@ t_pre_token *identify_token(char *line)
                 return NULL;
             token_start = ptr;
             prev_state = state;
+                        if(state== CHAR_APPEND || state == CHAR_HEREDOC)
+                ptr++;
         }
         ptr++;
     }
