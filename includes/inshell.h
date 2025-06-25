@@ -65,8 +65,6 @@ typedef struct s_builtin_entry
 	t_builtin_type		type;
 }						t_builtin_entry;
 
-typedef int				(*builtin_func)(char **args, char **envp);
-
 typedef struct s_pre_token
 {
 	char				*start;
@@ -74,6 +72,18 @@ typedef struct s_pre_token
 	int					type;
 	struct s_pre_token	*next;
 }						t_pre_token;
+
+typedef struct s_command
+{
+	char	**args;
+	int	arg_count;
+	char	*input_file;
+	char	*output_file;
+	char	*heredoc_delim;
+	int	append_mode;
+}	t_command;
+
+typedef int				(*builtin_func)(char **args, char **envp);
 
 void					pre_token(char *line);
 t_pre_token				*tokenize_input(char *line);
@@ -114,12 +124,12 @@ int						ft_isalnum(int c);
 // INFO:
 // utils_parsr
 
-int						parse_token(char *line);
 t_pre_token				*add_new_token(t_pre_token **head,
 							t_pre_token **current, char *start, int len,
 							int type);
 t_pre_token				*identify_token(char *line);
 
+t_command *parse_token(char *line);
 void					print_token(t_pre_token *token);
 void					skip_whitespace(char **line);
 int						char_type(char *c);

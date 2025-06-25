@@ -11,7 +11,47 @@
 /* ************************************************************************** */
 
 #include "../../includes/inshell.h"
-
+void init_command(t_command *cmd)
+{
+	cmd->args = NULL;
+	cmd->arg_count = 0;
+	cmd->input_file = NULL;
+	cmd->output_file = NULL;
+	cmd->append_mode = 0;
+	cmd->heredoc_delim = NULL;
+}
+t_command *create_command(t_pre_token *tokens)
+{
+	t_pre_token *current;
+	t_command *cmd;
+	
+	cmd = malloc(sizeof(t_command));
+	if (!cmd)
+		return (NULL);
+	
+        init_command(cmd);
+	current = tokens;
+	while (current)
+	{
+		if (current->type == CHAR_REDIR || current->type == CHAR_APPEND || 
+			current->type == CHAR_HEREDOC)
+		{
+			process_simple_redirection(cmd, current);
+			current = current->next ? current->next->next : NULL;
+			continue;
+		}
+		
+		if (current->type == CHAR_NORMAL || 
+			current->type == CHAR_SINGLE_QUOTE || 
+			current->type == CHAR_DOUBLE_QUOTE)
+		{
+			add_simple_argument(cmd, current);
+		}
+		if (current)
+			current = current->next;
+	}
+	return (cmd);
+}
 int	check_quotes(t_pre_token *head)
 {
 	int	quote_count;
@@ -30,16 +70,26 @@ int	check_quotes(t_pre_token *head)
 	}
 	return (0);
 }
-int	parse_token(char *line)
+
+t_command *parse_token(char *line)
 {
 	t_pre_token	*head;
+	t_command	*cmd;
 
 	head = identify_token(line);
 	if (!head)
-		return (0);
-	if (!(check_quotes(head)))
-		return (0);
-	// TODO: implement parsing logic
+		return (NULL);
+	if (check_quotes(head))
+	{
+		free_token_list(head);
+		return (NULL);
+	}
+	
+	// Créer une commande simple
+	cmd = create_command(head);
+	
+	// Libérer la liste de tokens
 	free_token_list(head);
-	return (1);
+	
+	return (cmd);
 }
