@@ -6,22 +6,23 @@
 /*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:36:16 by mickmart          #+#    #+#             */
-/*   Updated: 2025/05/26 18:20:15 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/06/27 16:38:33 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-//TODO::
+// TODO::
 #include "../../includes/inshell.h"
 
-int builtin_pwd(char **argv,char **envp)
+int	builtin_pwd(char **argv, char **envp)
 {
-        (void)argv;
-        (void)envp;
-        char *line = NULL;
+	char	*line;
 
-        line = getcwd(line, 0);
-        if (!line)
-                return (EXIT_FAILURE);
-        printf("%s\n", line);
-        free(line);
-        return (EXIT_SUCCESS);
+	(void)argv;
+	(void)envp;
+	line = NULL;
+	line = getcwd(line, 0);
+	if (!line)
+		return (EXIT_FAILURE);
+	printf("%s\n", line);
+	free(line);
+	return (EXIT_SUCCESS);
 }
