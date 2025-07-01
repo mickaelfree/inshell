@@ -6,7 +6,7 @@
 /*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 21:20:51 by mickmart          #+#    #+#             */
-/*   Updated: 2025/06/05 04:53:25 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/07/01 21:00:11 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,28 +26,6 @@
                             [stdout]
                 */
 
-// void	create_processes(char **av, char **env, int *fd, int *status)
-// {
-// 	pid_t	pid1;
-// 	pid_t	pid2;
-// 	int		status1;
-//
-// 	pid1 = fork();
-// 	if (pid1 == -1)
-// 		clean_exit("fork failed", fd[0], fd[1]);
-// 	if (pid1 == 0)
-// 		child_process(av, env, fd);
-// 	pid2 = fork();
-// 	if (pid2 == -1)
-// 		clean_exit("fork failed", fd[0], fd[1]);
-// 	if (pid2 == 0)
-// 		child_process2(av, env, fd);
-// 	close(fd[0]);
-// 	close(fd[1]);
-// 	waitpid(pid1, &status1, 0);
-// 	waitpid(pid2, status, 0);
-// }
- 
 int count_commands(char **args)
 {
     int count = 0;

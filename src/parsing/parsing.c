@@ -36,7 +36,7 @@ t_command *create_command(t_pre_token *tokens)
 		if (current->type == CHAR_REDIR || current->type == CHAR_APPEND || 
 			current->type == CHAR_HEREDOC)
 		{
-			process_simple_redirection(cmd, current);
+			//process_simple_redirection(cmd, current);
 			current = current->next ? current->next->next : NULL;
 			continue;
 		}
@@ -45,7 +45,7 @@ t_command *create_command(t_pre_token *tokens)
 			current->type == CHAR_SINGLE_QUOTE || 
 			current->type == CHAR_DOUBLE_QUOTE)
 		{
-			add_simple_argument(cmd, current);
+			//add_simple_argument(cmd, current);
 		}
 		if (current)
 			current = current->next;
@@ -81,7 +81,7 @@ t_command *parse_token(char *line)
 		return (NULL);
 	if (check_quotes(head))
 	{
-		free_token_list(head);
+		//free_token_list(head);
 		return (NULL);
 	}
 	
@@ -89,7 +89,7 @@ t_command *parse_token(char *line)
 	cmd = create_command(head);
 	
 	// Libérer la liste de tokens
-	free_token_list(head);
+//	free_token_list(head);
 	
 	return (cmd);
 }
