@@ -12,32 +12,38 @@
 //TODO::
 #include "../../includes/inshell.h"
 
-int	builtin_echo(char **args,char **envp)
+static int has_newline_option(char ***args)
 {
-        int flag;
-        (void)envp;
+    int newline = 1;
+    while (**args && !strncmp(**args, "-n", 2)) {
+        newline = 0;
+        (*args)++;
+    }
+    return newline;
+}
 
-       flag= 0; 
-        if (!args[1] )
-        {
-                write(1, "\n", 1);
-                return (EXIT_SUCCESS);
-        }
+static void print_arguments(char **args)
+{
+    while (*args) {
+        write(1, *args, strlen(*args));
+        if (*(args + 1))
+            write(1, " ", 1);
         args++;
-        while (*args)
-        {
-                if (!strncmp(*args, "-n", 2))
-                {
-                        flag = 1;
-                        args++;
-                        continue;
-                }
-                write(1, *args, strlen(*args));
-                if (*(args + 1))
-                        write(1, " ", 1);
-                args++;
-        }
-       if (!flag) 
-                write(1, "\n", 1);
+    }
+}
+
+int builtin_echo(char **args, char **envp)
+{
+    int newline;
+    (void)envp;
+    if (!args[1]) {
+        write(1, "\n", 1);
         return (EXIT_SUCCESS);
+    }
+    args++;
+    newline = has_newline_option(&args);
+    print_arguments(args);
+    if (newline)
+        write(1, "\n", 1);
+    return (EXIT_SUCCESS);
 }
