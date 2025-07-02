@@ -37,7 +37,7 @@ static void	init_lookup(t_builtin_entry *builtin_lookup)
 static t_builtin_type	get_builtin_type(const char *cmd)
 {
 	int				i;
-	t_builtin_entry	builtin_lookup[7];
+	t_builtin_entry	builtin_lookup[8];
 
 	i = 0;
 	init_lookup(builtin_lookup);

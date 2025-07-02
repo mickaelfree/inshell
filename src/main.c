@@ -30,9 +30,9 @@ int	main(int argc, char **argv, char **envp)
 		args = ft_split(line, ' ');
 		if (!is_builtin(args, new_env))
 			execute_cmd(args, new_env);
-		// printf("args: %s\n", args[0]);
-		// printf("args: %s\n", args[1]);
-		// exec(line);
+		        // printf("args: %s\n", args[0]);
+		        // printf("args: %s\n", args[1]);
+		        //exec(line);
 		free(line);
 	}
 	return (0);
