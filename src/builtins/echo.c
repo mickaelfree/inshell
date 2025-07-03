@@ -9,41 +9,47 @@
 /*   Updated: 2025/05/26 17:44:34 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-//TODO::
+// TODO::
 #include "../../includes/inshell.h"
 
-static int has_newline_option(char ***args)
+static int	has_newline_option(char ***args)
 {
-    int newline = 1;
-    while (**args && !strncmp(**args, "-n", 2)) {
-        newline = 0;
-        (*args)++;
-    }
-    return newline;
+	int	newline;
+
+	newline = 1;
+	while (**args && !strncmp(**args, "-n", 2))
+	{
+		newline = 0;
+		(*args)++;
+	}
+	return (newline);
 }
 
-static void print_arguments(char **args)
+static void	print_arguments(char **args)
 {
-    while (*args) {
-        write(1, *args, strlen(*args));
-        if (*(args + 1))
-            write(1, " ", 1);
-        args++;
-    }
+	while (*args)
+	{
+		write(1, *args, strlen(*args));
+		if (*(args + 1))
+			write(1, " ", 1);
+		args++;
+	}
 }
 
-int builtin_echo(char **args, char **envp)
+int	builtin_echo(char **args, char **envp)
 {
-    int newline;
-    (void)envp;
-    if (!args[1]) {
-        write(1, "\n", 1);
-        return (EXIT_SUCCESS);
-    }
-    args++;
-    newline = has_newline_option(&args);
-    print_arguments(args);
-    if (newline)
-        write(1, "\n", 1);
-    return (EXIT_SUCCESS);
+	int	newline;
+
+	(void)envp;
+	if (!args[1])
+	{
+		write(1, "\n", 1);
+		return (EXIT_SUCCESS);
+	}
+	args++;
+	newline = has_newline_option(&args);
+	print_arguments(args);
+	if (newline)
+		write(1, "\n", 1);
+	return (EXIT_SUCCESS);
 }

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 // TODO::
 #include "../../includes/inshell.h"
+
 int	is_valide_export(char *args)
 {
 	int	i;
@@ -34,43 +35,45 @@ static void	print_export_env(char **envp)
 	while (*envp)
 		printf("export %s\n", *envp++);
 }
-static int update_env_var(char **envp, char *var)
+static int	update_env_var(char **envp, char *var)
 {
-    int i = 0;
-    while (envp[i] && strcmp(envp[i], var) != 0)
-        i++;
-    if (!envp[i])
-        envp[i + 1] = NULL;
-    envp[i] = ft_strdup(var);
-    if (!envp[i])
-        return (EXIT_FAILURE);
-    return (EXIT_SUCCESS);
+	int	i;
+
+	i = 0;
+	while (envp[i] && strcmp(envp[i], var) != 0)
+		i++;
+	if (!envp[i])
+		envp[i + 1] = NULL;
+	envp[i] = ft_strdup(var);
+	if (!envp[i])
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }
 
-static int process_export_args(char **args, char **envp)
+static int	process_export_args(char **args, char **envp)
 {
-    while(*args)
-    {
-        if (!is_valide_export(*args))
-        {
-            printf("export: `%s': not a valid identifier\n", *args);
-            continue;
-        }
-        if (update_env_var(envp, *args) != EXIT_SUCCESS)
-            return (EXIT_FAILURE);
-        args++;
-    }
-    return (EXIT_SUCCESS);
+	while (*args)
+	{
+		if (!is_valide_export(*args))
+		{
+			printf("export: `%s': not a valid identifier\n", *args);
+			continue ;
+		}
+		if (update_env_var(envp, *args) != EXIT_SUCCESS)
+			return (EXIT_FAILURE);
+		args++;
+	}
+	return (EXIT_SUCCESS);
 }
 
-int builtin_export(char **args, char **envp)
+int	builtin_export(char **args, char **envp)
 {
-    if (!envp)
-        return (EXIT_FAILURE);
-    if (!args[1])
-    {
-        print_export_env(envp);
-        return (EXIT_SUCCESS);
-    }
-    return process_export_args(args + 1, envp);
+	if (!envp)
+		return (EXIT_FAILURE);
+	if (!args[1])
+	{
+		print_export_env(envp);
+		return (EXIT_SUCCESS);
+	}
+	return (process_export_args(args + 1, envp));
 }
