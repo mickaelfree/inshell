@@ -11,67 +11,6 @@
 /* ************************************************************************** */
 
 #include "../../includes/inshell.h"
-//init
-void test_parsing()
-{
-    char *test_commands[] = {
-        "echo hello world",
-        "ls -la",
-        "cat file.txt > output.txt",
-        "grep pattern < input.txt",
-        "echo 'quoted text'",
-        "echo \"double quoted text\"",
-        "cat << EOF",
-        NULL
-    };
-    
-    int i = 0;
-    t_command *cmd;
-    
-    printf("\n===== TESTING PARSER =====\n");
-    while (test_commands[i])
-    {
-        printf("\nTest %d: '%s'\n", i+1, test_commands[i]);
-        cmd = parse_token(test_commands[i]);
-        
-        if (cmd)
-        {
-            printf("Command parsed successfully:\n");
-            printf("- Arguments (%d):\n", cmd->arg_count);
-            for (int j = 0; j < cmd->arg_count; j++)
-                printf("  [%d]: '%s'\n", j, cmd->args[j]);
-            
-            if (cmd->input_file)
-                printf("- Input redirection: '%s'\n", cmd->input_file);
-            if (cmd->output_file)
-                printf("- Output redirection: '%s' (append: %d)\n", 
-                       cmd->output_file, cmd->append_mode);
-            if (cmd->heredoc_delim)
-                printf("- Heredoc delimiter: '%s'\n", cmd->heredoc_delim);
-            
-            // Libérer la commande
-            if (cmd->args)
-            {
-                for (int j = 0; j < cmd->arg_count; j++)
-                    free(cmd->args[j]);
-                free(cmd->args);
-            }
-            if (cmd->input_file)
-                free(cmd->input_file);
-            if (cmd->output_file)
-                free(cmd->output_file);
-            if (cmd->heredoc_delim)
-                free(cmd->heredoc_delim);
-            free(cmd);
-        }
-        else
-        {
-            printf("Failed to parse command\n");
-        }
-        i++;
-    }
-    printf("\n===== END OF TESTING =====\n\n");
-}
 void init_command(t_command *cmd)
 {
 	cmd->args = NULL;
@@ -95,7 +34,6 @@ void free_token_list(t_pre_token *head)
         current = next;
     }
 }
-///
 void process_simple_redirection(t_command *cmd, t_pre_token *token)
 {
     t_pre_token *file_token;
@@ -147,7 +85,7 @@ void add_simple_argument(t_command *cmd, t_pre_token *token)
     char *arg;
     char **new_args;
     int i;
-    
+    i =0;
     if (!token)
         return;
     
@@ -168,8 +106,11 @@ void add_simple_argument(t_command *cmd, t_pre_token *token)
     }
     
     // Copier les arguments existants
-    for (i = 0; i < cmd->arg_count; i++)
+    while ( i < cmd->arg_count)
+    {
         new_args[i] = cmd->args[i];
+        i++;
+    }
     
     // Ajouter le nouvel argument
     new_args[cmd->arg_count] = arg;
@@ -216,23 +157,29 @@ t_command *create_command(t_pre_token *tokens)
 	}
 	return (cmd);
 }
-int	check_quotes(t_pre_token *head)
+int check_quotes(t_pre_token *head)
 {
-	int	quote_count;
-
-	quote_count = 0;
-	while (head)
-	{
-		if (head->type == CHAR_SINGLE_QUOTE || head->type == CHAR_DOUBLE_QUOTE)
-			quote_count++;
-		head = head->next;
-	}
-	if (quote_count % 2 != 0)
-	{
-		printf("Unmatched quotes");
-		return (1);
-	}
-	return (0);
+    int single_quote_open = 0;
+    int double_quote_open = 0;
+    t_pre_token *current = head;
+    
+    while (current)
+    {
+        if (current->type == CHAR_SINGLE_QUOTE)
+            single_quote_open = !single_quote_open;
+        else if (current->type == CHAR_DOUBLE_QUOTE)
+            double_quote_open = !double_quote_open;
+        
+        current = current->next;
+    }
+    
+    if (single_quote_open || double_quote_open)
+    {
+        printf("Error: Unclosed quotes\n");
+        return (1);
+    }
+    
+    return (0);
 }
 
 t_command *parse_token(char *line)
