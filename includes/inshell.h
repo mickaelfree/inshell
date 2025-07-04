@@ -125,6 +125,7 @@ int						ft_isalnum(int c);
 // INFO:
 // utils_parsr
 
+void test_parsing();
 t_pre_token				*add_new_token(t_pre_token **head,
 							t_pre_token **current, char *start, int len,
 							int type);
