@@ -6,7 +6,7 @@
 /*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 22:12:48 by mickmart          #+#    #+#             */
-/*   Updated: 2025/06/20 20:10:00 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/07/06 17:56:54 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef INSHELL_H
@@ -82,6 +82,7 @@ typedef struct s_command
 	char	*output_file;
 	char	*heredoc_delim;
 	int	append_mode;
+        struct s_command	*next;
 }	t_command;
 
 typedef int				(*builtin_func)(char **args, char **envp);
