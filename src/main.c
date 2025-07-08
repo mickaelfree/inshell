@@ -53,20 +53,20 @@ int	main(int argc, char **argv, char **envp)
 		
 		// Parser la ligne et afficher les résultats
 		cmd = parse_token(line);
-		if (cmd)
-		{
-			// Afficher les résultats du parsing
-			display_parsed_command(cmd);
-			
-			// Exécuter la commande avec les arguments parsés
-			if (cmd->arg_count > 0)
-			{
-				if (!is_builtin(cmd->args, new_env))
-					execute_cmd(cmd->args, new_env);
-			}
-			
-		
-                }
+		// if (cmd)
+		// {
+		// 	// Afficher les résultats du parsing
+		// 	display_parsed_command(cmd);
+		//
+		// 	// Exécuter la commande avec les arguments parsés
+		// 	if (cmd->arg_count > 0)
+		// 	{
+		// 		if (!is_builtin(cmd->args, new_env))
+		// 			execute_cmd(cmd->args, new_env);
+		// 	}
+		//
+		//
+		//               }
 		free(line);
 	}
 	return (0);

@@ -51,11 +51,12 @@ t_pre_token *identify_token(char *line)
                           ptr - token_start, prev_state))
             return NULL;
     }
-        print_token(head);
+        //print_token(head);
     return head;
 }
 void print_token(t_pre_token *token)
 {
+    printf("print_token called from: %p\n", __builtin_return_address(0));
     while (token)
     {
         printf("Token: %.*s (%s)\n", token->len, token->start, type_token[token->type]);
