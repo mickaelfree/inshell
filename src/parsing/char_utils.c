@@ -40,6 +40,10 @@ int is_escape(char c)
 {
         return(c == '\\');
 }
+int is_quote(char c)
+{
+        return(is_single_quote(c) || is_double_quote(c));
+}
 int is_double_quote(char c)
 {
         return(c == '"');
