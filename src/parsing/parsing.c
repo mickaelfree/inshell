@@ -157,6 +157,7 @@ void free_token_list(t_pre_token *head)
 // 	}
 // 	return (cmd);
 // }
+static char *type_token []= {"NORMAL","WHITESPACE","PIPE","REDIR","APPEND","HEREDOC","SINGLE_QUOTE","DOUBLE_QUOTE","ESCAPE","SPECIAL"};
 int check_quotes(t_pre_token *head)
 {
     int single_quote_open = 0;
@@ -181,6 +182,21 @@ int check_quotes(t_pre_token *head)
     
     return (0);
 }
+void parse_quote(t_pre_token *token)
+{
+        int in_quote = 0;
+        while (token)
+        {
+                if (token->type == TOKEN_QUOTED )
+                {
+                        printf("cococote \n");
+                }
+                printf("Token: %.*s (%s)\n", token->len, token->start, type_token[token->type]);
+                token = token->next;
+        }
+
+
+}
 
 t_command *parse_token(char *line)
 {
@@ -190,7 +206,8 @@ t_command *parse_token(char *line)
 	head = identify_token(line);
 	if (!head)
 		return (NULL);
-        //print_token(head);
+//        print_token(head);
+        parse_quote(head);
 //	if (check_quotes(head))
 	// {
 	// 	//free_token_list(head);
