@@ -130,7 +130,6 @@ void test_parsing();
 t_pre_token				*add_new_token(t_pre_token **head,
 							t_pre_token **current, char *start, int len,
 							int type);
-t_pre_token				*identify_token(char *line);
 
 t_command *parse_token(char *line);
 void					print_token(t_pre_token *token);
@@ -147,5 +146,6 @@ int						is_double_quote(char c);
 int						is_escape(char c);
 int						is_quote(char c);
 int						is_special(char c);
+t_pre_token				*identify_token(char *line);
 
 #endif

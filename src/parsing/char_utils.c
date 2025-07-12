@@ -55,3 +55,7 @@ int is_special(char c)
 {
         return(c == ';' || c == '&' || c == '(' || c == ')' || c == '$');
 }
+int is_operator(char c)
+{
+        return(is_pipe(c) || is_redir(c) || c == '<'|| c == '>' );
+}
