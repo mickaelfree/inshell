@@ -25,12 +25,10 @@ t_pre_token	*add_new_token(t_pre_token **head, t_pre_token **current,
 	new = malloc(sizeof(t_pre_token));
 	if (!new)
 		return (NULL);
-	// Initialize token
 	new->start = start;
 	new->len = len;
 	new->type = type;
 	new->next = NULL;
-	// Add to list
 	if (!*head)
 		*head = new;
 	else
@@ -62,14 +60,3 @@ int	char_type(char *c)
 	else
 		return (CHAR_NORMAL);
 }
-// int main(void)
-// {
-//         char *line = "ls -l | grep test > output.txt";
-//         int i = 0;
-//         while (line[i])
-//         {
-//                 printf("%d", char_type(line[i]));
-//                 i++;
-//         }
-//         return (0);
-// }

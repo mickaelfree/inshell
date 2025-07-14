@@ -18,12 +18,10 @@ void display_parsed_command(t_command *cmd)
         
     printf("\n===== PARSING RESULT =====\n");
     
-    // Afficher les arguments
     printf("- Arguments (%d):\n", cmd->arg_count);
     for (int i = 0; i < cmd->arg_count; i++)
         printf("  [%d]: '%s'\n", i, cmd->args[i]);
     
-    // Afficher les redirections
     if (cmd->input_file)
         printf("- Input redirection: '%s'\n", cmd->input_file);
     if (cmd->output_file)
@@ -33,6 +31,26 @@ void display_parsed_command(t_command *cmd)
         printf("- Heredoc delimiter: '%s'\n", cmd->heredoc_delim);
         
     printf("==========================\n\n");
+}
+void test_parsing()
+{
+    char *line = "ls -l | grep \"test file\" > output.txt >> append.txt << END";
+    t_command *cmds = parse_token(line);
+    if (!cmds)
+        return;
+
+    t_command *cur = cmds;
+    while (cur)
+    {
+        printf("Command args: ");
+        for (int i = 0; i < cur->arg_count; i++)
+            printf("%s ", cur->args[i]);
+        printf("\nInput: %s\nOutput: %s (append: %d)\nHeredoc: %s\n---\n",
+               cur->input_file, cur->output_file, cur->append_mode, cur->heredoc_delim);
+        cur = cur->next;
+    }
+
+    //free_commands(cmds);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -47,6 +65,7 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		line = readline("Inshell>");
+                test_parsing();
 		if (!line)
 			break;
 		add_history(line);

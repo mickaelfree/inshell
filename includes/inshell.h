@@ -147,5 +147,6 @@ int						is_escape(char c);
 int						is_quote(char c);
 int						is_special(char c);
 t_pre_token				*identify_token(char *line);
+t_command *build_pipeline(t_pre_token *tokens);
 
 #endif
