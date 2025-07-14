@@ -75,9 +75,11 @@ void free_commands(t_command *head)
         {
             i = 0;
             while (i < current->arg_count)
+                {
                 free(current->args[i]);
+                i++;
+                }
             free(current->args);
-                        i++;
         }
         free(current->input_file);
         free(current->output_file);

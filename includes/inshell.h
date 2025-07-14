@@ -94,7 +94,6 @@ void					free_token_list(t_pre_token *head);
 void					ft_error(char *msg);
 void					ft_free(char **tab);
 void					execute(char **av, char **env);
-void					execute_cmd(char **av, char **env);
 char					*ft_strnstr(const char *big, const char *little,
 							size_t len);
 char					*find_path(char *cmd, char **env);
@@ -148,5 +147,8 @@ int						is_quote(char c);
 int						is_special(char c);
 t_pre_token				*identify_token(char *line);
 t_command *build_pipeline(t_pre_token *tokens);
+char *process_heredoc(char *delimiter);
+void execute_cmd(t_command *cmds, char **envp);
+void free_commands(t_command *head);
 
 #endif

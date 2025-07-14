@@ -26,134 +26,135 @@
                             [stdout]
                 */
 
-int count_commands(char **args)
+static int count_pipeline(t_command *cmds)
 {
     int count = 0;
-    while (args[count])
+    t_command *cur = cmds;
+    while (cur)
+    {
         count++;
+        cur = cur->next;
+    }
     return count;
 }
-
-void execute_cmd(char **args, char **envp)
+static void handle_redirections(t_command *cmd)
 {
-        (void)envp;
-    int cmd_count = 0;
-    char **cmd;
-    int i = 0;
-    
-    // INFO:Compter le nombre de commandes
-        i = 0;
-        cmd_count = count_commands(args);
-
-        cmd = malloc (sizeof(char *) * (cmd_count + 1));
-        i = 0;
-        while (args[i])
-        {
-            cmd[i] = ft_strdup(args[i]);
-            if (!cmd[i])
-            {
-                perror("malloc");
-                return;
-            }
-            i++;
-        }
-        cmd[i] = NULL;
-
-     while (cmd[i])
+    if (cmd->heredoc_delim)
     {
-        printf("cmd[%d]: %s\n", i, cmd[i]);
-        cmd_count++;
-        i++;
+        cmd->input_file = process_heredoc(cmd->heredoc_delim);  // Crée tmp file
+        if (!cmd->input_file)
+            exit(1);  // Erreur
     }
-    
-    printf("Parent process PID: %d\n", getpid());
-    printf("Total commands: %d\n", cmd_count);
-    
-    // INFO:Créer les pipes et les processus
-    int pipes[cmd_count-1][2];
+
+    if (cmd->input_file)
+    {
+        int fd = open(cmd->input_file, O_RDONLY);
+        if (fd == -1)
+        {
+            perror("open input");
+            exit(1);
+        }
+        dup2(fd, STDIN_FILENO);
+        close(fd);
+        if (cmd->heredoc_delim)  // Supprime tmp après open
+            unlink(cmd->input_file);
+    }
+
+    if (cmd->output_file)
+    {
+        int flags = O_WRONLY | O_CREAT | (cmd->append_mode ? O_APPEND : O_TRUNC);
+        int fd = open(cmd->output_file, flags, 0644);
+        if (fd == -1)
+        {
+            perror("open output");
+            exit(1);
+        }
+        dup2(fd, STDOUT_FILENO);
+        close(fd);
+    }
+}
+
+void execute_cmd(t_command *cmds, char **envp)
+{
+    int cmd_count = count_pipeline(cmds);
+    if (cmd_count == 0)
+        return;
+
+    int pipes[cmd_count - 1][2];
     pid_t pids[cmd_count];
-    
-    // INFO:Créer les pipes
-    i = 0;
-    while(i < cmd_count-1)
+    t_command *cur = cmds;
+    int i = 0;
+
+    // Créer pipes
+    for (i = 0; i < cmd_count - 1; i++)
     {
         if (pipe(pipes[i]) == -1)
         {
             perror("pipe");
             return;
         }
-                i++;
     }
 
-    //INFO: Créer les processus
-        i = 0;
-        //char *path;
-    while(i < cmd_count)
+    // Fork pour chaque cmd
+    i = 0;
+    while (cur)
     {
         pids[i] = fork();
-        
-        if (pids[i] < 0)
+        if (pids[i] == -1)
         {
             perror("fork");
             return;
         }
-        else if (pids[i] == 0)
+        else if (pids[i] == 0)  // Child
         {
-            //INFO: Processus enfant
-            printf("Child process %d (PID: %d, PPID: %d) executing: %s\n", 
-                   i+1, getpid(), getppid(), cmd[i]);
-            
-                //firstcmd recupere le stdin
-                if (i == 0 )
-                {
-                                dup2(pipes[i][1], STDOUT_FILENO);
-                                execute( cmd, envp);
-                }
-                //lastcmd recupere le stdout
-                else if (i == cmd_count - 1)
-                        {
-                                dup2(pipes[i-1][0], STDIN_FILENO);
-                                execute( cmd, envp);
-                        }
-                //middlecmd recupere le stdin et envoi le stdout
-                else
-                {
-                    dup2(pipes[i-1][0], STDIN_FILENO);
-                    dup2(pipes[i][1], STDOUT_FILENO);
-                                close(pipes[i-1][1]);
-                                execute( cmd, envp);
-                }
+            // Gérer pipes
+            if (i > 0)  // Input from previous pipe
+            {
+                dup2(pipes[i - 1][0], STDIN_FILENO);
+                close(pipes[i - 1][0]);
+                close(pipes[i - 1][1]);
+            }
+            if (i < cmd_count - 1)  // Output to next pipe
+            {
+                dup2(pipes[i][1], STDOUT_FILENO);
+                close(pipes[i][0]);
+                close(pipes[i][1]);
+            }
 
+            // Fermer tous les autres pipes
+            for (int j = 0; j < cmd_count - 1; j++)
+            {
+                close(pipes[j][0]);
+                close(pipes[j][1]);
+            }
 
+            // Gérer redirs (overwrites pipes si présent)
+            handle_redirections(cur);
 
-            //INFO: Logique de redirection à implémenter ici
-                char *test_cmd[4]; 
-                test_cmd[0] = "/bin/echo";
-                test_cmd[1] =    "Je suis le processus";
-                test_cmd[2] =    cmd[i];
-                test_cmd[3] =    NULL;
-                execve(test_cmd[0], test_cmd, envp);
-                //lastcmd envoi le stdout
+            // Exécuter
+            if (cur->arg_count > 0)
+            {
+                if (is_builtin(cur->args, envp) == 0)  // Si pas builtin
+                    execute(cur->args, envp);  // Ton execute pour externe
+            }
+            exit(0);  // Si rien
         }
-                i++;
+
+        cur = cur->next;
+        i++;
     }
-    i = 0;
-        //INFO: Fermer tous les pipes dans le processus parent
-    while( i < cmd_count-1)
+
+    // Parent ferme pipes
+    for (i = 0; i < cmd_count - 1; i++)
     {
         close(pipes[i][0]);
         close(pipes[i][1]);
-                i++;
     }
-    // INFO:Attendre tous les processus enfants
-    i = 0;
-    while( i < cmd_count)
+
+    // Wait enfants
+    for (i = 0; i < cmd_count; i++)
     {
         int status;
-        printf("Waiting for child process %d (PID: %d)\n", i+1, pids[i]);
         waitpid(pids[i], &status, 0);
-        printf("Child process %d (PID: %d) exited with status: %d\n", 
-               i+1, pids[i], WEXITSTATUS(status));
-        i++;
     }
 }

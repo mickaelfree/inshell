@@ -53,40 +53,34 @@ void test_parsing()
     //free_commands(cmds);
 }
 
-int	main(int argc, char **argv, char **envp)
+int main(int argc, char **argv, char **envp)
 {
-	char	*line;
-	char	**args;
-	char	**new_env;
-	t_command *cmd;
+    char *line;
+    char **new_env;
+    t_command *cmd;
 
-	// TODO: recuper les envp
-	new_env = ft_env(envp);
-	while (1)
-	{
-		line = readline("Inshell>");
-                test_parsing();
-		if (!line)
-			break;
-		add_history(line);
-		
-		// Parser la ligne et afficher les résultats
-		cmd = parse_token(line);
-		// if (cmd)
-		// {
-		// 	// Afficher les résultats du parsing
-		// 	display_parsed_command(cmd);
-		//
-		// 	// Exécuter la commande avec les arguments parsés
-		// 	if (cmd->arg_count > 0)
-		// 	{
-		// 		if (!is_builtin(cmd->args, new_env))
-		// 			execute_cmd(cmd->args, new_env);
-		// 	}
-		//
-		//
-		//               }
-		free(line);
-	}
-	return (0);
+    new_env = ft_env(envp);
+    while (1)
+    {
+        line = readline("Inshell>");
+        if (!line)
+            break;
+        add_history(line);
+
+        cmd = parse_token(line);
+        if (cmd)
+        {
+            display_parsed_command(cmd);  // Debug optionnel
+
+            if (cmd->arg_count > 0)
+            {
+                execute_cmd(cmd, new_env);  // Exécute le pipeline
+            }
+
+            free_commands(cmd);  // Libère après exec
+        }
+
+        free(line);
+    }
+    return (0);
 }
