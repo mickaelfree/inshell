@@ -74,10 +74,10 @@ int main(int argc, char **argv, char **envp)
 
             if (cmd->arg_count > 0)
             {
-                execute_cmd(cmd, new_env);  // Exécute le pipeline
+                if (!is_builtin(cmd->args, &new_env))
+                    execute_cmd(cmd, new_env);
             }
-
-            free_commands(cmd);  // Libère après exec
+            free_commands(cmd);
         }
 
         free(line);

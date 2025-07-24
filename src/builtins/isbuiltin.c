@@ -18,7 +18,7 @@ static void	init_builtin(builtin_func *builtin)
 	builtin[BUILTIN_PWD] = builtin_pwd;
 	builtin[BUILTIN_CD] = builtin_cd;
 	builtin[BUILTIN_ENV] = builtin_env;
-	builtin[BUILTIN_EXPORT] = builtin_export;
+//	builtin[BUILTIN_EXPORT] = builtin_export;
 	builtin[BUILTIN_UNSET] = builtin_unset;
 	builtin[BUILTIN_EXIT] = builtin_exit;
 }
@@ -49,7 +49,7 @@ static t_builtin_type	get_builtin_type(const char *cmd)
 	}
 	return (BUILTIN_UNKNOWN);
 }
-int	is_builtin(char **args, char **envp)
+int	is_builtin(char **args, char ***envp)
 {
 	t_builtin_type	type;
 	builtin_func	builtin_functions[7];
@@ -58,5 +58,7 @@ int	is_builtin(char **args, char **envp)
 	type = get_builtin_type(args[0]);
 	if (type == BUILTIN_UNKNOWN)
 		return (0);
-	return (builtin_functions[type](args, envp));
+        if (type == BUILTIN_EXPORT)
+                return (builtin_export(args, envp));
+	return (builtin_functions[type](args, *envp));
 }

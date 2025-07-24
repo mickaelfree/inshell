@@ -102,10 +102,10 @@ int						builtin_echo(char **args, char **envp);
 int						builtin_pwd(char **args, char **envp);
 int						builtin_cd(char **args, char **envp);
 int						builtin_env(char **args, char **envp);
-int						builtin_export(char **args, char **envp);
+int						builtin_export(char **args, char ***envp);
 int						builtin_unset(char **args, char **envp);
 int						builtin_exit(char **args, char **envp);
-int						is_builtin(char **args, char **envp);
+int						is_builtin(char **args, char ***envp);
 void					skip_whitespace(char **line);
 
 // INFO: header pour les utils

@@ -47,44 +47,67 @@ static char *get_key(char *var)
 		return (ft_strdup(var));
 	return (strndup(var, key_end - var));
 }
-
-static int	update_env_var(char **envp, char *var)
+static int tab_len(char **tab)
 {
-	// i = 0;
-	// while (envp[i] && strcmp(envp[i], var) != 0)
-	// 	i++;
-	// if (!envp[i])
-	// 	envp[i + 1] = NULL;
-	// envp[i] = ft_strdup(var);
-	// if (!envp[i])
-	// 	return (EXIT_FAILURE);
-	// return (EXIT_SUCCESS);
-        char *key = get_key(var);
-        int i = 0;
-        size_t key_len = ft_strlen(key);
+        int i;
 
-        while(envp[i])
-        {
-                if(!strncmp(envp[i], key, key_len) && envp[i][key_len] == '=')
-                {
-                        free(envp[i]);
-                        envp[i] = ft_strdup(var);
-                        free(key);
-                        if (!envp[i])
-                                return (EXIT_FAILURE);
-                        return (EXIT_SUCCESS);
-                }
+        i = 0;
+        while (tab[i])
                 i++;
-        }
-        envp[i] = ft_strdup(var);
-        envp[i + 1] = NULL;
-        free(key);
-        if (!envp[i])
-                return (EXIT_FAILURE);
-        return (EXIT_SUCCESS);
+        return (i);
 }
 
-static int	process_export_args(char **args, char **envp)
+static int	update_env_var(char ***envp_ptr, char *var)
+{
+	char **envp = *envp_ptr;
+	char *key = get_key(var);
+	int i = 0;
+	size_t key_len;
+
+	if (!key)
+		return (EXIT_FAILURE);
+	key_len = ft_strlen(key);
+	while (envp[i])
+	{
+		if (!strncmp(envp[i], key, key_len) && envp[i][key_len] == '=')
+		{
+			free(envp[i]);
+			envp[i] = ft_strdup(var);
+			free(key);
+			if (!envp[i])
+				return (EXIT_FAILURE);
+			return (EXIT_SUCCESS);
+		}
+		i++;
+	}
+	int len = tab_len(envp);
+	char **new_env = calloc(len + 2, sizeof(char *));
+	if (!new_env)
+	{
+		free(key);
+		return (EXIT_FAILURE);
+	}
+        int j = 0;
+        while(j<len)
+        {
+		new_env[j] = envp[j];
+                j++;
+        }
+	new_env[len] = ft_strdup(var);
+	if (!new_env[len])
+	{
+		free(new_env);
+		free(key);
+		return (EXIT_FAILURE);
+	}
+	new_env[len + 1] = NULL;
+	free(envp); 
+	*envp_ptr = new_env;
+	free(key);
+	return (EXIT_SUCCESS);
+}
+
+static int	process_export_args(char **args, char ***envp)
 {
 	while (*args)
 	{
@@ -101,13 +124,13 @@ static int	process_export_args(char **args, char **envp)
 	return (EXIT_SUCCESS);
 }
 
-int	builtin_export(char **args, char **envp)
+int	builtin_export(char **args, char ***envp)
 {
 	if (!envp)
 		return (EXIT_FAILURE);
 	if (!args[1])
 	{
-		print_export_env(envp);
+		print_export_env(*envp);
 		return (EXIT_SUCCESS);
 	}
 	return (process_export_args(args + 1, envp));
