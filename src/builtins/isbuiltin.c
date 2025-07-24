@@ -60,5 +60,6 @@ int	is_builtin(char **args, char ***envp)
 		return (0);
         if (type == BUILTIN_EXPORT)
                 return (builtin_export(args, envp));
-	return (builtin_functions[type](args, *envp));
+	builtin_functions[type](args, *envp);
+	return (1);
 }
