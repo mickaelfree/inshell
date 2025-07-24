@@ -70,7 +70,7 @@ int main(int argc, char **argv, char **envp)
         cmd = parse_token(line);
         if (cmd)
         {
-            display_parsed_command(cmd);  // Debug optionnel
+            display_parsed_command(cmd);
 
             if (cmd->arg_count > 0)
             {
