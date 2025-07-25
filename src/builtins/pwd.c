@@ -9,7 +9,6 @@
 /*   Updated: 2025/06/27 16:38:33 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-// TODO::
 #include "../../includes/inshell.h"
 
 int	builtin_pwd(char **argv, char **envp)
