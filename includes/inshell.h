@@ -3,13 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   inshell.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: dedme <dedme@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 22:12:48 by mickmart          #+#    #+#             */
-/*   Updated: 2025/07/06 17:56:54 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/07/26 18:57:37 by dedme            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef INSHELL_H
+
 # define INSHELL_H
 
 # include <errno.h>
@@ -20,6 +20,7 @@
 # include <stddef.h>
 # include <stdlib.h>
 # include <string.h>
+# include <signal.h>
 # include <sys/wait.h>
 # include <unistd.h>
 // parsing
