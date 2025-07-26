@@ -6,10 +6,11 @@
 /*   By: dedme <dedme@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 22:12:48 by mickmart          #+#    #+#             */
-/*   Updated: 2025/07/26 18:57:37 by dedme            ###   ########.fr       */
+/*   Updated: 2025/07/26 19:27:42 by dedme            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef INSHELL_H
 # define INSHELL_H
 
 # include <errno.h>
