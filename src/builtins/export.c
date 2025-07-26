@@ -9,13 +9,11 @@
 /*   Updated: 2025/05/27 17:11:13 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-// TODO::
 #include "../../includes/inshell.h"
-#include <stddef.h>
 
 int	is_valide_export(char *args)
 {
-	int	i;
+	int		i;
 	char	*key_end;
 
 	if (!args || ft_isdigit(*args))
@@ -38,7 +36,7 @@ static void	print_export_env(char **envp)
 	while (*envp)
 		printf("export %s\n", *envp++);
 }
-static char *get_key(char *var)
+static char	*get_key(char *var)
 {
 	char	*key_end;
 
@@ -47,23 +45,29 @@ static char *get_key(char *var)
 		return (ft_strdup(var));
 	return (strndup(var, key_end - var));
 }
-static int tab_len(char **tab)
+static int	tab_len(char **tab)
 {
-        int i;
+	int	i;
 
-        i = 0;
-        while (tab[i])
-                i++;
-        return (i);
+	i = 0;
+	while (tab[i])
+		i++;
+	return (i);
 }
 
 static int	update_env_var(char ***envp_ptr, char *var)
 {
-	char **envp = *envp_ptr;
-	char *key = get_key(var);
-	int i = 0;
-	size_t key_len;
+	char	**envp;
+	char	*key;
+	int		i;
+	size_t	key_len;
+	int		len;
+	char	**new_env;
+	int		j;
 
+	envp = *envp_ptr;
+	key = get_key(var);
+	i = 0;
 	if (!key)
 		return (EXIT_FAILURE);
 	key_len = ft_strlen(key);
@@ -80,19 +84,19 @@ static int	update_env_var(char ***envp_ptr, char *var)
 		}
 		i++;
 	}
-	int len = tab_len(envp);
-	char **new_env = calloc(len + 2, sizeof(char *));
+	len = tab_len(envp);
+	new_env = calloc(len + 2, sizeof(char *));
 	if (!new_env)
 	{
 		free(key);
 		return (EXIT_FAILURE);
 	}
-        int j = 0;
-        while(j<len)
-        {
+	j = 0;
+	while (j < len)
+	{
 		new_env[j] = envp[j];
-                j++;
-        }
+		j++;
+	}
 	new_env[len] = ft_strdup(var);
 	if (!new_env[len])
 	{
@@ -101,7 +105,7 @@ static int	update_env_var(char ***envp_ptr, char *var)
 		return (EXIT_FAILURE);
 	}
 	new_env[len + 1] = NULL;
-	free(envp); 
+	free(envp);
 	*envp_ptr = new_env;
 	free(key);
 	return (EXIT_SUCCESS);
@@ -114,7 +118,7 @@ static int	process_export_args(char **args, char ***envp)
 		if (!is_valide_export(*args))
 		{
 			printf("export: `%s': not a valid identifier\n", *args);
-                        args++;
+			args++;
 			continue ;
 		}
 		if (update_env_var(envp, *args) != EXIT_SUCCESS)
