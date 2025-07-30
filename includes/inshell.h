@@ -6,10 +6,11 @@
 /*   By: dedme <dedme@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 22:12:48 by mickmart          #+#    #+#             */
-/*   Updated: 2025/07/26 18:57:37 by dedme            ###   ########.fr       */
+/*   Updated: 2025/07/30 04:29:25 by dedme            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef INSHELL_H
 # define INSHELL_H
 
 # include <errno.h>
@@ -152,4 +153,6 @@ char *process_heredoc(char *delimiter);
 void execute_cmd(t_command *cmds, char **envp);
 void free_commands(t_command *head);
 
+void	ft_handle_ctrld();
+void	ft_handle_sig(int sig);
 #endif
