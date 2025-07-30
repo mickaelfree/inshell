@@ -12,7 +12,7 @@
 
 #include "../../includes/inshell.h"
 
-int	is_numeric(char *str)
+static int	is_numeric(char *str)
 {
 	int	i;
 
@@ -27,11 +27,12 @@ int	is_numeric(char *str)
 	}
 	return (1);
 }
-int	ft_atoi(char *str)
+static long	ft_atol(char *str)
 {
-	int			i;
-	int			sign;
-	long long	result;
+	int		i;
+	int		sign;
+	long	result;
+	long	prev;
 
 	i = 0;
 	sign = 1;
@@ -46,11 +47,15 @@ int	ft_atoi(char *str)
 	}
 	while (str[i] >= '0' && str[i] <= '9')
 	{
+		prev = result;
 		result = result * 10 + (str[i] - '0');
+		if ((result - (str[i] - '0')) / 10 != prev)
+		{
+			printf("exit: %s: numeric argument required\n", str);
+			exit(2);
+		}
 		i++;
 	}
-	if (result > 255)
-		return (result << 8);
 	return (result * sign);
 }
 int	builtin_exit(char **args, char **envp)
@@ -67,5 +72,5 @@ int	builtin_exit(char **args, char **envp)
 	if (!args[1])
 		exit(0);
 	else
-		exit(ft_atoi(args[1]));
+		exit(ft_atol(args[1]));
 }
