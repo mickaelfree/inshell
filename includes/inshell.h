@@ -153,4 +153,6 @@ char *process_heredoc(char *delimiter);
 void execute_cmd(t_command *cmds, char **envp);
 void free_commands(t_command *head);
 
+void	ft_handle_ctrld();
+void	ft_handle_sig(int sig);
 #endif
