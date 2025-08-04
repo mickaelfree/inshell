@@ -6,7 +6,7 @@
 /*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 19:21:42 by mickmart          #+#    #+#             */
-/*   Updated: 2025/06/27 16:37:01 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:14:43 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static long	ft_atol(char *str)
 	}
 	return (result * sign);
 }
-int	builtin_exit(char **args, char **envp)
+int	builtin_exit(char **args, char ***envp)
 {
 	if (args[1] && !is_numeric(args[1]))
 	{

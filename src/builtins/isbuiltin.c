@@ -6,7 +6,7 @@
 /*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 17:49:57 by mickmart          #+#    #+#             */
-/*   Updated: 2025/06/27 16:38:12 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:10:43 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	init_builtin(builtin_func *builtin)
 	builtin[BUILTIN_PWD] = builtin_pwd;
 	builtin[BUILTIN_CD] = builtin_cd;
 	builtin[BUILTIN_ENV] = builtin_env;
-//	builtin[BUILTIN_EXPORT] = builtin_export;
+	builtin[BUILTIN_EXPORT] = builtin_export;
 	builtin[BUILTIN_UNSET] = builtin_unset;
 	builtin[BUILTIN_EXIT] = builtin_exit;
 }
@@ -63,6 +63,6 @@ int	is_builtin(char **args, char ***envp)
                 builtin_export(args, envp);
                 return (1);
         }
-	builtin_functions[type](args, *envp);
+	builtin_functions[type](args, envp);
 	return (1);
 }
