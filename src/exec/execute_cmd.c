@@ -201,7 +201,7 @@ void	execute_cmd(t_command *cmds, char ***envp)
 			// Gérer redirs (overwrites pipes si présent)
 			handle_redirections(cur);
 			// Exécuter
-			if (cur->arg_count > 0 && !is_builtin(cur->args,envp))
+			if (cur->arg_count > 0 && is_builtin(cur->args,envp) == -1)
 				execute(cur->args, *envp); // Ton execute pour externe
 			exit(0);                      // Si rien
 		}
