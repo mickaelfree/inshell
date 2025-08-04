@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: dedme <dedme@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 21:20:51 by mickmart          #+#    #+#             */
-/*   Updated: 2025/08/04 18:27:06 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/08/04 22:04:48 by dedme            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ parent
 ||          || pipe
 			[stdout]
 */
+int status = 0;
+
 static int	count_pipeline(t_command *cmds)
 {
 	int			count;
@@ -134,7 +136,7 @@ void	execute_cmd(t_command *cmds, char ***envp)
 	int			cmd_count;
 	int			j;
 	int			(*pipes)[2];
-	 pid_t		*pids;
+	pid_t		*pids;
 	t_command	*cur;
 	int			i;
 	cmd_count = count_pipeline(cmds);
@@ -160,7 +162,7 @@ void	execute_cmd(t_command *cmds, char ***envp)
 	{
 		if (pipe(pipes[i]) == -1)
 		{
-                       pipe_error(pipes, pids, cmd_count);
+            pipe_error(pipes, pids, cmd_count);
 			return ;
 		}
 		i++;

@@ -6,7 +6,7 @@
 /*   By: dedme <dedme@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 22:12:48 by mickmart          #+#    #+#             */
-/*   Updated: 2025/08/04 18:16:16 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/08/05 00:09:15 by dedme            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ int						builtin_unset(char **args, char ***envp);
 int						builtin_exit(char **args, char ***envp);
 int						is_builtin(char **args, char ***envp);
 void					skip_whitespace(char **line);
+char					*expand_env(char *name);
 
 // INFO: header pour les utils
 
