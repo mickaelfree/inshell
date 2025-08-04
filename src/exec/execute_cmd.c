@@ -85,7 +85,7 @@ static int one_cmd(t_command *cmd, char ***envp)
     if (pid == 0)
     {
         handle_redirections(cmd);
-        if (cmd->arg_count > 0 && !is_builtin(cmd->args, envp))
+        if (cmd->arg_count > 0 && is_builtin(cmd->args, envp) == -1)
             execute(cmd->args, *envp);
         exit(0);
     }
