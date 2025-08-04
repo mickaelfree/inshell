@@ -64,7 +64,7 @@ int builtin_unset(char **args, char ***envp)
 			while (*envp[i])
 			{
 				delete_var(envp, *args, i);
-				if (!*envp[i])
+				if (!(*envp)[i])
 					break ;
 				i++;
 			}
