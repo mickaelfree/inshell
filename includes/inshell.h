@@ -6,7 +6,7 @@
 /*   By: dedme <dedme@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 22:12:48 by mickmart          #+#    #+#             */
-/*   Updated: 2025/08/04 20:23:31 by dedme            ###   ########.fr       */
+/*   Updated: 2025/08/04 18:16:16 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ typedef struct s_command
         struct s_command	*next;
 }	t_command;
 
-typedef int				(*builtin_func)(char **args, char **envp);
+typedef int				(*builtin_func)(char **args, char ***envp);
 
 void					pre_token(char *line);
 t_pre_token				*tokenize_input(char *line);
@@ -100,13 +100,13 @@ char					*ft_strnstr(const char *big, const char *little,
 							size_t len);
 char					*find_path(char *cmd, char **env);
 
-int						builtin_echo(char **args, char **envp);
-int						builtin_pwd(char **args, char **envp);
-int						builtin_cd(char **args, char **envp);
-int						builtin_env(char **args, char **envp);
+int						builtin_echo(char **args, char ***envp);
+int						builtin_pwd(char **args, char ***envp);
+int						builtin_cd(char **args, char ***envp);
+int						builtin_env(char **args, char ***envp);
 int						builtin_export(char **args, char ***envp);
-int						builtin_unset(char **args, char **envp);
-int						builtin_exit(char **args, char **envp);
+int						builtin_unset(char **args, char ***envp);
+int						builtin_exit(char **args, char ***envp);
 int						is_builtin(char **args, char ***envp);
 void					skip_whitespace(char **line);
 
@@ -150,7 +150,7 @@ int						is_special(char c);
 t_pre_token				*identify_token(char *line);
 t_command *build_pipeline(t_pre_token *tokens);
 char *process_heredoc(char *delimiter);
-void execute_cmd(t_command *cmds, char **envp);
+void execute_cmd(t_command *cmds, char ***envp);
 void free_commands(t_command *head);
 
 void	ft_handle_ctrld();

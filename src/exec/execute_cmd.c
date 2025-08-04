@@ -6,7 +6,7 @@
 /*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 21:20:51 by mickmart          #+#    #+#             */
-/*   Updated: 2025/07/01 21:00:11 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/08/04 18:27:06 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ parent
 ||          || pipe
 			[stdout]
 */
-
 static int	count_pipeline(t_command *cmds)
 {
 	int			count;
@@ -75,27 +74,93 @@ static void	handle_redirections(t_command *cmd)
 	}
 }
 
-void	execute_cmd(t_command *cmds, char **envp)
+static int one_cmd(t_command *cmd, char ***envp)
+{
+    pid_t pid = fork();
+    if (pid == -1)
+    {
+        perror("fork");
+        return 1;
+    }
+    if (pid == 0)
+    {
+        handle_redirections(cmd);
+        if (cmd->arg_count > 0 && is_builtin(cmd->args, envp) == -1)
+            execute(cmd->args, *envp);
+        exit(0);
+    }
+    waitpid(pid, &status, 0);
+    return 0;
+}
+static int pipe_error(int (*pipes)[2], pid_t *pids, int cmd_count)
+{
+        int i;
+        i = 0;
+        while (i < cmd_count - 1)
+        {
+                close(pipes[i][0]);
+                close(pipes[i][1]);
+                i++;
+        }
+	perror("pipe");
+        free(pipes);
+        free(pids);
+        return (1);
+
+}
+static int fork_error(int (*pipes)[2], pid_t *pids, int cmd_count, int i)
+{
+        int j;
+        j = 0;
+        while (j < i)
+        {
+                kill(pids[j], SIGTERM);
+                j++;
+        }
+        j = 0;
+        while (j < cmd_count - 1)
+        {
+                close(pipes[j][0]);
+                close(pipes[j][1]);
+                j++;
+        }
+        perror("fork");
+        free(pipes);
+        free(pids);
+        return (1);
+}
+void	execute_cmd(t_command *cmds, char ***envp)
 {
 	int			cmd_count;
 	int			j;
-	int			pipes[cmd_count - 1][2];
-	pid_t		pids[cmd_count];
+	int			(*pipes)[2];
+	 pid_t		*pids;
 	t_command	*cur;
 	int			i;
-		int status;
-
 	cmd_count = count_pipeline(cmds);
 	if (cmd_count == 0)
 		return ;
 	cur = cmds;
+        if (cmd_count == 1)
+        {
+                one_cmd(cmds, envp);
+                return ;
+        }
+        pipes = malloc((cmd_count - 1) * sizeof(int[2]));
+        pids = malloc(cmd_count * sizeof(pid_t));
+        if (!pids || (cmd_count > 1 && !pipes))
+        {
+			perror("fail malloc");
+			return ;
+        }
 	i = 0;
+
 	// Créer pipes
 	while (i < cmd_count - 1)
 	{
 		if (pipe(pipes[i]) == -1)
 		{
-			perror("pipe");
+                       pipe_error(pipes, pids, cmd_count);
 			return ;
 		}
 		i++;
@@ -107,7 +172,7 @@ void	execute_cmd(t_command *cmds, char **envp)
 		pids[i] = fork();
 		if (pids[i] == -1)
 		{
-			perror("fork");
+                        fork_error(pipes, pids, cmd_count, i);
 			return ;
 		}
 		else if (pids[i] == 0) // Child
@@ -136,8 +201,8 @@ void	execute_cmd(t_command *cmds, char **envp)
 			// Gérer redirs (overwrites pipes si présent)
 			handle_redirections(cur);
 			// Exécuter
-			if (cur->arg_count > 0)
-				execute(cur->args, envp); // Ton execute pour externe
+			if (cur->arg_count > 0 && is_builtin(cur->args,envp) == -1)
+				execute(cur->args, *envp); // Ton execute pour externe
 			exit(0);                      // Si rien
 		}
 		cur = cur->next;
@@ -158,4 +223,6 @@ void	execute_cmd(t_command *cmds, char **envp)
 		waitpid(pids[i], &status, 0);
 		i++;
 	}
+        free(pipes);
+        free(pids);
 }

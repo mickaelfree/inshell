@@ -6,7 +6,7 @@
 /*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:35:33 by mickmart          #+#    #+#             */
-/*   Updated: 2025/05/26 17:44:34 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:12:46 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 // TODO::
@@ -36,7 +36,7 @@ static void	print_arguments(char **args)
 	}
 }
 
-int	builtin_echo(char **args, char **envp)
+int	builtin_echo(char **args, char ***envp)
 {
 	int	newline;
 
