@@ -22,7 +22,6 @@ parent
 ||          || pipe
 			[stdout]
 */
-int status;
 static int	count_pipeline(t_command *cmds)
 {
 	int			count;
