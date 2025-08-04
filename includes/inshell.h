@@ -6,10 +6,11 @@
 /*   By: dedme <dedme@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 22:12:48 by mickmart          #+#    #+#             */
-/*   Updated: 2025/07/30 04:29:25 by dedme            ###   ########.fr       */
+/*   Updated: 2025/08/04 20:23:08 by dedme            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef INSHELL_H
 #ifndef INSHELL_H
 # define INSHELL_H
 
