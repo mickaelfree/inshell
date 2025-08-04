@@ -36,7 +36,7 @@ static void delete_var(char ***envp, char *arg, int i)
 		free((*envp)[i]);
 		while (*envp[i])
 		{
-			*envp[i] = *envp[i + 1];
+			(*envp)[i] = (*envp)[i + 1];
 			i++;
 		}
 	}
