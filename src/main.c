@@ -6,7 +6,7 @@
 /*   By: dedme <dedme@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 21:30:44 by mickmart          #+#    #+#             */
-/*   Updated: 2025/07/30 04:30:35 by dedme            ###   ########.fr       */
+/*   Updated: 2025/08/04 18:17:34 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,10 @@ int main(int argc, char **argv, char **envp)
             if (cmd->arg_count > 0)
             {
                 if (!is_builtin(cmd->args, &new_env))
-                    execute_cmd(cmd, new_env);
-            }   
+
+                    execute_cmd(cmd, &new_env);
+            }
+
             free_commands(cmd);
         }
 

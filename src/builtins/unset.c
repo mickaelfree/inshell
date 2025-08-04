@@ -6,7 +6,7 @@
 /*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:36:20 by mickmart          #+#    #+#             */
-/*   Updated: 2025/06/27 16:38:52 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/08/04 18:09:30 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 // TODO::
@@ -26,23 +26,23 @@ static int is_valid_identifier(char *name)
     return (1);
 }
 
-static void delete_var(char **envp, char *arg, int i)
+static void delete_var(char ***envp, char *arg, int i)
 {
 	size_t len;
 
 	len = strlen(arg);
-	if (strncmp(envp[i], arg, len) == 0 && envp[i][len] == '=')
+	if (strncmp(*envp[i], arg, len) == 0 && *envp[i][len] == '=')
 	{
-		free(envp[i]);
-		while (envp[i])
+		free((*envp)[i]);
+		while (*envp[i])
 		{
-			envp[i] = envp[i + 1];
+			(*envp)[i] = (*envp)[i + 1];
 			i++;
 		}
 	}
 }
 
-int builtin_unset(char **args, char **envp)
+int builtin_unset(char **args, char ***envp)
 {
 	int ret;
 	int i;
@@ -61,10 +61,10 @@ int builtin_unset(char **args, char **envp)
 		else
 		{
 			i = 0;
-			while (envp[i])
+			while (*envp[i])
 			{
 				delete_var(envp, *args, i);
-				if (!envp[i])
+				if (!(*envp)[i])
 					break ;
 				i++;
 			}
