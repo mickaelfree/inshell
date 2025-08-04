@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: dedme <dedme@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 21:30:44 by mickmart          #+#    #+#             */
 /*   Updated: 2025/08/04 18:17:34 by mickmart         ###   ########.fr       */
@@ -60,23 +60,26 @@ int main(int argc, char **argv, char **envp)
     t_command *cmd;
 
     new_env = ft_env(envp);
+    signal(SIGINT, ft_handle_sig);
     while (1)
     {
         line = readline("Inshell>");
         if (!line)
-            break;
+            ft_handle_ctrld();
         add_history(line);
-
+        
         cmd = parse_token(line);
         if (cmd)
         {
-            display_parsed_command(cmd);
+            //display_parsed_command(cmd);
 
             if (cmd->arg_count > 0)
             {
                 if (!is_builtin(cmd->args, &new_env))
+
                     execute_cmd(cmd, &new_env);
             }
+
             free_commands(cmd);
         }
 
