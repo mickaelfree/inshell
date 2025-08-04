@@ -29,6 +29,7 @@ SRCS = $(SRC_DIR)main.c \
 	$(SRC_DIR)parsing/parsing.c \
 	$(SRC_DIR)parsing/build_pipeline.c \
 	$(SRC_DIR)signal/handler.c \
+	$(SRC_DIR)parsing/expand_env.c \
 	#$(SRC_DIR)exec/pipex.c \
        # $(SRC_DIR)core/cleanup.c \
        # $(SRC_DIR)parsing/parser_map.c \
