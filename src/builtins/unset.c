@@ -33,7 +33,7 @@ static void delete_var(char ***envp, char *arg, int i)
 	len = strlen(arg);
 	if (strncmp(*envp[i], arg, len) == 0 && *envp[i][len] == '=')
 	{
-		free(*envp[i]);
+		free((*envp)[i]);
 		while (*envp[i])
 		{
 			*envp[i] = *envp[i + 1];
