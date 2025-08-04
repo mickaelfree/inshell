@@ -6,7 +6,7 @@
 /*   By: dedme <dedme@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 04:28:05 by dedme             #+#    #+#             */
-/*   Updated: 2025/07/30 04:28:44 by dedme            ###   ########.fr       */
+/*   Updated: 2025/07/30 07:28:28 by dedme            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,16 @@ void	ft_handle_ctrld()
 }
 void	ft_handle_sig(int sig)
 {
-	printf("\n");
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
+	if (isatty(STDIN_FILENO) == 1)
+	{
+		printf("\n");
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
+	else
+	{
+		printf("kill the child\n");
+		//need to keep pid somewhere in the struct
+	}
 }

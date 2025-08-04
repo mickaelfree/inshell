@@ -76,7 +76,6 @@ int main(int argc, char **argv, char **envp)
             if (cmd->arg_count > 0)
             {
                 if (!is_builtin(cmd->args, &new_env))
-
                     execute_cmd(cmd, &new_env);
             }
 
