@@ -6,7 +6,7 @@
 /*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 17:49:57 by mickmart          #+#    #+#             */
-/*   Updated: 2025/08/04 16:10:43 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/08/04 18:27:56 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,7 @@ int	is_builtin(char **args, char ***envp)
 	init_builtin(builtin_functions);
 	type = get_builtin_type(args[0]);
 	if (type == BUILTIN_UNKNOWN)
-		return (0);
-        if (type == BUILTIN_EXPORT)
-        {
-                builtin_export(args, envp);
-                return (1);
-        }
+		return (-1);
 	builtin_functions[type](args, envp);
 	return (1);
 }

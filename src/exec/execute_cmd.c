@@ -6,7 +6,7 @@
 /*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 21:20:51 by mickmart          #+#    #+#             */
-/*   Updated: 2025/08/04 15:27:01 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/08/04 18:27:06 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static void	handle_redirections(t_command *cmd)
 	}
 }
 
-static int one_cmd(t_command *cmd, char **envp)
+static int one_cmd(t_command *cmd, char ***envp)
 {
     pid_t pid = fork();
     if (pid == -1)
@@ -86,8 +86,8 @@ static int one_cmd(t_command *cmd, char **envp)
     if (pid == 0)
     {
         handle_redirections(cmd);
-        if (cmd->arg_count > 0 && !is_builtin(cmd->args, &envp))
-            execute(cmd->args, envp);
+        if (cmd->arg_count > 0 && !is_builtin(cmd->args, envp))
+            execute(cmd->args, *envp);
         exit(0);
     }
     waitpid(pid, &status, 0);
@@ -130,7 +130,7 @@ static int fork_error(int (*pipes)[2], pid_t *pids, int cmd_count, int i)
         free(pids);
         return (1);
 }
-void	execute_cmd(t_command *cmds, char **envp)
+void	execute_cmd(t_command *cmds, char ***envp)
 {
 	int			cmd_count;
 	int			j;
@@ -202,8 +202,8 @@ void	execute_cmd(t_command *cmds, char **envp)
 			// Gérer redirs (overwrites pipes si présent)
 			handle_redirections(cur);
 			// Exécuter
-			if (cur->arg_count > 0 && !is_builtin(cur->args,&envp))
-				execute(cur->args, envp); // Ton execute pour externe
+			if (cur->arg_count > 0 && !is_builtin(cur->args,envp))
+				execute(cur->args, *envp); // Ton execute pour externe
 			exit(0);                      // Si rien
 		}
 		cur = cur->next;

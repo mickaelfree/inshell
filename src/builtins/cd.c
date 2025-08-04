@@ -6,7 +6,7 @@
 /*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:33:23 by mickmart          #+#    #+#             */
-/*   Updated: 2025/08/04 16:12:35 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/08/04 18:09:44 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../includes/inshell.h"

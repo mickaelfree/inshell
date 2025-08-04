@@ -6,7 +6,7 @@
 /*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:35:41 by mickmart          #+#    #+#             */
-/*   Updated: 2025/08/04 16:13:22 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/08/04 18:04:27 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ int	builtin_env(char **args, char ***envp)
 		printf("env: too many arguments\n");
 		return (1);
 	}
-	while (*envp[i])
+	while ((*envp)[i])
 	{
-		printf("%s\n", *envp[i]);
+		printf("%s\n", (*envp)[i]);
 		i++;
 	}
 	return (0);
