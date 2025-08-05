@@ -6,17 +6,17 @@
 /*   By: dedme <dedme@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 04:28:05 by dedme             #+#    #+#             */
-/*   Updated: 2025/07/30 07:28:28 by dedme            ###   ########.fr       */
+/*   Updated: 2025/08/05 13:39:42 by dedme            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/inshell.h"
 
-void	ft_handle_ctrld()
+void	ft_handle_ctrld(void)
 {
 	printf("exit\n");
 	// free function that doesn't already exist
-	exit (0);
+	exit(0);
 }
 void	ft_handle_sig(int sig)
 {
@@ -30,6 +30,6 @@ void	ft_handle_sig(int sig)
 	else
 	{
 		printf("kill the child\n");
-		//need to keep pid somewhere in the struct
+		// need to keep pid somewhere in the struct
 	}
 }

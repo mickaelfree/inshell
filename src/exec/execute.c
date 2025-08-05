@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: dedme <dedme@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 18:40:00 by mickmart          #+#    #+#             */
-/*   Updated: 2025/06/05 04:48:08 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/08/05 13:42:44 by dedme            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../../includes/inshell.h"
 
@@ -51,13 +50,13 @@ static void	execute_command(char *path, char **cmd, char **env)
 
 void	execute(char **av, char **env)
 {
-	//char	**cmd;
 	char	*path;
 
-        //(void)cmd;
-	//cmd = ft_split(av, ' ');
-	//if (cmd == NULL)
-		//ft_error("malloc error");
+	// char	**cmd;
+	//(void)cmd;
+	// cmd = ft_split(av, ' ');
+	// if (cmd == NULL)
+	// ft_error("malloc error");
 	path = find_path(*av, env);
 	if (path == NULL)
 		handle_command_not_found(av);

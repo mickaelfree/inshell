@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: dedme <dedme@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 15:48:37 by mickmart          #+#    #+#             */
-/*   Updated: 2025/06/20 19:37:21 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/08/05 13:46:44 by dedme            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../includes/inshell.h"
 
 void	skip_whitespace(char **line)

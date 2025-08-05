@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_is.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: dedme <dedme@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 18:54:35 by mickmart          #+#    #+#             */
-/*   Updated: 2025/05/26 18:54:50 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/08/05 13:46:29 by dedme            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../../includes/inshell.h"
 
 int	ft_isalpha(int c)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: dedme <dedme@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 19:21:42 by mickmart          #+#    #+#             */
-/*   Updated: 2025/08/04 18:06:45 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/08/05 13:43:42 by dedme            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static long	ft_atol(char *str)
 }
 int	builtin_exit(char **args, char ***envp)
 {
-        (void)envp;
+	(void)envp;
 	if (args[1] && !is_numeric(args[1]))
 	{
 		printf("exit: %s: numeric argument required\n", args[1]);

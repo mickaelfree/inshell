@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: dedme <dedme@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 14:01:33 by mickmart          #+#    #+#             */
-/*   Updated: 2025/08/04 18:07:46 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/08/05 13:43:27 by dedme            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../includes/inshell.h"
 
 int	is_valide_export(char *args)
