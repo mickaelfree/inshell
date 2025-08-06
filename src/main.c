@@ -58,6 +58,7 @@ int main(int argc, char **argv, char **envp)
     char *line;
     char **new_env;
     t_command *cmd;
+    g_last_exit_status = 0;
 
     new_env = ft_env(envp);
     signal(SIGINT, ft_handle_sig);
@@ -67,7 +68,6 @@ int main(int argc, char **argv, char **envp)
         if (!line)
             ft_handle_ctrld();
         add_history(line);
-        
         cmd = parse_token(line);
         if (cmd)
         {
@@ -75,8 +75,8 @@ int main(int argc, char **argv, char **envp)
 
             if (cmd->arg_count > 0)
             {
-                if (!is_builtin(cmd->args, &new_env))
-                    execute_cmd(cmd, &new_env);
+                //if (is_builtin(cmd->args, &new_env))
+                 execute_cmd(cmd, &new_env);
             }
             free_commands(cmd);
         }

@@ -24,7 +24,9 @@
 # include <signal.h>
 # include <sys/wait.h>
 # include <unistd.h>
-// parsing
+
+extern int g_last_exit_status;
+
 typedef enum e_char_type
 {
 	CHAR_NORMAL,
