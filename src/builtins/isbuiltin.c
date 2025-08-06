@@ -58,6 +58,5 @@ int	is_builtin(char **args, char ***envp)
 	type = get_builtin_type(args[0]);
 	if (type == BUILTIN_UNKNOWN)
 		return (-1);
-	builtin_functions[type](args, envp);
-	return (1);
+	return (builtin_functions[type](args, envp));
 }
