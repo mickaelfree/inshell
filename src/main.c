@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../includes/inshell.h"
+#include <stdlib.h>
 void display_parsed_command(t_command *cmd)
 {
     if (!cmd)
@@ -58,7 +59,11 @@ int main(int argc, char **argv, char **envp)
     char *line;
     char **new_env;
     t_command *cmd;
+    int builtin_ret;
+
+
     g_last_exit_status = 0;
+    builtin_ret =0;
 
     new_env = ft_env(envp);
     signal(SIGINT, ft_handle_sig);
@@ -75,8 +80,11 @@ int main(int argc, char **argv, char **envp)
 
             if (cmd->arg_count > 0)
             {
-                //if (is_builtin(cmd->args, &new_env))
-                 execute_cmd(cmd, &new_env);
+             builtin_ret =is_builtin(is_builtin(cmd->args, &new_env);
+                if (builtin_ret== -1)
+                        execute_cmd(cmd, &new_env);
+                else
+                    g_last_exit_status = builtin_ret;
             }
             free_commands(cmd);
         }
