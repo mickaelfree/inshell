@@ -25,6 +25,7 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
+// Variable globale pour le status de sortie ($?)
 extern int g_last_exit_status;
 
 typedef enum e_char_type
@@ -51,7 +52,7 @@ typedef enum e_token_type
 	TOKEN_HEREDOC,
 	TOKEN_APPEND,
 }						t_token_type;
-///
+
 typedef enum e_builtin_type
 {
 	BUILTIN_ECHO,
@@ -91,17 +92,33 @@ typedef struct s_command
 
 typedef int				(*builtin_func)(char **args, char ***envp);
 
+// Parsing functions
 void					pre_token(char *line);
 t_pre_token				*tokenize_input(char *line);
 void					free_token_list(t_pre_token *head);
+t_command 				*parse_token(char *line);
+void					print_token(t_pre_token *token);
+void					skip_whitespace(char **line);
+t_pre_token				*identify_token(char *line);
+t_command 				*build_pipeline(t_pre_token *tokens);
+void 					free_commands(t_command *head);
 
+// Expansion functions
+char					*expand_env(char *name);
+char					*expand_variables(char *str);
+char					*expand_token(char *token, int is_quoted);
+
+// Execution functions
 void					ft_error(char *msg);
 void					ft_free(char **tab);
 void					execute(char **av, char **env);
 char					*ft_strnstr(const char *big, const char *little,
 							size_t len);
 char					*find_path(char *cmd, char **env);
+char 					*process_heredoc(char *delimiter);
+void 					execute_cmd(t_command *cmds, char ***envp);
 
+// Builtin functions
 int						builtin_echo(char **args, char ***envp);
 int						builtin_pwd(char **args, char ***envp);
 int						builtin_cd(char **args, char ***envp);
@@ -110,34 +127,25 @@ int						builtin_export(char **args, char ***envp);
 int						builtin_unset(char **args, char ***envp);
 int						builtin_exit(char **args, char ***envp);
 int						is_builtin(char **args, char ***envp);
-void					skip_whitespace(char **line);
-char					*expand_env(char *name);
 
-// INFO: header pour les utils
-
+// String utilities
 size_t					ft_strlen(const char *str);
 size_t					ft_strlcpy(char *dst, const char *src, size_t sz);
 char					*ft_strjoin(char const *s1, char const *s2);
 char					**ft_split(char const *s, char c);
 char					*ft_strdup(const char *s);
-
 char					**ft_env(char **envp);
-// INFO:
-// ft_is
+
+// Character check functions
 int						ft_isalpha(int c);
 int						ft_isdigit(int c);
 int						ft_isalnum(int c);
-// INFO:
-// utils_parsr
 
-void test_parsing();
+// Token identification helpers
+void 					test_parsing();
 t_pre_token				*add_new_token(t_pre_token **head,
 							t_pre_token **current, char *start, int len,
 							int type);
-
-t_command *parse_token(char *line);
-void					print_token(t_pre_token *token);
-void					skip_whitespace(char **line);
 int						char_type(char *c);
 int						is_whitespace(char c);
 int						is_operator(char c);
@@ -150,12 +158,9 @@ int						is_double_quote(char c);
 int						is_escape(char c);
 int						is_quote(char c);
 int						is_special(char c);
-t_pre_token				*identify_token(char *line);
-t_command *build_pipeline(t_pre_token *tokens);
-char *process_heredoc(char *delimiter);
-void execute_cmd(t_command *cmds, char ***envp);
-void free_commands(t_command *head);
 
-void	ft_handle_ctrld();
-void	ft_handle_sig(int sig);
+// Signal handlers
+void					ft_handle_ctrld();
+void					ft_handle_sig(int sig);
+
 #endif
