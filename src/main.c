@@ -11,8 +11,8 @@
 /* ************************************************************************** */
 
 #include "../includes/inshell.h"
-#include <stdlib.h>
 
+int g_last_exit_status = 0;
 void display_parsed_command(t_command *cmd)
 {
     if (!cmd)
