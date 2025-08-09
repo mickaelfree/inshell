@@ -20,7 +20,7 @@ int	builtin_env(char **args, char ***envp)
 	if (args[1])
 	{
 		printf("env: too many arguments\n");
-		return (1);
+		return (127);
 	}
 	while ((*envp)[i])
 	{

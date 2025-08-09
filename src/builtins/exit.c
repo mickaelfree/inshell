@@ -69,6 +69,7 @@ int	builtin_exit(char **args, char ***envp)
 	if (args[1] && args[2])
 	{
 		printf("exit: too many arguments\n");
+                return (1);
 	}
 	if (!args[1])
 		exit(0);
