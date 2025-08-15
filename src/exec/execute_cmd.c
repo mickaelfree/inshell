@@ -79,6 +79,8 @@ static void	handle_redirections(t_command *cmd)
 static int one_cmd(t_command *cmd, char ***envp)
 {
     pid_t pid = fork();
+    int status;
+
     if (pid == -1)
     {
         perror("fork");
@@ -92,6 +94,7 @@ static int one_cmd(t_command *cmd, char ***envp)
         exit(0);
     }
     waitpid(pid, &status, 0);
+    g_last_exit_status = WEXITSTATUS(status);
     return 0;
 }
 static int pipe_error(int (*pipes)[2], pid_t *pids, int cmd_count)
@@ -120,7 +123,7 @@ static int fork_error(int (*pipes)[2], pid_t *pids, int cmd_count, int i)
                 j++;
         }
         j = 0;
-        while (j < cmd_count - 1)
+        while (j < cmd_count - -1)
         {
                 close(pipes[j][0]);
                 close(pipes[j][1]);
@@ -139,6 +142,8 @@ void	execute_cmd(t_command *cmds, char ***envp)
 	pid_t		*pids;
 	t_command	*cur;
 	int			i;
+        int status;
+
 	cmd_count = count_pipeline(cmds);
 	if (cmd_count == 0)
 		return ;
@@ -219,12 +224,14 @@ void	execute_cmd(t_command *cmds, char ***envp)
 		i++;
 	}
 	// Wait enfants
-	i = 0;
-	while (i < cmd_count)
-	{
-		waitpid(pids[i], &status, 0);
-		i++;
-	}
+        i = 0;
+        while (i < cmd_count)
+        {
+                waitpid(pids[i], &status, 0);
+                if (i == cmd_count - 1)  // Dernière commande
+                        g_last_exit_status = WEXITSTATUS(status);
+                i++;
+        }
         free(pipes);
         free(pids);
 }
