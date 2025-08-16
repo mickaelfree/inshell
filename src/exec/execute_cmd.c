@@ -123,7 +123,7 @@ static int fork_error(int (*pipes)[2], pid_t *pids, int cmd_count, int i)
                 j++;
         }
         j = 0;
-        while (j < cmd_count - -1)
+        while (j < cmd_count - 1)
         {
                 close(pipes[j][0]);
                 close(pipes[j][1]);
