@@ -25,6 +25,9 @@ void init_command(t_command *cmd)
 
 static void add_argument(t_command *cmd, char *value)
 {
+    char *expanded_value = expand_variables(value);
+    if (!expanded_value)
+        expanded_value = ft_strdup("");
     char **new_args = malloc(sizeof(char *) * (cmd->arg_count + 2));
     if (!new_args)
         return;
@@ -35,13 +38,14 @@ static void add_argument(t_command *cmd, char *value)
         new_args[i] = cmd->args[i];
         i++;
     }
-    new_args[cmd->arg_count] = value;
+    new_args[cmd->arg_count] = expanded_value;
     new_args[cmd->arg_count + 1] = NULL;
 
     if (cmd->args)
         free(cmd->args);
     cmd->args = new_args;
     cmd->arg_count++;
+    free(value);
 }
 
 int handle_redirection(t_command *cmd, t_pre_token **token)
@@ -55,6 +59,10 @@ int handle_redirection(t_command *cmd, t_pre_token **token)
     }
 
     char *value = strndup((*token)->start, (*token)->len);
+    char *expanded_value = expand_variables(value);  // Expansion pour les redirections
+    free(value);
+    if (!expanded_value)
+        expanded_value = ft_strdup("");
 
     if (type == TOKEN_REDIR_IN)
     {
@@ -63,7 +71,7 @@ int handle_redirection(t_command *cmd, t_pre_token **token)
             printf("Warning: multiple input redirections, last wins\n");
             free(cmd->input_file);
         }
-        cmd->input_file = value;
+        cmd->input_file = expanded_value;
     }
     else if (type == TOKEN_REDIR_OUT || type == TOKEN_APPEND)
     {
@@ -72,7 +80,7 @@ int handle_redirection(t_command *cmd, t_pre_token **token)
             printf("Warning: multiple output redirections, last wins\n");
             free(cmd->output_file);
         }
-        cmd->output_file = value;
+        cmd->output_file = expanded_value;
         cmd->append_mode = (type == TOKEN_APPEND) ? 1 : 0;
     }
     else if (type == TOKEN_HEREDOC)
@@ -82,10 +90,10 @@ int handle_redirection(t_command *cmd, t_pre_token **token)
             printf("Warning: multiple heredoc, last wins\n");
             free(cmd->heredoc_delim);
         }
-        cmd->heredoc_delim = value;
+        cmd->heredoc_delim = expanded_value;
     }
     else
-        free(value);
+        free(expanded_value);
 
     return 1;
 }
