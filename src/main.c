@@ -37,7 +37,7 @@ void display_parsed_command(t_command *cmd)
 void test_parsing()
 {
     char *line = "ls -l | grep \"test file\" > output.txt >> append.txt << END";
-    t_command *cmds = parse_token(line);
+    t_command *cmds = parse_token(line,NULL);
     if (!cmds)
         return;
 
@@ -80,7 +80,7 @@ int main(int argc, char **argv, char **envp)
                 free(line);
                 continue;
         }
-        cmd = parse_token(line);
+        cmd = parse_token(line, new_env);
         if (cmd)
         {
             //display_parsed_command(cmd);

@@ -89,7 +89,7 @@ void free_commands(t_command *head)
     }
 }
 
-t_command *parse_token(char *line)
+t_command *parse_token(char *line, char **envp)
 {
     t_pre_token *tokens = identify_token(line);
     if (!tokens)
@@ -97,7 +97,7 @@ t_command *parse_token(char *line)
 
     print_token(tokens);
 
-    t_command *commands = build_pipeline(tokens);
+    t_command *commands = build_pipeline(tokens, envp);
 
     free_token_list(tokens);
 

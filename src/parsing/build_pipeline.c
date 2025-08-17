@@ -23,9 +23,9 @@ void init_command(t_command *cmd)
     cmd->next = NULL;
 }
 
-static void add_argument(t_command *cmd, char *value)
+static void add_argument(t_command *cmd, char *value,char **envp)
 {
-    char *expanded_value = expand_variables(value);
+    char *expanded_value = expand_variables(value,envp);
     if (!expanded_value)
         expanded_value = ft_strdup("");
     char **new_args = malloc(sizeof(char *) * (cmd->arg_count + 2));
@@ -48,7 +48,7 @@ static void add_argument(t_command *cmd, char *value)
     free(value);
 }
 
-int handle_redirection(t_command *cmd, t_pre_token **token)
+int handle_redirection(t_command *cmd, t_pre_token **token,char **envp)
 {
     int type = (*token)->type;
     *token = (*token)->next;
@@ -59,7 +59,7 @@ int handle_redirection(t_command *cmd, t_pre_token **token)
     }
 
     char *value = strndup((*token)->start, (*token)->len);
-    char *expanded_value = expand_variables(value);  // Expansion pour les redirections
+    char *expanded_value = expand_variables(value,envp);  // Expansion pour les redirections
     free(value);
     if (!expanded_value)
         expanded_value = ft_strdup("");
@@ -98,7 +98,7 @@ int handle_redirection(t_command *cmd, t_pre_token **token)
     return 1;
 }
 
-t_command *build_pipeline(t_pre_token *tokens)
+t_command *build_pipeline(t_pre_token *tokens, char **envp)
 {
     t_command *head = NULL;
     t_command *current = NULL;
@@ -133,7 +133,7 @@ t_command *build_pipeline(t_pre_token *tokens)
         if (token->type == TOKEN_REDIR_IN || token->type == TOKEN_REDIR_OUT ||
             token->type == TOKEN_APPEND || token->type == TOKEN_HEREDOC)
         {
-            if (!handle_redirection(current, &token))
+            if (!handle_redirection(current, &token,envp))
                 return NULL;
             token = token->next;
             continue;
@@ -142,7 +142,7 @@ t_command *build_pipeline(t_pre_token *tokens)
         if (token->type == TOKEN_WORD || token->type == TOKEN_QUOTED)
         {
             char *value = strndup(token->start, token->len);
-            add_argument(current, value);
+            add_argument(current, value,envp);
         }
 
         token = token->next;

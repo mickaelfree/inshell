@@ -96,16 +96,16 @@ typedef int				(*builtin_func)(char **args, char ***envp);
 void					pre_token(char *line);
 t_pre_token				*tokenize_input(char *line);
 void					free_token_list(t_pre_token *head);
-t_command 				*parse_token(char *line);
+t_command 				*parse_token(char *line, char **envp);
 void					print_token(t_pre_token *token);
 void					skip_whitespace(char **line);
 t_pre_token				*identify_token(char *line);
-t_command 				*build_pipeline(t_pre_token *tokens);
+t_command 				*build_pipeline(t_pre_token *tokens, char **envp);
 void 					free_commands(t_command *head);
 
 // Expansion functions
 char					*expand_env(char *name);
-char					*expand_variables(char *str);
+char					*expand_variables(char *str, char **envp);
 char					*expand_token(char *token, int is_quoted);
 
 // Execution functions
