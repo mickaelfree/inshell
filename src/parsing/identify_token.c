@@ -10,92 +10,97 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../includes/inshell.h"
-//INFO:
-//separer en fonction des etats 
-//double quote = tant que je trouve pas de nouvel " jidentifie tout comme quoted 
-//operateur separer la comm
-// 0 = none, 1 = single quote, 2 = double quote
-static char *type_token[] = {"WORD", "QUOTED", "PIPE", "REDIR_IN", "REDIR_OUT", "HEREDOC", "APPEND"};
 
-t_pre_token *identify_token(char *line)
+static char	*type_token[] = {"WORD", "QUOTED", "PIPE", "REDIR_IN", "REDIR_OUT",
+		"HEREDOC", "APPEND"};
+
+t_pre_token	*identify_token(char *line)
 {
-    t_pre_token *head = NULL;
-    t_pre_token *current = NULL;
-    char *ptr = line;
-    char *token_start;
-    int quote_state = 0;      char quote_char = 0;
+	t_pre_token	*head;
+	t_pre_token	*current;
+	char		*ptr;
+	char		*token_start;
+	int			quote_state;
+	char		quote_char;
+	int			type;
 
-    skip_whitespace(&ptr);
-    while (*ptr)
-    {
-        token_start = ptr;
-
-        if (is_quote(*ptr) && quote_state == 0)
-        {
-            quote_char = *ptr;
-            if (quote_char == '\'')
-                quote_state = 1;
-            else if (quote_char == '"')
-                quote_state = 2;
-            ptr++;
-            token_start = ptr;
-            while (*ptr && *ptr != quote_char)
-                ptr++;
-            if (*ptr == quote_char)
-            {
-                add_new_token(&head, &current, token_start, ptr - token_start, TOKEN_QUOTED);
-                ptr++;
-                quote_state = 0;
-            }
-            else
-            {
-                printf("Error: unclosed quote\n");
-                free_token_list(head);
-                return (NULL);
-            }
-            skip_whitespace(&ptr);
-            continue;
-        }
-
-        if (is_pipe(*ptr))
-        {
-            add_new_token(&head, &current, ptr, 1, TOKEN_PIPE);
-            ptr++;
-        }
-        else if (is_heredoc(ptr))
-        {
-            add_new_token(&head, &current, ptr, 2, TOKEN_HEREDOC);
-            ptr += 2;
-        }
-        else if (is_append(ptr))
-        {
-            add_new_token(&head, &current, ptr, 2, TOKEN_APPEND);
-            ptr += 2;
-        }
-        else if (is_redir(*ptr))
-        {
-            int type = (*ptr == '<') ? TOKEN_REDIR_IN : TOKEN_REDIR_OUT;
-            add_new_token(&head, &current, ptr, 1, type);
-            ptr++;
-        }
-        else
-        {
-            while (*ptr && !is_whitespace(*ptr) && !is_operator(*ptr) && !is_quote(*ptr))
-                ptr++;
-            add_new_token(&head, &current, token_start, ptr - token_start, TOKEN_WORD);
-        }
-        skip_whitespace(&ptr);
-    }
-
-    return (head);
+	head = NULL;
+	current = NULL;
+	ptr = line;
+	quote_state = 0;
+	quote_char = 0;
+	skip_whitespace(&ptr);
+	while (*ptr)
+	{
+		token_start = ptr;
+		if (is_quote(*ptr) && quote_state == 0)
+		{
+			quote_char = *ptr;
+			if (quote_char == '\'')
+				quote_state = 1;
+			else if (quote_char == '"')
+				quote_state = 2;
+			ptr++;
+			token_start = ptr;
+			while (*ptr && *ptr != quote_char)
+				ptr++;
+			if (*ptr == quote_char)
+			{
+				add_new_token(&head, &current, token_start, ptr - token_start,
+					TOKEN_QUOTED);
+				ptr++;
+				quote_state = 0;
+			}
+			else
+			{
+				printf("Error: unclosed quote\n");
+				free_token_list(head);
+				return (NULL);
+			}
+			skip_whitespace(&ptr);
+			continue ;
+		}
+		if (is_pipe(*ptr))
+		{
+			add_new_token(&head, &current, ptr, 1, TOKEN_PIPE);
+			ptr++;
+		}
+		else if (is_heredoc(ptr))
+		{
+			add_new_token(&head, &current, ptr, 2, TOKEN_HEREDOC);
+			ptr += 2;
+		}
+		else if (is_append(ptr))
+		{
+			add_new_token(&head, &current, ptr, 2, TOKEN_APPEND);
+			ptr += 2;
+		}
+		else if (is_redir(*ptr))
+		{
+			type = (*ptr == '<') ? TOKEN_REDIR_IN : TOKEN_REDIR_OUT;
+			add_new_token(&head, &current, ptr, 1, type);
+			ptr++;
+		}
+		else
+		{
+			while (*ptr && !is_whitespace(*ptr) && !is_operator(*ptr)
+				&& !is_quote(*ptr))
+				ptr++;
+			add_new_token(&head, &current, token_start, ptr - token_start,
+				TOKEN_WORD);
+		}
+		skip_whitespace(&ptr);
+	}
+	return (head);
 }
 
-void print_token(t_pre_token *token)
+void	print_token(t_pre_token *token)
 {
-    printf("print_token called from: %p\n", __builtin_return_address(0));
-    while (token)
-    {
-        printf("Token: %.*s (type: %s)\n", token->len, token->start, type_token[token->type]);
-        token = token->next;
-    }
+	printf("print_token called from: %p\n", __builtin_return_address(0));
+	while (token)
+	{
+		printf("Token: %.*s (type: %s)\n", token->len, token->start,
+			type_token[token->type]);
+		token = token->next;
+	}
 }

@@ -12,11 +12,11 @@
 
 #include "../../includes/inshell.h"
 
-void	ft_handle_ctrld()
+void	ft_handle_ctrld(void)
 {
 	printf("exit\n");
 	// free function that doesn't already exist
-	exit (0);
+	exit(0);
 }
 void	ft_handle_sig(int sig)
 {
@@ -30,6 +30,6 @@ void	ft_handle_sig(int sig)
 	else
 	{
 		printf("kill the child\n");
-		//need to keep pid somewhere in the struct
+		// need to keep pid somewhere in the struct
 	}
 }
