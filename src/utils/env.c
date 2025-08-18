@@ -6,7 +6,7 @@
 /*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 14:19:09 by mickmart          #+#    #+#             */
-/*   Updated: 2025/06/11 14:19:10 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/08/18 18:53:28 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	**ft_env(char **envp)
 	count_char = 0;
 	while (envp[count_pointer])
 	{
-		count_char += strlen(envp[count_pointer]) + 1;
+		count_char += ft_strlen(envp[count_pointer]) + 1;
 		count_pointer++;
 	}
 	total = (sizeof(char *) * (count_pointer + 1)) + (sizeof(char)
@@ -38,7 +38,7 @@ char	**ft_env(char **envp)
 	while (i < count_pointer)
 	{
 		new_env[i] = pool_string;
-		total = strlen(envp[i]) + 1;
+		total = ft_strlen(envp[i]) + 1;
 		memcpy(pool_string, envp[i], total);
 		i++;
 		pool_string += total;
