@@ -11,7 +11,19 @@
 /* ************************************************************************** */
 
 #include "../../includes/inshell.h"
-
+static char *get_env_value(char *name, char **envp)
+{
+    int i = 0;
+    int name_len = strlen(name);
+    
+    while (envp[i])
+    {
+        if (strncmp(envp[i], name, name_len) == 0 && envp[i][name_len] == '=')
+            return (envp[i] + name_len + 1);
+        i++;
+    }
+    return NULL;
+}
 char	*ft_parse_name(char *name)
 {
 	char	*rname;
@@ -37,7 +49,7 @@ char	*expand_env(char *name)
 //	printf("value = %s\n", value);
 	return (value);
 }
-char *expand_variables(char *str)
+char *expand_variables(char *str,char **envp)
 {
     if (!str)
         return NULL;
@@ -68,7 +80,7 @@ char *expand_variables(char *str)
                     i++;
                 
                 char *var_name = strndup(str + start, i + 1 - start);
-                char *value = getenv(var_name);
+                char *value = get_env_value(var_name, envp);
                 if (value)
                 {
                     strcpy(result + j, value);
