@@ -65,6 +65,12 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c Makefile ./includes/inshell.h
 run: all
 	./$(NAME)
 
+# Test target
+test: $(NAME)
+	$(CC) -o test_expand tests/test_expand_variables.c $(filter-out src/main.c, $(SRCS)) $(CFLAGS) -lreadline
+	./test_expand
+	rm -f test_expand
+
 gdb:all
 	gdb ./$(NAME) -ex "break main"
 clean:
@@ -77,5 +83,5 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re test
 

@@ -6,7 +6,7 @@
 /*   By: dedme <dedme@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 22:12:48 by mickmart          #+#    #+#             */
-/*   Updated: 2025/08/18 16:24:05 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/08/18 18:34:19 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ int						builtin_exit(char **args, char ***envp);
 int						is_builtin(char **args, char ***envp);
 
 // String utilities
+int	ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t					ft_strlen(const char *str);
 size_t					ft_strlcpy(char *dst, const char *src, size_t sz);
 char					*ft_strjoin(char const *s1, char const *s2);
