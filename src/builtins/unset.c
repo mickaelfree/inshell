@@ -6,29 +6,28 @@
 /*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:36:20 by mickmart          #+#    #+#             */
-/*   Updated: 2025/08/04 18:09:30 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/08/18 16:20:58 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-// TODO::
 #include "../../includes/inshell.h"
 
-static int is_valid_identifier(char *name)
+static int	is_valid_identifier(char *name)
 {
-    if (!name || !*name || (!ft_isalpha(*name) && *name != '_'))
-        return (0);
-    name++;
-    while (*name)
-    {
-        if (!ft_isalnum(*name) && *name != '_')
-            return (0);
-        name++;
-    }
-    return (1);
+	if (!name || !*name || (!ft_isalpha(*name) && *name != '_'))
+		return (0);
+	name++;
+	while (*name)
+	{
+		if (!ft_isalnum(*name) && *name != '_')
+			return (0);
+		name++;
+	}
+	return (1);
 }
 
-static void delete_var(char ***envp, char *arg, int i)
+static void	delete_var(char ***envp, char *arg, int i)
 {
-	size_t len;
+	size_t	len;
 
 	len = strlen(arg);
 	if (strncmp(*envp[i], arg, len) == 0 && *envp[i][len] == '=')
@@ -42,10 +41,10 @@ static void delete_var(char ***envp, char *arg, int i)
 	}
 }
 
-int builtin_unset(char **args, char ***envp)
+int	builtin_unset(char **args, char ***envp)
 {
-	int ret;
-	int i;
+	int	ret;
+	int	i;
 
 	ret = 0;
 	if (!args[1])
@@ -55,7 +54,7 @@ int builtin_unset(char **args, char ***envp)
 	{
 		if (!is_valid_identifier(*args))
 		{
-                        printf("unset: `%s': not a valid identifier\n", *args);
+			printf("unset: `%s': not a valid identifier\n", *args);
 			ret = 1;
 		}
 		else

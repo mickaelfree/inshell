@@ -6,33 +6,37 @@
 /*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:33:23 by mickmart          #+#    #+#             */
-/*   Updated: 2025/08/04 18:09:44 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/08/18 16:22:02 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../includes/inshell.h"
 
 static char	*get_target_directory(char **args, int *print_pwd)
 {
+	char	*home;
+	char	*old;
+
 	*print_pwd = 0;
-	if (args[1] && args[2]) 
-        {
+	if (args[1] && args[2])
+	{
 		printf("cd: too many arguments");
 		return (NULL);
 	}
-	if (!args[1]) 
-        {
-		char *home = getenv("HOME");
-		if (!home || !*home) 
-                {
+	if (!args[1])
+	{
+		home = getenv("HOME");
+		if (!home || !*home)
+		{
 			printf("cd: HOME not set");
 			return (NULL);
 		}
 		return (home);
 	}
-	if (!strcmp(args[1], "-")) 
-        {
-		char *old = getenv("OLDPWD");
-		if (!old || !*old) {
+	if (!strcmp(args[1], "-"))
+	{
+		old = getenv("OLDPWD");
+		if (!old || !*old)
+		{
 			printf("cd: OLDPWD not set");
 			return (NULL);
 		}
@@ -44,21 +48,24 @@ static char	*get_target_directory(char **args, int *print_pwd)
 
 static int	update_directory(char *target_dir, int print_pwd)
 {
-	char	*oldpwd = getcwd(NULL, 0);
-	if (!oldpwd) 
-        {
+	char	*oldpwd;
+	char	*pwd;
+
+	oldpwd = getcwd(NULL, 0);
+	if (!oldpwd)
+	{
 		perror("cd");
 		return (EXIT_FAILURE);
 	}
 	if (chdir(target_dir) == -1)
-        {
+	{
 		perror("cd");
 		free(oldpwd);
 		return (EXIT_FAILURE);
 	}
-	char	*pwd = getcwd(NULL, 0);
-	if (!pwd) 
-        {
+	pwd = getcwd(NULL, 0);
+	if (!pwd)
+	{
 		perror("cd");
 		free(oldpwd);
 		chdir(oldpwd);
@@ -75,12 +82,12 @@ static int	update_directory(char *target_dir, int print_pwd)
 }
 int	builtin_cd(char **args, char ***envp)
 {
-        int print_pwd;
+	int		print_pwd;
 	char	*target_dir;
 
 	(void)envp;
-	target_dir = get_target_directory(args,&print_pwd);
-        if (!target_dir)
+	target_dir = get_target_directory(args, &print_pwd);
+	if (!target_dir)
 		return (EXIT_FAILURE);
 	return (update_directory(target_dir, print_pwd));
 }

@@ -6,7 +6,7 @@
 /*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 19:21:42 by mickmart          #+#    #+#             */
-/*   Updated: 2025/08/04 18:06:45 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/08/18 16:21:39 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static long	ft_atol(char *str)
 }
 int	builtin_exit(char **args, char ***envp)
 {
-        (void)envp;
+	(void)envp;
 	if (args[1] && !is_numeric(args[1]))
 	{
 		printf("exit: %s: numeric argument required\n", args[1]);
@@ -69,7 +69,7 @@ int	builtin_exit(char **args, char ***envp)
 	if (args[1] && args[2])
 	{
 		printf("exit: too many arguments\n");
-                return (1);
+		return (1);
 	}
 	if (!args[1])
 		exit(0);
