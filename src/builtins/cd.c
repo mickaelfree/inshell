@@ -6,12 +6,12 @@
 /*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:33:23 by mickmart          #+#    #+#             */
-/*   Updated: 2025/08/18 16:22:02 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/08/19 17:51:59 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../includes/inshell.h"
 
-static char	*get_target_directory(char **args, int *print_pwd)
+static char	*get_target_directory(char **args, int *print_pwd, char **envp)
 {
 	char	*home;
 	char	*old;
@@ -19,25 +19,25 @@ static char	*get_target_directory(char **args, int *print_pwd)
 	*print_pwd = 0;
 	if (args[1] && args[2])
 	{
-		printf("cd: too many arguments");
+		printf("cd: too many arguments\n");
 		return (NULL);
 	}
 	if (!args[1])
 	{
-		home = getenv("HOME");
+		home = get_env_value("HOME", envp);
 		if (!home || !*home)
 		{
-			printf("cd: HOME not set");
+			printf("cd: HOME not set\n");
 			return (NULL);
 		}
 		return (home);
 	}
 	if (!strcmp(args[1], "-"))
 	{
-		old = getenv("OLDPWD");
+		old = get_env_value("OLDPWD", envp);
 		if (!old || !*old)
 		{
-			printf("cd: OLDPWD not set");
+			printf("cd: OLDPWD not set\n");
 			return (NULL);
 		}
 		*print_pwd = 1;
@@ -46,10 +46,12 @@ static char	*get_target_directory(char **args, int *print_pwd)
 	return (args[1]);
 }
 
-static int	update_directory(char *target_dir, int print_pwd)
+static int	update_directory(char *target_dir, int print_pwd, char ***envp)
 {
 	char	*oldpwd;
 	char	*pwd;
+	char	*oldpwd_var;
+	char	*pwd_var;
 
 	oldpwd = getcwd(NULL, 0);
 	if (!oldpwd)
@@ -72,12 +74,24 @@ static int	update_directory(char *target_dir, int print_pwd)
 		free(oldpwd);
 		return (EXIT_FAILURE);
 	}
-	setenv("OLDPWD", oldpwd, 1);
-	setenv("PWD", pwd, 1);
+	oldpwd_var = ft_strjoin("OLDPWD=", oldpwd);
+	pwd_var = ft_strjoin("PWD=", pwd);
+	if (!oldpwd_var || !pwd_var)
+	{
+		free(oldpwd);
+		free(pwd);
+		free(oldpwd_var);
+		free(pwd_var);
+		return (EXIT_FAILURE);
+	}
+	update_env_var(envp, oldpwd_var);
+	update_env_var(envp, pwd_var);
 	if (print_pwd)
 		printf("%s\n", pwd);
 	free(oldpwd);
 	free(pwd);
+	free(oldpwd_var);
+	free(pwd_var);
 	return (EXIT_SUCCESS);
 }
 int	builtin_cd(char **args, char ***envp)
@@ -85,9 +99,8 @@ int	builtin_cd(char **args, char ***envp)
 	int		print_pwd;
 	char	*target_dir;
 
-	(void)envp;
-	target_dir = get_target_directory(args, &print_pwd);
+	target_dir = get_target_directory(args, &print_pwd, *envp);
 	if (!target_dir)
 		return (EXIT_FAILURE);
-	return (update_directory(target_dir, print_pwd));
+	return (update_directory(target_dir, print_pwd, envp));
 }

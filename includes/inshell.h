@@ -102,7 +102,8 @@ void					skip_whitespace(char **line);
 t_pre_token				*identify_token(char *line);
 t_command				*build_pipeline(t_pre_token *tokens, char **envp);
 void					free_commands(t_command *head);
-
+char					*get_env_value(char *name, char **envp);
+int	update_env_var(char ***envp_ptr, char *var);
 // Expansion functions
 char					*expand_env(char *name);
 char					*expand_variables(char *str, char **envp);
@@ -129,12 +130,13 @@ int						builtin_exit(char **args, char ***envp);
 int						is_builtin(char **args, char ***envp);
 
 // String utilities
-int	ft_strncmp(const char *s1, const char *s2, size_t n);
+int						ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t					ft_strlen(const char *str);
 size_t					ft_strlcpy(char *dst, const char *src, size_t sz);
 char					*ft_strjoin(char const *s1, char const *s2);
 char					**ft_split(char const *s, char c);
 char					*ft_strdup(const char *s);
+char					*ft_strcpy(char *dst, const char *src);
 char					**ft_env(char **envp);
 
 // Character check functions

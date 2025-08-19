@@ -6,7 +6,7 @@
 /*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:36:20 by mickmart          #+#    #+#             */
-/*   Updated: 2025/08/18 16:20:58 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/08/19 18:05:25 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../includes/inshell.h"
@@ -25,26 +25,49 @@ static int	is_valid_identifier(char *name)
 	return (1);
 }
 
-static void	delete_var(char ***envp, char *arg, int i)
+static int	remove_env_var(char ***envp_ptr, char *name)
 {
-	size_t	len;
+	char	**envp = *envp_ptr;
+	char	**new_env;
+	int		len = 0;
+	int		i = 0;
+	int		j = 0;
+	size_t	name_len = ft_strlen(name);
 
-	len = strlen(arg);
-	if (strncmp(*envp[i], arg, len) == 0 && *envp[i][len] == '=')
+	// Compter les variables
+	while (envp[len])
+		len++;
+
+	new_env = malloc((len + 1) * sizeof(char *));
+	if (!new_env)
+		return (EXIT_FAILURE);
+
+	// Copier toutes les variables sauf celle à supprimer
+	while (envp[i])
 	{
-		free((*envp)[i]);
-		while (*envp[i])
+		if (!(ft_strncmp(envp[i], name, name_len) == 0 && envp[i][name_len] == '='))
 		{
-			(*envp)[i] = (*envp)[i + 1];
-			i++;
+			new_env[j] = ft_strdup(envp[i]);
+			if (!new_env[j])
+			{
+				while (--j >= 0)
+					free(new_env[j]);
+				free(new_env);
+				return (EXIT_FAILURE);
+			}
+			j++;
 		}
+		i++;
 	}
+	new_env[j] = NULL;
+	free(*envp_ptr);
+	*envp_ptr = new_env;
+	return (EXIT_SUCCESS);
 }
 
 int	builtin_unset(char **args, char ***envp)
 {
 	int	ret;
-	int	i;
 
 	ret = 0;
 	if (!args[1])
@@ -59,14 +82,7 @@ int	builtin_unset(char **args, char ***envp)
 		}
 		else
 		{
-			i = 0;
-			while (*envp[i])
-			{
-				delete_var(envp, *args, i);
-				if (!(*envp)[i])
-					break ;
-				i++;
-			}
+			remove_env_var(envp, *args);
 		}
 		args++;
 	}

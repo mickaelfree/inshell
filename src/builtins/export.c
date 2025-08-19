@@ -6,7 +6,7 @@
 /*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 14:01:33 by mickmart          #+#    #+#             */
-/*   Updated: 2025/08/18 16:21:31 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/08/19 17:59:13 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../includes/inshell.h"
@@ -55,7 +55,7 @@ static int	tab_len(char **tab)
 	return (i);
 }
 
-static int	update_env_var(char ***envp_ptr, char *var)
+int	update_env_var(char ***envp_ptr, char *var)
 {
 	char	**envp;
 	char	*key;
@@ -67,25 +67,53 @@ static int	update_env_var(char ***envp_ptr, char *var)
 
 	envp = *envp_ptr;
 	key = get_key(var);
-	i = 0;
 	if (!key)
 		return (EXIT_FAILURE);
 	key_len = ft_strlen(key);
+	
+	// Chercher si la variable existe déjà
+	i = 0;
 	while (envp[i])
 	{
 		if (!strncmp(envp[i], key, key_len) && envp[i][key_len] == '=')
 		{
-			free(envp[i]);
-			envp[i] = ft_strdup(var);
-			free(key);
-			if (!envp[i])
+			// Variable existe, remplacer tout l'environnement
+			len = tab_len(envp);
+			new_env = malloc((len + 1) * sizeof(char *));
+			if (!new_env)
+			{
+				free(key);
 				return (EXIT_FAILURE);
+			}
+			j = 0;
+			while (j < len)
+			{
+				if (j == i)
+					new_env[j] = ft_strdup(var);
+				else
+					new_env[j] = ft_strdup(envp[j]);
+				if (!new_env[j])
+				{
+					while (--j >= 0)
+						free(new_env[j]);
+					free(new_env);
+					free(key);
+					return (EXIT_FAILURE);
+				}
+				j++;
+			}
+			new_env[len] = NULL;
+			free(*envp_ptr);  // Libérer l'ancien bloc entier
+			*envp_ptr = new_env;
+			free(key);
 			return (EXIT_SUCCESS);
 		}
 		i++;
 	}
+	
+	// Variable n'existe pas, l'ajouter
 	len = tab_len(envp);
-	new_env = calloc(len + 2, sizeof(char *));
+	new_env = malloc((len + 2) * sizeof(char *));
 	if (!new_env)
 	{
 		free(key);
@@ -94,18 +122,29 @@ static int	update_env_var(char ***envp_ptr, char *var)
 	j = 0;
 	while (j < len)
 	{
-		new_env[j] = envp[j];
+		new_env[j] = ft_strdup(envp[j]);
+		if (!new_env[j])
+		{
+			while (--j >= 0)
+				free(new_env[j]);
+			free(new_env);
+			free(key);
+			return (EXIT_FAILURE);
+		}
 		j++;
 	}
 	new_env[len] = ft_strdup(var);
 	if (!new_env[len])
 	{
+		while (--j >= 0)
+			free(new_env[j]);
 		free(new_env);
 		free(key);
 		return (EXIT_FAILURE);
 	}
 	new_env[len + 1] = NULL;
-	free(envp);
+	
+	free(*envp_ptr);  // Libérer l'ancien bloc entier
 	*envp_ptr = new_env;
 	free(key);
 	return (EXIT_SUCCESS);

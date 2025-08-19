@@ -6,13 +6,13 @@
 /*   By: dedme <dedme@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 22:25:08 by dedme             #+#    #+#             */
-/*   Updated: 2025/08/18 18:39:14 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/08/19 17:46:24 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/inshell.h"
 
-static char	*get_env_value(char *name, char **envp)
+char	*get_env_value(char *name, char **envp)
 {
 	int	i;
 	int	name_len;
@@ -81,10 +81,12 @@ char	*ft_parse_name(char *name)
 
 	j = 0;
 	i = 1;
-	rname = malloc(sizeof(char) * ft_strlen(name) + 1);
+	rname = malloc(sizeof(char) * (ft_strlen(name)));
+	if (!rname)
+		return (NULL);
 	while (name[i])
 		rname[j++] = name[i++];
-	//	printf("name = %s\n",rname);
+	rname[j] = '\0';
 	return (rname);
 }
 
@@ -100,7 +102,8 @@ char	*expand_env(char *name)
 }
 char	*expand_variables(char *str, char **envp)
 {
-	int		i = 0, j;
+        int i;
+        int j;
 	char *status_str;
 	int		start;
 	char	*var_name;
