@@ -1,4 +1,4 @@
 *.o
 obj/
 inshell
-test/
+tests/
