@@ -12,16 +12,6 @@
 
 #include "../../includes/inshell.h"
 
-/*on cree les processus enfants
-pour le premier
-parent
-[] while(n)    [stdin] ||=fork()-> cmd ||          || pipe
-||=fork()-> cmd
-||          || pipe
-||=fork()-> cmd
-||          || pipe
-			[stdout]
-*/
 int			status = 0;
 
 static int	count_pipeline(t_command *cmds)
@@ -209,8 +199,13 @@ void	execute_cmd(t_command *cmds, char ***envp)
 			// Gérer redirs (overwrites pipes si présent)
 			handle_redirections(cur);
 			// Exécuter
-			if (cur->arg_count > 0 && is_builtin(cur->args, envp) == -1)
+			if (cur->arg_count > 0 )
+                        {
+                                int builtin_status = is_builtin(cur->args, envp);
+                                if (builtin_status != -1)
+                                        exit(builtin_status);
 				execute(cur->args, *envp); // Ton execute pour externe
+                        }
 			exit(0);                       // Si rien
 		}
 		cur = cur->next;

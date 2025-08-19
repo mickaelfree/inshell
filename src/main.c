@@ -81,17 +81,19 @@ int	main(int argc, char **argv, char **envp)
 		if (cmd)
 		{
 			// display_parsed_command(cmd);
-			if (cmd->arg_count > 0)
+			if (cmd->next == NULL && cmd->args && cmd->args[0])
 			{
 				builtin_ret = is_builtin(cmd->args, &new_env);
-				if (builtin_ret == -1)
-					execute_cmd(cmd, &new_env);
-				else
+				if (builtin_ret != -1)
 					g_last_exit_status = builtin_ret;
+				else
+					execute_cmd(cmd, &new_env);
 			}
-			free_commands(cmd);
+			else
+				execute_cmd(cmd, &new_env);
 		}
-		free(line);
+		free_commands(cmd);
+                free(line);
 	}
 	if (new_env)
 		free(new_env);
