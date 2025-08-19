@@ -34,6 +34,7 @@ static void	check_file_permissions(char *path, char **cmd)
 		ft_free(cmd);
 		free(path);
 		write(STDERR_FILENO, "permission denied\n", 18);
+                g_last_exit_status = 126;
 		exit(126);
 	}
 }

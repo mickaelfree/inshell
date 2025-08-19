@@ -26,16 +26,23 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	return ((unsigned char)*s1 - (unsigned char)*s2);
 }
 
-void	ft_error(char *msg)
+void    ft_error(char *msg)
 {
-	write(STDERR_FILENO, msg, ft_strlen(msg));
-	write(STDERR_FILENO, "\n", 1);
-	if (strncmp(msg, "no such file or directory",
-			strlen("no such file or directory")) == 0)
-		exit(127);
-	if (strncmp(msg, "permission denied", strlen("permission denied")) == 0)
-		exit(126);
-	exit(EXIT_FAILURE);
+    write(STDERR_FILENO, msg, ft_strlen(msg));
+    write(STDERR_FILENO, "\n", 1);
+
+    if (strstr(msg, "no such file or directory"))
+    {
+        g_last_exit_status = 127;
+        exit(127);
+    }
+    if (strstr(msg, "permission denied"))
+    {
+        g_last_exit_status = 126;
+        exit(126);
+    }
+    g_last_exit_status = 1;
+    exit(1);
 }
 
 void	ft_free(char **tab)
