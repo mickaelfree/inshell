@@ -125,7 +125,7 @@ char	*expand_variables(char *str, char **envp)
                                 status_str = ft_itoa(g_last_exit_status);
                                 if (status_str)
                                 {
-                                        ft_strlcpy(result + j, status_str, ft_strlen(status_str) + 1);
+                                        ft_strcpy(result + j, status_str );
                                         j += ft_strlen(status_str);
                                         free(status_str);
                                 }
@@ -143,7 +143,7 @@ char	*expand_variables(char *str, char **envp)
 				value = get_env_value(var_name, envp);
 				if (value)
 				{
-					ft_strlcpy(result + j, value, sizeof(result+j));
+					ft_strcpy(result + j, value);
 					j += strlen(value);
 				}
 				free(var_name);
