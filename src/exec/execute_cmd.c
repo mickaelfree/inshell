@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../../includes/inshell.h"
+#include <unistd.h>
 
 int			status = 0;
 
@@ -134,6 +135,8 @@ void	execute_cmd(t_command *cmds, char ***envp)
 	t_command	*cur;
 	int			i;
 	int			status;
+        void (*old_int)(int);
+        void (*old_quit)(int);
 
 	int(*pipes)[2];
 	cmd_count = count_pipeline(cmds);
@@ -153,12 +156,17 @@ void	execute_cmd(t_command *cmds, char ***envp)
 		return ;
 	}
 	i = 0;
+        old_int = signal(SIGINT, SIG_DFL);
+        old_quit = signal(SIGQUIT, SIG_DFL);
 	// Créer pipes
 	while (i < cmd_count - 1)
 	{
 		if (pipe(pipes[i]) == -1)
 		{
 			pipe_error(pipes, pids, cmd_count);
+                        g_last_exit_status = 1;
+                        signal(SIGINT, old_int);
+                        signal(SIGQUIT, old_quit);
 			return ;
 		}
 		i++;
@@ -175,8 +183,8 @@ void	execute_cmd(t_command *cmds, char ***envp)
 		}
 		else if (pids[i] == 0) // Child
 		{
-                        signal(SIGINT, SIG_DFL);
-                        signal(SIGQUIT, SIG_DFL);
+                        signal(SIGINT, old_int);
+                        signal(SIGQUIT, old_quit);
 			// Gérer pipes
 			if (i > 0) // Input from previous pipe
 			{
@@ -232,8 +240,8 @@ void	execute_cmd(t_command *cmds, char ***envp)
                         {
                                 int sig = WTERMSIG(status);
                                         g_last_exit_status = 128 + sig;
-                                if(sig == SIGINT)
-                                        write(STDOUT_FILENO, "Quit (core dumped)\n", 19);
+                                if(sig == SIGQUIT)
+                                        write(STDERR_FILENO, "Quit (core dumped)\n", 19);
                         }
                         else if (WIFEXITED(status))
                                 g_last_exit_status = WEXITSTATUS(status);
