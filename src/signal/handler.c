@@ -20,16 +20,17 @@ void	ft_handle_ctrld(void)
 }
 void	ft_handle_sig(int sig)
 {
-	if (isatty(STDIN_FILENO) == 1)
-	{
-		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
-	else
-	{
-		printf("kill the child\n");
-		// need to keep pid somewhere in the struct
-	}
+        if(sig == SIGINT)
+        {
+                if (isatty(STDIN_FILENO))
+                {        
+                write(STDOUT_FILENO, "\n", 1);
+                rl_replace_line("", 0);
+                rl_on_new_line();
+                rl_redisplay();
+                }
+                g_last_exit_status = 130;
+        }
+
 }
+

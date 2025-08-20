@@ -175,6 +175,8 @@ void	execute_cmd(t_command *cmds, char ***envp)
 		}
 		else if (pids[i] == 0) // Child
 		{
+                        signal(SIGINT, SIG_DFL);
+                        signal(SIGQUIT, SIG_DFL);
 			// Gérer pipes
 			if (i > 0) // Input from previous pipe
 			{
@@ -224,8 +226,20 @@ void	execute_cmd(t_command *cmds, char ***envp)
 	while (i < cmd_count)
 	{
 		waitpid(pids[i], &status, 0);
-		if (i == cmd_count - 1) // Dernière commande
-			g_last_exit_status = WEXITSTATUS(status);
+                if(i == cmd_count - 1)
+                {
+                        if(WIFSIGNALED(status))
+                        {
+                                int sig = WTERMSIG(status);
+                                        g_last_exit_status = 128 + sig;
+                                if(sig == SIGINT)
+                                        write(STDOUT_FILENO, "Quit (core dumped)\n", 19);
+                        }
+                        else if (WIFEXITED(status))
+                                g_last_exit_status = WEXITSTATUS(status);
+                        else
+                                g_last_exit_status = 1;
+                }
 		i++;
 	}
 	free(pipes);
