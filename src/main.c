@@ -6,7 +6,7 @@
 /*   By: dedme <dedme@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 21:30:44 by mickmart          #+#    #+#             */
-/*   Updated: 2025/08/23 14:28:01 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/08/23 15:14:42 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,7 @@ int	main(int argc, char **argv, char **envp)
 	char		*line;
 	char		**new_env;
 	t_command	*cmd;
-	int			builtin_ret;
 
-	builtin_ret = 0;
 	new_env = ft_env(envp);
 	signal(SIGINT, ft_handle_sig);
 	signal(SIGQUIT, SIG_IGN);
@@ -79,19 +77,7 @@ int	main(int argc, char **argv, char **envp)
 		}
 		cmd = parse_token(line, new_env);
 		if (cmd)
-		{
-			// display_parsed_command(cmd);
-			if (cmd->next == NULL && cmd->args && cmd->args[0])
-			{
-				builtin_ret = is_builtin(cmd->args, &new_env);
-				if (builtin_ret != -1)
-					g_last_exit_status = builtin_ret;
-				else
-					execute_cmd(cmd, &new_env);
-			}
-			else
-				execute_cmd(cmd, &new_env);
-		}
+			execute_cmd(cmd, &new_env);
 		free_commands(cmd);
                 free(line);
 	}
