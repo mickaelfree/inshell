@@ -6,7 +6,7 @@
 /*   By: dedme <dedme@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 21:30:44 by mickmart          #+#    #+#             */
-/*   Updated: 2025/08/05 00:13:22 by dedme            ###   ########.fr       */
+/*   Updated: 2025/08/23 14:28:01 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	main(int argc, char **argv, char **envp)
                 free(line);
 	}
 	if (new_env)
-		free(new_env);
+		free_env(new_env);
 	return (0);
 
 }

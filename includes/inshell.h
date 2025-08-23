@@ -6,7 +6,7 @@
 /*   By: dedme <dedme@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 22:12:48 by mickmart          #+#    #+#             */
-/*   Updated: 2025/08/18 18:34:19 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/08/23 14:26:47 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ t_pre_token				*identify_token(char *line);
 t_command				*build_pipeline(t_pre_token *tokens, char **envp);
 void					free_commands(t_command *head);
 char					*get_env_value(char *name, char **envp);
-int	update_env_var(char ***envp_ptr, char *var);
+int						update_env_var(char ***envp_ptr, char *var);
 // Expansion functions
 char					*expand_env(char *name);
 char					*expand_variables(char *str, char **envp);
@@ -138,6 +138,7 @@ char					**ft_split(char const *s, char c);
 char					*ft_strdup(const char *s);
 char					*ft_strcpy(char *dst, const char *src);
 char					**ft_env(char **envp);
+void	        		        free_env(char **env); // Ajouter cette déclaration
 
 // Character check functions
 int						ft_isalpha(int c);
