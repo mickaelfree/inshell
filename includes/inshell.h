@@ -6,7 +6,7 @@
 /*   By: dedme <dedme@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 22:12:48 by mickmart          #+#    #+#             */
-/*   Updated: 2025/08/23 15:46:24 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/08/23 16:27:02 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,10 @@ typedef struct s_command
 
 typedef struct s_pipeline
 {
-    pid_t   *pids;          
-    int     (*pipes)[2];    
-    int     cmd_count;      
-    int     pipe_count;     
+    pid_t   *pids;
+    int     (*pipes)[2];
+    int     cmd_count;
+    int     pipe_count;
 } t_pipeline;
 
 
