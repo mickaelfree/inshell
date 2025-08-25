@@ -137,6 +137,7 @@ int						builtin_export(char **args, char ***envp);
 int						builtin_unset(char **args, char ***envp);
 int						builtin_exit(char **args, char ***envp);
 int						is_builtin(char **args, char ***envp);
+int	execute_builtin(char **args, char ***envp);
 
 // String utilities
 int						ft_strncmp(const char *s1, const char *s2, size_t n);

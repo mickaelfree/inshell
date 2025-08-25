@@ -52,6 +52,18 @@ static t_builtin_type	get_builtin_type(const char *cmd)
 int	is_builtin(char **args, char ***envp)
 {
 	t_builtin_type	type;
+
+	if (!args || !args[0])
+		return (-1);
+	type = get_builtin_type(args[0]);
+        if (type == BUILTIN_UNKNOWN)
+                type = -1;
+	return ((int)type);
+}
+
+int	execute_builtin(char **args, char ***envp)
+{
+	t_builtin_type	type;
 	builtin_func	builtin_functions[7];
 
 	init_builtin(builtin_functions);
