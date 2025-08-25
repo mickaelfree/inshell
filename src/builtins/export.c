@@ -6,7 +6,7 @@
 /*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 14:01:33 by mickmart          #+#    #+#             */
-/*   Updated: 2025/08/19 17:59:13 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/08/23 14:57:07 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../includes/inshell.h"
@@ -103,7 +103,7 @@ int	update_env_var(char ***envp_ptr, char *var)
 				j++;
 			}
 			new_env[len] = NULL;
-			free(*envp_ptr);  // Libérer l'ancien bloc entier
+			free_env(*envp_ptr);  // Libérer l'ancien bloc entier
 			*envp_ptr = new_env;
 			free(key);
 			return (EXIT_SUCCESS);
@@ -160,8 +160,11 @@ static int	process_export_args(char **args, char ***envp)
 			args++;
 			continue ;
 		}
-		if (update_env_var(envp, *args) != EXIT_SUCCESS)
-			return (EXIT_FAILURE);
+		if (strchr(*args, '='))
+		{
+			if (update_env_var(envp, *args) != EXIT_SUCCESS)
+				return (EXIT_FAILURE);
+		}
 		args++;
 	}
 	return (EXIT_SUCCESS);

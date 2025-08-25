@@ -6,7 +6,7 @@
 /*   By: dedme <dedme@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 22:12:48 by mickmart          #+#    #+#             */
-/*   Updated: 2025/08/18 18:34:19 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/08/23 16:27:02 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,15 @@ typedef struct s_command
 	struct s_command	*next;
 }						t_command;
 
+typedef struct s_pipeline
+{
+    pid_t   *pids;
+    int     (*pipes)[2];
+    int     cmd_count;
+    int     pipe_count;
+} t_pipeline;
+
+
 typedef int				(*builtin_func)(char **args, char ***envp);
 
 // Parsing functions
@@ -103,7 +112,7 @@ t_pre_token				*identify_token(char *line);
 t_command				*build_pipeline(t_pre_token *tokens, char **envp);
 void					free_commands(t_command *head);
 char					*get_env_value(char *name, char **envp);
-int	update_env_var(char ***envp_ptr, char *var);
+int						update_env_var(char ***envp_ptr, char *var);
 // Expansion functions
 char					*expand_env(char *name);
 char					*expand_variables(char *str, char **envp);
@@ -128,6 +137,7 @@ int						builtin_export(char **args, char ***envp);
 int						builtin_unset(char **args, char ***envp);
 int						builtin_exit(char **args, char ***envp);
 int						is_builtin(char **args, char ***envp);
+int	execute_builtin(char **args, char ***envp);
 
 // String utilities
 int						ft_strncmp(const char *s1, const char *s2, size_t n);
@@ -138,6 +148,7 @@ char					**ft_split(char const *s, char c);
 char					*ft_strdup(const char *s);
 char					*ft_strcpy(char *dst, const char *src);
 char					**ft_env(char **envp);
+void	        		        free_env(char **env); // Ajouter cette déclaration
 
 // Character check functions
 int						ft_isalpha(int c);

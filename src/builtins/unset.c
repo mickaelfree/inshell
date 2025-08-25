@@ -6,7 +6,7 @@
 /*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:36:20 by mickmart          #+#    #+#             */
-/*   Updated: 2025/08/19 18:05:25 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/08/23 14:29:22 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../includes/inshell.h"
@@ -60,7 +60,7 @@ static int	remove_env_var(char ***envp_ptr, char *name)
 		i++;
 	}
 	new_env[j] = NULL;
-	free(*envp_ptr);
+	free_env(*envp_ptr);
 	*envp_ptr = new_env;
 	return (EXIT_SUCCESS);
 }
