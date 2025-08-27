@@ -104,7 +104,7 @@ t_command	*parse_token(char *line, char **envp)
 	tokens = identify_token(line);
 	if (!tokens)
 		return (NULL);
-	print_token(tokens);
+//	print_token(tokens);
 	commands = build_pipeline(tokens, envp);
 	free_token_list(tokens);
 	return (commands);
