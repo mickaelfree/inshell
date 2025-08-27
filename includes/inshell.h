@@ -15,18 +15,24 @@
 
 # include <errno.h>
 # include <fcntl.h>
-# include <readline/history.h>
-# include <readline/readline.h>
+# include <stdio.h>
 # include <signal.h>
 # include <stddef.h>
-# include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
 # include <sys/wait.h>
 # include <unistd.h>
+# include <readline/history.h>
+# include <readline/readline.h>
 
 // Variable globale pour le status de sortie ($?)
 extern int				g_last_exit_status;
+
+typedef enum e_quote {
+	QUOTE_NONE = 0,
+	QUOTE_SINGLE = 1,
+	QUOTE_DOUBLE = 2
+}	t_quote;
 
 typedef enum e_char_type
 {
@@ -76,6 +82,7 @@ typedef struct s_pre_token
 	char				*start;
 	int					len;
 	int					type;
+        t_quote			quote_state;
 	struct s_pre_token	*next;
 }						t_pre_token;
 

@@ -1,4 +1,4 @@
-NAME = inshell
+NAME = minishell
 CC = cc
 #$CFLAGS = -Wall -Wextra -Werror -I./includes
 CFLAGS = -g3 -I./includes
