@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zsonie <zsonie@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 22:33:13 by jureix-c          #+#    #+#             */
-/*   Updated: 2025/06/09 13:52:45 by zsonie           ###   ########.fr       */
+/*   Updated: 2025/08/30 00:48:01 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	update(char *str, t_ast *ast, char **tmp)
 		if (!tmp)
 			continue ;
 		ast = generate_ast(tmp);
-		//DEBUG_MODE
+		// DEBUG_MODE
 		print_ast(ast, "", 0);
 		// execute the AST
 		// free the AST

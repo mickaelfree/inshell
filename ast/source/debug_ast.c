@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug_ast.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zsonie <zsonie@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/08 10:56:19 by zsonie            #+#    #+#             */
-/*   Updated: 2025/06/08 11:51:11 by zsonie           ###   ########.fr       */
+/*   Updated: 2025/08/30 00:47:50 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	print_ast(const t_ast *node, const char *prefix, int is_left)
 		printf("%s\n", get_type_string(node->type));
 	// Prepare next prefix
 	snprintf(new_prefix, sizeof(new_prefix), "%s%s", prefix,
-			is_left ? "│   " : "    ");
+		is_left ? "│   " : "    ");
 	// If both children exist, left is printed first with is_left=1
 	if (node->left && node->right)
 	{

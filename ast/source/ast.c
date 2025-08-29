@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zsonie <zsonie@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 15:16:12 by zsonie            #+#    #+#             */
-/*   Updated: 2025/06/08 11:51:17 by zsonie           ###   ########.fr       */
+/*   Updated: 2025/08/30 00:37:01 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,14 @@ t_ast	*add_node_to_tree(t_ast *tree, t_ast *node)
 	res = tree;
 	if (node->type > res->type)
 	{
-		//add until AST_END because AST_END == 0
+		// add until AST_END because AST_END == 0
 		node->right = res;
 		res = node;
 	}
 	else if (node->type == res->type)
 	{
-		//if same type, check if type == AST_END of AST_PIPE
-		//if not end or pipe then add again but starting from next node
+		// if same type, check if type == AST_END of AST_PIPE
+		// if not end or pipe then add again but starting from next node
 		if (node->type == AST_PIPE || node->type == AST_END)
 		{
 			node->right = res;
@@ -59,7 +59,7 @@ t_ast	*add_node_to_tree(t_ast *tree, t_ast *node)
 	}
 	else
 	{
-		//if node->type < res->type then need to add left (if possible)
+		// if node->type < res->type then need to add left (if possible)
 		res = add_redir_or_pipe(res, node);
 	}
 	return (res);
@@ -72,21 +72,21 @@ t_ast	*create_node(char *token)
 	result = malloc(sizeof(t_ast));
 	if (token == NULL)
 		return (NULL);
-	if (ft_strncmp(token, ">", 1) == 0 || ft_strncmp(token, ">>", 2) == 0 || \
-    ft_strncmp(token, "<", 1) == 0 || ft_strncmp(token, "<<", 2) == 0)
+	if (ft_strncmp(token, ">", 1) == 0 || ft_strncmp(token, ">>", 2) == 0
+		|| ft_strncmp(token, "<", 1) == 0 || ft_strncmp(token, "<<", 2) == 0)
 	{
 		result->type = AST_REDIRECT;
-		//exec result->exec = ? ;
+		// exec result->exec = ? ;
 	}
 	else if (ft_strncmp("|", token, 1) == 0)
 	{
 		result->type = AST_PIPE;
-		//exec
+		// exec
 	}
 	else
 	{
 		result->type = AST_WORD;
-		//exec
+		// exec
 	}
 	result->token = token;
 	result->left = NULL;

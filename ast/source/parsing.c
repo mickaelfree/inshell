@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zsonie <zsonie@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 22:45:42 by jureix-c          #+#    #+#             */
-/*   Updated: 2025/06/08 12:04:49 by zsonie           ###   ########.fr       */
+/*   Updated: 2025/08/30 00:48:22 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ char	*skip_charset(char *str, char charset)
 
 char	*split_to_tokens(char *input, char ***arr_tokens)
 {
-	char	*start_of_token;
-	char	*end_of_token;
+	char *start_of_token;
+	char *end_of_token;
 
 	start_of_token = input;
 	while (*start_of_token != '\0')
@@ -86,12 +86,12 @@ char	*split_to_tokens(char *input, char ***arr_tokens)
 				break ;
 			end_of_token++;
 		}
-		if (ft_strchr("<>", *start_of_token) && *start_of_token
-			== *(start_of_token + 1))
+		if (ft_strchr("<>", *start_of_token)
+			&& *start_of_token == *(start_of_token + 1))
 			end_of_token++;
 		if (*start_of_token != '\0')
-			start_of_token = add_token(arr_tokens,
-					input, start_of_token, end_of_token);
+			start_of_token = add_token(arr_tokens, input, start_of_token,
+					end_of_token);
 	}
 	free(input);
 	return (NULL);
