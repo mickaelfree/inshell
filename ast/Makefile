@@ -12,13 +12,13 @@ BUILDDIR = build
 
 # Source
 SRCS = $(SRCDIR)/main.c \
-	$(SRCDIR)/ast.c \
-	$(SRCDIR)/debug_ast.c \
-	$(SRCDIR)/error.c \
-	$(SRCDIR)/exec.c \
-	$(SRCDIR)/parsing.c \
-	$(SRCDIR)/simple_builtin.c \
-	$(SRCDIR)/utils.c
+	$(SRCDIR)/builtins/simple_builtin.c \
+	$(SRCDIR)/exec/exec.c \
+	$(SRCDIR)/parsing/ast.c \
+	$(SRCDIR)/parsing/parsing.c \
+	$(SRCDIR)/utils/debug_ast.c \
+	$(SRCDIR)/utils/error.c \
+	$(SRCDIR)/utils/utils.c
 
 # Directory structure for object files
 OBJS = $(SRCS:$(SRCDIR)/%.c=$(BUILDDIR)/%.o)
