@@ -6,25 +6,12 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 15:57:24 by mickmart          #+#    #+#             */
-/*   Updated: 2025/08/31 00:28:08 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/08/30 23:22:40 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/inshell.h"
-
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
-{
-	if (!s1 || !s2)
-		return (0);
-	if (n == 0)
-		return (0);
-	while (*s1 == *s2 && *s1 && --n)
-	{
-		s1++;
-		s2++;
-	}
-	return ((unsigned char)*s1 - (unsigned char)*s2);
-}
+#include "inshell.h"
+#include "libft.h"
 
 void    ft_error(char *msg)
 {

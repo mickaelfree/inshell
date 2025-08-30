@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 22:33:13 by jureix-c          #+#    #+#             */
-/*   Updated: 2025/08/30 19:34:51 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/08/30 22:04:23 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	quotes_handler(char *str)
 	return (1);
 }
 
-void	update(char *str, t_ast *ast, char **tmp)
+void	update(char *str, t_ast *ast, char **tmp, int debug_mode)
 {
 	while (1)
 	{
@@ -52,8 +52,8 @@ void	update(char *str, t_ast *ast, char **tmp)
 		if (!tmp)
 			continue ;
 		ast = generate_ast(tmp);
-		// DEBUG_MODE
-		print_ast(ast, "", 0);
+		if (debug_mode)
+			print_ast(ast, "", 0);
 		// execute the AST
 		// free the AST
 		tmp = free_arr(tmp);
@@ -65,15 +65,17 @@ int	main(int ac, char **av, char **ev)
 	char	*str;
 	char	**tmp;
 	t_ast	*ast;
+	int		debug_mode;
 
 	(void)ac;
 	(void)av;
 	(void)ev;
+	debug_mode = 0; // set to 1 to enable debug mode, 0 to disable
 	str = NULL;
 	tmp = NULL;
 	ast = NULL;
 	signal(SIGQUIT, SIG_IGN);
-	update(str, ast, tmp);
+	update(str, ast, tmp, debug_mode);
 	return (0);
 }
 

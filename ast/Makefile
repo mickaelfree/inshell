@@ -12,10 +12,28 @@ BUILDDIR = build
 
 # Source
 SRCS = $(SRCDIR)/main.c \
-	$(SRCDIR)/builtins/simple_builtin.c \
-	$(SRCDIR)/exec/exec.c \
+	$(SRCDIR)/builtins/isbuiltin.c \
+    $(SRCDIR)/builtins/echo.c \
+    $(SRCDIR)/builtins/pwd.c \
+    $(SRCDIR)/builtins/cd.c \
+    $(SRCDIR)/builtins/env.c \
+    $(SRCDIR)/builtins/unset.c \
+    $(SRCDIR)/builtins/export.c \
+    $(SRCDIR)/builtins/exit.c \
+	$(SRCDIR)/exec/execute.c \
+	$(SRCDIR)/exec/execute_cmd.c \
+	$(SRCDIR)/exec/heredoc.c \
+	$(SRCDIR)/exec/utils.c \
+	$(SRCDIR)/exec/find_path.c \
 	$(SRCDIR)/parsing/ast.c \
 	$(SRCDIR)/parsing/parsing.c \
+	$(SRCDIR)/oldparsing/identify_token.c \
+	$(SRCDIR)/oldparsing/token_utils.c \
+	$(SRCDIR)/oldparsing/char_utils.c \
+	$(SRCDIR)/oldparsing/parsing.c \
+	$(SRCDIR)/oldparsing/build_pipeline.c \
+	$(SRCDIR)/oldparsing/expand_env.c \
+	$(SRCDIR)/signal/handler.c \
 	$(SRCDIR)/utils/debug_ast.c \
 	$(SRCDIR)/utils/error.c \
 	$(SRCDIR)/utils/utils.c
@@ -34,9 +52,9 @@ MAKEFLAGS += --no-print-directory  # Avoid flooding the console
 all: $(MINISHELL)
 
 $(MINISHELL): $(OBJS) $(LIBFT)
-	@echo -n "\n\033[3;90m🔨 "
+	@echo -n "$(GREY)🔨 "
 	$(CC) $(CFLAGS) $(NORELINK) $(INCLUDE) -o $@ $(OBJS) $(LIBS) $(LIBFT)
-	@echo -n "\033[0m \n \033[32;40;1m✅ Build done!\033[0m\n"
+	@echo -n "\n $(GREEN)✅ Build done!$(RESET)\n"
 
 $(LIBFT): FORCE
 	@$(MAKE) -C ./libft
@@ -47,24 +65,25 @@ FORCE:
 
 # Individual source file rule
 $(BUILDDIR)/%.o: $(SRCDIR)/%.c
-	@echo -n "\033[3;90m🔨 "
+	@echo -n "$(GREY)🔨 "
 	mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(NORELINK) $(INCLUDE) -o $@ -c $<
-	@echo -n "\033[0m"
+	@echo -n "$(RESET)"
 
 # Cleaning features
 .PHONY: clean fclean
 clean:
-	@echo -n "\033[1;91m🗑️  "
+	@echo -n "$(RED)🗑️  "
 	@$(MAKE) clean -C ./libft > /dev/null
 	$(RM) -r $(BUILDDIR)
-	@echo -n "\033[0m\n"
+	@echo -n "$(RESET)\n"
+
 
 fclean: clean
-	@echo -n "\033[1;91m🗑️  "
+	@echo -n "$(RED)🗑️  "
 	@$(MAKE) fclean -C ./libft > /dev/null
 	$(RM) $(MINISHELL)
-	@echo -n "\033[0m\n"
+	@echo -n "$(RESET)\n"
 
 # Clean build
 .PHONY: re
@@ -72,13 +91,27 @@ re: fclean all
 
 # Debug build
 .PHONY: debug
-debug: CFLAGS = -Wall -Wextra -g3
+debug: CFLAGS = -Wall -Wextra -Werror -g3
 debug: all
 
 # Norminette for source and include
-.PHONY: norm norminette
+.PHONY: norm
 norm:
 	norminette src/ inc/
-norminette: norm
+
+.PHONY: gdb
+gdb:
+	gdb ./$(MINISHELL) -ex "break main"
 
 -include $(DEPS)
+
+# COLORS
+RESET = \033[0m
+RED = \033[1;31m
+GREEN = \033[1;32m
+YELLOW = \033[1;33m
+BLUE = \033[1;34m
+MAGENTA = \033[1;35m
+CYAN = \033[1;36m
+WHITE = \033[1;37m
+GREY = \033[1;90m

@@ -45,11 +45,6 @@ t_ast				*create_node(char *token);
 t_ast				*add_node_to_tree(t_ast *tree, t_ast *node);
 t_ast				*add_redir_or_pipe(t_ast *res, t_ast *node);
 
-//EXEC
-void				exec_builtin(char *command, char **args);
-int					ft_pwd(void);
-int					ft_echo(char **args);
-
 //PARSING
 char				*split_to_tokens(char *input, char ***arr_tokens);
 char				**realloc_list(char **ptr, size_t newsize);

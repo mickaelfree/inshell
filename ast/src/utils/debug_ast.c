@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/08 10:56:19 by zsonie            #+#    #+#             */
-/*   Updated: 2025/08/30 19:34:19 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/08/30 22:34:51 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,14 @@ void	print_ast(const t_ast *node, const char *prefix, int is_left)
 
 	if (!node)
 		return ;
-	// Draw tree branch
 	printf("%s", prefix);
 	printf(is_left ? "├── " : "└── ");
-	// Print current node
 	if (node->type == AST_WORD || node->type == AST_REDIRECT)
 		printf("%s: %s\n", get_type_string(node->type), node->token);
 	else
 		printf("%s\n", get_type_string(node->type));
-	// Prepare next prefix
 	snprintf(new_prefix, sizeof(new_prefix), "%s%s", prefix,
 		is_left ? "│   " : "    ");
-	// If both children exist, left is printed first with is_left=1
 	if (node->left && node->right)
 	{
 		print_ast(node->left, new_prefix, 1);

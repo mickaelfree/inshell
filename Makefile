@@ -30,8 +30,8 @@ SRCS = $(SRC_DIR)main.c \
 	$(SRC_DIR)parsing/char_utils.c \
 	$(SRC_DIR)parsing/parsing.c \
 	$(SRC_DIR)parsing/build_pipeline.c \
-	$(SRC_DIR)signal/handler.c \
 	$(SRC_DIR)parsing/expand_env.c \
+	$(SRC_DIR)signal/handler.c \
 	#$(SRC_DIR)exec/pipex.c \
        # $(SRC_DIR)core/cleanup.c \
        # $(SRC_DIR)parsing/parser_map.c \
@@ -60,7 +60,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	$(CC) -lreadline $(OBJS) $(LIBS) -o $(NAME)
 
-$(OBJ_DIR)%.o: $(SRC_DIR)%.c Makefile ./includes/inshell.h
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@mkdir -p $(@D)
 	$(CC) $(CFLAGS)  $(INCLUDES) -c $< -o $@
 
