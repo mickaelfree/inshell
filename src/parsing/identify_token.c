@@ -30,6 +30,7 @@ t_pre_token	*identify_token(char *line)
 	quote_state = 0;
 	quote_char = 0;
 	skip_whitespace(&ptr);
+        //TODO: gere les single quote et double quote directement avec les cote state
 	while (*ptr)
 	{
 		token_start = ptr;

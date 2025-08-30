@@ -18,7 +18,7 @@ void	error_exit(void)
 	if (errno == 2 || errno == 14)
 	{
 		if (errno == 2)
-			ft_putstr_fd("No such file or directory\n", 2);
+			ft_putstr_fd(" No such file or directory\n", 2);
 		if (errno == 14)
 			ft_putstr_fd("Command not found\n", 2);
 		exit(127);
