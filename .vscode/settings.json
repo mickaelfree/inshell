@@ -2,5 +2,9 @@
 	"workbench.colorCustomizations": {
 		"minimap.background": "#00000000",
 		"scrollbar.shadow": "#00000000"
+	},
+	"files.associations": {
+		"inshell.h": "c",
+		"minishell.h": "c"
 	}
 }

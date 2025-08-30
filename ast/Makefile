@@ -2,12 +2,12 @@
 MINISHELL = minishell
 CFLAGS = -Wall -Wextra -Werror
 NORELINK = -MMD -MP
-INCLUDE = -I include -I libft/include
+INCLUDE = -I inc -I libft/include
 LIBFT = libft/libft.a
 LIBS ?= -lreadline -lncurses
 
 # Project files structure
-SRCDIR = source
+SRCDIR = src
 BUILDDIR = build
 
 # Source
@@ -78,7 +78,7 @@ debug: all
 # Norminette for source and include
 .PHONY: norm norminette
 norm:
-	norminette source/ include/
+	norminette src/ inc/
 norminette: norm
 
 -include $(DEPS)

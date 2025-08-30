@@ -1,118 +1,125 @@
-# Base params
+
+# VARIABLES
 NAME = libft.a
-CFLAGS = -Wall -Wextra -Werror
-NORELINK = -MMD -MP
-INCLUDE = -I include
 
-# Project files structure
-SRCDIR = source
-BUILDDIR = build
+CC = cc
+AR = ar -rcs
+OPTIMIZATION ?= -O3
 
-# Libft source
-SRCS = $(SRCDIR)/char/char.c \
-       $(SRCDIR)/char/case.c \
-       $(SRCDIR)/char/space.c \
-       $(SRCDIR)/memory/memory1.c \
-       $(SRCDIR)/memory/memory2.c \
-       $(SRCDIR)/string/comparison.c \
-       $(SRCDIR)/string/concatenation.c \
-       $(SRCDIR)/string/copy.c \
-       $(SRCDIR)/string/measure.c \
-       $(SRCDIR)/string/search.c \
-       $(SRCDIR)/string/ft_split.c \
-       $(SRCDIR)/string/ft_striteri.c \
-       $(SRCDIR)/string/ft_strjoin.c \
-       $(SRCDIR)/string/ft_strmapi.c \
-       $(SRCDIR)/string/ft_strtrim.c \
-       $(SRCDIR)/string/ft_substr.c \
-       $(SRCDIR)/convert/int-alpha.c \
-       $(SRCDIR)/io/put.c \
-       $(SRCDIR)/io/get_next_line/get_next_line.c \
-       $(SRCDIR)/io/get_next_line/utils.c \
-       $(SRCDIR)/io/not_cursed/not_cursed.c \
-       $(SRCDIR)/io/not_cursed/footer.c \
-       $(SRCDIR)/io/not_cursed/utils.c \
-       $(SRCDIR)/data_structures/linked_list/linked_list1.c \
-       $(SRCDIR)/data_structures/linked_list/linked_list2.c
+OBJ_DIR = obj/
+SRC_DIR = src/
+INC_DIR = include/
+DEP_DIR = dep/
 
-# Printf source
-PRINTF_SRCS = $(SRCDIR)/io/printf/ft_printf.c \
-       $(SRCDIR)/io/printf/ft_dprintf.c \
-       $(SRCDIR)/io/printf/ft_sprintf.c \
-       $(SRCDIR)/io/printf/ft_printf_internal.c \
-       $(SRCDIR)/io/printf/lexer.c \
-       $(SRCDIR)/io/printf/lexer_helpers.c \
-       $(SRCDIR)/io/printf/nodes/nodes_manager.c \
-       $(SRCDIR)/io/printf/nodes/nodes_dump_dispatch.c \
-       $(SRCDIR)/io/printf/nodes/nodes_len_dispatch.c \
-       $(SRCDIR)/io/printf/nodes/nodes_helpers.c \
-       $(SRCDIR)/io/printf/nodes/operations/node_char.c \
-       $(SRCDIR)/io/printf/nodes/operations/node_str.c \
-       $(SRCDIR)/io/printf/nodes/operations/node_pointer.c \
-       $(SRCDIR)/io/printf/nodes/operations/node_int.c \
-       $(SRCDIR)/io/printf/nodes/operations/node_int_helpers.c \
-       $(SRCDIR)/io/printf/nodes/operations/node_hex.c \
-       $(SRCDIR)/io/printf/nodes/operations/node_hex_helpers.c \
-       $(SRCDIR)/io/printf/nodes/operations/node_written_count.c \
-       $(SRCDIR)/io/printf/nodes/operations/node_percent.c \
-       $(SRCDIR)/io/printf/nodes/operations/node_text.c \
-       $(SRCDIR)/io/printf/utils/io.c \
-       $(SRCDIR)/io/printf/utils/io_utils.c \
-       $(SRCDIR)/io/printf/utils/conversion.c \
+CFLAGS ?= -Wall -Wextra -Werror -MMD $(OPTIMIZATION) -mavx2 -I $(INC_DIR)
 
-# Complete source
-ALL_SRCS = $(SRCS) $(PRINTF_SRCS)
+SRCS =	char/ft_isalpha.c \
+        char/ft_isdigit.c \
+        char/ft_isalnum.c \
+        char/ft_isascii.c \
+        char/ft_isprint.c \
+		char/ft_toupper.c \
+        char/ft_tolower.c \
+\
+		convert/ft_atof.c \
+		convert/ft_atoi.c \
+		convert/ft_itoa.c \
+\
+		gnl/get_next_line.c \
+		gnl/get_next_line_utils.c \
+\
+		list/ft_lstnew.c \
+		list/ft_lstadd_front.c \
+		list/ft_lstsize.c \
+		list/ft_lstlast.c \
+		list/ft_lstadd_back.c \
+		list/ft_lstdelone.c \
+		list/ft_lstclear.c \
+		list/ft_lstiter.c \
+		list/ft_lstmap.c \
+\
+        memory/ft_bzero.c \
+		memory/ft_calloc.c \
+        memory/ft_memcpy.c \
+		memory/ft_memchr.c \
+        memory/ft_memcmp.c \
+        memory/ft_memmove.c \
+        memory/ft_memset.c \
+\
+		printf/ft_printf_parse.c \
+		printf/ft_printf_utils.c \
+		printf/ft_printf.c \
+\
+		strings/ft_split.c \
+        strings/ft_strchr.c \
+		strings/ft_strdup.c \
+		strings/ft_striteri.c \
+		strings/ft_strjoin.c \
+        strings/ft_strlcat.c \
+        strings/ft_strlcpy.c \
+        strings/ft_strlen.c \
+		strings/ft_strmapi.c \
+        strings/ft_strncmp.c \
+        strings/ft_strnstr.c \
+        strings/ft_strrchr.c \
+		strings/ft_strtrim.c \
+		strings/ft_substr.c \
+\
+		time/ft_time_manager.c \
+\
+		write/ft_putchar_fd.c \
+		write/ft_putendl_fd.c \
+		write/ft_putnbr_fd.c \
+		write/ft_putstr_fd.c
 
-# Directory structure for object files
-OBJS = $(ALL_SRCS:$(SRCDIR)/%.c=$(BUILDDIR)/%.o)
-DEPS = $(OBJS:.o=.d)
+OBJECTS = ${patsubst %.c,$(OBJ_DIR)%.o, $(SRCS)}
+DEPS = $(patsubst %.c,$(OBJ_DIR)%.d, $(SRCS))
+-include $(DEPS)
 
-# Other
-MAKEFLAGS += --no-print-directory  # Avoid flooding the console
-
-.DEFAULT_GOAL = all  # Set default goal to make all
-
-# Base rule
+# Build the library
 .PHONY: all
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	@echo -n "\n\033[3;90m🔨 "
-	ar rcs $(NAME) $^
-	@echo -n "\033[0m \n \033[32;40;1m✅ Done!\033[0m\n"
+# Creating all directories
+%/:
+	@echo "$(YELLOW)Creating directory $(GREEN)$@$(RESET)"
+	@mkdir -p $@
 
-# Individual source file rule
-$(BUILDDIR)/%.o: $(SRCDIR)/%.c
-	@echo -n "\033[3;90m🔨 "
-	mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(NORELINK) $(INCLUDE) -o $@ -c $<
-	@echo -n "\033[0m"
+# Compile .c to .o
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c
+	@echo "$(YELLOW)Compiling objects and dependencies... $(GREEN)$@ $(YELLOW)from $(GREEN)$<$(RESET)"
+	@mkdir -p $(dir $@)
+	@$(CC) $(CFLAGS) -c $< -o $@ 
 
-# Cleaning features
-.PHONY: clean fclean
+$(NAME): $(OBJ_DIR) $(OBJECTS) Makefile
+	@echo "$(YELLOW)\nCreating Archive... $(GREEN)$@$(RESET)\n"
+	@$(AR) $@ $(OBJECTS)
+	@ranlib $(NAME)
+
+.PHONY: bonus
+bonus:
+	@echo "$(GREEN)Adding bonuses to library...$(RESET)"
+	@$(MAKE) --no-print-directory all SRCS="$(SRCS) $(SRCBONUS)"
+
+# Clean part
+.PHONY: clean
 clean:
-	@echo -n "\033[1;91m🗑️  "
-	$(RM) -r $(BUILDDIR)
-	@echo -n "\033[0m\n"
+	@echo "$(RED)Cleaning... \n$(YELLOW)Removing $(RED)$(OBJ_DIR)$(RESET)"
+	@rm -rf $(OBJ_DIR)
 
+.PHONY: fclean
 fclean: clean
-	@echo -n "\033[1;91m🗑️  "
-	$(RM) $(NAME)
-	@echo -n "\033[0m\n"
+	@echo "$(YELLOW)Removing $(RED)$(NAME)$(RESET)\n"
+	@rm -rf $(NAME)
 
-# Clean build
 .PHONY: re
-re: fclean all
+re:
+	@$(MAKE) --no-print-directory fclean
+	@$(MAKE) --no-print-directory all
 
-# Debug build
-.PHONY: debug
-debug: CFLAGS = -Wall -Wextra -g3 
-debug: all
-
-# Norminette for source and include
-.PHONY: norm norminette
-norm:
-	norminette source/ include/
-norminette: norm
-
--include $(DEPS)
+.DEFAULT_GOAL = all
+# COLORS
+RED    = \033[31m
+GREEN  = \033[32m
+YELLOW = \033[33m
+RESET  = \033[0m
