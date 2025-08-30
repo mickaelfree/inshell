@@ -146,6 +146,7 @@ int						builtin_exit(char **args, char ***envp);
 int						is_builtin(char **args, char ***envp);
 int	execute_builtin(char **args, char ***envp);
 
+void add_token(t_pre_token **head, char *start, int len, int type, t_quote quote_state);
 // String utilities
 int						ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t					ft_strlen(const char *str);
@@ -166,7 +167,7 @@ int						ft_isalnum(int c);
 void					test_parsing(void);
 t_pre_token				*add_new_token(t_pre_token **head,
 							t_pre_token **current, char *start, int len,
-							int type);
+							int type, t_quote quote_state);
 int						char_type(char *c);
 int						is_whitespace(char c);
 int						is_operator(char c);
