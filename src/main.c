@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dedme <dedme@student.42.fr>                +#+  +:+       +#+        */
+/*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 21:30:44 by mickmart          #+#    #+#             */
-/*   Updated: 2025/08/05 00:13:22 by dedme            ###   ########.fr       */
+/*   Updated: 2025/08/30 01:09:24 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,12 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		}
 		cmd = parse_token(line, new_env);
+		printf("line = %s\n", line);
+		printf("arg_count = %d\n", cmd->arg_count);
+		for (int i = 0; i < cmd->arg_count; i++)
+		{
+			printf("args = %s\n", cmd->args[i]);
+		}
 		if (cmd)
 		{
 			// display_parsed_command(cmd);
