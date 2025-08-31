@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   inshell2.h                                         :+:      :+:    :+:   */
+/*   inshell.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 22:12:48 by mickmart          #+#    #+#             */
-/*   Updated: 2025/08/31 04:47:23 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/08/31 04:53:28 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef INSHELL_H
 # define INSHELL_H
 
+# include <unistd.h>
+# include <stdio.h>
+# include <stddef.h>
+# include <stdlib.h>
 # include <errno.h>
 # include <fcntl.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
-# include <stddef.h>
-# include <stdio.h>
-# include <stdlib.h>
 # include <string.h>
 # include <sys/wait.h>
-# include <unistd.h>
 
 // Variable globale pour le status de sortie ($?)
 extern int				g_last_exit_status;
