@@ -27,13 +27,13 @@ static void	check_file_permissions(char *path, char **cmd)
 	{
 		ft_free(cmd);
 		free(path);
-		ft_error("no such file or directory");
+		ft_error(" No such file or directory");
 	}
 	if (access(path, X_OK) == -1)
 	{
 		ft_free(cmd);
 		free(path);
-		write(STDERR_FILENO, "permission denied\n", 18);
+		write(STDERR_FILENO, "Permission denied\n", 18);
                 g_last_exit_status = 126;
 		exit(126);
 	}
@@ -45,7 +45,23 @@ static void	execute_command(char *path, char **cmd, char **env)
 	{
 		free(path);
 		ft_free(cmd);
-		ft_error("execve error");
+		if (errno == ENOENT)
+		{
+			write(STDERR_FILENO, "command not found\n", 18);
+                        g_last_exit_status = 127;
+			exit(127);
+		}
+		else if (errno == EACCES)
+		{
+			write(STDERR_FILENO, "Permission denied\n", 18);
+                        g_last_exit_status = 126;
+			exit(126);
+		}
+		else
+		{
+			perror("execve");
+			exit(1);
+		}
 	}
 }
 

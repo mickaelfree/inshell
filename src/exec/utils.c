@@ -31,12 +31,12 @@ void    ft_error(char *msg)
     write(STDERR_FILENO, msg, ft_strlen(msg));
     write(STDERR_FILENO, "\n", 1);
 
-    if (strstr(msg, "no such file or directory"))
+    if (strstr(msg, " No such file or directory"))
     {
         g_last_exit_status = 127;
         exit(127);
     }
-    if (strstr(msg, "permission denied"))
+    if (strstr(msg, "Permission denied"))
     {
         g_last_exit_status = 126;
         exit(126);

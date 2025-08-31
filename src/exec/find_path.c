@@ -107,9 +107,9 @@ char	*find_path(char *cmd, char **env)
 	if (!path && status != 0)
 	{
 		if (status == 127)
-			ft_error("no such file or directory");
+			ft_error(" No such file or directory");
 		else if (status == 126)
-			ft_error("permission denied");
+			ft_error("Permission denied");
 		exit(status);
 	}
 	if (path)

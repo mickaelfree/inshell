@@ -73,7 +73,9 @@ int	handle_redirection(t_command *cmd, t_pre_token **token, char **envp)
 	{
 		if (cmd->input_file)
 		{
-			printf("Warning: multiple input redirections, last wins\n");
+                        //FIX:temporaire erreur 66;
+			//printf("Warning: multiple input redirections, last wins\n");
+                        g_last_exit_status = 1;
 			free(cmd->input_file);
 		}
 		cmd->input_file = expanded_value;
@@ -82,7 +84,9 @@ int	handle_redirection(t_command *cmd, t_pre_token **token, char **envp)
 	{
 		if (cmd->output_file)
 		{
-			printf("Warning: multiple output redirections, last wins\n");
+                        //FIX:temporaire erreur 88;
+			//printf("Warning: multiple output redirections, last wins\n");
+                        g_last_exit_status = 1;
 			free(cmd->output_file);
 		}
 		cmd->output_file = expanded_value;
