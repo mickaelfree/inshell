@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 22:33:13 by jureix-c          #+#    #+#             */
-/*   Updated: 2025/08/31 01:51:53 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/08/31 04:39:46 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,16 +61,18 @@ void	update(char *str, t_ast *ast, char **tmp, int debug_mode)
 	}
 }
 
+
 int	main(int ac, char **av, char **ev)
 {
 	char	*str;
 	char	**tmp;
 	t_ast	*ast;
 	int		debug_mode;
+	char	**new_env;
 
 	(void)ac;
 	(void)av;
-	(void)ev;
+	new_env = ft_env(ev);
 	debug_mode = 1; // set to 1 to enable debug mode, 0 to disable
 	str = NULL;
 	tmp = NULL;

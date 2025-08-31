@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/08 12:01:51 by zsonie            #+#    #+#             */
-/*   Updated: 2025/08/31 00:50:15 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/08/31 04:41:29 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	error_exit(void)
 		exit(126);
 	}
 }
-
 
 void    ft_error(char *msg)
 {
