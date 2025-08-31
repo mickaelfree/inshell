@@ -6,23 +6,22 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/08 11:59:24 by zsonie            #+#    #+#             */
-/*   Updated: 2025/08/30 19:35:10 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/08/31 01:45:46 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "inshell.h"
 
-char	**free_arr(char **arr)
+void	ft_free(char **arr)
 {
 	int	i;
 
 	i = 0;
-	while (arr[i] != NULL)
+	while (arr[i])
 	{
 		free(arr[i]);
 		i++;
 	}
 	free(arr[i]);
 	free(arr);
-	return (NULL);
 }

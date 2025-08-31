@@ -6,11 +6,11 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 22:45:42 by jureix-c          #+#    #+#             */
-/*   Updated: 2025/08/30 19:33:21 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/08/31 01:01:44 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "inshell.h"
 #include "libft.h"
 
 /**
@@ -41,7 +41,7 @@ char	**realloc_list(char **ptr, size_t newsize)
 	if (!res)
 		error_exit();
 	if (ptr)
-		free_arr(ptr);
+		ft_free(ptr);
 	return (res);
 }
 

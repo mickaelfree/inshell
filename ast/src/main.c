@@ -6,13 +6,14 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 22:33:13 by jureix-c          #+#    #+#             */
-/*   Updated: 2025/08/30 22:04:23 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/08/31 01:51:53 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "inshell.h"
 #include "libft.h"
 
+int		g_last_exit_status = 0;
 static int	quotes_handler(char *str)
 {
 	if (!str)
@@ -46,7 +47,7 @@ void	update(char *str, t_ast *ast, char **tmp, int debug_mode)
 			printf("quote_error\n");
 			rl_replace_line("", 0);
 			rl_redisplay();
-			continue ;
+			continue;
 		}
 		str = split_to_tokens(str, &tmp);
 		if (!tmp)
@@ -56,7 +57,7 @@ void	update(char *str, t_ast *ast, char **tmp, int debug_mode)
 			print_ast(ast, "", 0);
 		// execute the AST
 		// free the AST
-		tmp = free_arr(tmp);
+		ft_free(tmp);
 	}
 }
 
@@ -70,7 +71,7 @@ int	main(int ac, char **av, char **ev)
 	(void)ac;
 	(void)av;
 	(void)ev;
-	debug_mode = 0; // set to 1 to enable debug mode, 0 to disable
+	debug_mode = 1; // set to 1 to enable debug mode, 0 to disable
 	str = NULL;
 	tmp = NULL;
 	ast = NULL;

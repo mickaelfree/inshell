@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:35:33 by mickmart          #+#    #+#             */
-/*   Updated: 2025/08/30 22:58:37 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/08/31 00:57:18 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 static int	has_newline_option(char ***args)
 {
-	int	newline;
+	int	is_newline;
 
-	newline = 1;
+	is_newline = 1;
 	while (**args && !strncmp(**args, "-n", 2))
 	{
-		newline = 0;
+		is_newline = 0;
 		(*args)++;
 	}
-	return (newline);
+	return (is_newline);
 }
 
 static void	print_arguments(char **args)
@@ -38,7 +38,7 @@ static void	print_arguments(char **args)
 
 int	builtin_echo(char **args, char ***envp)
 {
-	int	newline;
+	int	is_newline;
 
 	(void)envp;
 	if (!args[1])
@@ -47,9 +47,9 @@ int	builtin_echo(char **args, char ***envp)
 		return (EXIT_SUCCESS);
 	}
 	args++;
-	newline = has_newline_option(&args);
+	is_newline = has_newline_option(&args);
 	print_arguments(args);
-	if (newline)
+	if (is_newline)
 		write(1, "\n", 1);
 	return (EXIT_SUCCESS);
 }

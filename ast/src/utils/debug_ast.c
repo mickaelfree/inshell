@@ -6,11 +6,11 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/08 10:56:19 by zsonie            #+#    #+#             */
-/*   Updated: 2025/08/30 22:34:51 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/08/31 00:55:36 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "inshell.h"
 #include "libft.h"
 #include <stdio.h>
 

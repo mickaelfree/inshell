@@ -6,11 +6,11 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/08 12:01:51 by zsonie            #+#    #+#             */
-/*   Updated: 2025/08/30 19:34:33 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/08/31 00:50:15 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "inshell.h"
 #include "libft.h"
 
 void	error_exit(void)
@@ -28,4 +28,24 @@ void	error_exit(void)
 		ft_putstr_fd("Permission denied\n", 2);
 		exit(126);
 	}
+}
+
+
+void    ft_error(char *msg)
+{
+    write(STDERR_FILENO, msg, ft_strlen(msg));
+    write(STDERR_FILENO, "\n", 1);
+
+    if (strstr(msg, " No such file or directory"))
+    {
+        g_last_exit_status = 127;
+        exit(127);
+    }
+    if (strstr(msg, "Permission denied"))
+    {
+        g_last_exit_status = 126;
+        exit(126);
+    }
+    g_last_exit_status = 1;
+    exit(1);
 }

@@ -1,32 +1,75 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   inshell.h                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/23 22:12:48 by mickmart          #+#    #+#             */
-/*   Updated: 2025/08/30 23:18:51 by zsonie           ###   ########lyon.fr   */
-/*                                                                            */
-/* ************************************************************************** */
 
 #ifndef INSHELL_H
 # define INSHELL_H
 
+//INCLUDES
+# include <dirent.h>
 # include <errno.h>
-# include <fcntl.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
-# include <stddef.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <string.h>
+# include <sys/ioctl.h>
+# include <sys/resource.h>
+# include <sys/stat.h>
+# include <sys/types.h>
 # include <sys/wait.h>
+# include <term.h>
+# include <termcap.h>
+# include <termios.h>
 # include <unistd.h>
+# include <fcntl.h>
 
-// Variable globale pour le status de sortie ($?)
+/////////////////////////MACRO////////////////////////
+
+# define AST_WORD 0
+# define AST_REDIRECT 1
+# define AST_PIPE 2
+# define AST_END 3
+
+/////////////////////////STRUCTS////////////////////////
+typedef struct s_ast
+{
+	char			*token;
+	int				type;
+	int				priority;
+	void			(*exec)();
+	struct s_ast	*left;
+	struct s_ast	*right;
+}					t_ast;
+
+/////////////////////////FUNCTIONS////////////////////////
+//AST
+t_ast				*generate_ast(char **tokens);
+t_ast				*create_node(char *token);
+t_ast				*add_node_to_tree(t_ast *tree, t_ast *node);
+t_ast				*add_redir_or_pipe(t_ast *res, t_ast *node);
+
+//PARSING
+char				*split_to_tokens(char *input, char ***arr_tokens);
+char				**realloc_list(char **ptr, size_t newsize);
+void				add_elem_to_list(char ***lst, char *string);
+char				*add_token(char ***arr_tokens, char *input, char *start,
+						char *end);
+char				*skip_charset(char *str, char charset);
+
+//AST DEBUG
+void				print_ast(const t_ast *node, const char *prefix,
+						int is_left);
+
+//ERRORS
+void				error_exit(void);
+
+//UTILS
+void				ft_free(char **arr);
+
+
+
+//-------------------------------------------MERGING(WIP)----------------------------------------------
+//GLOBALS (To check if it's needed since we can use errno)
 extern int				g_last_exit_status;
+
 
 typedef enum e_char_type
 {
@@ -111,7 +154,6 @@ char					*expand_token(char *token, int is_quoted);
 
 // Execution functions
 void					ft_error(char *msg);
-void					ft_free(char **tab);
 void					execute(char **av, char **env);
 char					*ft_strnstr(const char *big, const char *little,
 							size_t len);

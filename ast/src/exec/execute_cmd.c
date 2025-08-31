@@ -6,16 +6,13 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 21:20:51 by mickmart          #+#    #+#             */
-/*   Updated: 2025/08/30 23:31:07 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/08/31 01:53:17 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inshell.h"
-#include "minishell.h"
 #include "libft.h"
 #include <unistd.h>
-
-int			g_last_exit_status = 0;
 
 static int	count_pipeline(t_command *cmds)
 {
