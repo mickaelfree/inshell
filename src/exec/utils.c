@@ -36,7 +36,7 @@ void    ft_error(char *msg)
         g_last_exit_status = 127;
         exit(127);
     }
-    if (strstr(msg, "Permission denied"))
+    if (strstr(msg, " Permission denied"))
     {
         g_last_exit_status = 126;
         exit(126);

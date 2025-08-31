@@ -19,7 +19,8 @@ static char	*get_target_directory(char **args, int *print_pwd, char **envp)
 	*print_pwd = 0;
 	if (args[1] && args[2])
 	{
-		printf("cd: too many arguments\n");
+                write(STDERR_FILENO, " too many arguments\n", 19);
+                g_last_exit_status = 1;
 		return (NULL);
 	}
 	if (!args[1])
@@ -27,7 +28,9 @@ static char	*get_target_directory(char **args, int *print_pwd, char **envp)
 		home = get_env_value("HOME", envp);
 		if (!home || !*home)
 		{
-			printf("cd: HOME not set\n");
+                        
+                        write(STDERR_FILENO, " HOME not set\n", 14);
+                        g_last_exit_status = 1;
 			return (NULL);
 		}
 		return (home);
@@ -37,7 +40,8 @@ static char	*get_target_directory(char **args, int *print_pwd, char **envp)
 		old = get_env_value("OLDPWD", envp);
 		if (!old || !*old)
 		{
-			printf("cd: OLDPWD not set\n");
+                        write(STDERR_FILENO, " OLDPWD not set\n", 16);
+                        g_last_exit_status = 1;
 			return (NULL);
 		}
 		*print_pwd = 1;

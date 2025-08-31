@@ -51,7 +51,7 @@ static long	ft_atol(char *str)
 		result = result * 10 + (str[i] - '0');
 		if ((result - (str[i] - '0')) / 10 != prev)
 		{
-			printf("exit: %s: numeric argument required\n", str);
+                        write(STDERR_FILENO, " numeric argument required\n", 26 );
 			exit(2);
 		}
 		i++;
@@ -63,12 +63,12 @@ int	builtin_exit(char **args, char ***envp)
 	(void)envp;
 	if (args[1] && !is_numeric(args[1]))
 	{
-		printf("exit: %s: numeric argument required\n", args[1]);
+                write(STDERR_FILENO, " numeric argument required\n", 26 );
 		exit(2);
 	}
 	if (args[1] && args[2])
 	{
-		printf("exit: too many arguments\n");
+                write(STDERR_FILENO, " too many arguments\n", 19);
 		return (1);
 	}
 	if (!args[1])
