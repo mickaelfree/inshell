@@ -6,27 +6,19 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 03:33:53 by mickmart          #+#    #+#             */
-/*   Updated: 2025/08/31 00:36:48 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/08/31 18:55:15 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/inshell.h"
+#include "inshell.h"
+#include "libft.h"
 
-char	*ft_strchr(const char *s, int c)
-{
-	if (!s)
-		return (NULL);
-	while (*s)
-	{
-		if (*s == (char)c)
-			return ((char *)s);
-		s++;
-	}
-	if (*s == (char)c)
-		return ((char *)s);
-	return (NULL);
-}
-
+/**
+ * @brief Tries to resolve the provided command as an absolute or relative path. Checks for existence and execution permission.
+ * @param cmd The command string to be resolved.
+ * @param status Pointer to an integer to store the resulting status code.
+ * @return A string with the resolved path or NULL if not found or not accessible.
+ */
 static char	*try_absolute_path(char *cmd, int *status)
 {
 	char	*path;

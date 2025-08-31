@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:36:16 by mickmart          #+#    #+#             */
-/*   Updated: 2025/08/18 16:21:14 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/08/30 23:12:59 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../../includes/inshell.h"
+
+#include "inshell.h"
 
 int	builtin_pwd(char **argv, char ***envp)
 {

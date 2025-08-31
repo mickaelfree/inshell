@@ -1,6 +1,5 @@
-
-#ifndef INSHELL2_H
-# define INSHELL2_H
+#ifndef INSHELL_H
+# define INSHELL_H
 
 //INCLUDES
 # include <dirent.h>

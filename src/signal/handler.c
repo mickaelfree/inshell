@@ -3,14 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   handler.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dedme <dedme@student.42.fr>                +#+  +:+       +#+        */
+/*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 04:28:05 by dedme             #+#    #+#             */
-/*   Updated: 2025/07/30 07:28:28 by dedme            ###   ########.fr       */
+/*   Updated: 2025/08/30 23:11:34 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/inshell.h"
+#include "inshell.h"
+
+
+//TODO: Basically everything...
+//check for pid to handle signals in child process and block in parent
 
 void	ft_handle_ctrld(void)
 {
@@ -24,10 +28,10 @@ void	ft_handle_sig(int sig)
         {
                 if (isatty(STDIN_FILENO))
                 {        
-                write(STDOUT_FILENO, "\n", 1);
-                rl_replace_line("", 0);
-                rl_on_new_line();
-                rl_redisplay();
+                	write(STDOUT_FILENO, "\n", 1);
+                	rl_replace_line("", 0);
+                	rl_on_new_line();
+                	rl_redisplay();
                 }
                 g_last_exit_status = 130;
         }

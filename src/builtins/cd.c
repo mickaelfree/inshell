@@ -3,13 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:33:23 by mickmart          #+#    #+#             */
-/*   Updated: 2025/08/19 17:51:59 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/08/30 23:00:54 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../../includes/inshell.h"
+
+#include "inshell.h"
+#include "libft.h"
 
 static char	*get_target_directory(char **args, int *print_pwd, char **envp)
 {

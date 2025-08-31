@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   execute_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dedme <dedme@student.42.fr>                +#+  +:+       +#+        */
+/*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 21:20:51 by mickmart          #+#    #+#             */
-/*   Updated: 2025/08/18 16:20:31 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/08/31 01:53:17 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/inshell.h"
+#include "inshell.h"
+#include "libft.h"
 #include <unistd.h>
-
-int			status = 0;
 
 static int	count_pipeline(t_command *cmds)
 {

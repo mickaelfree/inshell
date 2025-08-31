@@ -3,13 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 13:58:19 by mickmart          #+#    #+#             */
-/*   Updated: 2025/08/18 16:20:18 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/08/30 23:22:07 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../../includes/inshell.h"
+
+#include "inshell.h"
+#include "libft.h"
 
 char	*process_heredoc(char *delimiter)
 {

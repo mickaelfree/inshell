@@ -3,26 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 14:01:33 by mickmart          #+#    #+#             */
-/*   Updated: 2025/08/19 17:59:13 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/08/31 00:58:14 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../../includes/inshell.h"
+
+#include "inshell.h"
+#include "libft.h"
 
 int	is_valide_export(char *args)
 {
 	int		i;
-	char	*key_end;
+	char	*is_key_end;
 
 	if (!args || ft_isdigit(*args))
 		return (0);
-	key_end = strchr(args, '=');
-	if (!key_end)
-		key_end = args + ft_strlen(args);
+	is_key_end = strchr(args, '=');
+	if (!is_key_end)
+		is_key_end = args + ft_strlen(args);
 	i = 0;
-	while (args + i < key_end)
+	while (args + i < is_key_end)
 	{
 		if (!ft_isalnum(args[i]) && args[i] != '_')
 			return (0);
@@ -38,19 +40,19 @@ static void	print_export_env(char **envp)
 }
 static char	*get_key(char *var)
 {
-	char	*key_end;
+	char	*is_key_end;
 
-	key_end = strchr(var, '=');
-	if (!key_end)
+	is_key_end = strchr(var, '=');
+	if (!is_key_end)
 		return (ft_strdup(var));
-	return (strndup(var, key_end - var));
+	return (strndup(var, is_key_end - var));
 }
-static int	tab_len(char **tab)
+static int	tab_len(char **arr)
 {
 	int	i;
 
 	i = 0;
-	while (tab[i])
+	while (arr[i])
 		i++;
 	return (i);
 }

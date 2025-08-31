@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   isbuiltin.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 17:49:57 by mickmart          #+#    #+#             */
-/*   Updated: 2025/08/18 16:21:23 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/08/30 23:12:41 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/inshell.h"
+#include "inshell.h"
 
 static void	init_builtin(builtin_func *builtin)
 {
