@@ -167,7 +167,7 @@ int						ft_isalnum(int c);
 void					test_parsing(void);
 t_pre_token				*add_new_token(t_pre_token **head,
 							t_pre_token **current, char *start, int len,
-							int type, t_quote quote_state);
+							int type);
 int						char_type(char *c);
 int						is_whitespace(char c);
 int						is_operator(char c);

@@ -18,7 +18,7 @@ void	skip_whitespace(char **line)
 		(*line)++;
 }
 t_pre_token	*add_new_token(t_pre_token **head, t_pre_token **current,
-		char *start, int len, int type, t_quote quote_state)
+		char *start, int len, int type)
 {
 	t_pre_token	*new;
 
