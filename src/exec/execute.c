@@ -48,11 +48,13 @@ static void	execute_command(char *path, char **cmd, char **env)
 		if (errno == ENOENT)
 		{
 			write(STDERR_FILENO, "command not found\n", 18);
+                        g_last_exit_status = 127;
 			exit(127);
 		}
 		else if (errno == EACCES)
 		{
 			write(STDERR_FILENO, "Permission denied\n", 18);
+                        g_last_exit_status = 126;
 			exit(126);
 		}
 		else
