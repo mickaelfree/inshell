@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 14:01:33 by mickmart          #+#    #+#             */
-/*   Updated: 2025/08/31 00:58:14 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/01 00:20:21 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@
 int	is_valide_export(char *args)
 {
 	int		i;
-	char	*is_key_end;
+	char	*k_end;
 
 	if (!args || ft_isdigit(*args))
 		return (0);
-	is_key_end = strchr(args, '=');
-	if (!is_key_end)
-		is_key_end = args + ft_strlen(args);
+	k_end = strchr(args, '=');
+	if (!k_end)
+		k_end = args + ft_strlen(args);
 	i = 0;
-	while (args + i < is_key_end)
+	while (args + i < k_end)
 	{
 		if (!ft_isalnum(args[i]) && args[i] != '_')
 			return (0);
@@ -40,12 +40,12 @@ static void	print_export_env(char **envp)
 }
 static char	*get_key(char *var)
 {
-	char	*is_key_end;
+	char	*k_end;
 
-	is_key_end = strchr(var, '=');
-	if (!is_key_end)
+	k_end = strchr(var, '=');
+	if (!k_end)
 		return (ft_strdup(var));
-	return (strndup(var, is_key_end - var));
+	return (strndup(var, k_end - var));
 }
 static int	tab_len(char **arr)
 {
@@ -105,7 +105,7 @@ int	update_env_var(char ***envp_ptr, char *var)
 				j++;
 			}
 			new_env[len] = NULL;
-			free(*envp_ptr);  // Libérer l'ancien bloc entier
+			free_env(*envp_ptr);  // Libérer l'ancien bloc entier
 			*envp_ptr = new_env;
 			free(key);
 			return (EXIT_SUCCESS);
@@ -162,8 +162,11 @@ static int	process_export_args(char **args, char ***envp)
 			args++;
 			continue ;
 		}
-		if (update_env_var(envp, *args) != EXIT_SUCCESS)
-			return (EXIT_FAILURE);
+		if (strchr(*args, '='))
+		{
+			if (update_env_var(envp, *args) != EXIT_SUCCESS)
+				return (EXIT_FAILURE);
+		}
 		args++;
 	}
 	return (EXIT_SUCCESS);

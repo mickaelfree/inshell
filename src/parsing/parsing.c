@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 22:45:42 by jureix-c          #+#    #+#             */
-/*   Updated: 2025/08/31 19:20:18 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/08/31 22:34:48 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,22 @@
 char	**realloc_list(char **ptr, size_t newsize)
 {
 	char	**res;
-	int		i;
+	size_t	i;
 
 	i = 0;
-	res = malloc((newsize + 1) * sizeof(char *));
-	while (ptr[i])
-	{
-		res[i] = ft_strdup(ptr[i]);
-		i++;
-	}
+	res = malloc(sizeof(char *) * (newsize + 2));
 	if (!res)
 		error_exit();
+	if (ptr)
+	{
+		while (ptr[i])
+		{
+			res[i] = ft_strdup(ptr[i]);
+			i++;
+		}	
+	}
+	while (i < newsize + 2)
+        res[i++] = NULL;
 	if (ptr)
 		ft_free(ptr);
 	return (res);
@@ -57,30 +62,27 @@ char	**realloc_list(char **ptr, size_t newsize)
  */
 void	add_elem_to_list(char ***lst, char *string)
 {
-	int	size;
+	size_t	size;
 
 	size = 0;
 	if (*lst == NULL)
 	{
 		*lst = ft_calloc(2, sizeof(char *));
 		**lst = ft_strdup(string);
-		*((*lst) + 1) = NULL;
+		*(*lst + 1) = NULL;
 		return ;
 	}
-	while ((*lst)[size])
-	{
-		printf("*lst[size] = %s\nsize = %d\n", (*lst)[size], size);
+	while ((*lst)[size] != NULL)
 		size++;
-	}
-	*lst = realloc_list(*lst, size + 1);
-	((*lst)[size]) = ft_strdup(string);
-	((*lst)[size + 1]) = NULL;
+	*lst = realloc_list(*lst, size + 2);
+	(*lst)[size] = ft_strdup(string);
+	(*lst)[size + 1] = NULL;
 }
 
 /**
  * @brief Extracts a substring from @p input and adds it as a new token.
  *
- * Extracts the substring between @p start and @p end (inclusive),  
+ * Extracts the substring between @p start and @p end (inclusive),
  * duplicates it using ft_substr, and appends it to @p arr_tokens.
  *
  * @param arr_tokens Address of the token list.
@@ -137,8 +139,8 @@ char	*skip_charset(char *str, char charset)
  */
 char	*split_to_tokens(char *input, char ***arr_tokens)
 {
-	char *start_of_token;
-	char *end_of_token;
+	char	*start_of_token;
+	char	*end_of_token;
 
 	start_of_token = input;
 	while (*start_of_token != '\0')
@@ -154,7 +156,7 @@ char	*split_to_tokens(char *input, char ***arr_tokens)
 			end_of_token++;
 		}
 		if (ft_strchr("<>", *start_of_token)
-			&& *start_of_token == *(start_of_token) + 1)
+			&& *start_of_token == *start_of_token + 1)
 			end_of_token++;
 		if (*start_of_token != '\0')
 			start_of_token = add_token(arr_tokens, input, start_of_token,

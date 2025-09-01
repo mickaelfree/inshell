@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 17:49:57 by mickmart          #+#    #+#             */
-/*   Updated: 2025/08/30 23:12:41 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/01 00:30:31 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,19 @@ static t_builtin_type	get_builtin_type(const char *cmd)
 	return (BUILTIN_UNKNOWN);
 }
 int	is_builtin(char **args, char ***envp)
+{
+	t_builtin_type	type;
+
+	(void)envp;
+	if (!args || !args[0])
+		return (-1);
+	type = get_builtin_type(args[0]);
+        if (type == BUILTIN_UNKNOWN)
+                type = -1;
+	return ((int)type);
+}
+
+int	execute_builtin(char **args, char ***envp)
 {
 	t_builtin_type	type;
 	builtin_func	builtin_functions[7];

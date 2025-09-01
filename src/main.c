@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 22:33:13 by jureix-c          #+#    #+#             */
-/*   Updated: 2025/08/31 18:22:19 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/01 01:48:22 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,12 @@ void	update(char *line, t_ast *ast, char **tmp, int debug_mode)
 {
 	while (1)
 	{
-		line = readline("minishell$ ");
+		tmp = NULL;
+		line = readline("Inshell>");
 		if (!line)
 			exit(1);
-		if (ft_strlen(line) > 0)
+		if (*line)
 			add_history(line);
-		// else
-		// {
-		// 	free(line);
-		// 	continue ;
-		// }
 		if (!quotes_handler(line))
 		{
 			printf("quote_error\n");
@@ -59,9 +55,12 @@ void	update(char *line, t_ast *ast, char **tmp, int debug_mode)
 			continue ;
 		ast = generate_ast(tmp);
 		if (debug_mode)
+		{
 			print_ast(ast, "", 0);
+		}
 		// execute the AST
 		// free the AST
+		// free_ast(ast);s
 		ft_free(tmp);
 	}
 }

@@ -27,48 +27,7 @@
 # define AST_PIPE 2
 # define AST_END 3
 
-/////////////////////////STRUCTS////////////////////////
-typedef struct s_ast
-{
-	char			*token;
-	int				type;
-	int				priority;
-	void			(*exec)();
-	struct s_ast	*left;
-	struct s_ast	*right;
-}					t_ast;
-
-/////////////////////////FUNCTIONS////////////////////////
-//AST
-t_ast				*generate_ast(char **tokens);
-t_ast				*create_node(char *token);
-t_ast				*add_node_to_tree(t_ast *tree, t_ast *node);
-t_ast				*add_redir_or_pipe(t_ast *res, t_ast *node);
-
-//PARSING
-char				*split_to_tokens(char *input, char ***arr_tokens);
-char				**realloc_list(char **ptr, size_t newsize);
-void				add_elem_to_list(char ***lst, char *string);
-char				*add_token(char ***arr_tokens, char *input, char *start,
-						char *end);
-char				*skip_charset(char *str, char charset);
-
-//AST DEBUG
-void				print_ast(const t_ast *node, const char *prefix,
-						int is_left);
-
-//ERRORS
-void				error_exit(void);
-
-//UTILS
-void				ft_free(char **arr);
-
-
-
-//-------------------------------------------MERGING(WIP)----------------------------------------------
-//GLOBALS (To check if it's needed since we can use errno)
-extern int				g_last_exit_status;
-
+/////////////////////////ENUMS////////////////////////
 
 typedef enum e_char_type
 {
@@ -107,6 +66,25 @@ typedef enum e_builtin_type
 	BUILTIN_UNKNOWN,
 }						t_builtin_type;
 
+/////////////////////////STRUCTS////////////////////////
+typedef struct s_ast
+{
+	char			*token;
+	int				type;
+	int				priority;
+	void			(*exec)();
+	struct s_ast	*left;
+	struct s_ast	*right;
+}					t_ast;
+
+typedef struct s_pipeline
+{
+    pid_t   *pids;
+    int     (*pipes)[2];
+    int     cmd_count;
+    int     pipe_count;
+} t_pipeline;
+
 typedef struct s_builtin_entry
 {
 	const char			*name;
@@ -132,6 +110,44 @@ typedef struct s_command
 	struct s_command	*next;
 }						t_command;
 
+/////////////////////////FUNCTIONS////////////////////////
+//AST
+t_ast				*generate_ast(char **tokens);
+t_ast				*create_node(char *token);
+t_ast				*add_node_to_tree(t_ast *tree, t_ast *node);
+t_ast				*add_redir_or_pipe(t_ast *res, t_ast *node);
+
+//PARSING
+char				*split_to_tokens(char *input, char ***arr_tokens);
+char				**realloc_list(char **ptr, size_t newsize);
+void				add_elem_to_list(char ***lst, char *string);
+char				*add_token(char ***arr_tokens, char *input, char *start,
+						char *end);
+char				*skip_charset(char *str, char charset);
+
+//AST DEBUG
+void				print_ast(const t_ast *node, const char *prefix,
+						int is_left);
+
+//ERRORS
+void				error_exit(void);
+
+//UTILS
+void				ft_free(char **arr);
+void				free_ast(t_ast *node);
+void				free_env(char **env);
+
+
+
+
+//-------------------------------------------MERGING(WIP)----------------------------------------------
+//GLOBALS (To check if it's needed since we can use errno)
+extern int				g_last_exit_status;
+
+
+
+
+
 typedef int				(*builtin_func)(char **args, char ***envp);
 
 // Parsing functions
@@ -145,7 +161,7 @@ t_pre_token				*identify_token(char *line);
 t_command				*build_pipeline(t_pre_token *tokens, char **envp);
 void					free_commands(t_command *head);
 char					*get_env_value(char *name, char **envp);
-int	update_env_var(char ***envp_ptr, char *var);
+int						update_env_var(char ***envp_ptr, char *var);
 // Expansion functions
 char					*expand_env(char *name);
 char					*expand_variables(char *str, char **envp);
@@ -169,6 +185,8 @@ int						builtin_export(char **args, char ***envp);
 int						builtin_unset(char **args, char ***envp);
 int						builtin_exit(char **args, char ***envp);
 int						is_builtin(char **args, char ***envp);
+int	execute_builtin(char **args, char ***envp);
+
 
 // String utilities
 char					**ft_env(char **envp);
