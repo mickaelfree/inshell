@@ -13,7 +13,6 @@
 #include "../../includes/inshell.h"
 #include <unistd.h>
 
-int					status = 0;
 
 // static int	count_pipeline(t_command *cmds)
 // {
@@ -331,7 +330,7 @@ static void	execute_child(t_command *cmd, int index, t_pipeline *pipeline,
 	handle_redirections(cmd);
 	if (cmd->args && cmd->args[0])
 	{
-		if (is_builtin(cmd->args, envp) != -1)
+		if (is_builtin(cmd->args) != -1)
 			exit(execute_builtin(cmd->args, envp));
 		execute(cmd->args, *envp);
 	}
@@ -492,7 +491,7 @@ void	execute_cmd(t_command *cmds, char ***envp)
 		return ;
 	if (cmd_count == 1 && cmds->args && cmds->args[0])
 	{
-		if (is_builtin(cmds->args, envp) != -1)
+		if (is_builtin(cmds->args) != -1)
 		{
 			execute_builtin_in_parent(cmds, envp);
 			return ;

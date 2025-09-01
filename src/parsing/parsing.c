@@ -40,9 +40,7 @@ int	check_quotes(t_pre_token *head)
 }
 void	parse_quote(t_pre_token *token)
 {
-	int	in_quote;
 
-	in_quote = 0;
 	while (token)
 	{
 		if (token->type == TOKEN_QUOTED)

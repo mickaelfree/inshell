@@ -157,15 +157,17 @@ static int	process_export_args(char **args, char ***envp)
 		if (!is_valide_export(*args))
 		{
 			args++;
-                        write(STDERR_FILENO, " not a valid identifier\n", 30);
+                        write(STDERR_FILENO, " not a valid identifier\n", 24);
                         g_last_exit_status = 1;
 			continue ;
 		}
 		if (strchr(*args, '='))
 		{
 			if (update_env_var(envp, *args) != EXIT_SUCCESS)
+                        {
                                 g_last_exit_status = 1;
 				return (g_last_exit_status);
+                        }
 		}
 		args++;
 	}

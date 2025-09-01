@@ -49,7 +49,7 @@ static t_builtin_type	get_builtin_type(const char *cmd)
 	}
 	return (BUILTIN_UNKNOWN);
 }
-int	is_builtin(char **args, char ***envp)
+int	is_builtin(char **args)
 {
 	t_builtin_type	type;
 

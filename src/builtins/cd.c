@@ -73,7 +73,6 @@ static int	update_directory(char *target_dir, int print_pwd, char ***envp)
 	if (!pwd)
 	{
 		perror("cd");
-		free(oldpwd);
 		chdir(oldpwd);
 		free(oldpwd);
 		return (EXIT_FAILURE);

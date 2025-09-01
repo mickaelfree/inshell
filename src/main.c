@@ -59,9 +59,9 @@ int	main(int argc, char **argv, char **envp)
 	char		*line;
 	char		**new_env;
 	t_command	*cmd;
-	int			builtin_ret;
 
-	builtin_ret = 0;
+        (void)argc;
+        (void)argv;
 	new_env = ft_env(envp);
 	signal(SIGINT, ft_handle_sig);
 	signal(SIGQUIT, SIG_IGN);

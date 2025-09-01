@@ -143,7 +143,7 @@ int						builtin_env(char **args, char ***envp);
 int						builtin_export(char **args, char ***envp);
 int						builtin_unset(char **args, char ***envp);
 int						builtin_exit(char **args, char ***envp);
-int						is_builtin(char **args, char ***envp);
+int						is_builtin(char **args);
 int	execute_builtin(char **args, char ***envp);
 
 void add_token(t_pre_token **head, char *start, int len, int type, t_quote quote_state);

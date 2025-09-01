@@ -1,7 +1,7 @@
 NAME = minishell
 CC = cc
-#$CFLAGS = -Wall -Wextra -Werror -I./includes
-CFLAGS = -g3 -I./includes
+CFLAGS = -Wall -Wextra -Werror -I./includes
+#CFLAGS = -g3 -I./includes
 
 # Sources
 SRC_DIR = src/
