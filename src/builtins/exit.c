@@ -19,6 +19,8 @@ static int	is_numeric(char *str)
 	i = 0;
 	if (str[i] == '-' || str[i] == '+')
 		i++;
+        if (!str[i]) 
+                return (0);
 	while (str[i])
 	{
 		if (!ft_isdigit(str[i]))
@@ -52,7 +54,7 @@ static long	ft_atol(char *str)
 		if ((result - (str[i] - '0')) / 10 != prev)
 		{
                         write(STDERR_FILENO, " numeric argument required\n", 26 );
-			exit(2);
+			exit(256);
 		}
 		i++;
 	}
@@ -69,7 +71,7 @@ int	builtin_exit(char **args, char ***envp)
 	if (args[1] && args[2])
 	{
                 write(STDERR_FILENO, " too many arguments\n", 19);
-		return (1);
+		return (2);
 	}
 	if (!args[1])
 		exit(0);
