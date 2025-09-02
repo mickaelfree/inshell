@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 21:23:59 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/02 01:39:18 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/02 05:41:56 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void execute_node(t_ast *node,char **ev, int *last_exit_status)
 	if (node->type == AST_CMD)
 	{
 		if (ft_strncmp(node->token, "echo", 5) == 0)
-			builtin_echo_ast(node->left, &ev); // Placeholder for actual args and envp
+			builtin_echo_ast(node->left); // Placeholder for actual args and envp
 		else if (ft_strncmp(node->token, "cd", 3) == 0)
 			builtin_cd(NULL, &ev); // Placeholder for actual args and envp
 		else if (ft_strncmp(node->token, "pwd", 4) == 0)
@@ -35,7 +35,8 @@ void execute_node(t_ast *node,char **ev, int *last_exit_status)
 		else if (ft_strncmp(node->token, "exit", 5) == 0)
 			builtin_exit(NULL, &ev); // Placeholder for actual args
 	}
-	printf("%s: command not found\n", node->token);
+	else
+		printf("%s: command not found\n", node->token);
 }
 
 void execute_ast(t_ast *ast,char **ev, int *last_exit_status)

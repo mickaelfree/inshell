@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 19:52:34 by mickmart          #+#    #+#             */
-/*   Updated: 2025/08/30 23:14:00 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/02 04:42:32 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ int	check_quotes(t_pre_token *head)
 }
 void	parse_quote(t_pre_token *token)
 {
-	int	in_quote;
+	// int	in_quote;
 
-	in_quote = 0;
+	// in_quote = 0;
 	while (token)
 	{
 		if (token->type == TOKEN_QUOTED)

@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 22:33:13 by jureix-c          #+#    #+#             */
-/*   Updated: 2025/09/02 00:23:31 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/02 04:41:05 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ static int	quotes_handler(char *str)
 
 void	update(char *line, t_ast *ast, char **ev, int debug_mode)
 {
-	(void)ev;
 	char **tmp;
 	while (1)
 	{
@@ -81,7 +80,7 @@ int	main(int ac, char **av, char **ev)
 	line = NULL;
 	ast = NULL;
 	signal(SIGQUIT, SIG_IGN);
-	update(line, ast, ev, debug_mode);
+	update(line, ast, new_env, debug_mode);
 	return (0);
 }
 

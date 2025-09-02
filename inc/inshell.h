@@ -4,11 +4,12 @@
 //INCLUDES
 # include <dirent.h>
 # include <errno.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <stdlib.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
-# include <stdio.h>
-# include <stdlib.h>
 # include <sys/ioctl.h>
 # include <sys/resource.h>
 # include <sys/stat.h>
@@ -17,7 +18,6 @@
 # include <term.h>
 # include <termcap.h>
 # include <termios.h>
-# include <unistd.h>
 # include <fcntl.h>
 
 /////////////////////////MACRO////////////////////////
@@ -120,7 +120,8 @@ t_ast				*add_redir_or_pipe(t_ast *res, t_ast *node);
 
 //AST_UTILS
 void				*set_exec_to_node(t_ast *node);
-int					set_word_or_cmd_type(t_ast *node);
+void				set_word_or_cmd_type(t_ast *node);
+void				set_command_arguments(t_ast *node);
 
 //PARSING
 char				*split_to_tokens(char *input, char ***arr_tokens);
@@ -147,15 +148,11 @@ void				execute_ast(t_ast *ast, char **envp, int *last_exit_status);
 void				execute_node(t_ast *node, char **envp, int *last_exit_status);
 
 //builtins
-int					builtin_echo_ast(t_ast *node, char ***envp);
+int					builtin_echo_ast(t_ast *node);
 
 //-------------------------------------------MERGING(WIP)----------------------------------------------
 //GLOBALS (To check if it's needed since we can use errno)
 extern int				g_last_exit_status;
-
-
-
-
 
 typedef int				(*builtin_func)(char **args, char ***envp);
 

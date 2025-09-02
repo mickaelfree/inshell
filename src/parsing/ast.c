@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 15:16:12 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/02 00:42:04 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/02 05:39:11 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ t_ast	*create_node(char *token)
 	}
 	else
 	{
-		result->type = set_word_or_cmd_type(result);
+		set_word_or_cmd_type(result);
 		result->exec = set_exec_to_node(result);
 	}
 	result->left = NULL;
@@ -163,5 +163,6 @@ t_ast	*generate_ast(char **tokens)
 		result = add_node_to_tree(result, node);
 		tokens++;
 	}
+	set_command_arguments(result);
 	return (result);
 }

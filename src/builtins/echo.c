@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:35:33 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/02 01:33:34 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/02 05:15:37 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ int	builtin_echo(char **args, char ***envp)
 	return (EXIT_SUCCESS);
 }
 
-int	builtin_echo_ast(t_ast *node, char ***envp)
+int	builtin_echo_ast(t_ast *node)
 {
+	// int nline;
 
-	(void)envp;
 	if (!node)
 	{
 		printf("node null\n");
@@ -75,7 +75,7 @@ int	builtin_echo_ast(t_ast *node, char ***envp)
 		if (node->left)
 		{
 			write(1, " ", 1);
-			builtin_echo_ast(node->left, envp);
+			builtin_echo_ast(node->left);
 		}
 		else
 			write(1, "\n", 1);
