@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 22:33:13 by jureix-c          #+#    #+#             */
-/*   Updated: 2025/09/01 01:48:22 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/02 00:23:31 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,10 @@ static int	quotes_handler(char *str)
 	return (1);
 }
 
-void	update(char *line, t_ast *ast, char **tmp, int debug_mode)
+void	update(char *line, t_ast *ast, char **ev, int debug_mode)
 {
+	(void)ev;
+	char **tmp;
 	while (1)
 	{
 		tmp = NULL;
@@ -55,13 +57,12 @@ void	update(char *line, t_ast *ast, char **tmp, int debug_mode)
 			continue ;
 		ast = generate_ast(tmp);
 		if (debug_mode)
-		{
 			print_ast(ast, "", 0);
+		if (ast)
+		{
+			execute_ast(ast, ev, &g_last_exit_status);
+			free_ast(ast);
 		}
-		// execute the AST
-		// free the AST
-		// free_ast(ast);s
-		ft_free(tmp);
 	}
 }
 
@@ -69,7 +70,6 @@ void	update(char *line, t_ast *ast, char **tmp, int debug_mode)
 int	main(int ac, char **av, char **ev)
 {
 	char	*line;
-	char	**tmp;
 	t_ast	*ast;
 	int		debug_mode;
 	char	**new_env;
@@ -79,10 +79,9 @@ int	main(int ac, char **av, char **ev)
 	new_env = ft_env(ev);
 	debug_mode = 1; // set to 1 to enable debug mode, 0 to disable
 	line = NULL;
-	tmp = NULL;
 	ast = NULL;
 	signal(SIGQUIT, SIG_IGN);
-	update(line, ast, tmp, debug_mode);
+	update(line, ast, ev, debug_mode);
 	return (0);
 }
 

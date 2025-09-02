@@ -23,9 +23,10 @@
 /////////////////////////MACRO////////////////////////
 
 # define AST_WORD 0
-# define AST_REDIRECT 1
-# define AST_PIPE 2
-# define AST_END 3
+# define AST_CMD 1
+# define AST_REDIRECT 2
+# define AST_PIPE 3
+# define AST_END 4
 
 /////////////////////////ENUMS////////////////////////
 
@@ -117,6 +118,10 @@ t_ast				*create_node(char *token);
 t_ast				*add_node_to_tree(t_ast *tree, t_ast *node);
 t_ast				*add_redir_or_pipe(t_ast *res, t_ast *node);
 
+//AST_UTILS
+void				*set_exec_to_node(t_ast *node);
+int					set_word_or_cmd_type(t_ast *node);
+
 //PARSING
 char				*split_to_tokens(char *input, char ***arr_tokens);
 char				**realloc_list(char **ptr, size_t newsize);
@@ -137,8 +142,12 @@ void				ft_free(char **arr);
 void				free_ast(t_ast *node);
 void				free_env(char **env);
 
+//Execution
+void				execute_ast(t_ast *ast, char **envp, int *last_exit_status);
+void				execute_node(t_ast *node, char **envp, int *last_exit_status);
 
-
+//builtins
+int					builtin_echo_ast(t_ast *node, char ***envp);
 
 //-------------------------------------------MERGING(WIP)----------------------------------------------
 //GLOBALS (To check if it's needed since we can use errno)

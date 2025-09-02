@@ -1,0 +1,52 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ast_utils.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/01 18:25:37 by zsonie            #+#    #+#             */
+/*   Updated: 2025/09/02 01:37:58 by zsonie           ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "inshell.h"
+#include <libft.h>
+
+void	*set_exec_to_node(t_ast *node)
+{
+	if (!node)
+		return NULL;
+	if (node->type == AST_CMD)
+	{
+		if (ft_strncmp(node->token, "echo", 5) == 0)
+			return (void *)&builtin_echo_ast;
+		else if (ft_strncmp(node->token, "cd", 3) == 0)
+			return (void *)&builtin_cd;
+		else if (ft_strncmp(node->token, "pwd", 4) == 0)
+			return (void *)&builtin_pwd;
+		else if (ft_strncmp(node->token, "export", 7) == 0)
+			return (void *)&builtin_export;
+		else if (ft_strncmp(node->token, "unset", 6) == 0)
+			return (void *)&builtin_unset;
+		else if (ft_strncmp(node->token, "env", 4) == 0)
+			return (void *)&builtin_env;
+		else if (ft_strncmp(node->token, "exit", 5) == 0)
+			return (void *)&builtin_exit;
+	}
+	return NULL;
+}
+
+int		set_word_or_cmd_type(t_ast *node)
+{
+	if (!node)
+		return -1;
+	if (ft_strncmp(node->token, "echo", 5) == 0 || ft_strncmp(node->token, "cd",
+			3) == 0 || ft_strncmp(node->token, "pwd", 4) == 0
+		|| ft_strncmp(node->token, "export", 7) == 0 || ft_strncmp(node->token,
+			"unset", 6) == 0 || ft_strncmp(node->token, "env", 4) == 0
+		|| ft_strncmp(node->token, "exit", 5) == 0)
+		return AST_CMD;
+	else
+		return AST_WORD;
+}

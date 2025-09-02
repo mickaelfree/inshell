@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 15:16:12 by zsonie            #+#    #+#             */
-/*   Updated: 2025/08/31 00:48:40 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/02 00:42:04 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,10 @@ t_ast	*add_redir_or_pipe(t_ast *res, t_ast *node)
 			res->left = add_node_to_tree(res->left, node);
 		else
 			res->right = add_node_to_tree(res->right, node);
+	}
+	if (res->type == AST_CMD)
+	{
+		res->left = add_node_to_tree(res->left, node);
 	}
 	return (res);
 }
@@ -82,7 +86,7 @@ t_ast	*add_node_to_tree(t_ast *tree, t_ast *node)
 			res = node;
 		}
 		else
-			res->right = add_node_to_tree(res->right, node);
+			res->left = add_node_to_tree(res->left, node);
 	}
 	else
 	{
@@ -109,9 +113,10 @@ t_ast	*create_node(char *token)
 {
 	t_ast	*result;
 
-	result = malloc(sizeof(t_ast));
-	if (token == NULL)
+	result = ft_calloc(sizeof(t_ast), 1);
+	if (!result)
 		return (NULL);
+	result->token = token;
 	if (ft_strncmp(token, ">", 1) == 0 || ft_strncmp(token, ">>", 2) == 0 || \
     ft_strncmp(token, "<", 1) == 0 || ft_strncmp(token, "<<", 2) == 0)
 	{
@@ -125,10 +130,9 @@ t_ast	*create_node(char *token)
 	}
 	else
 	{
-		result->type = AST_WORD;
-		//exec
+		result->type = set_word_or_cmd_type(result);
+		result->exec = set_exec_to_node(result);
 	}
-	result->token = token;
 	result->left = NULL;
 	result->right = NULL;
 	return (result);
