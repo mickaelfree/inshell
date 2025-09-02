@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:35:33 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/02 05:15:37 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/02 19:46:44 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,30 +55,55 @@ int	builtin_echo(char **args, char ***envp)
 	return (EXIT_SUCCESS);
 }
 
-int	builtin_echo_ast(t_ast *node)
-{
-	// int nline;
+///* ************************************************************************** */
+/*                                    NEW                                       */
+///* ************************************************************************** */
 
+static int check_node(t_ast *node)
+{
 	if (!node)
 	{
-		printf("node null\n");
+		write(1, "\n", 1);
 		return (EXIT_SUCCESS);
 	}
-	if (node->type != AST_WORD || !node->token)
-	{
-		printf("wrong node type\n");
+	return (EXIT_FAILURE);
+}
+
+static int check_n_flag(char *token)
+{
+    if (!token || ft_strncmp(token, "-n", 2) != 0)
+        return (0);
+    
+    char *ptr = token + 2;
+    while (*ptr == 'n')
+        ptr++;
+
+    return (*ptr == '\0');
+}
+
+int builtin_echo_ast(t_ast *node)
+{
+    int suppress_newline = 0;
+    t_ast *current = node;
+    int first_output = 1;
+    
+	if (check_node(current) == EXIT_SUCCESS)
 		return (EXIT_SUCCESS);
-	}
-	else
-	{
-		ft_putstr_fd(node->token, 1);
-		if (node->left)
-		{
-			write(1, " ", 1);
-			builtin_echo_ast(node->left);
-		}
-		else
-			write(1, "\n", 1);
-	}
-	return (EXIT_SUCCESS);
+    while (current && current->type == AST_WORD && current->token && 
+           check_n_flag(current->token))
+    {
+        suppress_newline = 1;
+        current = current->left;
+    }
+    while (current && current->type == AST_WORD && current->token)
+    {
+        if (!first_output)
+            write(1, " ", 1);
+        ft_putstr_fd(current->token, 1);
+        first_output = 0;
+        current = current->left;
+    }
+    if (!suppress_newline)
+        write(1, "\n", 1);
+    return (EXIT_SUCCESS);
 }

@@ -142,6 +142,7 @@ void				error_exit(void);
 void				ft_free(char **arr);
 void				free_ast(t_ast *node);
 void				free_env(char **env);
+void				clear_token_quotes(char **token);
 
 //Execution
 void				execute_ast(t_ast *ast, char **envp, int *last_exit_status);

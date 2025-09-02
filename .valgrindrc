@@ -1,0 +1,4 @@
+--leak-check=full
+--show-leak-kinds=all
+--suppressions=readline.supp
+--track-origins=yes

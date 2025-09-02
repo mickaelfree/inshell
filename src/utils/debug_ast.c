@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/08 10:56:19 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/02 00:19:06 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/02 19:43:54 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ const char	*get_exec_string(void (*exec)())
 {
 	if (exec == NULL)
 		return ("NULL");
-	else if (exec == (void *)&builtin_echo_ast)
-		return ("builtin_echo_ast");
+	else if (exec == (void *)&builtin_echo)
+		return ("builtin_echo");
 	else if (exec == (void *)&builtin_cd)
 		return ("builtin_cd");
 	else if (exec == (void *)&builtin_pwd)
