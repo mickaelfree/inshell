@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:35:33 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/02 19:46:44 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/03 01:54:50 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,51 +59,72 @@ int	builtin_echo(char **args, char ***envp)
 /*                                    NEW                                       */
 ///* ************************************************************************** */
 
-static int check_node(t_ast *node)
+static void skip_n(int *i, char *args_str, int len, int *found_n_flag)
 {
-	if (!node)
-	{
-		write(1, "\n", 1);
-		return (EXIT_SUCCESS);
-	}
-	return (EXIT_FAILURE);
+    while (*i < len)
+    {
+        while (*i < len && args_str[*i] == ' ')
+            (*i)++;
+        if (*i >= len)
+            break;
+        if (args_str[*i] == '-' && *i + 1 < len && args_str[*i + 1] == 'n')
+        {
+            int start = *i;
+            *i += 2;
+            while (*i < len && args_str[*i] == 'n')
+                (*i)++;
+            if (*i < len && args_str[*i] != ' ')
+            {
+                *i = start;
+                break;
+            }
+            *found_n_flag = 1;
+        }
+        else
+            break;
+    }
 }
 
-static int check_n_flag(char *token)
-{
-    if (!token || ft_strncmp(token, "-n", 2) != 0)
-        return (0);
-    
-    char *ptr = token + 2;
-    while (*ptr == 'n')
-        ptr++;
 
-    return (*ptr == '\0');
+static char *skip_n_flags(char *args_str, int *suppress_newline)
+{
+    int	i;
+    int found_n_flag;
+    int len;
+
+	i = 0;
+	found_n_flag = 0;
+	len = ft_strlen(args_str);
+	skip_n(&i, args_str, len, &found_n_flag);
+    while (i < len && args_str[i] == ' ')
+        i++;
+    *suppress_newline = found_n_flag;
+    if (i < len)
+		return (ft_strdup(&args_str[i]));
+	else
+		return (ft_strdup(""));
 }
+
 
 int builtin_echo_ast(t_ast *node)
 {
     int suppress_newline = 0;
-    t_ast *current = node;
-    int first_output = 1;
+    char *args_to_print;
     
-	if (check_node(current) == EXIT_SUCCESS)
-		return (EXIT_SUCCESS);
-    while (current && current->type == AST_WORD && current->token && 
-           check_n_flag(current->token))
+    if (!node || !node->token)
     {
-        suppress_newline = 1;
-        current = current->left;
+        write(1, "\n", 1);
+        return EXIT_SUCCESS;
     }
-    while (current && current->type == AST_WORD && current->token)
-    {
-        if (!first_output)
-            write(1, " ", 1);
-        ft_putstr_fd(current->token, 1);
-        first_output = 0;
-        current = current->left;
-    }
+    
+    args_to_print = skip_n_flags(node->token, &suppress_newline);
+    
+    if (args_to_print && *args_to_print)
+        ft_putstr_fd(args_to_print, 1);
     if (!suppress_newline)
         write(1, "\n", 1);
-    return (EXIT_SUCCESS);
+    if (args_to_print)
+        free(args_to_print);
+    
+    return EXIT_SUCCESS;
 }

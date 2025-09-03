@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/08 10:56:19 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/02 19:43:54 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/03 02:00:09 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ const char	*get_exec_string(void (*exec)())
 {
 	if (exec == NULL)
 		return ("NULL");
-	else if (exec == (void *)&builtin_echo)
+	else if (exec == (void *)&builtin_echo_ast)
 		return ("builtin_echo");
 	else if (exec == (void *)&builtin_cd)
 		return ("builtin_cd");
@@ -72,7 +72,9 @@ void	print_ast(const t_ast *node, const char *prefix, int is_left)
     }
 	printf("%s%s", YELLOW,prefix);
 	printf(is_left ? "├── " : "└── ");
-	if (node->type == AST_WORD || node->type == AST_REDIRECT || node->type == AST_CMD)
+	if (node->type == AST_WORD || node->type == AST_REDIRECT )
+		printf("%s%s: %s%s%s\n", GREEN, get_type_string(node->type), RESET, node->token, RESET);
+	else if (node->type == AST_CMD)
 		printf("%s%s: %s%s %sRelatedExec:%s%s\n", GREEN, get_type_string(node->type), RESET, node->token, CYAN,get_exec_string(node->exec), RESET);
 	else
 		printf("%s\n", get_type_string(node->type));

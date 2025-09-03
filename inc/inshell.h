@@ -143,6 +143,8 @@ void				ft_free(char **arr);
 void				free_ast(t_ast *node);
 void				free_env(char **env);
 void				clear_token_quotes(char **token);
+void				concatenate_argument_to_cmd(t_ast *cmd_node, char *new_arg);
+
 
 //Execution
 void				execute_ast(t_ast *ast, char **envp, int *last_exit_status);

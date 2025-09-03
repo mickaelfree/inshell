@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 18:25:37 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/02 20:32:32 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/02 23:27:48 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,3 +83,28 @@ void set_command_arguments(t_ast *node)
     set_command_arguments(node->right);
 }
 
+void concatenate_argument_to_cmd(t_ast *cmd_node, char *new_arg)
+{
+    if (!cmd_node || cmd_node->type != AST_CMD)
+        return;
+        
+    // If no arguments exist yet, create the first one
+    if (!cmd_node->left)
+    {
+        t_ast *arg_node = ft_calloc(sizeof(t_ast), 1);
+        arg_node->type = AST_WORD;
+        arg_node->token = ft_strdup(new_arg);
+        cmd_node->left = arg_node;
+    }
+    // Otherwise, concatenate to existing arguments
+    else if (cmd_node->left->type == AST_WORD)
+    {
+        char *old_args = cmd_node->left->token;
+        char *new_args = ft_strjoin(old_args, " ");
+        char *final_args = ft_strjoin(new_args, new_arg);
+        
+        free(old_args);
+        free(new_args);
+        cmd_node->left->token = final_args;
+    }
+}
