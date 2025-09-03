@@ -120,8 +120,9 @@ t_ast				*add_redir_or_pipe(t_ast *res, t_ast *node);
 
 //AST_UTILS
 void				*set_exec_to_node(t_ast *node);
-void				set_word_or_cmd_type(t_ast *node);
+void				set_word_or_cmd_type(t_ast *node, int is_command_position);
 void				set_command_arguments(t_ast *node);
+void				clear_token_quotes(char **token);
 
 //PARSING
 char				*split_to_tokens(char *input, char ***arr_tokens);

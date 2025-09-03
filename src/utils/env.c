@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 14:19:09 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/01 00:07:40 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/03 23:26:00 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,49 +55,48 @@
 // 	return (new_env);
 // }
 
-void free_env(char **env)
+void	free_env(char **env)
 {
-    int i;
-    
-    if (!env)
-        return;
-    
-    i = 0;
-    while (env[i])
-    {
-        free(env[i]);
-        i++;
-    }
-    free(env);
+	int	i;
+
+	if (!env)
+		return ;
+	i = 0;
+	while (env[i])
+	{
+		free(env[i]);
+		i++;
+	}
+	free(env);
 }
 
-char **ft_env(char **envp)
+char	**ft_env(char **envp)
 {
-    int count;
-    char **new_env;
-    int i;
+	int		count;
+	char	**new_env;
+	int		i;
 
-    if (!envp)
-        return (NULL);
-    count = 0;
-    while (envp[count])
-        count++;
-    new_env = malloc((count + 1) * sizeof(char *));
-    if (!new_env)
-        return (NULL);
-    i = 0;
-    while (i < count)
-    {
-        new_env[i] = ft_strdup(envp[i]);
-        if (!new_env[i])
-        {
-            while (--i >= 0)
-                free(new_env[i]);
-            free(new_env);
-            return (NULL);
-        }
-        i++;
-    }
-    new_env[count] = NULL;
-    return (new_env);
+	if (!envp)
+		return (NULL);
+	count = 0;
+	while (envp[count])
+		count++;
+	new_env = malloc((count + 1) * sizeof(char *));
+	if (!new_env)
+		return (NULL);
+	i = 0;
+	while (i < count)
+	{
+		new_env[i] = ft_strdup(envp[i]);
+		if (!new_env[i])
+		{
+			while (--i >= 0)
+				free(new_env[i]);
+			free(new_env);
+			return (NULL);
+		}
+		i++;
+	}
+	new_env[count] = NULL;
+	return (new_env);
 }

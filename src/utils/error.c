@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/08 12:01:51 by zsonie            #+#    #+#             */
-/*   Updated: 2025/08/31 04:41:29 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/03 17:48:08 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,20 @@ void	error_exit(void)
 	}
 }
 
-void    ft_error(char *msg)
+void	ft_error(char *msg)
 {
-    write(STDERR_FILENO, msg, ft_strlen(msg));
-    write(STDERR_FILENO, "\n", 1);
-
-    if (strstr(msg, " No such file or directory"))
-    {
-        g_last_exit_status = 127;
-        exit(127);
-    }
-    if (strstr(msg, "Permission denied"))
-    {
-        g_last_exit_status = 126;
-        exit(126);
-    }
-    g_last_exit_status = 1;
-    exit(1);
+	write(STDERR_FILENO, msg, ft_strlen(msg));
+	write(STDERR_FILENO, "\n", 1);
+	if (strstr(msg, " No such file or directory"))
+	{
+		g_last_exit_status = 127;
+		exit(127);
+	}
+	if (strstr(msg, "Permission denied"))
+	{
+		g_last_exit_status = 126;
+		exit(126);
+	}
+	g_last_exit_status = 1;
+	exit(1);
 }

@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 22:45:42 by jureix-c          #+#    #+#             */
-/*   Updated: 2025/08/31 22:34:48 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/03 23:24:36 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ char	**realloc_list(char **ptr, size_t newsize)
 		{
 			res[i] = ft_strdup(ptr[i]);
 			i++;
-		}	
+		}
 	}
 	while (i < newsize + 2)
-        res[i++] = NULL;
+		res[i++] = NULL;
 	if (ptr)
 		ft_free(ptr);
 	return (res);
@@ -102,25 +102,6 @@ char	*add_token(char ***arr_tokens, char *input, char *start, char *end)
 }
 
 /**
- * @brief Skips over successive instances of a given character in a string.
- *
- * Moves the pointer forward while the current character equals @p charset.
- *
- * Example:
- * - skip_charset("    ls", ' ') → points to "ls".
- *
- * @param str     Input string pointer.
- * @param charset Character to skip.
- * @return Pointer to the first character not equal to @p charset.
- */
-char	*skip_charset(char *str, char charset)
-{
-	while (*str == charset)
-		str++;
-	return (str);
-}
-
-/**
  * @brief Splits an input line into lexical tokens.
  *
  * Tokenizes an input command by handling:
@@ -141,22 +122,36 @@ char	*split_to_tokens(char *input, char ***arr_tokens)
 {
 	char	*start_of_token;
 	char	*end_of_token;
+	char	quote_char;
+	char	*quote_end;
 
 	start_of_token = input;
 	while (*start_of_token != '\0')
 	{
 		start_of_token = skip_charset(start_of_token, ' ');
+		if (*start_of_token == '\0')
+			break ;
 		end_of_token = start_of_token;
-		while (!ft_strchr("> <|\0", *(start_of_token)))
+		while (!ft_strchr("> <|\0", *end_of_token))
 		{
-			if (ft_strchr("\"\'", *end_of_token))
-				end_of_token = ft_strchr(end_of_token + 1, *end_of_token);
+			if (ft_strchr("\"'", *end_of_token))
+			{
+				quote_char = *end_of_token;
+				quote_end = ft_strchr(end_of_token + 1, quote_char);
+				if (quote_end == NULL)
+				{
+					end_of_token = start_of_token + strlen(start_of_token) - 1;
+					break ;
+				}
+				else
+					end_of_token = quote_end;
+			}
 			if (ft_strchr("> <|\0", *(end_of_token + 1)))
 				break ;
 			end_of_token++;
 		}
-		if (ft_strchr("<>", *start_of_token)
-			&& *start_of_token == *start_of_token + 1)
+		if (ft_strchr("<>", *start_of_token) && *(start_of_token + 1) != '\0'
+			&& *start_of_token == *(start_of_token + 1))
 			end_of_token++;
 		if (*start_of_token != '\0')
 			start_of_token = add_token(arr_tokens, input, start_of_token,

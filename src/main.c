@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 22:33:13 by jureix-c          #+#    #+#             */
-/*   Updated: 2025/09/02 04:41:05 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/03 16:44:44 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,24 @@
 #include "libft.h"
 
 int		g_last_exit_status = 0;
-static int	quotes_handler(char *str)
-{
-	if (!str)
-		return (0);
-	while (*str)
-	{
-		if (*str == '\"')
-			str = ft_strchr(str + 1, '\"');
-		if (!str)
-			return (0);
-		if (*str == '\'')
-			str = ft_strchr(str + 1, '\'');
-		if (!str)
-			return (0);
-		str++;
-	}
-	return (1);
-}
+// static int	quotes_handler(char *str)
+// {
+// 	if (!str)
+// 		return (0);
+// 	while (*str)
+// 	{
+// 		if (*str == '\"')
+// 			str = ft_strchr(str + 1, '\"');
+// 		if (!str)
+// 			return (0);
+// 		if (*str == '\'')
+// 			str = ft_strchr(str + 1, '\'');
+// 		if (!str)
+// 			return (0);
+// 		str++;
+// 	}
+// 	return (1);
+// }
 
 void	update(char *line, t_ast *ast, char **ev, int debug_mode)
 {
@@ -44,13 +44,13 @@ void	update(char *line, t_ast *ast, char **ev, int debug_mode)
 			exit(1);
 		if (*line)
 			add_history(line);
-		if (!quotes_handler(line))
-		{
-			printf("quote_error\n");
-			rl_replace_line("", 0);
-			rl_redisplay();
-			continue;
-		}
+		// if (!quotes_handler(line))
+		// {
+		// 	printf("quote_error\n");
+		// 	rl_replace_line("", 0);
+		// 	rl_redisplay();
+		// 	continue;
+		// }
 		line = split_to_tokens(line, &tmp);
 		if (!tmp)
 			continue ;
@@ -83,8 +83,3 @@ int	main(int ac, char **av, char **ev)
 	update(line, ast, new_env, debug_mode);
 	return (0);
 }
-
-// WARNING: potentially make
-// The readline() function can cause memory leaks. You don’t have to fix them. But
-// that doesn’t mean your own code, yes the code you wrote, can have memory
-// leaks.

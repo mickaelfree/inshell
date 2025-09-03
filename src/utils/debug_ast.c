@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/08 10:56:19 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/03 02:00:09 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/03 17:48:33 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,20 +65,25 @@ const char	*get_type_string(int type)
 
 void	print_ast(const t_ast *node, const char *prefix, int is_left)
 {
-    char	new_prefix[256];
-    if (!node) {
-        printf("DEBUG: Node is NULL\n");
-        return ;
-    }
-	printf("%s%s", YELLOW,prefix);
+	char	new_prefix[256];
+
+	if (!node)
+	{
+		printf("DEBUG: Node is NULL\n");
+		return ;
+	}
+	printf("%s%s", YELLOW, prefix);
 	printf(is_left ? "├── " : "└── ");
-	if (node->type == AST_WORD || node->type == AST_REDIRECT )
-		printf("%s%s: %s%s%s\n", GREEN, get_type_string(node->type), RESET, node->token, RESET);
+	if (node->type == AST_WORD || node->type == AST_REDIRECT)
+		printf("%s%s: %s%s%s\n", GREEN, get_type_string(node->type), RESET,
+			node->token, RESET);
 	else if (node->type == AST_CMD)
-		printf("%s%s: %s%s %sRelatedExec:%s%s\n", GREEN, get_type_string(node->type), RESET, node->token, CYAN,get_exec_string(node->exec), RESET);
+		printf("%s%s: %s%s %sRelatedExec:%s%s\n", GREEN,
+			get_type_string(node->type), RESET, node->token, CYAN,
+			get_exec_string(node->exec), RESET);
 	else
 		printf("%s\n", get_type_string(node->type));
-	snprintf(new_prefix, sizeof(new_prefix), "%s%s%s", YELLOW,prefix,
+	snprintf(new_prefix, sizeof(new_prefix), "%s%s%s", YELLOW, prefix,
 		is_left ? "│   " : "    ");
 	if (node->left && node->right)
 	{
@@ -95,9 +100,9 @@ void	print_ast(const t_ast *node, const char *prefix, int is_left)
 	}
 }
 
-void print_cmd(t_command *cmd)
+void	print_cmd(t_command *cmd)
 {
-	int i;
+	int	i;
 
 	while (cmd)
 	{
@@ -123,7 +128,8 @@ void print_cmd(t_command *cmd)
 		else
 			printf("  %sOutput File:%s NULL\n", CYAN, RESET);
 		if (cmd->heredoc_delim)
-			printf("  %sHeredoc Delimiter:%s %s\n", CYAN, RESET, cmd->heredoc_delim);
+			printf("  %sHeredoc Delimiter:%s %s\n", CYAN, RESET,
+				cmd->heredoc_delim);
 		else
 			printf("  %sHeredoc Delimiter:%s NULL\n", CYAN, RESET);
 		printf("  %sAppend Mode:%s %d\n", CYAN, RESET, cmd->append_mode);
