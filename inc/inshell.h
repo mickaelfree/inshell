@@ -28,6 +28,10 @@
 # define AST_PIPE 3
 # define AST_END 4
 
+# ifndef DEBUG_MODE
+#  define DEBUG_MODE 0
+# endif
+
 /////////////////////////ENUMS////////////////////////
 
 typedef enum e_char_type
@@ -188,12 +192,12 @@ void					execute_cmd(t_command *cmds, char ***envp);
 
 // Builtin functions
 int						builtin_echo(char **args, char ***envp);
-int						builtin_pwd(char **args, char ***envp);
-int						builtin_cd(char **args, char ***envp);
-int						builtin_env(char **args, char ***envp);
+int						builtin_pwd();
+int						builtin_cd(char *token, char ***envp);
+int						builtin_env(char *token, char ***envp);
 int						builtin_export(char **args, char ***envp);
 int						builtin_unset(char **args, char ***envp);
-int						builtin_exit(char **args, char ***envp);
+int						builtin_exit(char *token);
 int						is_builtin(char **args, char ***envp);
 int	execute_builtin(char **args, char ***envp);
 

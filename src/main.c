@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 22:33:13 by jureix-c          #+#    #+#             */
-/*   Updated: 2025/09/03 16:44:44 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/03 23:40:29 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		g_last_exit_status = 0;
 // 	return (1);
 // }
 
-void	update(char *line, t_ast *ast, char **ev, int debug_mode)
+void	update(char *line, t_ast *ast, char **ev)
 {
 	char **tmp;
 	while (1)
@@ -55,7 +55,7 @@ void	update(char *line, t_ast *ast, char **ev, int debug_mode)
 		if (!tmp)
 			continue ;
 		ast = generate_ast(tmp);
-		if (debug_mode)
+		if (DEBUG_MODE)
 			print_ast(ast, "", 0);
 		if (ast)
 		{
@@ -70,16 +70,14 @@ int	main(int ac, char **av, char **ev)
 {
 	char	*line;
 	t_ast	*ast;
-	int		debug_mode;
 	char	**new_env;
 
 	(void)ac;
 	(void)av;
 	new_env = ft_env(ev);
-	debug_mode = 1; // set to 1 to enable debug mode, 0 to disable
 	line = NULL;
 	ast = NULL;
 	signal(SIGQUIT, SIG_IGN);
-	update(line, ast, new_env, debug_mode);
+	update(line, ast, new_env);
 	return (0);
 }

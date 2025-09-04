@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 21:23:59 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/03 23:23:01 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/04 01:46:28 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,32 @@ void execute_node(t_ast *node,char **ev, int *last_exit_status)
 		if (ft_strncmp(node->token, "echo", 5) == 0)
 			node->exec(node->left);
 		else if (ft_strncmp(node->token, "cd", 3) == 0)
-			builtin_cd(NULL, &ev);
+		{
+			if (!node->left)
+				node->exec(NULL, &ev);
+			else
+				node->exec(node->left->token, &ev);
+		}
 		else if (ft_strncmp(node->token, "pwd", 4) == 0)
-			builtin_pwd(NULL, NULL);
+			node->exec();
 		else if (ft_strncmp(node->token, "export", 7) == 0)
-			builtin_export(NULL, NULL);
+		{
+			if (!node->left)
+				node->exec(NULL, &ev);
+			else
+				node->exec(node->left->token, &ev);
+		}
 		else if (ft_strncmp(node->token, "unset", 6) == 0)
-			builtin_unset(NULL, NULL);
+			node->exec(NULL, NULL);
 		else if (ft_strncmp(node->token, "env", 4) == 0)
-			builtin_env(NULL, &ev);
+		{
+			if (!node->left)
+				node->exec(NULL, &ev);
+			else
+				node->exec(node->left->token, &ev);
+		}
 		else if (ft_strncmp(node->token, "exit", 5) == 0)
-			builtin_exit(NULL, &ev);
+			node->exec(node->left->token, &ev);
 		else
 			printf("%s: command not found\n", node->token);
 	}

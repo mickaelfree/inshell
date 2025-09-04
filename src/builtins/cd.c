@@ -6,25 +6,21 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:33:23 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/02 04:41:34 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/04 01:44:27 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inshell.h"
 #include "libft.h"
 
-static char	*get_target_directory(char **args, int *print_pwd, char **envp)
+static char	*get_target_directory(char *token, int *print_pwd, char **envp)
 {
 	char	*home;
 	char	*old;
+	char	**args;
 
 	*print_pwd = 0;
-	if (args[1] && args[2])
-	{
-		printf("cd: too many arguments\n");
-		return (NULL);
-	}
-	if (!args[1])
+	if (!token)
 	{
 		home = get_env_value("HOME", envp);
 		if (!home || !*home)
@@ -34,7 +30,13 @@ static char	*get_target_directory(char **args, int *print_pwd, char **envp)
 		}
 		return (home);
 	}
-	if (!strcmp(args[1], "-"))
+	args = ft_split(token, ' ');
+	if (args[0] && args[1])
+	{
+		printf("cd: too many arguments\n");
+		return (NULL);
+	}
+	if (!strcmp(args[0], "-"))
 	{
 		old = get_env_value("OLDPWD", envp);
 		if (!old || !*old)
@@ -45,7 +47,7 @@ static char	*get_target_directory(char **args, int *print_pwd, char **envp)
 		*print_pwd = 1;
 		return (old);
 	}
-	return (args[1]);
+	return (args[0]);
 }
 
 static int	update_directory(char *target_dir, int print_pwd, char ***envp)
@@ -96,12 +98,12 @@ static int	update_directory(char *target_dir, int print_pwd, char ***envp)
 	return (EXIT_SUCCESS);
 }
 
-int	builtin_cd(char **args, char ***envp)
+int	builtin_cd(char *token, char ***envp)
 {
 	int		print_pwd;
 	char	*target_dir;
 
-	target_dir = get_target_directory(args, &print_pwd, *envp);
+	target_dir = get_target_directory(token, &print_pwd, *envp);
 	if (!target_dir)
 		return (EXIT_FAILURE);
 	return (update_directory(target_dir, print_pwd, envp));

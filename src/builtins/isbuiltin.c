@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 17:49:57 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/01 00:30:31 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/04 02:05:13 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 static void	init_builtin(builtin_func *builtin)
 {
 	builtin[BUILTIN_ECHO] = builtin_echo;
-	builtin[BUILTIN_PWD] = builtin_pwd;
-	builtin[BUILTIN_CD] = builtin_cd;
-	builtin[BUILTIN_ENV] = builtin_env;
+	// builtin[BUILTIN_PWD] = builtin_pwd;
+	// builtin[BUILTIN_CD] = builtin_cd;
+	// builtin[BUILTIN_ENV] = builtin_env;
 	builtin[BUILTIN_EXPORT] = builtin_export;
 	builtin[BUILTIN_UNSET] = builtin_unset;
-	builtin[BUILTIN_EXIT] = builtin_exit;
+	// builtin[BUILTIN_EXIT] = builtin_exit;
 }
 static void	init_lookup(t_builtin_entry *builtin_lookup)
 {

@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 19:21:42 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/01 00:20:31 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/04 02:07:38 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static int	is_numeric(char *str)
 	}
 	return (1);
 }
+
 static long	ft_atol(char *str)
 {
 	int		i;
@@ -59,20 +60,26 @@ static long	ft_atol(char *str)
 	}
 	return (result * sign);
 }
-int	builtin_exit(char **args, char ***envp)
+
+int	builtin_exit(char *token)
 {
-	(void)envp;
-	if (args[1] && !is_numeric(args[1]))
+	char	**args;
+
+	if (token)
 	{
-		printf("exit: %s: numeric argument required\n", args[1]);
-		exit(2);
+		args = ft_split(token, ' ');
+		if (args[0] && !is_numeric(args[1]))
+		{
+			printf("exit: %s: numeric argument required\n", args[1]);
+			exit(2);
+		}
+		if (args[0] && args[1])
+		{
+			printf("exit: too many arguments\n");
+			return (1);
+		}
 	}
-	if (args[1] && args[2])
-	{
-		printf("exit: too many arguments\n");
-		return (1);
-	}
-	if (!args[1])
+	if (!token)
 		exit(0);
 	else
 		exit(ft_atol(args[1]));

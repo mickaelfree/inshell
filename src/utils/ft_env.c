@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 14:19:09 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/03 23:26:00 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/04 02:14:02 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 // 	int	count_char;
 
 // 	count_char = 0;
-// 	// printf("count_pointer addr: %p, %d\n", count_pointer, *count_pointer);
 // 	while (envp[*count_pointer])
 // 	{
 // 		count_char += ft_strlen(envp[*count_pointer]) + 1;
@@ -59,9 +58,9 @@ void	free_env(char **env)
 {
 	int	i;
 
+	i = 0;
 	if (!env)
 		return ;
-	i = 0;
 	while (env[i])
 	{
 		free(env[i]);
@@ -81,7 +80,7 @@ char	**ft_env(char **envp)
 	count = 0;
 	while (envp[count])
 		count++;
-	new_env = malloc((count + 1) * sizeof(char *));
+	new_env = malloc(sizeof(char *) * (count + 1));
 	if (!new_env)
 		return (NULL);
 	i = 0;

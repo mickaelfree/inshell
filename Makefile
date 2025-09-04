@@ -37,7 +37,7 @@ SRCS = $(SRCDIR)/main.c \
 	$(SRCDIR)/oldparsing/expand_env.c \
 	$(SRCDIR)/signal/handler.c \
 	$(SRCDIR)/utils/debug_ast.c \
-	$(SRCDIR)/utils/env.c \
+	$(SRCDIR)/utils/ft_env.c \
 	$(SRCDIR)/utils/error.c \
 	$(SRCDIR)/utils/utils.c
 
@@ -94,8 +94,9 @@ re: fclean all
 
 # Debug build
 .PHONY: debug
-debug: CFLAGS = -Wall -Wextra -Werror -g3
-debug: all
+debug: CFLAGS = -Wall -Wextra -Werror -g3 -DDEBUG_MODE=1
+debug: fclean all
+	DEBUG_MODE=1 valgrind ./minishell 
 
 # Norminette for source and include
 .PHONY: norm
