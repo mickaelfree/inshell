@@ -6,11 +6,11 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 14:19:09 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/04 20:21:33 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/04 22:01:44 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "inshell.h"
+#include "mandatoshell.h"
 #include "libft.h"
 
 // static int calculate_size(char **envp, int *count_pointer)

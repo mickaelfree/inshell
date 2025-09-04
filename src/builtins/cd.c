@@ -6,11 +6,11 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:33:23 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/04 17:39:56 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/04 22:01:44 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "inshell.h"
+#include "mandatoshell.h"
 #include "libft.h"
 
 static char	*get_target_directory(char *token, int *print_pwd, char **envp)
@@ -41,7 +41,7 @@ static char	*get_target_directory(char *token, int *print_pwd, char **envp)
 		printf("cd: too many arguments\n");
 		return (NULL);
 	}
-	if (!strcmp(args[0], "-"))
+	if (!ft_strncmp(args[0], "-", 1))
 	{
 		old = get_env_value("OLDPWD", envp);
 		if (!old || !*old)

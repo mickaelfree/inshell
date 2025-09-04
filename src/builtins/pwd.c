@@ -6,13 +6,13 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:36:16 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/04 05:15:13 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/04 22:01:44 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "inshell.h"
+#include "mandatoshell.h"
 
-int	builtin_pwd()
+int	builtin_pwd(void)
 {
 	char	*line;
 

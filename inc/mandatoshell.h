@@ -1,5 +1,5 @@
-#ifndef INSHELL_H
-# define INSHELL_H
+#ifndef MANDATOSHELL_H
+# define MANDATOSHELL_H
 
 //INCLUDES
 # include <dirent.h>
@@ -153,8 +153,8 @@ void				concatenate_argument_to_cmd(t_ast *cmd_node, char *new_arg);
 
 
 //Execution
-void				execute_ast(t_ast *ast, char ***envp, int *last_exit_status);
-void				execute_node(t_ast *node, char ***envp, int *last_exit_status);
+void				execute_ast(t_ast *ast, char ***envp);
+void				execute_node(t_ast *node, char ***envp);
 
 //builtins
 int					builtin_echo_ast(t_ast *node);
@@ -193,7 +193,7 @@ void					execute_cmd(t_command *cmds, char ***envp);
 
 // Builtin functions
 int						builtin_echo(char **args, char ***envp);
-int						builtin_pwd();
+int						builtin_pwd(void);
 int						builtin_cd(char *token, char ***envp);
 int						builtin_env(char *token, char ***envp);
 int						builtin_export(char *token, char ***envp);

@@ -6,11 +6,11 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 15:48:37 by mickmart          #+#    #+#             */
-/*   Updated: 2025/08/30 23:14:10 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/04 22:01:44 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "inshell.h"
+#include "mandatoshell.h"
 
 void	skip_whitespace(char **line)
 

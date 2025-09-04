@@ -6,11 +6,11 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 18:00:45 by mickmart          #+#    #+#             */
-/*   Updated: 2025/08/30 23:13:54 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/04 22:01:44 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "inshell.h"
+#include "mandatoshell.h"
 
 static char	*type_token[] = {"WORD", "QUOTED", "PIPE", "REDIR_IN", "REDIR_OUT",
 		"HEREDOC", "APPEND"};

@@ -6,11 +6,11 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 22:33:13 by jureix-c          #+#    #+#             */
-/*   Updated: 2025/09/04 19:44:16 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/04 22:01:44 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "inshell.h"
+#include "mandatoshell.h"
 #include "libft.h"
 
 int		g_last_exit_status = 0;
@@ -39,7 +39,7 @@ void	update(char *line, t_ast *ast, char ***ev)
 	while (1)
 	{
 		tmp = NULL;
-		line = readline("Inshell>");
+		line = readline("Mandatoshell>");
 		if (!line)
 			exit(1);
 		if (*line)
@@ -59,7 +59,7 @@ void	update(char *line, t_ast *ast, char ***ev)
 			print_ast(ast, "", 0);
 		if (ast)
 		{
-			execute_ast(ast, ev, &g_last_exit_status);
+			execute_ast(ast, ev);
 			free_ast(ast);
 		}
 	}

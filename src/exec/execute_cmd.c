@@ -6,11 +6,11 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 21:20:51 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/04 19:47:35 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/04 22:39:47 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "inshell.h"
+#include "mandatoshell.h"
 #include <unistd.h>
 
 int					status = 0;
