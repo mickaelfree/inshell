@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:36:20 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/04 05:54:55 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/04 20:28:52 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,30 +67,37 @@ static int	remove_env_var(char ***envp_ptr, char *name)
 	return (EXIT_SUCCESS);
 }
 
-int	builtin_unset(char *token, char ***envp)
+int builtin_unset(char *token, char ***envp)
 {
-	char **args;
-	int	ret;
+    char **args;
+    char **original_args;
+    int ret;
+    int i;
 
-	ret = 0;
-	if (!token)
-		return(EXIT_FAILURE);
-	args = ft_split(token, ' ');
-	if (!args[0])
-		return (0);
-	args++;
-	while (*args)
-	{
-		if (!is_valid_identifier(*args))
-		{
-			printf("unset: `%s': not a valid identifier\n", *args);
-			ret = 1;
-		}
-		else
-		{
-			remove_env_var(envp, *args);
-		}
-		args++;
-	}
-	return (ret);
+    if (!token)
+        return (EXIT_FAILURE);
+    args = ft_split(token, ' ');
+    if (!args)
+        return (EXIT_FAILURE);
+    if (!args[0])
+    {
+        ft_free_split(args);
+        return (EXIT_FAILURE);
+    }
+    original_args = args; // Save original pointer for freeing
+    ret = EXIT_SUCCESS;
+    i = 0;
+    while (args[i])
+    {
+        if (!is_valid_identifier(args[i]))
+        {
+            printf("unset: `%s': not a valid identifier\n", args[i]);
+            ret = EXIT_FAILURE;
+        }
+        else
+            remove_env_var(envp, args[i]);
+        i++;
+    }
+    ft_free_split(original_args);
+    return (ret);
 }

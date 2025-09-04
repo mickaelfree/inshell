@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 21:20:51 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/04 06:31:04 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/04 19:47:35 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ static void	execute_child(t_command *cmd, int index, t_pipeline *pipeline,
 	{
 		if (is_builtin(cmd->args, envp) != -1)
 			exit(execute_builtin(cmd->args, envp));
-		execute(cmd->args[0], *envp);
+		execute(cmd->args[0], envp);
 	}
 	exit(0);
 }

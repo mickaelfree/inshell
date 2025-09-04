@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 14:19:09 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/04 05:50:45 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/04 20:21:33 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,18 @@ void	free_env(char **env)
 	free(env);
 }
 
-char	**ft_env(char **envp)
+char	**ft_env(char ***envp)
 {
 	int		count;
 	char	**new_env;
+	char	**cur_env;
 	int		i;
 
-	if (!envp)
+	cur_env = *envp;
+	if (!cur_env)
 		return (NULL);
 	count = 0;
-	while (envp[count])
+	while (cur_env[count])
 		count++;
 	new_env = malloc(sizeof(char *) * (count + 1));
 	if (!new_env)
@@ -86,7 +88,7 @@ char	**ft_env(char **envp)
 	i = 0;
 	while (i < count)
 	{
-		new_env[i] = ft_strdup(envp[i]);
+		new_env[i] = ft_strdup((*envp)[i]);
 		if (!new_env[i])
 		{
 			while (--i >= 0)
@@ -97,6 +99,5 @@ char	**ft_env(char **envp)
 		i++;
 	}
 	new_env[count] = NULL;
-	free_env(new_env);
 	return (new_env);
 }

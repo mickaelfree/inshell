@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 18:40:00 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/04 06:21:22 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/04 19:47:21 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ static void	check_file_permissions(char *path, char **cmd)
 	}
 }
 
-static void	execute_command(char *path, char **cmd, char **env)
+static void	execute_command(char *path, char **cmd, char ***env)
 {
-	if (execve(path, cmd, env) == -1)
+	if (execve(path, cmd, *env) == -1)
 	{
 		free(path);
 		ft_free(cmd);
@@ -66,7 +66,7 @@ static void	execute_command(char *path, char **cmd, char **env)
 	}
 }
 
-int	execute(char *token, char **env)
+int	execute(char *token, char ***env)
 {
 	char	*path;
 	char	**args;

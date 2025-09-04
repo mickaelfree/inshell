@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:33:23 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/04 01:44:27 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/04 17:39:56 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@ static char	*get_target_directory(char *token, int *print_pwd, char **envp)
 		return (home);
 	}
 	args = ft_split(token, ' ');
+	if (!args)
+	{
+		free(args);
+		return (NULL);
+	}
 	if (args[0] && args[1])
 	{
 		printf("cd: too many arguments\n");

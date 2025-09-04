@@ -147,13 +147,14 @@ void				error_exit(void);
 void				ft_free(char **arr);
 void				free_ast(t_ast *node);
 void				free_env(char **env);
+void				ft_free_split(char **split);
 void				clear_token_quotes(char **token);
 void				concatenate_argument_to_cmd(t_ast *cmd_node, char *new_arg);
 
 
 //Execution
-void				execute_ast(t_ast *ast, char **envp, int *last_exit_status);
-void				execute_node(t_ast *node, char **envp, int *last_exit_status);
+void				execute_ast(t_ast *ast, char ***envp, int *last_exit_status);
+void				execute_node(t_ast *node, char ***envp, int *last_exit_status);
 
 //builtins
 int					builtin_echo_ast(t_ast *node);
@@ -183,10 +184,10 @@ char					*expand_token(char *token, int is_quoted);
 
 // Execution functions
 void					ft_error(char *msg);
-int						execute(char *token, char **env);
+int						execute(char *token, char ***env);
 char					*ft_strnstr(const char *big, const char *little,
 							size_t len);
-char					*find_path(char *cmd, char **env);
+char					*find_path(char *cmd, char ***env);
 char					*process_heredoc(char *delimiter);
 void					execute_cmd(t_command *cmds, char ***envp);
 
@@ -203,7 +204,7 @@ int	execute_builtin(char **args, char ***envp);
 
 
 // String utilities
-char					**ft_env(char **envp);
+char					**ft_env(char ***envp);
 
 // Token identification helpers
 void					test_parsing(void);

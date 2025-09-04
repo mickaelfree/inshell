@@ -6,49 +6,38 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:35:41 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/04 02:06:44 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/04 20:26:44 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inshell.h"
 #include "libft.h"
 
-static void ft_free_split(char **split)
+int builtin_env(char *token, char ***envp)
 {
-    int i;
-
-    if (!split)
-        return;
+    int     i;
+    char    **args;
+    char    **ev;
     
-    i = 0;
-    while (split[i])
+    ev = *envp;
+    if (!ev)
+        return (EXIT_FAILURE);
+    if (token && *token)
     {
-        free(split[i]);
-        i++;
+        args = ft_split(token, ' ');
+        if (args && args[0])
+        {
+            printf("env: too many arguments\n");
+            ft_free_split(args);
+            return (127);
+        }
+        if (args)
+            ft_free_split(args);
     }
-    free(split);
-}
-
-int	builtin_env(char *token, char ***envp)
-{
-	int		i;
-	char	**args;
-
-	i = 0;
-	if (token)
-	{
-		args = ft_split(token, ' ');
-		if (args[0])
-		{
-			printf("env: too many arguments\n");
-			ft_free_split(args);
-			return (127);
-		}
-		ft_free_split(args);
-	}
-    while (envp && (*envp)[i])
+    i = 0;
+    while (ev[i])
     {
-        printf("%s\n", (*envp)[i]);
+        printf("%s\n", ev[i]);
         i++;
     }
     return (0);

@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 14:01:33 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/04 05:59:28 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/04 19:36:09 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,13 +155,13 @@ static int	process_export_args(char **args, char ***envp)
 	{
 		if (!is_valide_export(*args))
 		{
-			printf("export: `%s': not a valid identifier\n", *args);
+			printf("export: '%s': not a valid identifier\n", *args);
 			args++;
 			continue ;
 		}
 		if (ft_strchr(*args, '='))
 		{
-			if (update_env_var(envp, *args) != EXIT_SUCCESS)
+			if (!update_env_var(envp, *args))
 				return (EXIT_FAILURE);
 		}
 		args++;
@@ -171,16 +171,23 @@ static int	process_export_args(char **args, char ***envp)
 
 int	builtin_export(char *token, char ***envp)
 {
-	char **args;
+	char	**args;
 
-	if (!token || !envp)
+	if (!envp)
 		return (EXIT_FAILURE);
-	args = ft_split(token, ' ');
-	if (!args[0])
+	if (!token)
 	{
 		print_export_env(*envp);
-		free(args);
+		free(token);
 		return (EXIT_SUCCESS);
 	}
-	return (process_export_args(args + 1, envp));
+	args = ft_split(token, ' ');
+	if (!args)
+	{
+		free(args);
+		return (EXIT_FAILURE);
+	}
+	if (!process_export_args(args, envp))
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }

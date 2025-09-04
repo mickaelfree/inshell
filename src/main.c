@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 22:33:13 by jureix-c          #+#    #+#             */
-/*   Updated: 2025/09/04 05:52:45 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/04 19:44:16 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		g_last_exit_status = 0;
 // 	return (1);
 // }
 
-void	update(char *line, t_ast *ast, char **ev)
+void	update(char *line, t_ast *ast, char ***ev)
 {
 	char **tmp;
 	while (1)
@@ -75,10 +75,10 @@ int	main(int ac, char **av, char **ev)
 
 	(void)ac;
 	(void)av;
-	new_env = ft_env(ev);
+	new_env = ft_env(&ev);
 	line = NULL;
 	ast = NULL;
 	signal(SIGQUIT, SIG_IGN);
-	update(line, ast, new_env);
+	update(line, ast, &new_env);
 	return (0);
 }
