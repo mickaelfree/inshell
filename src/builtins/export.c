@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 14:01:33 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/04 22:01:44 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/05 01:29:05 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static void	print_export_env(char **envp)
 	while (*envp)
 		printf("export %s\n", *envp++);
 }
+
 static char	*get_key(char *var)
 {
 	char	*k_end;
@@ -47,6 +48,7 @@ static char	*get_key(char *var)
 		return (ft_strdup(var));
 	return (strndup(var, k_end - var));
 }
+
 static int	tab_len(char **arr)
 {
 	int	i;
@@ -104,7 +106,7 @@ int	update_env_var(char ***envp_ptr, char *var)
 				j++;
 			}
 			new_env[len] = NULL;
-			free_env(*envp_ptr); // Libérer l'ancien bloc entier
+			ft_free_env(*envp_ptr); // Libérer l'ancien bloc entier
 			*envp_ptr = new_env;
 			free(key);
 			return (EXIT_SUCCESS);

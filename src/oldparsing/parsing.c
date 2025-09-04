@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 19:52:34 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/04 22:01:44 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/05 01:20:30 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,34 +63,6 @@ void	free_token_list(t_pre_token *head)
 	while (current)
 	{
 		next = current->next;
-		free(current);
-		current = next;
-	}
-}
-
-void	free_commands(t_command *head)
-{
-	t_command	*current;
-	t_command	*next;
-	int			i;
-
-	current = head;
-	while (current)
-	{
-		next = current->next;
-		if (current->args)
-		{
-			i = 0;
-			while (i < current->arg_count)
-			{
-				free(current->args[i]);
-				i++;
-			}
-			free(current->args);
-		}
-		free(current->input_file);
-		free(current->output_file);
-		free(current->heredoc_delim);
 		free(current);
 		current = next;
 	}

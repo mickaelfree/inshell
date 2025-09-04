@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 22:33:13 by jureix-c          #+#    #+#             */
-/*   Updated: 2025/09/04 22:01:44 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/05 01:16:37 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "libft.h"
 
 int		g_last_exit_status = 0;
+
 // static int	quotes_handler(char *str)
 // {
 // 	if (!str)
@@ -60,12 +61,11 @@ void	update(char *line, t_ast *ast, char ***ev)
 		if (ast)
 		{
 			execute_ast(ast, ev);
-			free_ast(ast);
+			ft_free_ast(ast);
 		}
 	}
-	free_ast(ast);
+	ft_free_ast(ast);
 }
-
 
 int	main(int ac, char **av, char **ev)
 {
@@ -75,7 +75,7 @@ int	main(int ac, char **av, char **ev)
 
 	(void)ac;
 	(void)av;
-	new_env = ft_env(&ev);
+	new_env = init_env(&ev);
 	line = NULL;
 	ast = NULL;
 	signal(SIGQUIT, SIG_IGN);

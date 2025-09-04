@@ -37,9 +37,8 @@ SRCS = $(SRCDIR)/main.c \
 	$(SRCDIR)/oldparsing/expand_env.c \
 	$(SRCDIR)/signal/handler.c \
 	$(SRCDIR)/utils/debug_ast.c \
-	$(SRCDIR)/utils/ft_env.c \
 	$(SRCDIR)/utils/error.c \
-	$(SRCDIR)/utils/utils.c
+	$(SRCDIR)/utils/ft_free.c
 
 # Directory structure for object files
 OBJS = $(SRCS:$(SRCDIR)/%.c=$(BUILDDIR)/%.o)

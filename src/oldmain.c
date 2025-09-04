@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 21:30:44 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/04 22:01:44 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/05 01:16:37 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	test_parsing(void)
 			cur->heredoc_delim);
 		cur = cur->next;
 	}
-	// free_commands(cmds);
+	// ft_free_commands(cmds);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -63,7 +63,7 @@ int	main(int argc, char **argv, char **envp)
 	int			builtin_ret;
 
 	builtin_ret = 0;
-	new_env = ft_env(envp);
+	new_env = init_env(envp);
 	signal(SIGINT, ft_handle_sig);
 	signal(SIGQUIT, SIG_IGN);
 	while (1)
@@ -102,7 +102,7 @@ int	main(int argc, char **argv, char **envp)
 			else
 				execute_cmd(cmd, &new_env);
 		}
-		free_commands(cmd);
+		ft_free_commands(cmd);
                 free(line);
 	}
 	if (new_env)

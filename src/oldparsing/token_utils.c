@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 15:48:37 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/04 22:01:44 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/05 01:10:31 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	skip_whitespace(char **line)
 	while (**line && is_whitespace((unsigned char)**line))
 		(*line)++;
 }
+
 t_pre_token	*add_new_token(t_pre_token **head, t_pre_token **current,
 		char *start, int len, int type)
 {

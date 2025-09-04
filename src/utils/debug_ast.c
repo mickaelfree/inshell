@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/08 10:56:19 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/04 22:01:44 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/05 01:19:14 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,14 +111,10 @@ void	print_cmd(t_command *cmd)
 		{
 			printf("  %sArguments:%s\n", MAGENTA, RESET);
 			for (i = 0; i < cmd->arg_count; i++)
-			{
 				printf("    [%d]: %s\n", i, cmd->args[i]);
-			}
 		}
 		else
-		{
 			printf("  %sArguments: NULL%s\n", MAGENTA, RESET);
-		}
 		if (cmd->input_file)
 			printf("  %sInput File:%s %s\n", CYAN, RESET, cmd->input_file);
 		else
