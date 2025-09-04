@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 18:40:00 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/01 00:20:48 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/04 06:21:22 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,18 +66,29 @@ static void	execute_command(char *path, char **cmd, char **env)
 	}
 }
 
-void	execute(char **av, char **env)
+int	execute(char *token, char **env)
 {
 	char	*path;
-
+	char	**args;
 	// char	**cmd;
 	//(void)cmd;
 	// cmd = ft_split(av, ' ');
 	// if (cmd == NULL)
 	// ft_error("malloc error");
-	path = find_path(*av, env);
+	if (!token)
+	{
+		return (EXIT_FAILURE);
+	}
+	args = ft_split(token, ' ');
+	if (!args)
+	{
+		free(args);
+		return (EXIT_FAILURE);
+	}
+	path = find_path(*args, env);
 	if (path == NULL)
-		handle_command_not_found(av);
-	check_file_permissions(path, av);
-	execute_command(path, av, env);
+		handle_command_not_found(args);
+	check_file_permissions(path, args);
+	execute_command(path, args, env);
+	return (EXIT_SUCCESS);
 }

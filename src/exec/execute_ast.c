@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 21:23:59 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/04 01:46:28 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/04 06:21:03 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void execute_node(t_ast *node,char **ev, int *last_exit_status)
 	if (node->type == AST_CMD)
 	{
 		if (ft_strncmp(node->token, "echo", 5) == 0)
-			node->exec(node->left);
+			node->exec(node->left, NULL);
 		else if (ft_strncmp(node->token, "cd", 3) == 0)
 		{
 			if (!node->left)
@@ -30,7 +30,7 @@ void execute_node(t_ast *node,char **ev, int *last_exit_status)
 				node->exec(node->left->token, &ev);
 		}
 		else if (ft_strncmp(node->token, "pwd", 4) == 0)
-			node->exec();
+			node->exec(NULL, NULL);
 		else if (ft_strncmp(node->token, "export", 7) == 0)
 		{
 			if (!node->left)
@@ -39,7 +39,12 @@ void execute_node(t_ast *node,char **ev, int *last_exit_status)
 				node->exec(node->left->token, &ev);
 		}
 		else if (ft_strncmp(node->token, "unset", 6) == 0)
-			node->exec(NULL, NULL);
+		{
+			if (!node->left)
+				node->exec(NULL, &ev);
+			else
+				node->exec(node->left->token, &ev);
+		}
 		else if (ft_strncmp(node->token, "env", 4) == 0)
 		{
 			if (!node->left)
@@ -48,10 +53,17 @@ void execute_node(t_ast *node,char **ev, int *last_exit_status)
 				node->exec(node->left->token, &ev);
 		}
 		else if (ft_strncmp(node->token, "exit", 5) == 0)
-			node->exec(node->left->token, &ev);
+		{
+			if (!node->left)
+				node->exec(NULL, &ev);
+			else
+				node->exec(node->left->token, &ev);
+		}
 		else
 			printf("%s: command not found\n", node->token);
 	}
+	else if (node->type == AST_WORD)
+		execute(node->token, ev);
 	else
 		printf("%s: command not found\n", node->token);
 }

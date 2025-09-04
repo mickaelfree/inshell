@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 14:19:09 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/04 02:14:02 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/04 05:50:45 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,6 @@ char	**ft_env(char **envp)
 		i++;
 	}
 	new_env[count] = NULL;
+	free_env(new_env);
 	return (new_env);
 }

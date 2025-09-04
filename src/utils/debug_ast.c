@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/08 10:56:19 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/03 17:48:33 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/04 05:45:14 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 #define CYAN "\033[0;36m"
 #define RESET "\033[0m"
 
-const char	*get_exec_string(void (*exec)())
+const char	*get_exec_string(void (*exec)(void *, void *))
 {
 	if (exec == NULL)
 		return ("NULL");

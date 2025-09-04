@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:36:20 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/01 00:15:43 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/04 05:54:55 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,16 @@ static int	remove_env_var(char ***envp_ptr, char *name)
 	return (EXIT_SUCCESS);
 }
 
-int	builtin_unset(char **args, char ***envp)
+int	builtin_unset(char *token, char ***envp)
 {
+	char **args;
 	int	ret;
 
 	ret = 0;
-	if (!args[1])
+	if (!token)
+		return(EXIT_FAILURE);
+	args = ft_split(token, ' ');
+	if (!args[0])
 		return (0);
 	args++;
 	while (*args)

@@ -77,7 +77,7 @@ typedef struct s_ast
 	char			*token;
 	int				type;
 	int				priority;
-	void			(*exec)();
+	void 			(*exec)(void*, void*);
 	struct s_ast	*left;
 	struct s_ast	*right;
 }					t_ast;
@@ -183,7 +183,7 @@ char					*expand_token(char *token, int is_quoted);
 
 // Execution functions
 void					ft_error(char *msg);
-void					execute(char **av, char **env);
+int						execute(char *token, char **env);
 char					*ft_strnstr(const char *big, const char *little,
 							size_t len);
 char					*find_path(char *cmd, char **env);
@@ -195,8 +195,8 @@ int						builtin_echo(char **args, char ***envp);
 int						builtin_pwd();
 int						builtin_cd(char *token, char ***envp);
 int						builtin_env(char *token, char ***envp);
-int						builtin_export(char **args, char ***envp);
-int						builtin_unset(char **args, char ***envp);
+int						builtin_export(char *token, char ***envp);
+int						builtin_unset(char *token, char ***envp);
 int						builtin_exit(char *token);
 int						is_builtin(char **args, char ***envp);
 int	execute_builtin(char **args, char ***envp);

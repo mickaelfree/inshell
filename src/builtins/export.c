@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 14:01:33 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/04 02:12:24 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/04 05:59:28 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,13 +169,17 @@ static int	process_export_args(char **args, char ***envp)
 	return (EXIT_SUCCESS);
 }
 
-int	builtin_export(char **args, char ***envp)
+int	builtin_export(char *token, char ***envp)
 {
-	if (!envp)
+	char **args;
+
+	if (!token || !envp)
 		return (EXIT_FAILURE);
-	if (!args[1])
+	args = ft_split(token, ' ');
+	if (!args[0])
 	{
 		print_export_env(*envp);
+		free(args);
 		return (EXIT_SUCCESS);
 	}
 	return (process_export_args(args + 1, envp));
