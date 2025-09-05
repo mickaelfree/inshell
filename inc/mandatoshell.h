@@ -141,6 +141,9 @@ int						char_type(char *c);
 
 //-----------------------------PARSING-----------------------------//
 
+char					**ast_to_args(t_ast *root);
+void					print_doublechar(char **args);
+
 // AST_UTILS
 void					*set_exec_to_node(t_ast *node);
 void					set_word_or_cmd_type(t_ast *node,
@@ -183,7 +186,6 @@ void					ft_free_ast(t_ast *node);
 void					ft_free_env(char **env);
 void					ft_free_split(char **split);
 void					ft_free_commands(t_command *head);
-
 
 void					clear_token_quotes(char **token);
 void					concatenate_argument_to_cmd(t_ast *cmd_node,
