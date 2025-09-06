@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 22:33:13 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/05 02:07:04 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/05 03:29:50 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ int		g_last_exit_status = 0;
 void	update(char *line, t_ast *ast, char ***ev)
 {
 	char **tmp;
-	char **args;
+	// char **args;
 	
-	(void)ev;
+	// (void)ev;
 	while (1)
 	{
 		tmp = NULL;
@@ -63,9 +63,9 @@ void	update(char *line, t_ast *ast, char ***ev)
 			print_ast(ast, "", 0);
 		if (ast)
 		{
-			args = ast_to_args(ast);
-			print_doublechar(args);
-			// execute_ast(ast, ev);
+			// args = ast_to_args(ast);
+			// print_doublechar(args);
+			execute_ast(ast, ev);
 			ft_free_ast(ast);
 		}
 	}
