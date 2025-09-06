@@ -6,14 +6,14 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 18:00:45 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/07 01:01:01 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/07 01:40:09 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mandatoshell.h"
 
-static char	*type_token[] = {"WORD", "SINGLE_QUOTE","DOUBLE_QUOTE", "PIPE", "REDIR_IN", "REDIR_OUT",
-		"HEREDOC", "APPEND"};
+static char	*type_token[] = {"WORD", "SINGLE_QUOTE", "DOUBLE_QUOTE", "PIPE",
+		"REDIR_IN", "REDIR_OUT", "HEREDOC", "APPEND"};
 
 t_pre_token	*identify_token(char *line)
 {
@@ -31,7 +31,7 @@ t_pre_token	*identify_token(char *line)
 	quote_state = 0;
 	quote_char = 0;
 	skip_whitespace(&ptr);
-        //TODO: gere les single quote et double quote directement avec les cote state
+	// TODO: gere les single quote et double quote directement avec les cote state
 	while (*ptr)
 	{
 		token_start = ptr;
@@ -48,11 +48,12 @@ t_pre_token	*identify_token(char *line)
 				ptr++;
 			if (*ptr == quote_char)
 			{
-                                printf("type de quote %d\n", quote_state);
-                                if (quote_state == 1)
-                                        type = TOKEN_SINGLE_QUOTE;
-                                else if (quote_state == 2)
-                                        type = TOKEN_DOUBLE_QUOTE;
+				if (DEBUG_MODE)
+					printf("type de quote %d\n", quote_state);
+				if (quote_state == 1)
+					type = TOKEN_SINGLE_QUOTE;
+				else if (quote_state == 2)
+					type = TOKEN_DOUBLE_QUOTE;
 				add_new_token(&head, &current, token_start, ptr - token_start,
 					type);
 				ptr++;

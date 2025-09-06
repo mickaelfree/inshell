@@ -26,13 +26,13 @@ SRCS = $(SRCDIR)/main.c \
 	$(SRCDIR)/exec/find_path.c \
 	$(SRCDIR)/parsing/identify_token.c \
 	$(SRCDIR)/parsing/token_utils.c \
-	$(SRCDIR)/parsing/char_utils.c \
-	$(SRCDIR)/parsing/char_utils2.c \
-	$(SRCDIR)/parsing/char_utils3.c \
 	$(SRCDIR)/parsing/parsing.c \
 	$(SRCDIR)/parsing/build_pipeline.c \
 	$(SRCDIR)/parsing/expand_env.c \
 	$(SRCDIR)/signal/handler.c \
+	$(SRCDIR)/utils/char_utils.c \
+	$(SRCDIR)/utils/char_utils2.c \
+	$(SRCDIR)/utils/char_utils3.c \
 	$(SRCDIR)/utils/error.c \
 	$(SRCDIR)/utils/ft_free.c
 

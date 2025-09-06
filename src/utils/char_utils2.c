@@ -6,9 +6,11 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 01:35:26 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/07 01:35:28 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/07 01:38:41 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "mandatoshell.h"
 
 int	is_escape(char c)
 {

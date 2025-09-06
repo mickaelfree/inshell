@@ -6,9 +6,11 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 01:35:56 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/07 01:36:06 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/07 01:38:49 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "mandatoshell.h"
 
 int	is_operator(char c)
 {
