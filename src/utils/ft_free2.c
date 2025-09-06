@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   char_utils3.c                                      :+:      :+:    :+:   */
+/*   ft_free2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/07 01:35:56 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/07 01:58:08 by zsonie           ###   ########lyon.fr   */
+/*   Created: 2025/09/07 01:50:13 by zsonie            #+#    #+#             */
+/*   Updated: 2025/09/07 01:50:39 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mandatoshell.h"
+#include "mandatoshell.h" 
 
-int	is_operator(char c)
+void	free_token_list(t_pre_token *head)
 {
-	return (is_pipe(c) || is_redir(c) || c == '<' || c == '>');
-}
+	t_pre_token	*current;
+	t_pre_token	*next;
 
-void	skip_whitespace(char **line)
-{
-	while (**line && is_whitespace((unsigned char)**line))
-		(*line)++;
+	current = head;
+	while (current)
+	{
+		next = current->next;
+		free(current);
+		current = next;
+	}
 }

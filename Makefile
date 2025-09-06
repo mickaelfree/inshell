@@ -33,8 +33,9 @@ SRCS = $(SRCDIR)/main.c \
 	$(SRCDIR)/utils/char_utils.c \
 	$(SRCDIR)/utils/char_utils2.c \
 	$(SRCDIR)/utils/char_utils3.c \
-	$(SRCDIR)/utils/error.c \
-	$(SRCDIR)/utils/ft_free.c
+	$(SRCDIR)/utils/ft_error.c \
+	$(SRCDIR)/utils/ft_free.c \
+	$(SRCDIR)/utils/ft_free2.c
 
 # Directory structure for object files
 OBJS = $(SRCS:$(SRCDIR)/%.c=$(BUILDDIR)/%.o)

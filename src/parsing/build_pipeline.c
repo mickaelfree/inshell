@@ -6,12 +6,12 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 17:12:14 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/04 22:01:44 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/07 01:49:32 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mandatoshell.h"
 #include "libft.h"
+#include "mandatoshell.h"
 
 void	init_command(t_command *cmd)
 {
@@ -55,6 +55,7 @@ int	handle_redirection(t_command *cmd, t_pre_token **token, char **envp)
 {
 	int		type;
 	char	*value;
+	char	*expanded_value;
 
 	type = (*token)->type;
 	*token = (*token)->next;
@@ -65,8 +66,7 @@ int	handle_redirection(t_command *cmd, t_pre_token **token, char **envp)
 		return (0);
 	}
 	value = strndup((*token)->start, (*token)->len);
-	char *expanded_value = expand_variables(value, envp);
-		// Expansion pour les redirections
+	expanded_value = expand_variables(value, envp);
 	free(value);
 	if (!expanded_value)
 		expanded_value = ft_strdup("");
@@ -74,9 +74,9 @@ int	handle_redirection(t_command *cmd, t_pre_token **token, char **envp)
 	{
 		if (cmd->input_file)
 		{
-                        //FIX:temporaire erreur 66;
-			//printf("Warning: multiple input redirections, last wins\n");
-                        g_last_exit_status = 1;
+			// FIX:temporaire erreur 66;
+			// printf("Warning: multiple input redirections, last wins\n");
+			g_last_exit_status = 1;
 			free(cmd->input_file);
 		}
 		cmd->input_file = expanded_value;
@@ -85,9 +85,9 @@ int	handle_redirection(t_command *cmd, t_pre_token **token, char **envp)
 	{
 		if (cmd->output_file)
 		{
-                        //FIX:temporaire erreur 88;
-			//printf("Warning: multiple output redirections, last wins\n");
-                        g_last_exit_status = 1;
+			// FIX:temporaire erreur 88;
+			// printf("Warning: multiple output redirections, last wins\n");
+			g_last_exit_status = 1;
 			free(cmd->output_file);
 		}
 		cmd->output_file = expanded_value;

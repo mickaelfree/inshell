@@ -6,18 +6,11 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 15:48:37 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/07 01:10:53 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/07 01:51:01 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mandatoshell.h"
-
-void	skip_whitespace(char **line)
-
-{
-	while (**line && is_whitespace((unsigned char)**line))
-		(*line)++;
-}
 
 t_pre_token	*add_new_token(t_pre_token **head, t_pre_token **current,
 		char *start, int len, int type)
@@ -28,7 +21,6 @@ t_pre_token	*add_new_token(t_pre_token **head, t_pre_token **current,
 	if (!new)
 		return (NULL);
 	new->start = start;
-	// printf("start= %s\n",new->start);
 	new->len = len;
 	new->type = type;
 	new->next = NULL;

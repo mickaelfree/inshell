@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 14:01:33 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/07 01:00:28 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/07 01:53:34 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static void	print_export_env(char **envp)
 	while (*envp)
 		printf("export %s\n", *envp++);
 }
+
 static char	*get_key(char *var)
 {
 	char	*k_end;
@@ -46,6 +47,7 @@ static char	*get_key(char *var)
 		return (ft_strdup(var));
 	return (strndup(var, k_end - var));
 }
+
 static int	tab_len(char **arr)
 {
 	int	i;
