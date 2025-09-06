@@ -91,6 +91,10 @@ debug: CFLAGS = -Wall -Wextra -Werror -g3 -DDEBUG_MODE=1
 debug: fclean all
 	DEBUG_MODE=1 valgrind ./minishell 
 
+.PHONY: test
+test: fclean all
+	cd minishell_tester; pwd;\
+	./tester; cd ..; make fclean
 # Norminette for source and include
 .PHONY: norm
 norm:

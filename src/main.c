@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 21:30:44 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/06 20:46:24 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/07 01:15:27 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,12 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		}
 		cmd = parse_token(line, new_env);
-
+		if (DEBUG_MODE)
+			display_parsed_command(cmd);
 		if (cmd)
-		{
 			execute_cmd(cmd, &new_env);
-		}
 		ft_free_commands(cmd);
-                free(line);
+        free(line);
 	}
 	if (new_env)
 		free(new_env);

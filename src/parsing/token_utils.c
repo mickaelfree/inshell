@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 15:48:37 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/05 01:10:31 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/07 01:10:53 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ t_pre_token	*add_new_token(t_pre_token **head, t_pre_token **current,
 	if (!new)
 		return (NULL);
 	new->start = start;
+	// printf("start= %s\n",new->start);
 	new->len = len;
 	new->type = type;
 	new->next = NULL;

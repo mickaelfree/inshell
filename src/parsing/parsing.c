@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 19:52:34 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/05 01:20:30 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/07 01:11:56 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ t_command	*parse_token(char *line, char **envp)
 	tokens = identify_token(line);
 	if (!tokens)
 		return (NULL);
-//	print_token(tokens);
+	if (DEBUG_MODE) 
+		print_token(tokens);
 	commands = build_pipeline(tokens, envp);
 	free_token_list(tokens);
 	return (commands);

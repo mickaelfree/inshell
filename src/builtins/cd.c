@@ -6,12 +6,12 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:33:23 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/06 21:28:55 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/07 00:46:09 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mandatoshell.h"
 #include "libft.h"
+#include "mandatoshell.h"
 
 static char	*get_target_directory(char **args, int *print_pwd, char **envp)
 {
@@ -21,8 +21,8 @@ static char	*get_target_directory(char **args, int *print_pwd, char **envp)
 	*print_pwd = 0;
 	if (args[1] && args[2])
 	{
-                write(STDERR_FILENO, " too many arguments\n", 19);
-                g_last_exit_status = 1;
+		write(STDERR_FILENO, " too many arguments\n", 19);
+		g_last_exit_status = 1;
 		return (NULL);
 	}
 	if (!args[1])
@@ -30,9 +30,8 @@ static char	*get_target_directory(char **args, int *print_pwd, char **envp)
 		home = get_env_value("HOME", envp);
 		if (!home || !*home)
 		{
-                        
-                        write(STDERR_FILENO, " HOME not set\n", 14);
-                        g_last_exit_status = 1;
+			write(STDERR_FILENO, " HOME not set\n", 14);
+			g_last_exit_status = 1;
 			return (NULL);
 		}
 		return (home);
@@ -42,8 +41,8 @@ static char	*get_target_directory(char **args, int *print_pwd, char **envp)
 		old = get_env_value("OLDPWD", envp);
 		if (!old || !*old)
 		{
-                        write(STDERR_FILENO, " OLDPWD not set\n", 16);
-                        g_last_exit_status = 1;
+			write(STDERR_FILENO, " OLDPWD not set\n", 16);
+			g_last_exit_status = 1;
 			return (NULL);
 		}
 		*print_pwd = 1;
