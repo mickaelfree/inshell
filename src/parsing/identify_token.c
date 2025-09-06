@@ -12,7 +12,7 @@
 
 #include "mandatoshell.h"
 
-static char	*type_token[] = {"WORD", "QUOTED", "PIPE", "REDIR_IN", "REDIR_OUT",
+static char	*type_token[] = {"WORD", "SINGLE_QUOTE","DOUBLE_QUOTE", "PIPE", "REDIR_IN", "REDIR_OUT",
 		"HEREDOC", "APPEND"};
 
 t_pre_token	*identify_token(char *line)
@@ -48,8 +48,13 @@ t_pre_token	*identify_token(char *line)
 				ptr++;
 			if (*ptr == quote_char)
 			{
+                                printf("type de quote %d\n", quote_state);
+                                if (quote_state == 1)
+                                        type = TOKEN_SINGLE_QUOTE;
+                                else if (quote_state == 2)
+                                        type = TOKEN_DOUBLE_QUOTE;
 				add_new_token(&head, &current, token_start, ptr - token_start,
-					TOKEN_QUOTED);
+					type);
 				ptr++;
 				quote_state = 0;
 			}

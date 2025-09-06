@@ -52,6 +52,8 @@ typedef enum e_char_type
 typedef enum e_token_type
 {
 	TOKEN_WORD,
+        TOKEN_SINGLE_QUOTE,
+        TOKEN_DOUBLE_QUOTE,
 	TOKEN_QUOTED,
 	TOKEN_PIPE,
 	TOKEN_REDIR_IN,
