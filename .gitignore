@@ -1,9 +1,7 @@
 *.o
 obj/
-inshell
-tests/
+libft.a
 minishell
-.vscode/settings.json
 .gitignore
 .vscode/c_cpp_properties.json
 .vscode/launch.json
