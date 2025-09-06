@@ -8,7 +8,7 @@ LIBS ?= -lreadline -lncurses
 
 # Project files structure
 SRCDIR = src
-BUILDDIR = build
+BUILDDIR = obj
 
 # Source
 SRCS = $(SRCDIR)/main.c \

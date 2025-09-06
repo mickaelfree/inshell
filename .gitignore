@@ -2,7 +2,6 @@
 obj/
 inshell
 tests/
-minishell_tester/
 minishell
 .vscode/settings.json
 .gitignore
