@@ -4,3 +4,8 @@ inshell
 tests/
 minishell_tester/
 minishell
+.vscode/settings.json
+.gitignore
+.vscode/c_cpp_properties.json
+.vscode/launch.json
+.vscode/settings.json
