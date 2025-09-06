@@ -59,7 +59,7 @@ int	handle_redirection(t_command *cmd, t_pre_token **token, char **envp)
 	type = (*token)->type;
 	*token = (*token)->next;
 	if (!*token || ((*token)->type != TOKEN_WORD
-			&& (*token)->type != TOKEN_QUOTED))
+			&& (*token)->type != TOKEN_DOUBLE_QUOTE && (*token)->type != TOKEN_SINGLE_QUOTE))
 	{
 		printf("Syntax error: missing file after redirection\n");
 		return (0);
@@ -149,7 +149,7 @@ t_command	*build_pipeline(t_pre_token *tokens, char **envp)
 			token = token->next;
 			continue ;
 		}
-		if (token->type == TOKEN_WORD || token->type == TOKEN_QUOTED)
+		if (token->type == TOKEN_WORD || token->type == TOKEN_DOUBLE_QUOTE || token->type == TOKEN_SINGLE_QUOTE)
 		{
 			value = strndup(token->start, token->len);
 			add_argument(current, value, envp);
