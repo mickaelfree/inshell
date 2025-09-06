@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 19:21:42 by mickmart          #+#    #+#             */
-/*   Updated: 2025/08/18 16:21:39 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/09/06 19:55:50 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/inshell.h"
+#include "mandatoshell.h"
+#include "libft.h"
 
 static int	is_numeric(char *str)
 {
@@ -29,6 +30,7 @@ static int	is_numeric(char *str)
 	}
 	return (1);
 }
+
 static long	ft_atol(char *str)
 {
 	int		i;
@@ -60,10 +62,12 @@ static long	ft_atol(char *str)
 	}
 	return (result * sign);
 }
-int	builtin_exit(char **args, char ***envp)
+
+int	builtin_exit(char *token)
 {
-	(void)envp;
-	if (args[1] && !is_numeric(args[1]))
+	char	**args;
+
+	if (token)
 	{
                 write(STDERR_FILENO, " numeric argument required\n", 26 );
 		exit(2);

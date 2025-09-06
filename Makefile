@@ -1,89 +1,121 @@
-NAME = minishell
-CC = cc
-CFLAGS = -Wall -Wextra -Werror -I./includes
-#CFLAGS = -g3 -I./includes
+# Base params
+MINISHELL = minishell
+CFLAGS = -Wall -Wextra -Werror
+NORELINK = -MMD -MP
+INCLUDE = -I inc -I libft/include
+LIBFT = libft/libft.a
+LIBS ?= -lreadline -lncurses
 
-# Sources
-SRC_DIR = src/
-SRCS = $(SRC_DIR)main.c \
-        $(SRC_DIR)utils/env.c \
-        $(SRC_DIR)utils/ft_split.c \
-        $(SRC_DIR)utils/str_utils.c \
- 	$(SRC_DIR)utils/ft_is.c \
- 	$(SRC_DIR)utils/ft_strcpy.c \
- 	$(SRC_DIR)utils/ft_memcpy.c \
-        $(SRC_DIR)builtins/isbuiltin.c \
-        $(SRC_DIR)builtins/echo.c \
-        $(SRC_DIR)builtins/pwd.c \
-        $(SRC_DIR)builtins/cd.c \
-        $(SRC_DIR)builtins/env.c \
-        $(SRC_DIR)builtins/unset.c \
-        $(SRC_DIR)builtins/export.c \
-        $(SRC_DIR)builtins/exit.c \
-	$(SRC_DIR)exec/execute.c \
-	$(SRC_DIR)exec/execute_cmd.c \
-	$(SRC_DIR)exec/heredoc.c \
-	$(SRC_DIR)exec/utils.c \
-	$(SRC_DIR)exec/find_path.c \
-	$(SRC_DIR)parsing/identify_token.c \
-	$(SRC_DIR)parsing/token_utils.c \
-	$(SRC_DIR)parsing/char_utils.c \
-	$(SRC_DIR)parsing/parsing.c \
-	$(SRC_DIR)parsing/build_pipeline.c \
-	$(SRC_DIR)signal/handler.c \
-	$(SRC_DIR)parsing/expand_env.c \
-	#$(SRC_DIR)exec/pipex.c \
-       # $(SRC_DIR)core/cleanup.c \
-       # $(SRC_DIR)parsing/parser_map.c \
-       # $(SRC_DIR)parsing/checker.c \
-       # $(SRC_DIR)parsing/utils_parser.c \
-       # $(SRC_DIR)graphics/draw.c \
-       # $(SRC_DIR)graphics/pixel_put.c \
-       # $(SRC_DIR)graphics/transformations.c \
-       # $(SRC_DIR)events/handle_key.c \
-       # $(SRC_DIR)utils/get_next_line.c \
-       # $(SRC_DIR)utils/memory.c \
-       # $(SRC_DIR)utils/get_next_line_utils.c \
-       # $(SRC_DIR)utils/ft_split.c \
-       # $(SRC_DIR)utils/ft_atoi.c \
-       # $(SRC_DIR)utils/ft_strlcpy.c \
-       # $(SRC_DIR)utils/ft_strcmp.c \
-       # $(SRC_DIR)utils/ft_strrchr.c \
-       # $(SRC_DIR)utils/ft_isutils.c \
+# Project files structure
+SRCDIR = src
+BUILDDIR = build
 
-# Objects
-OBJ_DIR = obj/
-OBJS = $(SRCS:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
+# Source
+SRCS = $(SRCDIR)/main.c \
+	$(SRCDIR)/builtins/isbuiltin.c \
+    $(SRCDIR)/builtins/echo.c \
+    $(SRCDIR)/builtins/pwd.c \
+    $(SRCDIR)/builtins/cd.c \
+    $(SRCDIR)/builtins/env.c \
+    $(SRCDIR)/builtins/unset.c \
+    $(SRCDIR)/builtins/export.c \
+    $(SRCDIR)/builtins/exit.c \
+	$(SRCDIR)/exec/execute_ast.c \
+	$(SRCDIR)/exec/execute.c \
+	$(SRCDIR)/exec/execute_cmd.c \
+	$(SRCDIR)/exec/heredoc.c \
+	$(SRCDIR)/exec/find_path.c \
+	$(SRCDIR)/parsing/ast_deconstructor.c \
+	$(SRCDIR)/parsing/ast_quote_handler.c \
+	$(SRCDIR)/parsing/ast_utils.c \
+	$(SRCDIR)/parsing/ast.c \
+	$(SRCDIR)/parsing/parsing.c \
+	$(SRCDIR)/oldparsing/identify_token.c \
+	$(SRCDIR)/oldparsing/token_utils.c \
+	$(SRCDIR)/oldparsing/char_utils.c \
+	$(SRCDIR)/oldparsing/parsing.c \
+	$(SRCDIR)/oldparsing/build_pipeline.c \
+	$(SRCDIR)/oldparsing/expand_env.c \
+	$(SRCDIR)/signal/handler.c \
+	$(SRCDIR)/utils/debug_ast.c \
+	$(SRCDIR)/utils/error.c \
+	$(SRCDIR)/utils/ft_free.c
 
-all: $(NAME)
+# Directory structure for object files
+OBJS = $(SRCS:$(SRCDIR)/%.c=$(BUILDDIR)/%.o)
+DEPS = $(OBJS:.o=.d)
 
-$(NAME): $(OBJS)
-	$(CC) -lreadline $(OBJS) $(LIBS) -o $(NAME)
+# Other
+MAKEFLAGS += --no-print-directory  # Avoid flooding the console
 
-$(OBJ_DIR)%.o: $(SRC_DIR)%.c Makefile ./includes/inshell.h
-	@mkdir -p $(@D)
-	$(CC) $(CFLAGS)  $(INCLUDES) -c $< -o $@
+.DEFAULT_GOAL = all  # Set default goal to make all
 
-run: all
-	./$(NAME)
+# Base rule
+.PHONY: all
+all: $(MINISHELL)
 
-# Test target
-test: $(NAME)
-	$(CC) -o test_expand tests/test_expand_variables.c $(filter-out src/main.c, $(SRCS)) $(CFLAGS) -lreadline
-	./test_expand
-	rm -f test_expand
+$(MINISHELL): $(OBJS) $(LIBFT)
+	@echo -n "$(GREY)🔨 "
+	$(CC) $(CFLAGS) $(NORELINK) $(INCLUDE) -o $@ $(OBJS) $(LIBS) $(LIBFT)
+	@echo -n "\n $(GREEN)✅ Build done!$(RESET)\n"
 
-gdb:all
-	gdb ./$(NAME) -ex "break main"
+$(LIBFT): FORCE
+	@$(MAKE) -C ./libft
+
+# Relink prevention for linked projects
+.PHONY: FORCE
+FORCE:
+
+# Individual source file rule
+$(BUILDDIR)/%.o: $(SRCDIR)/%.c
+	@echo -n "$(GREY)🔨 "
+	mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(NORELINK) $(INCLUDE) -o $@ -c $<
+	@echo -n "$(RESET)"
+
+# Cleaning features
+.PHONY: clean fclean
 clean:
-	rm -rf $(OBJ_DIR)
-#	make -C  clean
+	@echo -n "$(RED)🗑️  "
+	@$(MAKE) clean -C ./libft > /dev/null
+	$(RM) -r $(BUILDDIR)
+	@echo -n "$(RESET)\n"
+
 
 fclean: clean
-	rm -f $(NAME)
-	#make -C  clean
+	@echo -n "$(RED)🗑️  "
+	@$(MAKE) fclean -C ./libft > /dev/null
+	$(RM) $(MINISHELL)
+	@echo -n "$(RESET)\n"
 
+# Clean build
+.PHONY: re
 re: fclean all
 
-.PHONY: all clean fclean re test
+# Debug build
+.PHONY: debug
+debug: CFLAGS = -Wall -Wextra -Werror -g3 -DDEBUG_MODE=1
+debug: fclean all
+	DEBUG_MODE=1 valgrind ./minishell 
 
+# Norminette for source and include
+.PHONY: norm
+norm:
+	norminette src/ inc/
+
+.PHONY: gdb
+gdb:
+	gdb ./$(MINISHELL) -ex "break main"
+
+-include $(DEPS)
+
+# COLORS
+RESET = \033[0m
+RED = \033[1;31m
+GREEN = \033[1;32m
+YELLOW = \033[1;33m
+BLUE = \033[1;34m
+MAGENTA = \033[1;35m
+CYAN = \033[1;36m
+WHITE = \033[1;37m
+GREY = \033[1;90m
