@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 22:25:08 by dedme             #+#    #+#             */
-/*   Updated: 2025/09/04 22:01:44 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/06 20:33:41 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static size_t	calculate_expanded_size(char *str, char **envp)
 				{
 					value = get_env_value(var_name, envp);
 					if (value)
-						final_size += strlen(value);
+						final_size += ft_strlen(value);
 					free(var_name);
 				}
 				i++;
@@ -163,7 +163,7 @@ char	*expand_variables(char *str, char **envp)
 				value = get_env_value(var_name, envp);
 				if (value)
 				{
-					value_len = strlen(value);
+					value_len = ft_strlen(value);
 					memcpy(result + j, value, value_len);
 					j += value_len;
 				}

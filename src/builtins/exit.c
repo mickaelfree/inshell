@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 19:21:42 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/06 19:55:50 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/06 20:31:59 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ static int	is_numeric(char *str)
 	}
 	return (1);
 }
-
 static long	ft_atol(char *str)
 {
 	int		i;
@@ -62,12 +61,10 @@ static long	ft_atol(char *str)
 	}
 	return (result * sign);
 }
-
-int	builtin_exit(char *token)
+int	builtin_exit(char **args, char ***envp)
 {
-	char	**args;
-
-	if (token)
+	(void)envp;
+	if (args[1] && !is_numeric(args[1]))
 	{
                 write(STDERR_FILENO, " numeric argument required\n", 26 );
 		exit(2);

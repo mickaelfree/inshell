@@ -6,12 +6,27 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 03:33:53 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/04 22:01:44 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/06 20:39:56 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mandatoshell.h"
-#include "libft.h"
+
+
+char	*ft_strchr(const char *s, int c)
+{
+	if (!s)
+		return (NULL);
+	while (*s)
+	{
+		if (*s == (char)c)
+			return ((char *)s);
+		s++;
+	}
+	if (*s == (char)c)
+		return ((char *)s);
+	return (NULL);
+}
 
 static char	*try_absolute_path(char *cmd, int *status)
 {
@@ -80,7 +95,7 @@ static char	**get_path_directories(char **env)
 	return (NULL);
 }
 
-char	*find_path(char *cmd, char ***env)
+char	*find_path(char *cmd, char **env)
 {
 	char	**paths;
 	char	*path;
@@ -100,7 +115,7 @@ char	*find_path(char *cmd, char ***env)
 	}
 	if (path)
 		return (path);
-	paths = get_path_directories(*env);
+	paths = get_path_directories(env);
 	if (!paths)
 		return (NULL);
 	path = try_path_directories(cmd, paths);

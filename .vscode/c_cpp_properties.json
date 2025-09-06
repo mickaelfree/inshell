@@ -4,7 +4,8 @@
             "name": "linux-gcc-x64",
             "includePath": [
                 "${workspaceFolder}/**",
-                "${workspaceFolder}/inc"
+                "${workspaceFolder}/inc",
+                "${workspaceFolder}/libft/include"
             ],
             "defines": [],
             "cStandard": "${default}",

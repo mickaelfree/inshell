@@ -6,16 +6,18 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:36:16 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/04 22:01:44 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/06 20:23:50 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mandatoshell.h"
 
-int	builtin_pwd(void)
+int	builtin_pwd(char **argv, char ***envp)
 {
 	char	*line;
 
+	(void)argv;
+	(void)envp;
 	line = NULL;
 	line = getcwd(line, 0);
 	if (!line)

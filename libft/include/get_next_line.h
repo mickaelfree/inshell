@@ -43,7 +43,7 @@
 //---------------------------------FUNCTION---------------------------------//
 /////////////////////////////////////////////////////////////////////////////
 
-size_t	gnl_strlen(const char *s);
+size_t	gnl_ft_strlen(const char *s);
 char	*gnl_strchr(const char *s, int c);
 size_t	gnl_buflen(char *buffer);
 size_t	gnl_strlcpy(char *dest, char *src, size_t size);

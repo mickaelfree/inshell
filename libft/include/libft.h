@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sarunomane <sarunomane@student.42.fr>      +#+  +:+       +#+        */
+/*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 18:32:53 by zsonie            #+#    #+#             */
-/*   Updated: 2025/02/21 15:28:18 by sarunomane       ###   ########.fr       */
+/*   Updated: 2025/09/06 20:33:41 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -415,7 +415,7 @@ char			*ft_strjoin(char const *s1, char const *s2);
 /** @name FT_STRLCAT**
 ** @brief The strlcat() function appends the NUL-terminated string 
 src to the end of dst. 
-It will append at most size - strlen(dst) - 1 bytes, NUL-terminating the result.
+It will append at most size - ft_strlen(dst) - 1 bytes, NUL-terminating the result.
 **
 ** @param dest: The destination string.
 ** @param src: The source string.
@@ -448,8 +448,8 @@ unsigned int	ft_strlcat(char *dest, char *src, unsigned int size);
 size_t			ft_strlcpy(char *dest, char *src, unsigned int size);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-/** @name FT_STRLEN**
-** @brief Strlen is supposed to calculate the length of a string.
+/** @name ft_strlen**
+** @brief ft_strlen is supposed to calculate the length of a string.
 **
 ** @param s: the string.
 ** @return The len of the string.
@@ -470,8 +470,8 @@ size_t			ft_strlen(const char *s);
 char			*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-/** @name FT_STRNCMP**
-** @brief The strncmp() function lexicographically compare 
+/** @name ft_strncmp**
+** @brief The ft_strncmp() function lexicographically compare 
 the null-terminated strings s1 and s2.
 **
 ** @param s1: The address pointed in a 1st string. 

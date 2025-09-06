@@ -6,12 +6,11 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 14:01:33 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/06 19:57:15 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/06 20:34:31 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mandatoshell.h"
-#include "libft.h"
 
 int	is_valide_export(char *args)
 {
@@ -20,7 +19,7 @@ int	is_valide_export(char *args)
 
 	if (!args || ft_isdigit(*args))
 		return (0);
-	k_end = ft_strchr(args, '=');
+	k_end = strchr(args, '=');
 	if (!k_end)
 		k_end = args + ft_strlen(args);
 	i = 0;
@@ -38,17 +37,15 @@ static void	print_export_env(char **envp)
 	while (*envp)
 		printf("export %s\n", *envp++);
 }
-
 static char	*get_key(char *var)
 {
 	char	*k_end;
 
-	k_end = ft_strchr(var, '=');
+	k_end = strchr(var, '=');
 	if (!k_end)
 		return (ft_strdup(var));
 	return (strndup(var, k_end - var));
 }
-
 static int	tab_len(char **arr)
 {
 	int	i;
@@ -74,6 +71,7 @@ int	update_env_var(char ***envp_ptr, char *var)
 	if (!key)
 		return (EXIT_FAILURE);
 	key_len = ft_strlen(key);
+	
 	// Chercher si la variable existe déjà
 	i = 0;
 	while (envp[i])
@@ -106,13 +104,14 @@ int	update_env_var(char ***envp_ptr, char *var)
 				j++;
 			}
 			new_env[len] = NULL;
-			ft_free_env(*envp_ptr); // Libérer l'ancien bloc entier
+			ft_free_env(*envp_ptr);  // Libérer l'ancien bloc entier
 			*envp_ptr = new_env;
 			free(key);
 			return (EXIT_SUCCESS);
 		}
 		i++;
 	}
+	
 	// Variable n'existe pas, l'ajouter
 	len = tab_len(envp);
 	new_env = malloc((len + 2) * sizeof(char *));
@@ -145,7 +144,8 @@ int	update_env_var(char ***envp_ptr, char *var)
 		return (EXIT_FAILURE);
 	}
 	new_env[len + 1] = NULL;
-	free(*envp_ptr); // Libérer l'ancien bloc entier
+	
+	free(*envp_ptr);  // Libérer l'ancien bloc entier
 	*envp_ptr = new_env;
 	free(key);
 	return (EXIT_SUCCESS);
@@ -157,41 +157,32 @@ static int	process_export_args(char **args, char ***envp)
 	{
 		if (!is_valide_export(*args))
 		{
-			printf("export: '%s': not a valid identifier\n", *args);
 			args++;
                         write(STDERR_FILENO, " not a valid identifier\n", 24);
                         g_last_exit_status = 1;
 			continue ;
 		}
-		if (ft_strchr(*args, '='))
+		if (strchr(*args, '='))
 		{
-			if (!update_env_var(envp, *args))
-				return (EXIT_FAILURE);
+			if (update_env_var(envp, *args) != EXIT_SUCCESS)
+                        {
+                                g_last_exit_status = 1;
+				return (g_last_exit_status);
+                        }
 		}
 		args++;
 	}
 	return (g_last_exit_status);
 }
 
-int	builtin_export(char *token, char ***envp)
+int	builtin_export(char **args, char ***envp)
 {
-	char	**args;
-
 	if (!envp)
 		return (EXIT_FAILURE);
-	if (!token)
+	if (!args[1])
 	{
 		print_export_env(*envp);
-		free(token);
 		return (EXIT_SUCCESS);
 	}
-	args = ft_split(token, ' ');
-	if (!args)
-	{
-		free(args);
-		return (EXIT_FAILURE);
-	}
-	if (!process_export_args(args, envp))
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
+	return (process_export_args(args + 1, envp));
 }

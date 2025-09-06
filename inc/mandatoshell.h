@@ -2,14 +2,14 @@
 # define MANDATOSHELL_H
 
 // INCLUDES
+# include <libft.h>
 # include <dirent.h>
 # include <errno.h>
 # include <fcntl.h>
-# include <readline/history.h>
-# include <readline/readline.h>
 # include <signal.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <unistd.h>
 # include <sys/ioctl.h>
 # include <sys/resource.h>
 # include <sys/stat.h>
@@ -18,7 +18,8 @@
 # include <term.h>
 # include <termcap.h>
 # include <termios.h>
-# include <unistd.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 /////////////////////////MACRO////////////////////////
 
@@ -118,13 +119,14 @@ typedef struct s_command
 /////////////////////////FUNCTIONS////////////////////////
 
 //-----------------------------BUILTINS----------------------------//
-int						builtin_cd(char *token, char ***envp);
-int						builtin_echo_ast(t_ast *node);
-int						builtin_env(char *token, char ***envp);
-int						builtin_exit(char *token);
-int						builtin_export(char *token, char ***envp);
-int						builtin_pwd(void);
-int						builtin_unset(char *token, char ***envp);
+int						builtin_echo(char **args, char ***envp);
+int						builtin_pwd(char **args, char ***envp);
+int						builtin_cd(char **args, char ***envp);
+int						builtin_env(char **args, char ***envp);
+int						builtin_export(char **args, char ***envp);
+int						builtin_unset(char **args, char ***envp);
+int						builtin_exit(char **args, char ***envp);
+int						is_builtin(char **args);
 
 //-------------------------------EXEC------------------------------//
 void					execute_ast(t_ast *ast, char ***envp);
@@ -214,17 +216,12 @@ char					*expand_variables(char *str, char **envp);
 char					*expand_token(char *token, int is_quoted);
 
 // Execution functions
-int						execute(char *token, char ***env);
-char					*find_path(char *cmd, char ***env);
+void					ft_error(char *msg);
+void					execute(char **av, char **env);
+char					*find_path(char *cmd, char **env);
 char					*process_heredoc(char *delimiter);
 void					execute_cmd(t_command *cmds, char ***envp);
-
-// Builtin functions
-int						builtin_echo(char **args, char ***envp);
-int						is_builtin(char **args, char ***envp);
 int						execute_builtin(char **args, char ***envp);
-
-// String utilities
 
 // Token identification helpers
 void					test_parsing(void);

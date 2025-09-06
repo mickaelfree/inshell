@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   oldmain.c                                          :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 21:30:44 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/06 19:30:44 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/06 20:46:24 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,17 @@ int	main(int argc, char **argv, char **envp)
 	char		*line;
 	char		**new_env;
 	t_command	*cmd;
-	t_ast		*ast;
 	int			builtin_ret;
 
+	(void) argc;
+	(void) argv;
 	builtin_ret = 0;
-	new_env = init_env(envp);
+	new_env = init_env(&envp);
 	signal(SIGINT, ft_handle_sig);
 	signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
-		line = readline("Inshell>");
+		line = readline("Mandatoshell>");
 		if (!line)
 			ft_handle_ctrld();
 		if (*line)
@@ -82,17 +83,7 @@ int	main(int argc, char **argv, char **envp)
 
 		if (cmd)
 		{
-			// display_parsed_command(cmd);
-			if (cmd->next == NULL && cmd->args && cmd->args[0])
-			{
-				builtin_ret = is_builtin(cmd->args, &new_env);
-				if (builtin_ret != -1)
-					g_last_exit_status = builtin_ret;
-				else
-					execute_cmd(cmd, &new_env);
-			}
-			else
-				execute_cmd(cmd, &new_env);
+			execute_cmd(cmd, &new_env);
 		}
 		ft_free_commands(cmd);
                 free(line);

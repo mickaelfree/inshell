@@ -6,14 +6,14 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 05:34:47 by zsonie            #+#    #+#             */
-/*   Updated: 2025/08/30 19:08:15 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/06 20:28:49 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
 // Get the length of a string
-size_t	gnl_strlen(const char *s)
+size_t	gnl_ft_strlen(const char *s)
 {
 	size_t	i;
 
@@ -45,14 +45,14 @@ size_t	gnl_strlcpy(char *dest, char *src, size_t size)
 
 	i = 0;
 	if (size == 0)
-		return (gnl_strlen(src));
+		return (gnl_ft_strlen(src));
 	while (src[i] && i < size - 1)
 	{
 		dest[i] = src[i];
 		i++;
 	}
 	dest[i] = '\0';
-	return (gnl_strlen(dest));
+	return (gnl_ft_strlen(dest));
 }
 
 size_t	gnl_buflen(char *buffer)
@@ -81,7 +81,7 @@ char	*ft_strappend_to_line(char *s1, char *s2, size_t bufsize)
 		return (NULL);
 	s1len = 0;
 	if (s1)
-		s1len = gnl_strlen(s1);
+		s1len = gnl_ft_strlen(s1);
 	result = malloc(sizeof(char) * (s1len + bufsize + 1));
 	if (!result)
 	{

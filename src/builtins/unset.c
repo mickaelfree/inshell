@@ -6,12 +6,11 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:36:20 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/06 19:56:26 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/06 20:34:02 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mandatoshell.h"
-#include "libft.h"
 
 static int	is_valid_identifier(char *name)
 {
@@ -29,27 +28,25 @@ static int	is_valid_identifier(char *name)
 
 static int	remove_env_var(char ***envp_ptr, char *name)
 {
-	char	**envp;
+	char	**envp = *envp_ptr;
 	char	**new_env;
-	int		len;
-	int		i;
-	int		j;
-	size_t	name_len;
+	int		len = 0;
+	int		i = 0;
+	int		j = 0;
+	size_t	name_len = ft_strlen(name);
 
-	envp = *envp_ptr;
-	len = 0;
-	i = 0;
-	j = 0;
-	name_len = ft_strlen(name);
+	// Compter les variables
 	while (envp[len])
 		len++;
+
 	new_env = malloc((len + 1) * sizeof(char *));
 	if (!new_env)
 		return (EXIT_FAILURE);
+
+	// Copier toutes les variables sauf celle à supprimer
 	while (envp[i])
 	{
-		if (!(ft_strncmp(envp[i], name, name_len) == 0
-				&& envp[i][name_len] == '='))
+		if (!(ft_strncmp(envp[i], name, name_len) == 0 && envp[i][name_len] == '='))
 		{
 			new_env[j] = ft_strdup(envp[i]);
 			if (!new_env[j])
@@ -69,37 +66,26 @@ static int	remove_env_var(char ***envp_ptr, char *name)
 	return (EXIT_SUCCESS);
 }
 
-int	builtin_unset(char *token, char ***envp)
+int	builtin_unset(char **args, char ***envp)
 {
-	char	**args;
-	char	**original_args;
-	int		ret;
-	int		i;
+	int	ret;
 
-	if (!token)
-		return (EXIT_FAILURE);
-	args = ft_split(token, ' ');
-	if (!args)
-		return (EXIT_FAILURE);
-	if (!args[0])
+	ret = 0;
+	if (!args[1])
+		return (0);
+	args++;
+	while (*args)
 	{
-		ft_free_split(args);
-		return (EXIT_FAILURE);
-	}
-	original_args = args; // Save original pointer for freeing
-	ret = EXIT_SUCCESS;
-	i = 0;
-	while (args[i])
-	{
-		if (!is_valid_identifier(args[i]))
+		if (!is_valid_identifier(*args))
 		{
-			printf("unset: `%s': not a valid identifier\n", args[i]);
-			ret = EXIT_FAILURE;
+			printf("unset: `%s': not a valid identifier\n", *args);
+			ret = 1;
 		}
 		else
-			remove_env_var(envp, args[i]);
-		i++;
+		{
+			remove_env_var(envp, *args);
+		}
+		args++;
 	}
-	ft_free_split(original_args);
 	return (ret);
 }
