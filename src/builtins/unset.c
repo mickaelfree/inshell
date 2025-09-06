@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:36:20 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/06 20:34:02 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/07 01:26:53 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,11 @@ static int	remove_env_var(char ***envp_ptr, char *name)
 	int		j = 0;
 	size_t	name_len = ft_strlen(name);
 
-	// Compter les variables
 	while (envp[len])
 		len++;
-
 	new_env = malloc((len + 1) * sizeof(char *));
 	if (!new_env)
 		return (EXIT_FAILURE);
-
-	// Copier toutes les variables sauf celle à supprimer
 	while (envp[i])
 	{
 		if (!(ft_strncmp(envp[i], name, name_len) == 0 && envp[i][name_len] == '='))

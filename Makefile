@@ -27,6 +27,8 @@ SRCS = $(SRCDIR)/main.c \
 	$(SRCDIR)/parsing/identify_token.c \
 	$(SRCDIR)/parsing/token_utils.c \
 	$(SRCDIR)/parsing/char_utils.c \
+	$(SRCDIR)/parsing/char_utils2.c \
+	$(SRCDIR)/parsing/char_utils3.c \
 	$(SRCDIR)/parsing/parsing.c \
 	$(SRCDIR)/parsing/build_pipeline.c \
 	$(SRCDIR)/parsing/expand_env.c \
