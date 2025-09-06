@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:33:23 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/06 20:28:09 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/06 21:28:55 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static char	*get_target_directory(char **args, int *print_pwd, char **envp)
 		}
 		return (home);
 	}
-	if (!strcmp(args[1], "-"))
+	if (!ft_strncmp(args[1], "-", 1))
 	{
 		old = get_env_value("OLDPWD", envp);
 		if (!old || !*old)

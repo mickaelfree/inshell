@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 17:49:57 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/06 20:23:32 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/06 21:33:29 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	init_lookup(t_builtin_entry *builtin_lookup)
 	builtin_lookup[7] = (t_builtin_entry){NULL, BUILTIN_UNKNOWN};
 }
 
-static t_builtin_type	get_builtin_type(const char *cmd)
+static t_builtin_type	get_builtin_type(char *cmd)
 {
 	int				i;
 	t_builtin_entry	builtin_lookup[8];
@@ -43,7 +43,7 @@ static t_builtin_type	get_builtin_type(const char *cmd)
 	init_lookup(builtin_lookup);
 	while (builtin_lookup[i].name)
 	{
-		if (!strcmp(builtin_lookup[i].name, cmd))
+		if (!ft_strncmp((char *)builtin_lookup[i].name, cmd, ft_strlen(cmd)))
 			return (builtin_lookup[i].type);
 		i++;
 	}
