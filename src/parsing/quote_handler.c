@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 16:52:39 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/07 00:44:36 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/07 02:08:06 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,3 @@ void	clear_token_quotes(char **token)
 	*token = result;
 }
 
-char	*skip_charset(char *str, char charset)
-{
-	while (*str == charset)
-		str++;
-	return (str);
-}
