@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 18:40:00 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/06 20:39:52 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/07 02:14:11 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,32 @@
 
 static void	handle_command_not_found(char **cmd)
 {
-	write(STDERR_FILENO, "command not found: ", 19);
-	write(STDERR_FILENO, cmd[0], ft_strlen(cmd[0]));
-	write(STDERR_FILENO, "\n", 1);
+	// write(STDERR_FILENO, "command not found: ", 19);
+	// write(STDERR_FILENO, cmd[0], ft_strlen(cmd[0]));
+	// write(STDERR_FILENO, "\n", 1);
+	
 	ft_free(cmd);
 	exit(127);
 }
 
 static void	check_file_permissions(char *path, char **cmd)
 {
+	errno = 0;
 	if (access(path, F_OK) == -1)
 	{
 		ft_free(cmd);
 		free(path);
-		ft_error(" No such file or directory");
+		error_exit();
+		// ft_error(" No such file or directory");
 	}
 	if (access(path, X_OK) == -1)
 	{
 		ft_free(cmd);
 		free(path);
-		write(STDERR_FILENO, "Permission denied\n", 18);
-                g_last_exit_status = 126;
-		exit(126);
+		error_exit();
+		// write(STDERR_FILENO, "Permission denied\n", 18);
+        // g_last_exit_status = 126;
+		// exit(126);
 	}
 }
 

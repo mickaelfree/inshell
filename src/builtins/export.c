@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 14:01:33 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/07 01:53:34 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/07 02:37:13 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ int	is_valide_export(char *args)
 {
 	int		i;
 	char	*k_end;
-
-	if (!args || ft_isdigit(*args))
+	
+	if (!args || ft_isdigit(*args) || *args == '=')
 		return (0);
-	k_end = strchr(args, '=');
+	k_end = ft_strchr(args, '=');
 	if (!k_end)
 		k_end = args + ft_strlen(args);
 	i = 0;
@@ -42,7 +42,7 @@ static char	*get_key(char *var)
 {
 	char	*k_end;
 
-	k_end = strchr(var, '=');
+	k_end = ft_strchr(var, '=');
 	if (!k_end)
 		return (ft_strdup(var));
 	return (strndup(var, k_end - var));
@@ -73,7 +73,6 @@ int	update_env_var(char ***envp_ptr, char *var)
 	if (!key)
 		return (EXIT_FAILURE);
 	key_len = ft_strlen(key);
-	
 	// Chercher si la variable existe déjà
 	i = 0;
 	while (envp[i])
@@ -106,14 +105,13 @@ int	update_env_var(char ***envp_ptr, char *var)
 				j++;
 			}
 			new_env[len] = NULL;
-			ft_free_env(*envp_ptr);  // Libérer l'ancien bloc entier
+			ft_free_env(*envp_ptr); // Libérer l'ancien bloc entier
 			*envp_ptr = new_env;
 			free(key);
 			return (EXIT_SUCCESS);
 		}
 		i++;
 	}
-	
 	// Variable n'existe pas, l'ajouter
 	len = tab_len(envp);
 	new_env = malloc((len + 2) * sizeof(char *));
@@ -146,35 +144,36 @@ int	update_env_var(char ***envp_ptr, char *var)
 		return (EXIT_FAILURE);
 	}
 	new_env[len + 1] = NULL;
-	
-	free(*envp_ptr);  // Libérer l'ancien bloc entier
+	free(*envp_ptr); // Libérer l'ancien bloc entier
 	*envp_ptr = new_env;
 	free(key);
 	return (EXIT_SUCCESS);
 }
 
-static int	process_export_args(char **args, char ***envp)
+static int process_export_args(char **args, char ***envp)
 {
-	while (*args)
-	{
-		if (!is_valide_export(*args))
-		{
-			args++;
-                        write(STDERR_FILENO, " not a valid identifier\n", 24);
-                        g_last_exit_status = 1;
-			continue ;
-		}
-		if (strchr(*args, '='))
-		{
-			if (update_env_var(envp, *args) != EXIT_SUCCESS)
-                        {
-                                g_last_exit_status = 1;
-				return (g_last_exit_status);
-                        }
-		}
-		args++;
-	}
-	return (g_last_exit_status);
+    while (*args)
+    {
+        if (!is_valide_export(*args))
+        {
+            write(STDERR_FILENO, "export: `", 9);
+            write(STDERR_FILENO, *args, strlen(*args));
+            write(STDERR_FILENO, "': not a valid identifier\n", 26);
+            g_last_exit_status = 1;
+            args++;
+            continue;
+        }
+        if (strchr(*args, '='))
+        {
+            if (update_env_var(envp, *args) != EXIT_SUCCESS)
+            {
+                g_last_exit_status = 1;
+                return (g_last_exit_status);
+            }
+        }
+        args++;
+    }
+    return (g_last_exit_status);
 }
 
 int	builtin_export(char **args, char ***envp)
