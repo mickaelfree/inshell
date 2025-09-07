@@ -72,7 +72,7 @@ int	builtin_exit(char **args, char ***envp)
 	if (args[1] && args[2])
 	{
                 write(STDERR_FILENO, " too many arguments\n", 19);
-		return (2);
+		return (1);
 	}
 	if (!args[1])
 		exit(0);
