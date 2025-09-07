@@ -30,15 +30,18 @@ char	*expand_variables_with_quote(char *str, char **envp, int quote_type)
 	return (expand_variables(str, envp));
 }
 
-static void	add_argument(t_command *cmd, char *value, char **envp,int quote_type)
+static void	add_argument(t_command *cmd, char *value, char **envp,
+		int quote_type)
 {
 	char	*expanded_value;
+	char	*final_value;
 	char	**new_args;
 	int		i;
 
-	expanded_value = expand_variables_with_quote(value, envp,quote_type);
-	if (!expanded_value)
-		expanded_value = ft_strdup("");
+	expanded_value = expand_variables_with_quote(value, envp, quote_type);
+	final_value = remove_quotes(expanded_value, ft_strlen(expanded_value));
+	if (!final_value)
+		final_value = ft_strdup("");
 	new_args = malloc(sizeof(char *) * (cmd->arg_count + 2));
 	if (!new_args)
 		return ;
@@ -48,7 +51,7 @@ static void	add_argument(t_command *cmd, char *value, char **envp,int quote_type
 		new_args[i] = cmd->args[i];
 		i++;
 	}
-	new_args[cmd->arg_count] = expanded_value;
+	new_args[cmd->arg_count] = final_value;
 	new_args[cmd->arg_count + 1] = NULL;
 	if (cmd->args)
 		free(cmd->args);
@@ -66,7 +69,8 @@ int	handle_redirection(t_command *cmd, t_pre_token **token, char **envp)
 	type = (*token)->type;
 	*token = (*token)->next;
 	if (!*token || ((*token)->type != TOKEN_WORD
-			&& (*token)->type != TOKEN_DOUBLE_QUOTE && (*token)->type != TOKEN_SINGLE_QUOTE))
+			&& (*token)->type != TOKEN_DOUBLE_QUOTE
+			&& (*token)->type != TOKEN_SINGLE_QUOTE))
 	{
 		printf("Syntax error: missing file after redirection\n");
 		return (0);
@@ -155,10 +159,11 @@ t_command	*build_pipeline(t_pre_token *tokens, char **envp)
 			token = token->next;
 			continue ;
 		}
-		if (token->type == TOKEN_WORD || token->type == TOKEN_DOUBLE_QUOTE | token->type == TOKEN_SINGLE_QUOTE)
+		if (token->type == TOKEN_WORD
+			|| token->type == TOKEN_DOUBLE_QUOTE | token->type == TOKEN_SINGLE_QUOTE)
 		{
 			value = strndup(token->start, token->len);
-			add_argument(current, value, envp,token->type);
+			add_argument(current, value, envp, token->type);
 		}
 		token = token->next;
 	}

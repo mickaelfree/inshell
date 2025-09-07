@@ -28,43 +28,9 @@ t_pre_token	*identify_token(char *line)
 	quote_state = 0;
 	quote_char = 0;
 	skip_whitespace(&ptr);
-	// TODO: gere les single quote et double quote directement avec les cote state
 	while (*ptr)
 	{
 		token_start = ptr;
-		if (is_quote(*ptr) && quote_state == 0)
-		{
-			quote_char = *ptr;
-			if (quote_char == '\'')
-				quote_state = 1;
-			else if (quote_char == '"')
-				quote_state = 2;
-			ptr++;
-			token_start = ptr;
-			while (*ptr && *ptr != quote_char)
-				ptr++;
-			if (*ptr == quote_char)
-			{
-				if (DEBUG_MODE)
-					printf("type de quote %d\n", quote_state);
-				if (quote_state == 1)
-					type = TOKEN_SINGLE_QUOTE;
-				else if (quote_state == 2)
-					type = TOKEN_DOUBLE_QUOTE;
-				add_new_token(&head, &current, token_start, ptr - token_start,
-					type);
-				ptr++;
-				quote_state = 0;
-			}
-			else
-			{
-				printf("Error: unclosed quote\n");
-				free_token_list(head);
-				return (NULL);
-			}
-			skip_whitespace(&ptr);
-			continue ;
-		}
 		if (is_pipe(*ptr))
 		{
 			add_new_token(&head, &current, ptr, 1, TOKEN_PIPE);
@@ -88,9 +54,36 @@ t_pre_token	*identify_token(char *line)
 		}
 		else
 		{
-			while (*ptr && !is_whitespace(*ptr) && !is_operator(*ptr)
-				&& !is_quote(*ptr))
+			quote_state = 0;
+			while (*ptr)
+			{
+				if (quote_state == 0 && (is_whitespace(*ptr)
+						|| is_operator(*ptr)))
+					break ;
+				if (is_quote(*ptr) && quote_state == 0)
+				{
+					quote_char = *ptr;
+					if (quote_char == '\'')
+						quote_state = 1;
+					else if (quote_char == '"')
+						quote_state = 2;
+					ptr++;
+					continue ;
+				}
+				if (*ptr == quote_char && quote_state > 0)
+				{
+					quote_state = 0;
+					ptr++;
+					continue ;
+				}
 				ptr++;
+			}
+			if (quote_state > 0)
+			{
+				printf("Error: unclosed quote\n");
+				free_token_list(head);
+				return (NULL);
+			}
 			add_new_token(&head, &current, token_start, ptr - token_start,
 				TOKEN_WORD);
 		}
@@ -98,4 +91,32 @@ t_pre_token	*identify_token(char *line)
 	}
 	return (head);
 }
+char	*remove_quotes(char *token, int len)
+{
+	char	*result;
+	int		i = 0, j;
+	int		in_single = 0, in_double;
 
+	result = malloc(len + 1);
+	i = 0, j = 0;
+	in_single = 0, in_double = 0;
+	while (i < len)
+	{
+		if (token[i] == '\'' && !in_double)
+		{
+			in_single = !in_single;
+			i++; // Skip the quote
+		}
+		else if (token[i] == '"' && !in_single)
+		{
+			in_double = !in_double;
+			i++; // Skip the quote
+		}
+		else
+		{
+			result[j++] = token[i++];
+		}
+	}
+	result[j] = '\0';
+	return (result);
+}

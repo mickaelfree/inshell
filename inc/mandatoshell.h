@@ -2,14 +2,15 @@
 # define MANDATOSHELL_H
 
 // INCLUDES
-# include <libft.h>
 # include <dirent.h>
 # include <errno.h>
 # include <fcntl.h>
+# include <libft.h>
+# include <readline/history.h>
+# include <readline/readline.h>
 # include <signal.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <unistd.h>
 # include <sys/ioctl.h>
 # include <sys/resource.h>
 # include <sys/stat.h>
@@ -18,8 +19,7 @@
 # include <term.h>
 # include <termcap.h>
 # include <termios.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+# include <unistd.h>
 
 /////////////////////////MACRO////////////////////////
 
@@ -52,8 +52,8 @@ typedef enum e_char_type
 typedef enum e_token_type
 {
 	TOKEN_WORD,
-        TOKEN_SINGLE_QUOTE,
-        TOKEN_DOUBLE_QUOTE,
+	TOKEN_SINGLE_QUOTE,
+	TOKEN_DOUBLE_QUOTE,
 	TOKEN_QUOTED,
 	TOKEN_PIPE,
 	TOKEN_REDIR_IN,
@@ -147,7 +147,7 @@ int						char_type(char *c);
 
 char					**ast_to_args(t_ast *root);
 void					print_doublechar(char **args);
-
+char					*remove_quotes(char *token, int len);
 // AST_UTILS
 void					*set_exec_to_node(t_ast *node);
 void					set_word_or_cmd_type(t_ast *node,
