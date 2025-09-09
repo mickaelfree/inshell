@@ -59,11 +59,9 @@ int	main(int argc, char **argv, char **envp)
 	char		*line;
 	char		**new_env;
 	t_command	*cmd;
-	int			builtin_ret;
 
 	(void) argc;
 	(void) argv;
-	builtin_ret = 0;
 	new_env = init_env(&envp);
 	signal(SIGINT, ft_handle_sig);
 	signal(SIGQUIT, SIG_IGN);
@@ -85,10 +83,10 @@ int	main(int argc, char **argv, char **envp)
 		if (cmd)
 			execute_cmd(cmd, &new_env);
 		ft_free_commands(cmd);
-        free(line);
+                free(line);
 	}
 	if (new_env)
 		free(new_env);
-	return (0);
+	return (g_last_exit_status);
 
 }

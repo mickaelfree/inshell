@@ -32,12 +32,11 @@ static void	add_redirection_to_list(t_command *cmd, int type, char *filename)
 
 	new_redir = malloc(sizeof(t_redirection));
 	if (!new_redir)
-		return;
+		return ;
 	new_redir->type = type;
 	new_redir->filename = filename;
 	new_redir->append_mode = (type == TOKEN_APPEND) ? 1 : 0;
 	new_redir->next = NULL;
-	
 	if (!cmd->redirections)
 		cmd->redirections = new_redir;
 	else
@@ -89,29 +88,6 @@ static void	add_argument(t_command *cmd, char *value, char **envp)
 	free(value);
 }
 
-// static char	*concatenate_adjacent_tokens(t_pre_token **token, char **envp)
-// {
-// 	char	*result;
-// 	char	*temp;
-// 	char	*expanded;
-//
-// 	result = ft_strdup("");
-// 	while (*token && ((*token)->type == TOKEN_WORD
-// 			|| (*token)->type == TOKEN_QUOTED
-// 			|| (*token)->type == TOKEN_DOUBLE_QUOTE))
-// 	{
-// 		temp = strndup((*token)->start, (*token)->len);
-// 		expanded = expand_variables_with_quote(temp, envp, (*token)->type);
-// 		free(temp);
-// 		temp = result;
-// 		result = ft_strjoin(result, expanded);
-// 		free(temp);
-// 		free(expanded);
-// 		*token = (*token)->next;
-// 	}
-// 	return (result);
-// }
-
 int	handle_redirection(t_command *cmd, t_pre_token **token, char **envp)
 {
 	int		type;
@@ -134,10 +110,7 @@ int	handle_redirection(t_command *cmd, t_pre_token **token, char **envp)
 	free(value);
 	if (!expanded_value)
 		expanded_value = ft_strdup("");
-	
-	// Ajouter à la liste au lieu de remplacer
 	add_redirection_to_list(cmd, type, expanded_value);
-	
 	*token = (*token)->next;
 	return (1);
 }
@@ -149,6 +122,8 @@ t_command	*build_pipeline(t_pre_token *tokens, char **envp)
 	t_pre_token	*token;
 	t_command	*new_cmd;
 	char		*value;
+	char		*expanded_value;
+	char		*trimmed;
 
 	head = NULL;
 	current = NULL;
@@ -177,18 +152,39 @@ t_command	*build_pipeline(t_pre_token *tokens, char **envp)
 				continue ;
 			}
 		}
+                int has_redirection = 0;
 		if (token->type == TOKEN_REDIR_IN || token->type == TOKEN_REDIR_OUT
 			|| token->type == TOKEN_APPEND || token->type == TOKEN_HEREDOC)
 		{
 			if (!handle_redirection(current, &token, envp))
 				return (NULL);
+                        has_redirection = 1;
 		}
 		else if (token->type == TOKEN_WORD || token->type == TOKEN_QUOTED
 			|| token->type == TOKEN_DOUBLE_QUOTE
 			|| token->type == TOKEN_SINGLE_QUOTE)
 		{
+                        if (has_redirection)
+                        {
+                                token = token->next;
+                                continue ;
+                        }
 			value = strndup(token->start, token->len);
-			add_argument(current, value, envp);
+			expanded_value = expand_variables_with_quote(value, envp, 0);
+			if (!expanded_value)
+				expanded_value = ft_strdup("");
+			trimmed = expanded_value;
+			while (*trimmed == ' ' || *trimmed == '\t')
+				trimmed++;
+			if (*trimmed != '\0')
+			{
+				add_argument(current, value, envp);
+			}
+			else
+			{
+				free(value);
+			}
+			free(expanded_value);
 			token = token->next;
 		}
 		else

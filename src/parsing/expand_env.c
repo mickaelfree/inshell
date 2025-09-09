@@ -135,7 +135,6 @@ char	*expand_variables(char *str, char **envp)
 		{
 			if (str[i + 1] == '?')
 			{
-				// Gestion de $?
 				status_str = ft_itoa(g_last_exit_status);
 				if (status_str)
 				{
@@ -181,5 +180,14 @@ char	*expand_variables(char *str, char **envp)
 		}
 	}
 	result[j] = '\0';
+	char *start_without_spaces = result;
+	while (*start_without_spaces == ' ' || *start_without_spaces == '\t')
+		start_without_spaces++;
+	
+	if (start_without_spaces != result) {
+		char *trimmed_result = ft_strdup(start_without_spaces);
+		free(result);
+		return trimmed_result;
+	}
 	return (result);
 }
