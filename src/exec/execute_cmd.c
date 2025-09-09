@@ -30,39 +30,53 @@ static int	count_pipeline(t_command *cmds)
 
 static void	handle_redirections(t_command *cmd)
 {
-	int	fd;
-	int	flags;
+	t_redirection	*redir;
+	int				fd;
+	int				flags;
 
-	if (cmd->heredoc_delim)
+	redir = cmd->redirections;
+	while (redir)
 	{
-		cmd->input_file = process_heredoc(cmd->heredoc_delim); // Crée tmp file
-		if (!cmd->input_file)
-			exit(1); // Erreur
-	}
-	if (cmd->input_file)
-	{
-		fd = open(cmd->input_file, O_RDONLY);
-		if (fd == -1)
+		if (redir->type == TOKEN_HEREDOC)
 		{
-			perror("open input");
-			exit(1);
+			char *temp_file = process_heredoc(redir->filename);
+			if (!temp_file)
+				exit(1);
+			fd = open(temp_file, O_RDONLY);
+			if (fd == -1)
+			{
+				perror("open heredoc");
+				exit(1);
+			}
+			dup2(fd, STDIN_FILENO);
+			close(fd);
+			unlink(temp_file);
+			free(temp_file);
 		}
-		dup2(fd, STDIN_FILENO);
-		close(fd);
-		if (cmd->heredoc_delim) // Supprime tmp après open
-			unlink(cmd->input_file);
-	}
-	if (cmd->output_file)
-	{
-		flags = O_WRONLY | O_CREAT | (cmd->append_mode ? O_APPEND : O_TRUNC);
-		fd = open(cmd->output_file, flags, 0644);
-		if (fd == -1)
+		else if (redir->type == TOKEN_REDIR_IN)
 		{
-			perror("open output");
-			exit(1);
+			fd = open(redir->filename, O_RDONLY);
+			if (fd == -1)
+			{
+				perror(redir->filename);
+				exit(1);
+			}
+			dup2(fd, STDIN_FILENO);
+			close(fd);
 		}
-		dup2(fd, STDOUT_FILENO);
-		close(fd);
+		else if (redir->type == TOKEN_REDIR_OUT || redir->type == TOKEN_APPEND)
+		{
+			flags = O_WRONLY | O_CREAT | (redir->append_mode ? O_APPEND : O_TRUNC);
+			fd = open(redir->filename, flags, 0644);
+			if (fd == -1)
+			{
+				perror(redir->filename);
+				exit(1);
+			}
+			dup2(fd, STDOUT_FILENO);
+			close(fd);
+		}
+		redir = redir->next;
 	}
 }
 

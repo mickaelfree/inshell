@@ -21,13 +21,38 @@ void	init_command(t_command *cmd)
 	cmd->output_file = NULL;
 	cmd->heredoc_delim = NULL;
 	cmd->append_mode = 0;
+	cmd->redirections = NULL;
 	cmd->next = NULL;
+}
+
+static void	add_redirection_to_list(t_command *cmd, int type, char *filename)
+{
+	t_redirection	*new_redir;
+	t_redirection	*current;
+
+	new_redir = malloc(sizeof(t_redirection));
+	if (!new_redir)
+		return;
+	new_redir->type = type;
+	new_redir->filename = filename;
+	new_redir->append_mode = (type == TOKEN_APPEND) ? 1 : 0;
+	new_redir->next = NULL;
+	
+	if (!cmd->redirections)
+		cmd->redirections = new_redir;
+	else
+	{
+		current = cmd->redirections;
+		while (current->next)
+			current = current->next;
+		current->next = new_redir;
+	}
 }
 char	*expand_variables_with_quote(char *str, char **envp, int quote_type)
 {
 	int	len;
 
-        (void)quote_type;
+	(void)quote_type;
 	if (!str)
 		return (NULL);
 	len = ft_strlen(str);
@@ -36,18 +61,16 @@ char	*expand_variables_with_quote(char *str, char **envp, int quote_type)
 	return (expand_variables(str, envp));
 }
 
-static void	add_argument(t_command *cmd, char *value, char **envp,
-		int quote_type)
+static void	add_argument(t_command *cmd, char *value, char **envp)
 {
 	char	*expanded_value;
-	char	*final_value;
 	char	**new_args;
 	int		i;
 
-	expanded_value = expand_variables_with_quote(value, envp, quote_type);
-	final_value = remove_quotes(expanded_value, ft_strlen(expanded_value));
-	if (!final_value)
-		final_value = ft_strdup("");
+	expanded_value = expand_variables_with_quote(value, envp, 0);
+	if (!expanded_value)
+		expanded_value = ft_strdup("");
+	expanded_value = remove_quotes(expanded_value, ft_strlen(expanded_value));
 	new_args = malloc(sizeof(char *) * (cmd->arg_count + 2));
 	if (!new_args)
 		return ;
@@ -57,7 +80,7 @@ static void	add_argument(t_command *cmd, char *value, char **envp,
 		new_args[i] = cmd->args[i];
 		i++;
 	}
-	new_args[cmd->arg_count] = final_value;
+	new_args[cmd->arg_count] = expanded_value;
 	new_args[cmd->arg_count + 1] = NULL;
 	if (cmd->args)
 		free(cmd->args);
@@ -65,6 +88,29 @@ static void	add_argument(t_command *cmd, char *value, char **envp,
 	cmd->arg_count++;
 	free(value);
 }
+
+// static char	*concatenate_adjacent_tokens(t_pre_token **token, char **envp)
+// {
+// 	char	*result;
+// 	char	*temp;
+// 	char	*expanded;
+//
+// 	result = ft_strdup("");
+// 	while (*token && ((*token)->type == TOKEN_WORD
+// 			|| (*token)->type == TOKEN_QUOTED
+// 			|| (*token)->type == TOKEN_DOUBLE_QUOTE))
+// 	{
+// 		temp = strndup((*token)->start, (*token)->len);
+// 		expanded = expand_variables_with_quote(temp, envp, (*token)->type);
+// 		free(temp);
+// 		temp = result;
+// 		result = ft_strjoin(result, expanded);
+// 		free(temp);
+// 		free(expanded);
+// 		*token = (*token)->next;
+// 	}
+// 	return (result);
+// }
 
 int	handle_redirection(t_command *cmd, t_pre_token **token, char **envp)
 {
@@ -75,6 +121,7 @@ int	handle_redirection(t_command *cmd, t_pre_token **token, char **envp)
 	type = (*token)->type;
 	*token = (*token)->next;
 	if (!*token || ((*token)->type != TOKEN_WORD
+			&& (*token)->type != TOKEN_QUOTED
 			&& (*token)->type != TOKEN_DOUBLE_QUOTE
 			&& (*token)->type != TOKEN_SINGLE_QUOTE))
 	{
@@ -82,44 +129,16 @@ int	handle_redirection(t_command *cmd, t_pre_token **token, char **envp)
 		return (0);
 	}
 	value = strndup((*token)->start, (*token)->len);
-	expanded_value = expand_variables_with_quote(value, envp, (*token)->type);
+	expanded_value = expand_variables_with_quote(value, envp, 0);
+	expanded_value = remove_quotes(expanded_value, ft_strlen(expanded_value));
 	free(value);
 	if (!expanded_value)
 		expanded_value = ft_strdup("");
-	if (type == TOKEN_REDIR_IN)
-	{
-		if (cmd->input_file)
-		{
-			// FIX:temporaire erreur 66;
-			// printf("Warning: multiple input redirections, last wins\n");
-			g_last_exit_status = 1;
-			free(cmd->input_file);
-		}
-		cmd->input_file = expanded_value;
-	}
-	else if (type == TOKEN_REDIR_OUT || type == TOKEN_APPEND)
-	{
-		if (cmd->output_file)
-		{
-			// FIX:temporaire erreur 88;
-			// printf("Warning: multiple output redirections, last wins\n");
-			g_last_exit_status = 1;
-			free(cmd->output_file);
-		}
-		cmd->output_file = expanded_value;
-		cmd->append_mode = (type == TOKEN_APPEND) ? 1 : 0;
-	}
-	else if (type == TOKEN_HEREDOC)
-	{
-		if (cmd->heredoc_delim)
-		{
-			printf("Warning: multiple heredoc, last wins\n");
-			free(cmd->heredoc_delim);
-		}
-		cmd->heredoc_delim = expanded_value;
-	}
-	else
-		free(expanded_value);
+	
+	// Ajouter à la liste au lieu de remplacer
+	add_redirection_to_list(cmd, type, expanded_value);
+	
+	*token = (*token)->next;
 	return (1);
 }
 
@@ -155,6 +174,7 @@ t_command	*build_pipeline(t_pre_token *tokens, char **envp)
 					printf("Syntax error: pipe at end\n");
 					return (NULL);
 				}
+				continue ;
 			}
 		}
 		if (token->type == TOKEN_REDIR_IN || token->type == TOKEN_REDIR_OUT
@@ -162,16 +182,19 @@ t_command	*build_pipeline(t_pre_token *tokens, char **envp)
 		{
 			if (!handle_redirection(current, &token, envp))
 				return (NULL);
-			token = token->next;
-			continue ;
 		}
-		if (token->type == TOKEN_WORD
-			|| token->type == TOKEN_DOUBLE_QUOTE || token->type == TOKEN_SINGLE_QUOTE)
+		else if (token->type == TOKEN_WORD || token->type == TOKEN_QUOTED
+			|| token->type == TOKEN_DOUBLE_QUOTE
+			|| token->type == TOKEN_SINGLE_QUOTE)
 		{
 			value = strndup(token->start, token->len);
-			add_argument(current, value, envp, token->type);
+			add_argument(current, value, envp);
+			token = token->next;
 		}
-		token = token->next;
+		else
+		{
+			token = token->next;
+		}
 	}
 	return (head);
 }

@@ -15,10 +15,9 @@
 
 static void	handle_command_not_found(char **cmd)
 {
-	// write(STDERR_FILENO, "command not found: ", 19);
-	// write(STDERR_FILENO, cmd[0], ft_strlen(cmd[0]));
-	// write(STDERR_FILENO, "\n", 1);
-	
+	write(STDERR_FILENO, "command not found: ", 19);
+	write(STDERR_FILENO, cmd[0], ft_strlen(cmd[0]));
+	write(STDERR_FILENO, "\n", 1);
 	ft_free(cmd);
 	exit(127);
 }

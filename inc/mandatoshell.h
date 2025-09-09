@@ -107,6 +107,14 @@ typedef struct s_pre_token
 	struct s_pre_token	*next;
 }						t_pre_token;
 
+typedef struct s_redirection
+{
+	int					type;
+	char				*filename;
+	int					append_mode;
+	struct s_redirection	*next;
+}						t_redirection;
+
 typedef struct s_command
 {
 	char				**args;
@@ -115,6 +123,7 @@ typedef struct s_command
 	char				*output_file;
 	char				*heredoc_delim;
 	int					append_mode;
+        t_redirection		*redirections;
 	struct s_command	*next;
 }						t_command;
 
