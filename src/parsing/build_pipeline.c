@@ -25,7 +25,13 @@ void	init_command(t_command *cmd)
 }
 char	*expand_variables_with_quote(char *str, char **envp, int quote_type)
 {
-	if (quote_type == TOKEN_SINGLE_QUOTE)
+	int	len;
+
+        (void)quote_type;
+	if (!str)
+		return (NULL);
+	len = ft_strlen(str);
+	if (len >= 2 && str[0] == '\'' && str[len - 1] == '\'')
 		return (ft_strdup(str));
 	return (expand_variables(str, envp));
 }
@@ -76,7 +82,7 @@ int	handle_redirection(t_command *cmd, t_pre_token **token, char **envp)
 		return (0);
 	}
 	value = strndup((*token)->start, (*token)->len);
-	expanded_value = expand_variables(value, envp);
+	expanded_value = expand_variables_with_quote(value, envp, (*token)->type);
 	free(value);
 	if (!expanded_value)
 		expanded_value = ft_strdup("");
@@ -160,7 +166,7 @@ t_command	*build_pipeline(t_pre_token *tokens, char **envp)
 			continue ;
 		}
 		if (token->type == TOKEN_WORD
-			|| token->type == TOKEN_DOUBLE_QUOTE | token->type == TOKEN_SINGLE_QUOTE)
+			|| token->type == TOKEN_DOUBLE_QUOTE || token->type == TOKEN_SINGLE_QUOTE)
 		{
 			value = strndup(token->start, token->len);
 			add_argument(current, value, envp, token->type);
