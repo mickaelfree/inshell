@@ -92,7 +92,7 @@ re: fclean all
 .PHONY: debug
 debug: CFLAGS = -Wall -Wextra -Werror -g3 -DDEBUG_MODE=1
 debug: fclean all
-	DEBUG_MODE=1 valgrind ./minishell 
+	DEBUG_MODE=1 valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./minishell 
 
 .PHONY: test
 test: fclean all

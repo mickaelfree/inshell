@@ -46,7 +46,6 @@ static size_t	calculate_expanded_size(char *str, char **envp)
 		{
 			if (str[i + 1] == '?')
 			{
-				// $? peut faire jusqu'à 3 chiffres (255)
 				final_size += 3;
 				i += 2;
 			}
@@ -105,7 +104,7 @@ char	*expand_env(char *name)
 
 	rname = ft_parse_name(name);
 	value = getenv(rname);
-	free(rname); // Ajouter free
+	free(rname);
 	return (value);
 }
 char	*expand_variables(char *str, char **envp)

@@ -86,7 +86,7 @@ int	main(int argc, char **argv, char **envp)
                 free(line);
 	}
 	if (new_env)
-		free(new_env);
+		ft_free_env(new_env);
 	return (g_last_exit_status);
 
 }
