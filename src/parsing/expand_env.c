@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 22:25:08 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/07 01:30:16 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/10 19:41:48 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static size_t	calculate_expanded_size(char *str, char **envp)
 				while (str[i + 1] && (ft_isalnum(str[i + 1]) || str[i
 						+ 1] == '_'))
 					i++;
-				var_name = strndup(str + start, i + 1 - start);
+				var_name = ft_strndup(str + start, i + 1 - start);
 				if (var_name)
 				{
 					value = get_env_value(var_name, envp);
@@ -152,7 +152,7 @@ char	*expand_variables(char *str, char **envp)
 				while (str[i + 1] && (ft_isalnum(str[i + 1]) || str[i
 						+ 1] == '_'))
 					i++;
-				var_name = strndup(str + start, i + 1 - start);
+				var_name = ft_strndup(str + start, i + 1 - start);
 
                                 if (!var_name)
                                 {

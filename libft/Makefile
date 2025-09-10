@@ -53,6 +53,7 @@ SRCS =	char/ft_isalpha.c \
 		strings/ft_split.c \
         strings/ft_strchr.c \
 		strings/ft_strdup.c \
+		strings/ft_strndup.c \
 		strings/ft_striteri.c \
 		strings/ft_strjoin.c \
         strings/ft_strlcat.c \

@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 18:32:53 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/06 20:33:41 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/10 19:39:39 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -395,6 +395,20 @@ address to ’f’ to be modified if necessary.
 ** @param s: The string on which to iterate.
 ** @param f: The function to apply to each character.
 ** @return none.
+*/
+
+char	*ft_strndup(char *src, size_t n);
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/** @name FT_STRNDUP**
+** @brief The strndup() function returns a pointer to a new string which is a duplicate
+ of at most n characters from the string s. If s is longer than n, only n characters
+ are copied, and a terminating null byte ('\0') is added. Memory for the new string
+ is obtained with malloc(3), and can be freed with free(3).
+**
+** @param src: the source string.
+** @param n: maximum number of characters to copy.
+** @return a pointer to a new string which is a duplicate of at most n characters from s.
 */
 void			ft_striteri(char *s, void (*f)(unsigned int, char*));
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
