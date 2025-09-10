@@ -139,7 +139,7 @@ char	*expand_variables(char *str, char **envp)
 				if (status_str)
 				{
 					len = ft_strlen(status_str);
-					memcpy(result + j, status_str, len);
+					ft_memcpy(result + j, status_str, len);
 					j += len;
 					free(status_str);
 				}
@@ -163,7 +163,7 @@ char	*expand_variables(char *str, char **envp)
 				if (value)
 				{
 					value_len = ft_strlen(value);
-					memcpy(result + j, value, value_len);
+					ft_memcpy(result + j, value, value_len);
 					j += value_len;
 				}
 					free(var_name);
