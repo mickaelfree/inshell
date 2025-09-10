@@ -22,6 +22,7 @@ static void	init_builtin(builtin_func *builtin)
 	builtin[BUILTIN_UNSET] = builtin_unset;
 	builtin[BUILTIN_EXIT] = builtin_exit;
 }
+
 static void	init_lookup(t_builtin_entry *builtin_lookup)
 {
 	builtin_lookup[0] = (t_builtin_entry){"echo", BUILTIN_ECHO};
@@ -49,6 +50,7 @@ static t_builtin_type	get_builtin_type(char *cmd)
 	}
 	return (BUILTIN_UNKNOWN);
 }
+
 int	is_builtin(char **args)
 {
 	t_builtin_type	type;
@@ -56,8 +58,8 @@ int	is_builtin(char **args)
 	if (!args || !args[0])
 		return (-1);
 	type = get_builtin_type(args[0]);
-        if (type == BUILTIN_UNKNOWN)
-                type = -1;
+	if (type == BUILTIN_UNKNOWN)
+		type = -1;
 	return ((int)type);
 }
 
