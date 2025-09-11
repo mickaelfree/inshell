@@ -33,23 +33,39 @@ t_pre_token	*identify_token(char *line)
 		token_start = ptr;
 		if (is_pipe(*ptr))
 		{
-			add_new_token(&head, &current, ptr, 1, TOKEN_PIPE);
+			if (!add_new_token(&head, &current, ptr, 1, TOKEN_PIPE))
+			{
+				free_token_list(head);
+				return (NULL);
+			}
 			ptr++;
 		}
 		else if (is_heredoc(ptr))
 		{
-			add_new_token(&head, &current, ptr, 2, TOKEN_HEREDOC);
+			if (!add_new_token(&head, &current, ptr, 2, TOKEN_HEREDOC))
+			{
+				free_token_list(head);
+				return (NULL);
+			}
 			ptr += 2;
 		}
 		else if (is_append(ptr))
 		{
-			add_new_token(&head, &current, ptr, 2, TOKEN_APPEND);
+			if (!add_new_token(&head, &current, ptr, 2, TOKEN_APPEND))
+			{
+				free_token_list(head);
+				return (NULL);
+			}
 			ptr += 2;
 		}
 		else if (is_redir(*ptr))
 		{
 			type = (*ptr == '<') ? TOKEN_REDIR_IN : TOKEN_REDIR_OUT;
-			add_new_token(&head, &current, ptr, 1, type);
+			if (!add_new_token(&head, &current, ptr, 1, type))
+			{
+				free_token_list(head);
+				return (NULL);
+			}
 			ptr++;
 		}
 		else
@@ -84,8 +100,12 @@ t_pre_token	*identify_token(char *line)
 				free_token_list(head);
 				return (NULL);
 			}
-			add_new_token(&head, &current, token_start, ptr - token_start,
-				TOKEN_WORD);
+			if (!add_new_token(&head, &current, token_start, ptr - token_start,
+				TOKEN_WORD))
+			{
+				free_token_list(head);
+				return (NULL);
+			}
 		}
 		skip_whitespace(&ptr);
 	}

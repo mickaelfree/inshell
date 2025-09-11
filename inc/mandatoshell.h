@@ -3,13 +3,13 @@
 
 // INCLUDES
 # include <dirent.h>
+# include <stdio.h>
 # include <errno.h>
 # include <fcntl.h>
 # include <libft.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
-# include <stdio.h>
 # include <stdlib.h>
 # include <sys/ioctl.h>
 # include <sys/resource.h>

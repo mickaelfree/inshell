@@ -21,10 +21,7 @@ static char	*init_clear_quote_state(char *input)
 	len = ft_strlen(input);
 	res = malloc(sizeof(char) * len + 1);
 	if (!res)
-	{
-		free(res);
 		return (NULL);
-	}
 	return (res);
 }
 

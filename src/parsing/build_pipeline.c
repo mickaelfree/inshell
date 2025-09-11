@@ -134,7 +134,10 @@ t_command	*build_pipeline(t_pre_token *tokens, char **envp)
 		{
 			new_cmd = malloc(sizeof(t_command));
 			if (!new_cmd)
+			{
+				ft_free_commands(head);
 				return (NULL);
+			}
 			init_command(new_cmd);
 			if (!head)
 				head = new_cmd;
@@ -147,6 +150,7 @@ t_command	*build_pipeline(t_pre_token *tokens, char **envp)
 				if (!token)
 				{
 					printf("Syntax error: pipe at end\n");
+					ft_free_commands(head);
 					return (NULL);
 				}
 				continue ;
