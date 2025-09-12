@@ -69,7 +69,9 @@ static void	add_argument(t_command *cmd, char *value, char **envp)
 	expanded_value = expand_variables_with_quote(value, envp, 0);
 	if (!expanded_value)
 		expanded_value = ft_strdup("");
+	char *temp = expanded_value;
 	expanded_value = remove_quotes(expanded_value, ft_strlen(expanded_value));
+	free(temp);
 	new_args = malloc(sizeof(char *) * (cmd->arg_count + 2));
 	if (!new_args)
 		return ;
@@ -106,7 +108,9 @@ int	handle_redirection(t_command *cmd, t_pre_token **token, char **envp)
 	}
 	value = strndup((*token)->start, (*token)->len);
 	expanded_value = expand_variables_with_quote(value, envp, 0);
+	char *temp2 = expanded_value;
 	expanded_value = remove_quotes(expanded_value, ft_strlen(expanded_value));
+	free(temp2);
 	free(value);
 	if (!expanded_value)
 		expanded_value = ft_strdup("");
