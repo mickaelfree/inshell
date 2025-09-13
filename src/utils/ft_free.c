@@ -57,14 +57,17 @@ void	ft_free_split(char **split)
 
 void	ft_free_commands(t_command *head)
 {
-	t_command	*current;
-	t_command	*next;
-	int			i;
+	t_command		*current;
+	t_command		*next;
+	t_redirection	*redir;
+	t_redirection	*next_redir;
+	int				i;
 
 	current = head;
 	while (current)
 	{
 		next = current->next;
+		
 		if (current->args)
 		{
 			i = 0;
@@ -75,6 +78,16 @@ void	ft_free_commands(t_command *head)
 			}
 			free(current->args);
 		}
+		
+		redir = current->redirections;
+		while (redir)
+		{
+			next_redir = redir->next;
+			free(redir->filename);
+			free(redir);
+			redir = next_redir;
+		}
+		
 		free(current->input_file);
 		free(current->output_file);
 		free(current->heredoc_delim);

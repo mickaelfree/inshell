@@ -20,7 +20,7 @@
 void	ft_handle_ctrld(void)
 {
 	printf("exit\n");
-	// free function that doesn't already exist
+        rl_clear_history();
 	exit(0);
 }
 void	ft_handle_sig(int sig)

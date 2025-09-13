@@ -154,6 +154,7 @@ static void	execute_child(t_command *cmd, int index, t_pipeline *pipeline,
 		close(pipeline->pipes[i][1]);
 		i++;
 	}
+        destroy_pipeline(pipeline);
 	handle_redirections(cmd);
 	if (cmd->args && cmd->args[0])
 	{
@@ -249,12 +250,10 @@ static void	wait_all_children(t_pipeline *pipeline)
 	while (i < pipeline->cmd_count)
 	{
 		waitpid(pipeline->pids[i], &status, 0);
-		// Dernier processus détermine le status global
 		if (i == pipeline->cmd_count - 1)
 			last_exit_status = status;
 		i++;
 	}
-	// Interpréter status
 	if (WIFSIGNALED(last_exit_status))
 	{
 		sig = WTERMSIG(last_exit_status);
@@ -278,19 +277,16 @@ static void	execute_pipeline(t_command *cmds, int cmd_count, char ***envp)
 		g_last_exit_status = 1;
 		return ;
 	}
-	// Setup pipes si nécessaire
 	if (pipeline->pipe_count > 0 && !setup_pipes(pipeline))
 	{
 		destroy_pipeline(pipeline);
 		return ;
 	}
-	// Fork tous les processus
 	if (!fork_all_processes(cmds, pipeline, envp))
 	{
 		destroy_pipeline(pipeline);
 		return ;
 	}
-	// Parent : fermer pipes et attendre
 	close_parent_pipes(pipeline);
 	wait_all_children(pipeline);
 	destroy_pipeline(pipeline);

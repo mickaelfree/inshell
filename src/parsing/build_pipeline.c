@@ -87,7 +87,6 @@ static void	add_argument(t_command *cmd, char *value, char **envp)
 		free(cmd->args);
 	cmd->args = new_args;
 	cmd->arg_count++;
-	free(value);
 }
 
 int	handle_redirection(t_command *cmd, t_pre_token **token, char **envp)
@@ -134,6 +133,7 @@ t_command	*build_pipeline(t_pre_token *tokens, char **envp)
 	token = tokens;
 	while (token)
 	{
+                int has_redirection = 0;
 		if (!current || token->type == TOKEN_PIPE)
 		{
 			new_cmd = malloc(sizeof(t_command));
@@ -159,13 +159,16 @@ t_command	*build_pipeline(t_pre_token *tokens, char **envp)
 				}
 				continue ;
 			}
+                has_redirection = 0;
 		}
-                int has_redirection = 0;
 		if (token->type == TOKEN_REDIR_IN || token->type == TOKEN_REDIR_OUT
 			|| token->type == TOKEN_APPEND || token->type == TOKEN_HEREDOC)
 		{
 			if (!handle_redirection(current, &token, envp))
+                        {
+                                ft_free_commands(head);
 				return (NULL);
+                        }
                         has_redirection = 1;
 		}
 		else if (token->type == TOKEN_WORD || token->type == TOKEN_QUOTED

@@ -51,7 +51,8 @@ void	test_parsing(void)
 			cur->heredoc_delim);
 		cur = cur->next;
 	}
-	// ft_free_commands(cmds);
+        if (cmds)
+	 ft_free_commands(cmds);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -85,6 +86,7 @@ int	main(int argc, char **argv, char **envp)
 		ft_free_commands(cmd);
                 free(line);
 	}
+        rl_clear_history();
 	if (new_env)
 		ft_free_env(new_env);
 	return (g_last_exit_status);
