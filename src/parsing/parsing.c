@@ -12,31 +12,6 @@
 
 #include "mandatoshell.h"
 
-int	check_quotes(t_pre_token *head)
-{
-	int			single_quote_open;
-	int			double_quote_open;
-	t_pre_token	*current;
-
-	single_quote_open = 0;
-	double_quote_open = 0;
-	current = head;
-	while (current)
-	{
-		if (current->type == CHAR_SINGLE_QUOTE)
-			single_quote_open = !single_quote_open;
-		else if (current->type == CHAR_DOUBLE_QUOTE)
-			double_quote_open = !double_quote_open;
-		current = current->next;
-	}
-	if (single_quote_open || double_quote_open)
-	{
-		printf("Error: Unclosed quotes\n");
-		return (1);
-	}
-	return (0);
-}
-
 t_command	*parse_token(char *line, char **envp)
 {
 	t_pre_token	*tokens;
