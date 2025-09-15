@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mandatoshell.h"
 #include "libft.h"
+#include "mandatoshell.h"
 
 static int	is_numeric(char *str)
 {
@@ -20,8 +20,8 @@ static int	is_numeric(char *str)
 	i = 0;
 	if (str[i] == '-' || str[i] == '+')
 		i++;
-        if (!str[i]) 
-                return (0);
+	if (!str[i])
+		return (0);
 	while (str[i])
 	{
 		if (!ft_isdigit(str[i]))
@@ -54,7 +54,7 @@ static long	ft_atol(char *str)
 		result = result * 10 + (str[i] - '0');
 		if ((result - (str[i] - '0')) / 10 != prev)
 		{
-                        write(STDERR_FILENO, " numeric argument required\n", 26 );
+			write(STDERR_FILENO, " numeric argument required\n", 26);
 			exit(256);
 		}
 		i++;
@@ -63,15 +63,16 @@ static long	ft_atol(char *str)
 }
 int	builtin_exit(char **args, char ***envp)
 {
-	(void)envp;
+	if (envp && *envp)
+		ft_free_env(*envp);
 	if (args[1] && !is_numeric(args[1]))
 	{
-                write(STDERR_FILENO, " numeric argument required\n", 26 );
+		write(STDERR_FILENO, " numeric argument required\n", 26);
 		exit(2);
 	}
 	if (args[1] && args[2])
 	{
-                write(STDERR_FILENO, " too many arguments\n", 19);
+		write(STDERR_FILENO, " too many arguments\n", 19);
 		return (1);
 	}
 	if (!args[1])

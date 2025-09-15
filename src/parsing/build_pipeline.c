@@ -74,7 +74,11 @@ static void	add_argument(t_command *cmd, char *value, char **envp)
 	free(temp);
 	new_args = malloc(sizeof(char *) * (cmd->arg_count + 2));
 	if (!new_args)
+        {
+                free(expanded_value);
+                free(value);
 		return ;
+        }
 	i = 0;
 	while (i < cmd->arg_count)
 	{
@@ -87,6 +91,7 @@ static void	add_argument(t_command *cmd, char *value, char **envp)
 		free(cmd->args);
 	cmd->args = new_args;
 	cmd->arg_count++;
+        free(value);
 }
 
 int	handle_redirection(t_command *cmd, t_pre_token **token, char **envp)

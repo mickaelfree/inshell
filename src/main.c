@@ -63,11 +63,12 @@ int	main(int argc, char **argv, char **envp)
 
 	(void) argc;
 	(void) argv;
-	new_env = init_env(&envp);
+	//new_env = init_env(&envp);
 	signal(SIGINT, ft_handle_sig);
 	signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
+	new_env = init_env(&envp);
 		line = readline("Mandatoshell>");
 		if (!line)
 			ft_handle_ctrld();
@@ -84,6 +85,7 @@ int	main(int argc, char **argv, char **envp)
 		if (cmd)
 			execute_cmd(cmd, &new_env);
 		ft_free_commands(cmd);
+                ft_free_env(new_env);
                 free(line);
 	}
         rl_clear_history();
