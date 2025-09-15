@@ -45,7 +45,7 @@ static char	*get_key(char *var)
 	k_end = ft_strchr(var, '=');
 	if (!k_end)
 		return (ft_strdup(var));
-	return (strndup(var, k_end - var));
+	return (ft_strndup(var, k_end - var));
 }
 
 static int	tab_len(char **arr)

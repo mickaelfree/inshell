@@ -65,16 +65,21 @@ static void	add_argument(t_command *cmd, char *value, char **envp)
 	char	*expanded_value;
 	char	**new_args;
 	int		i;
+	char	*temp;
 
 	expanded_value = expand_variables_with_quote(value, envp, 0);
 	if (!expanded_value)
 		expanded_value = ft_strdup("");
-	char *temp = expanded_value;
+	temp = expanded_value;
 	expanded_value = remove_quotes(expanded_value, ft_strlen(expanded_value));
 	free(temp);
 	new_args = malloc(sizeof(char *) * (cmd->arg_count + 2));
 	if (!new_args)
+        {
+                free(expanded_value);
+                free(value);
 		return ;
+        }
 	i = 0;
 	while (i < cmd->arg_count)
 	{
@@ -87,6 +92,7 @@ static void	add_argument(t_command *cmd, char *value, char **envp)
 		free(cmd->args);
 	cmd->args = new_args;
 	cmd->arg_count++;
+        free(value);
 }
 
 int	handle_redirection(t_command *cmd, t_pre_token **token, char **envp)
@@ -94,6 +100,7 @@ int	handle_redirection(t_command *cmd, t_pre_token **token, char **envp)
 	int		type;
 	char	*value;
 	char	*expanded_value;
+	char	*temp2;
 
 	type = (*token)->type;
 	*token = (*token)->next;
@@ -105,9 +112,9 @@ int	handle_redirection(t_command *cmd, t_pre_token **token, char **envp)
 		printf("Syntax error: missing file after redirection\n");
 		return (0);
 	}
-	value = strndup((*token)->start, (*token)->len);
+	value = ft_strndup((*token)->start, (*token)->len);
 	expanded_value = expand_variables_with_quote(value, envp, 0);
-	char *temp2 = expanded_value;
+	temp2 = expanded_value;
 	expanded_value = remove_quotes(expanded_value, ft_strlen(expanded_value));
 	free(temp2);
 	free(value);
@@ -133,7 +140,6 @@ t_command	*build_pipeline(t_pre_token *tokens, char **envp)
 	token = tokens;
 	while (token)
 	{
-                int has_redirection = 0;
 		if (!current || token->type == TOKEN_PIPE)
 		{
 			new_cmd = malloc(sizeof(t_command));
@@ -159,28 +165,21 @@ t_command	*build_pipeline(t_pre_token *tokens, char **envp)
 				}
 				continue ;
 			}
-                has_redirection = 0;
 		}
 		if (token->type == TOKEN_REDIR_IN || token->type == TOKEN_REDIR_OUT
 			|| token->type == TOKEN_APPEND || token->type == TOKEN_HEREDOC)
 		{
 			if (!handle_redirection(current, &token, envp))
-                        {
-                                ft_free_commands(head);
+			{
+				ft_free_commands(head);
 				return (NULL);
-                        }
-                        has_redirection = 1;
+			}
 		}
 		else if (token->type == TOKEN_WORD || token->type == TOKEN_QUOTED
-			|| token->type == TOKEN_DOUBLE_QUOTE
-			|| token->type == TOKEN_SINGLE_QUOTE)
+				|| token->type == TOKEN_DOUBLE_QUOTE
+				|| token->type == TOKEN_SINGLE_QUOTE)
 		{
-                        if (has_redirection)
-                        {
-                                token = token->next;
-                                continue ;
-                        }
-			value = strndup(token->start, token->len);
+			value = ft_strndup(token->start, token->len);
 			expanded_value = expand_variables_with_quote(value, envp, 0);
 			if (!expanded_value)
 				expanded_value = ft_strdup("");

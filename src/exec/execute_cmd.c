@@ -159,9 +159,13 @@ static void	execute_child(t_command *cmd, int index, t_pipeline *pipeline,
 	if (cmd->args && cmd->args[0])
 	{
 		if (is_builtin(cmd->args) != -1)
+                {
+                        ft_free_commands(cmd);
 			exit(execute_builtin(cmd->args, envp));
+                }
 		execute(cmd->args, *envp);
 	}
+        ft_free_commands(cmd);
 	exit(0);
 }
 

@@ -25,7 +25,7 @@ void	display_parsed_command(t_command *cmd)
 		printf("- Input redirection: '%s'\n", cmd->input_file);
 	if (cmd->output_file)
 		printf("- Output redirection: '%s' (append: %d)\n", cmd->output_file,
-			cmd->append_mode);
+				cmd->append_mode);
 	if (cmd->heredoc_delim)
 		printf("- Heredoc delimiter: '%s'\n", cmd->heredoc_delim);
 	printf("==========================\n\n");
@@ -47,12 +47,14 @@ void	test_parsing(void)
 		for (int i = 0; i < cur->arg_count; i++)
 			printf("%s ", cur->args[i]);
 		printf("\nInput: %s\nOutput: %s (append: %d)\nHeredoc: %s\n---\n",
-			cur->input_file, cur->output_file, cur->append_mode,
-			cur->heredoc_delim);
+				cur->input_file,
+				cur->output_file,
+				cur->append_mode,
+				cur->heredoc_delim);
 		cur = cur->next;
 	}
-        if (cmds)
-	 ft_free_commands(cmds);
+	if (cmds)
+		ft_free_commands(cmds);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -61,8 +63,8 @@ int	main(int argc, char **argv, char **envp)
 	char		**new_env;
 	t_command	*cmd;
 
-	(void) argc;
-	(void) argv;
+	(void)argc;
+	(void)argv;
 	new_env = init_env(&envp);
 	signal(SIGINT, ft_handle_sig);
 	signal(SIGQUIT, SIG_IGN);
@@ -84,11 +86,10 @@ int	main(int argc, char **argv, char **envp)
 		if (cmd)
 			execute_cmd(cmd, &new_env);
 		ft_free_commands(cmd);
-                free(line);
+		free(line);
 	}
-        rl_clear_history();
+	rl_clear_history();
 	if (new_env)
 		ft_free_env(new_env);
 	return (g_last_exit_status);
-
 }
