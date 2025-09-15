@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:35:41 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/06 20:42:42 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/14 21:36:49 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,12 @@ int	builtin_env(char **args, char ***envp)
 
 char	**init_env(char ***envp)
 {
-	int		count;
 	char	**new_env;
-	char	**cur_env;
 	int		i;
+	int		count;
 
-	cur_env = *envp;
-	if (!cur_env)
-		return (NULL);
 	count = 0;
-	while (cur_env[count])
+	while ((*envp)[count])
 		count++;
 	new_env = malloc(sizeof(char *) * (count + 1));
 	if (!new_env)

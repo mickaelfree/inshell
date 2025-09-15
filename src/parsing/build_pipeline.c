@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 17:12:14 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/07 01:49:32 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/14 21:54:29 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,13 @@ static void	add_argument(t_command *cmd, char *value, char **envp)
 	expanded_value = expand_variables_with_quote(value, envp, 0);
 	if (!expanded_value)
 		expanded_value = ft_strdup("");
+	if (!expanded_value)
+		return ;
 	temp = expanded_value;
 	expanded_value = remove_quotes(expanded_value, ft_strlen(expanded_value));
 	free(temp);
+	if (!expanded_value)
+		return ;
 	new_args = malloc(sizeof(char *) * (cmd->arg_count + 2));
 	if (!new_args)
         {
@@ -124,7 +128,33 @@ int	handle_redirection(t_command *cmd, t_pre_token **token, char **envp)
 	*token = (*token)->next;
 	return (1);
 }
+static void	remove_empty_commands(t_command **head)
+{
+	t_command	*prev;
+	t_command	*current;
+	t_command	*to_free;
 
+	prev = NULL;
+	current = *head;
+	while (current)
+	{
+		if (current->arg_count == 0 && !current->redirections)
+		{
+			if (prev)
+				prev->next = current->next;
+			else
+				*head = current->next;
+			to_free = current;
+			current = current->next;
+			free(to_free);
+		}
+		else
+		{
+			prev = current;
+			current = current->next;
+		}
+	}
+}
 t_command	*build_pipeline(t_pre_token *tokens, char **envp)
 {
 	t_command	*head;
@@ -187,13 +217,8 @@ t_command	*build_pipeline(t_pre_token *tokens, char **envp)
 			while (*trimmed == ' ' || *trimmed == '\t')
 				trimmed++;
 			if (*trimmed != '\0')
-			{
 				add_argument(current, value, envp);
-			}
-			else
-			{
-				free(value);
-			}
+			free(value);
 			free(expanded_value);
 			token = token->next;
 		}
@@ -202,5 +227,7 @@ t_command	*build_pipeline(t_pre_token *tokens, char **envp)
 			token = token->next;
 		}
 	}
-	return (head);
+        remove_empty_commands(&head);
+        	return (head);
+
 }

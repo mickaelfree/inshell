@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 21:30:44 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/07 01:15:27 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/14 21:37:51 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,19 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	new_env = init_env(&envp);
+	if (!new_env)
+		return (1);
 	signal(SIGINT, ft_handle_sig);
 	signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
 		line = readline("Mandatoshell>");
 		if (!line)
+		{
+			rl_clear_history();
+			ft_free_env(new_env);
 			ft_handle_ctrld();
+		}
 		if (*line)
 			add_history(line);
 		else
@@ -86,7 +92,10 @@ int	main(int argc, char **argv, char **envp)
 		if (cmd)
 			execute_cmd(cmd, &new_env);
 		ft_free_commands(cmd);
+<<<<<<< HEAD
 		free(line);
+=======
+>>>>>>> 202524ddb679b7623a2782845ac27a4887f4e9a8
 	}
 	rl_clear_history();
 	if (new_env)
