@@ -105,7 +105,7 @@ int	handle_redirection(t_command *cmd, t_pre_token **token, char **envp)
 		printf("Syntax error: missing file after redirection\n");
 		return (0);
 	}
-	value = strndup((*token)->start, (*token)->len);
+	value = ft_strndup((*token)->start, (*token)->len);
 	expanded_value = expand_variables_with_quote(value, envp, 0);
 	char *temp2 = expanded_value;
 	expanded_value = remove_quotes(expanded_value, ft_strlen(expanded_value));
@@ -180,7 +180,7 @@ t_command	*build_pipeline(t_pre_token *tokens, char **envp)
                                 token = token->next;
                                 continue ;
                         }
-			value = strndup(token->start, token->len);
+			value = ft_strndup(token->start, token->len);
 			expanded_value = expand_variables_with_quote(value, envp, 0);
 			if (!expanded_value)
 				expanded_value = ft_strdup("");
