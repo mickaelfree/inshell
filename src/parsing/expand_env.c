@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mandatoshell.h"
 #include "libft.h"
+#include "mandatoshell.h"
 
 char	*get_env_value(char *name, char **envp)
 {
@@ -37,6 +37,7 @@ static size_t	calculate_expanded_size(char *str, char **envp)
 	int		start;
 	char	*var_name;
 	char	*value;
+	char	*status_str;
 
 	final_size = 0;
 	i = 0;
@@ -46,7 +47,12 @@ static size_t	calculate_expanded_size(char *str, char **envp)
 		{
 			if (str[i + 1] == '?')
 			{
-				final_size += 3;
+				status_str = ft_itoa(g_last_exit_status);
+				if (status_str)
+				{
+					final_size += ft_strlen(status_str);
+					free(status_str);
+				}
 				i += 2;
 			}
 			else if (ft_isalpha(str[i + 1]) || str[i + 1] == '_')
@@ -119,6 +125,8 @@ char	*expand_variables(char *str, char **envp)
 	size_t	final_size;
 	size_t	len;
 	size_t	value_len;
+	char	*start_without_spaces;
+	char	*trimmed_result;
 
 	if (!str)
 		return (NULL);
@@ -152,12 +160,11 @@ char	*expand_variables(char *str, char **envp)
 						+ 1] == '_'))
 					i++;
 				var_name = ft_strndup(str + start, i + 1 - start);
-
-                                if (!var_name)
-                                {
-                                        free(result);
+				if (!var_name)
+				{
+					free(result);
 					return (NULL);
-                                }
+				}
 				value = get_env_value(var_name, envp);
 				if (value)
 				{
@@ -165,7 +172,7 @@ char	*expand_variables(char *str, char **envp)
 					ft_memcpy(result + j, value, value_len);
 					j += value_len;
 				}
-					free(var_name);
+				free(var_name);
 				i++;
 			}
 			else
@@ -179,14 +186,14 @@ char	*expand_variables(char *str, char **envp)
 		}
 	}
 	result[j] = '\0';
-	char *start_without_spaces = result;
+	start_without_spaces = result;
 	while (*start_without_spaces == ' ' || *start_without_spaces == '\t')
 		start_without_spaces++;
-	
-	if (start_without_spaces != result) {
-		char *trimmed_result = ft_strdup(start_without_spaces);
+	if (start_without_spaces != result)
+	{
+		trimmed_result = ft_strdup(start_without_spaces);
 		free(result);
-		return trimmed_result;
+		return (trimmed_result);
 	}
 	return (result);
 }
