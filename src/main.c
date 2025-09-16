@@ -64,8 +64,8 @@ int	main(int argc, char **argv, char **envp)
 	(void) argc;
 	(void) argv;
 	//new_env = init_env(&envp);
-	signal(SIGINT, ft_handle_sig);
-	signal(SIGQUIT, SIG_IGN);
+        signal(SIGINT, ft_handle_sig);
+        signal(SIGQUIT, ft_handle_sig);
 	while (1)
 	{
 	new_env = init_env(&envp);

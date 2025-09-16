@@ -142,6 +142,8 @@ static void	execute_child(t_command *cmd, int index, t_pipeline *pipeline,
 		char ***envp)
 {
 	int	i;
+        signal(SIGINT, SIG_DFL);
+        signal(SIGQUIT, SIG_DFL);
 
 	if (index > 0)
 		dup2(pipeline->pipes[index - 1][0], STDIN_FILENO);

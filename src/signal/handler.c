@@ -14,8 +14,6 @@
 #include "mandatoshell.h"
 
 
-//TODO: Basically everything...
-//check for pid to handle signals in child process and block in parent
 
 void	ft_handle_ctrld(void)
 {
@@ -23,18 +21,27 @@ void	ft_handle_ctrld(void)
         rl_clear_history();
 	exit(0);
 }
-void	ft_handle_sig(int sig)
+void    ft_handle_sig(int sig)
 {
-        if(sig == SIGINT)
+    if (sig == SIGINT)
+    {
+        if (isatty(STDIN_FILENO))
         {
-                if (isatty(STDIN_FILENO))
-                {        
-                	write(STDOUT_FILENO, "\n", 1);
-                	rl_replace_line("", 0);
-                	rl_on_new_line();
-                	rl_redisplay();
-                }
-                g_last_exit_status = 130;
+            write(STDOUT_FILENO, "\n", 1);
+            rl_replace_line("", 0);
+            rl_on_new_line();
+            rl_redisplay();
         }
-
+        g_last_exit_status = 130;
+    }
+    else if (sig == SIGQUIT)
+    {
+        if (isatty(STDIN_FILENO))
+        {
+            rl_replace_line("", 0);
+            rl_on_new_line();
+            rl_redisplay();
+        }
+        g_last_exit_status = 131;
+    }
 }
