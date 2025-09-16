@@ -71,7 +71,13 @@ int	main(int argc, char **argv, char **envp)
 	new_env = init_env(&envp);
 		line = readline("Mandatoshell>");
 		if (!line)
-			ft_handle_ctrld();
+                {
+                        printf("exit\n");
+                        rl_clear_history();
+                        if (new_env)
+                                ft_free_env(new_env);
+                        exit(0);
+                }
 		if (*line)
 			add_history(line);
 		else
