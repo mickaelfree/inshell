@@ -204,91 +204,81 @@ int	handle_redirection(t_command *cmd, t_pre_token **token, char **envp)
 	return (1);
 }
 
-t_command	*build_pipeline(t_pre_token *tokens, char **envp)
+t_command   *build_pipeline(t_pre_token *tokens, char **envp)
 {
-	t_command	*head;
-	t_command	*current;
-	t_pre_token	*token;
-	t_command	*new_cmd;
-	char		*value;
-	char		*expanded_value;
-	char		*trimmed;
-	int			has_redirection;
+    t_command   *head;
+    t_command   *current;
+    t_pre_token *token;
+    t_command   *new_cmd;
+    char        *value;
+    char        *expanded_value;
+    char        *trimmed;
 
-	head = NULL;
-	current = NULL;
-	token = tokens;
-	while (token)
-	{
-		has_redirection = 0;
-		if (!current || token->type == TOKEN_PIPE)
-		{
-			new_cmd = malloc(sizeof(t_command));
-			if (!new_cmd)
-			{
-				ft_free_commands(head);
-				return (NULL);
-			}
-			init_command(new_cmd);
-			if (!head)
-				head = new_cmd;
-			else
-				current->next = new_cmd;
-			current = new_cmd;
-			if (token->type == TOKEN_PIPE)
-			{
-				token = token->next;
-				if (!token)
-				{
-					printf("Syntax error: pipe at end\n");
-					ft_free_commands(head);
-					return (NULL);
-				}
-				continue ;
-			}
-			has_redirection = 0;
-		}
-		if (token->type == TOKEN_REDIR_IN || token->type == TOKEN_REDIR_OUT
-			|| token->type == TOKEN_APPEND || token->type == TOKEN_HEREDOC)
-		{
-			if (!handle_redirection(current, &token, envp))
-			{
-				ft_free_commands(head);
-				return (NULL);
-			}
-			has_redirection = 1;
-		}
-		else if (token->type == TOKEN_WORD || token->type == TOKEN_QUOTED
-				|| token->type == TOKEN_DOUBLE_QUOTE
-				|| token->type == TOKEN_SINGLE_QUOTE)
-		{
-			if (has_redirection)
-			{
-				token = token->next;
-				continue ;
-			}
-			value = ft_strndup(token->start, token->len);
-			expanded_value = expand_variables_with_quote(value, envp, 0);
-			if (!expanded_value)
-				expanded_value = ft_strdup("");
-			trimmed = expanded_value;
-			while (*trimmed == ' ' || *trimmed == '\t')
-				trimmed++;
-			if (*trimmed != '\0')
-			{
-				add_argument(current, value, envp);
-			}
-			else
-			{
-				free(value);
-			}
-			free(expanded_value);
-			token = token->next;
-		}
-		else
-		{
-			token = token->next;
-		}
-	}
-	return (head);
+    head = NULL;
+    current = NULL;
+    token = tokens;
+    while (token)
+    {
+        if (!current || token->type == TOKEN_PIPE)
+        {
+            new_cmd = malloc(sizeof(t_command));
+            if (!new_cmd)
+            {
+                ft_free_commands(head);
+                return (NULL);
+            }
+            init_command(new_cmd);
+            if (!head)
+                head = new_cmd;
+            else
+                current->next = new_cmd;
+            current = new_cmd;
+            if (token->type == TOKEN_PIPE)
+            {
+                token = token->next;
+                if (!token)
+                {
+                    printf("Syntax error: pipe at end\n");
+                    ft_free_commands(head);
+                    return (NULL);
+                }
+                continue ;
+            }
+        }
+        if (token->type == TOKEN_REDIR_IN || token->type == TOKEN_REDIR_OUT
+            || token->type == TOKEN_APPEND || token->type == TOKEN_HEREDOC)
+        {
+            if (!handle_redirection(current, &token, envp))
+            {
+                ft_free_commands(head);
+                return (NULL);
+            }
+            continue ;
+        }
+        else if (token->type == TOKEN_WORD || token->type == TOKEN_QUOTED
+            || token->type == TOKEN_DOUBLE_QUOTE
+            || token->type == TOKEN_SINGLE_QUOTE)
+        {
+            value = ft_strndup(token->start, token->len);
+            expanded_value = expand_variables_with_quote(value, envp, 0);
+            if (!expanded_value)
+                expanded_value = ft_strdup("");
+            trimmed = expanded_value;
+            while (*trimmed == ' ' || *trimmed == '\t')
+                trimmed++;
+            if (*trimmed != '\0')
+                add_argument(current, value, envp);
+            else
+                free(value);
+            free(expanded_value);
+            token = token->next;
+        }
+        else
+        {
+            /* autre type de token (espace, etc.) */
+            token = token->next;
+        }
+    }
+    return (head);
 }
+

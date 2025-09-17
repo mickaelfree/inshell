@@ -105,6 +105,6 @@ int	builtin_cd(char **args, char ***envp)
 
 	target_dir = get_target_directory(args, &print_pwd, *envp);
 	if (!target_dir)
-		return (EXIT_FAILURE);
+		return (g_last_exit_status);
 	return (update_directory(target_dir, print_pwd, envp));
 }
