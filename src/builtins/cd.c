@@ -22,7 +22,7 @@ static char	*get_target_directory(char **args, int *print_pwd, char **envp)
 	if (args[1] && args[2])
 	{
 		write(STDERR_FILENO, " too many arguments\n", 19);
-		g_last_exit_status = 1;
+		g_last_exit_status = 2;
 		return (NULL);
 	}
 	if (!args[1])
