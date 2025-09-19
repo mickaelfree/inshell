@@ -63,20 +63,28 @@ static long	ft_atol(char *str)
 }
 int	builtin_exit(char **args, char ***envp)
 {
-	if (envp && *envp)
-		ft_free_env(*envp);
+        long status =-117;
 	if (args[1] && !is_numeric(args[1]))
 	{
 		write(STDERR_FILENO, " numeric argument required\n", 26);
+	        if (envp && *envp)
+	        	ft_free_env(*envp);
 		exit(2);
 	}
 	if (args[1] && args[2])
 	{
 		write(STDERR_FILENO, " too many arguments\n", 19);
-		return (1);
+                g_last_exit_status = 2;
+		return (2);
 	}
 	if (!args[1])
+        {
+                if (envp && *envp)
+                        ft_free_env(*envp);
 		exit(0);
-	else
-		exit(ft_atol(args[1]));
+        }
+        status = ft_atol(args[1]);
+        if (envp && *envp)
+               ft_free_env(*envp);
+	exit((unsigned char)status);
 }
