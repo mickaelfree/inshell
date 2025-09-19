@@ -28,56 +28,49 @@ static int	count_pipeline(t_command *cmds)
 	return (count);
 }
 
-static void	handle_redirections(t_command *cmd)
+static int apply_redirection(t_redirection *redir)
 {
-	t_redirection	*redir;
-	int				fd;
-	int				flags;
+    int fd;
 
-	redir = cmd->redirections;
-	while (redir)
-	{
-		if (redir->type == TOKEN_HEREDOC)
-		{
-			char *temp_file = process_heredoc(redir->filename);
-			if (!temp_file)
-				exit(1);
-			fd = open(temp_file, O_RDONLY);
-			if (fd == -1)
-			{
-				perror("open heredoc");
-				exit(1);
-			}
-			dup2(fd, STDIN_FILENO);
-			close(fd);
-			unlink(temp_file);
-			free(temp_file);
-		}
-		else if (redir->type == TOKEN_REDIR_IN)
-		{
-			fd = open(redir->filename, O_RDONLY);
-			if (fd == -1)
-			{
-				perror(redir->filename);
-				exit(1);
-			}
-			dup2(fd, STDIN_FILENO);
-			close(fd);
-		}
-		else if (redir->type == TOKEN_REDIR_OUT || redir->type == TOKEN_APPEND)
-		{
-			flags = O_WRONLY | O_CREAT | (redir->append_mode ? O_APPEND : O_TRUNC);
-			fd = open(redir->filename, flags, 0644);
-			if (fd == -1)
-			{
-				perror(redir->filename);
-				exit(1);
-			}
-			dup2(fd, STDOUT_FILENO);
-			close(fd);
-		}
-		redir = redir->next;
-	}
+    if (redir->type == TOKEN_HEREDOC) {
+        char *temp_file = process_heredoc(redir->filename);
+        fd = open(temp_file, O_RDONLY);
+        if (fd < 0)
+            return (perror(temp_file), free(temp_file), 0);
+        dup2(fd, STDIN_FILENO);
+        close(fd);
+        unlink(temp_file);
+        free(temp_file);
+    }
+    else if (redir->type == TOKEN_REDIR_IN) {
+        fd = open(redir->filename, O_RDONLY);
+        if (fd < 0)
+            return (perror(redir->filename), 0);
+        dup2(fd, STDIN_FILENO);
+        close(fd);
+    }
+    else if (redir->type == TOKEN_REDIR_OUT || redir->type == TOKEN_APPEND) {
+        int flags = O_WRONLY | O_CREAT | (redir->append_mode ? O_APPEND : O_TRUNC);
+        fd = open(redir->filename, flags, 0644);
+        if (fd < 0)
+            return (perror(redir->filename), 0);
+        dup2(fd, STDOUT_FILENO);
+        close(fd);
+    }
+    return 1;
+}
+
+
+static int handle_redirections(t_command *cmd)
+{
+
+    t_redirection *rd = cmd->redirections;
+    while (rd) {
+        if (!apply_redirection(rd))
+            return 0;
+        rd = rd->next;
+    }
+    return 1;
 }
 
 static t_pipeline	*create_pipeline(int cmd_count)
@@ -157,7 +150,8 @@ static void	execute_child(t_command *cmd, int index, t_pipeline *pipeline,
 		i++;
 	}
         destroy_pipeline(pipeline);
-	handle_redirections(cmd);
+	if(!handle_redirections(cmd))
+                exit(1);
 	if (cmd->args && cmd->args[0])
 	{
 		if (is_builtin(cmd->args) != -1)
@@ -213,7 +207,11 @@ static void	execute_builtin_in_parent(t_command *cmd, char ***envp)
 		saved_stdin = dup(STDIN_FILENO);
 		saved_stdout = dup(STDOUT_FILENO);
 	}
-	handle_redirections(cmd);
+	if (!handle_redirections(cmd))
+        {
+            g_last_exit_status = 1;
+            return ;
+        }
 	builtin_ret = execute_builtin(cmd->args, envp);
 	g_last_exit_status = builtin_ret;
 	if (saved_stdin != -1)
