@@ -189,11 +189,17 @@ void					print_ast(const t_ast *node, const char *prefix,
 // ERROR
 void					error_exit(void);
 void					ft_error(char *msg);
+void	                                export_error(char *arg);
+char	                                *cd_err(const char *msg, int status);
 
 // init_env
 char					**init_env(char ***envp);
 
 // UTILS
+char	*get_key(char *var);
+unsigned int	ft_count(void **ptrs);
+int     error_alloc(char *ptr,char **ptrs);
+void					ft_free_tab(void **ptrs);
 void					ft_free(char **arr);
 void					ft_free_ast(t_ast *node);
 void					ft_free_env(char **env);

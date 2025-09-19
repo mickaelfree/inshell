@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 01:35:56 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/07 02:08:15 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/19 22:58:51 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,14 @@ int	char_type(char *c)
 		return (CHAR_SPECIAL);
 	else
 		return (CHAR_NORMAL);
+}
+
+char	*get_key(char *var)
+{
+	char	*k_end;
+
+	k_end = ft_strchr(var, '=');
+	if (!k_end)
+		return (ft_strdup(var));
+	return (ft_strndup(var, k_end - var));
 }
