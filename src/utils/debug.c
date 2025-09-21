@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 02:06:38 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/07 02:07:13 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/21 19:30:53 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 void	print_token(t_pre_token *token)
 {
-	char	*type_token[] = {"WORD", "SINGLE_QUOTE", "DOUBLE_QUOTE", "PIPE",
-		"REDIR_IN", "REDIR_OUT", "HEREDOC", "APPEND"};
-		
+	char	**type_token;
+
+	type_token = ft_split("WORD SINGLE_QUOTE DOUBLE_QUOTE PIPE REDIR_IN REDIR_OUT \
+		HEREDOC APPEND", ' ');
 	printf("print_token called from: %p\n", __builtin_return_address(0));
 	while (token)
 	{

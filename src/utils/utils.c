@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 17:35:38 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/19 20:25:55 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/09/21 19:24:29 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ unsigned int	ft_count(void **ptrs)
 		count++;
 	return (count);
 }
+
 void	ft_free_tab(void **ptrs)
 {
 	int	i;
@@ -37,15 +38,14 @@ void	ft_free_tab(void **ptrs)
 	}
 	free(ptrs);
 }
-int     error_alloc(char *ptr,char **ptrs)
+
+int	error_alloc(char *ptr, char **ptrs)
 {
-        if (!ptr)
-        {
-                if (ptrs)
-                        ft_free_tab((void**)ptrs);
-                return (1);
-        }
-        return (0);
-
-
+	if (!ptr)
+	{
+		if (ptrs)
+			ft_free_tab((void **)ptrs);
+		return (1);
+	}
+	return (0);
 }

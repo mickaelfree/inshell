@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/08 11:59:24 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/05 01:13:59 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/21 19:36:47 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,35 +59,13 @@ void	ft_free_commands(t_command *head)
 {
 	t_command		*current;
 	t_command		*next;
-	t_redirection	*redir;
-	t_redirection	*next_redir;
 	int				i;
 
 	current = head;
 	while (current)
 	{
 		next = current->next;
-		
-		if (current->args)
-		{
-			i = 0;
-			while (i < current->arg_count)
-			{
-				free(current->args[i]);
-				i++;
-			}
-			free(current->args);
-		}
-		
-		redir = current->redirections;
-		while (redir)
-		{
-			next_redir = redir->next;
-			free(redir->filename);
-			free(redir);
-			redir = next_redir;
-		}
-		
+		free_args_and_redir(current);
 		free(current->input_file);
 		free(current->output_file);
 		free(current->heredoc_delim);
