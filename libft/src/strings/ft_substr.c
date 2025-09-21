@@ -6,17 +6,16 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 20:20:05 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/06 20:33:22 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/21 18:42:23 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	size_t			i;
-	char			*sub;
+	size_t	i;
+	char	*sub;
 
 	if (!s)
 		return (NULL);

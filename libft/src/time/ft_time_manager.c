@@ -6,12 +6,12 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 04:13:49 by sarunomane        #+#    #+#             */
-/*   Updated: 2025/08/30 19:15:39 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/21 18:38:38 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "time_manager.h"
 #include "libft.h"
+#include "time_manager.h"
 #include <fcntl.h>
 #include <stdio.h>
 
@@ -41,7 +41,7 @@ double	get_proc_uptime(void)
 	return (time);
 }
 
-int	get_frames_per_second()
+int	get_frames_per_second(void)
 {
 	static double	elapsedtime;
 	static double	lastrealtime;

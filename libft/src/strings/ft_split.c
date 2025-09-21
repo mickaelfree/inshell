@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 05:06:03 by zsonie            #+#    #+#             */
-/*   Updated: 2025/08/30 19:12:37 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/21 18:40:41 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ static int	ft_count_word(char *s, char c)
 	cutnbr = 0;
 	while (s[i])
 	{
-		if ((cutnbr == 0 && s[i] != c) || \
-		(s[i] == c && s[i + 1] != c && s[i + 1]))
+		if ((cutnbr == 0 && s[i] != c) || (s[i] == c && s[i + 1] != c && s[i
+					+ 1]))
 			cutnbr++;
 		i++;
 	}
@@ -35,7 +35,7 @@ static void	ft_free_all(char **s, int alloc)
 	size_t	i;
 
 	i = 0;
-	while (i < (size_t) alloc)
+	while (i < (size_t)alloc)
 	{
 		free(s[i]);
 		i++;
@@ -105,8 +105,8 @@ char	**ft_split(char const *s, char c)
 // 	int		i;
 
 // 	str = "Monkeys are in the place,you pissed us and
-// 	 you will pay for it,
-// 	 fucking bastards!";
+// 		you will pay for it,
+// 		fucking bastards!";
 // 	c = 'a';
 // 	i = 0;
 // 	strtab = ft_split(str, c);
