@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 16:58:29 by zsonie            #+#    #+#             */
-/*   Updated: 2025/08/30 19:07:31 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/21 18:39:41 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 
 double	ft_atof(const char *str)
 {
-	int		i;
-	double	num;
-	int		precision_factor;
+	int			i;
+	double		num;
+	int			precision_factor;
 	const char	*precision_part;
 
 	i = -1;
@@ -34,7 +34,7 @@ double	ft_atof(const char *str)
 	while (precision_part[++i] && ft_isdigit(precision_part[i]))
 		precision_factor++;
 	precision_factor = pow(10, precision_factor);
-	num = num + (double)ft_atoi(precision_part)/(double)precision_factor;
+	num = num + (double)ft_atoi(precision_part) / (double)precision_factor;
 	return (num);
 }
 

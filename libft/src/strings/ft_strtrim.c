@@ -6,12 +6,11 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 01:19:01 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/06 20:33:22 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/21 18:42:11 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
 
 static int	ft_check_charset(const char *set, char c)
 {
@@ -27,12 +26,11 @@ static int	ft_check_charset(const char *set, char c)
 	}
 	return (0);
 }
-// YAMETE KUDASAI
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
 	char	*result;
-	size_t	start;	
+	size_t	start;
 	size_t	end;
 	size_t	i;
 
