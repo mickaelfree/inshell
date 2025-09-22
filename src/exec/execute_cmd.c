@@ -6,12 +6,12 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 21:20:51 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/07 02:26:07 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/22 17:27:47 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mandatoshell.h"
-#include <unistd.h>
+
 
 static int	count_pipeline(t_command *cmds)
 {
@@ -28,50 +28,6 @@ static int	count_pipeline(t_command *cmds)
 	return (count);
 }
 
-static int apply_redirection(t_redirection *redir)
-{
-    int fd;
-
-    if (redir->type == TOKEN_HEREDOC) {
-        char *temp_file = process_heredoc(redir->filename);
-        fd = open(temp_file, O_RDONLY);
-        if (fd < 0)
-            return (perror(temp_file), free(temp_file), 0);
-        dup2(fd, STDIN_FILENO);
-        close(fd);
-        unlink(temp_file);
-        free(temp_file);
-    }
-    else if (redir->type == TOKEN_REDIR_IN) {
-        fd = open(redir->filename, O_RDONLY);
-        if (fd < 0)
-            return (perror(redir->filename), 0);
-        dup2(fd, STDIN_FILENO);
-        close(fd);
-    }
-    else if (redir->type == TOKEN_REDIR_OUT || redir->type == TOKEN_APPEND) {
-        int flags = O_WRONLY | O_CREAT | (redir->append_mode ? O_APPEND : O_TRUNC);
-        fd = open(redir->filename, flags, 0644);
-        if (fd < 0)
-            return (perror(redir->filename), 0);
-        dup2(fd, STDOUT_FILENO);
-        close(fd);
-    }
-    return 1;
-}
-
-
-static int handle_redirections(t_command *cmd)
-{
-
-    t_redirection *rd = cmd->redirections;
-    while (rd) {
-        if (!apply_redirection(rd))
-            return 0;
-        rd = rd->next;
-    }
-    return 1;
-}
 
 static t_pipeline	*create_pipeline(int cmd_count)
 {
