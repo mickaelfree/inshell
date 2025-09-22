@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 17:12:14 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/07 01:49:32 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/22 21:23:02 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -275,7 +275,6 @@ t_command   *build_pipeline(t_pre_token *tokens, char **envp)
         }
         else
         {
-            /* autre type de token (espace, etc.) */
             token = token->next;
         }
     }

@@ -33,6 +33,8 @@ SRCS = $(SRCDIR)/main.c \
 	$(SRCDIR)/parsing/parsing.c \
 	$(SRCDIR)/parsing/build_pipeline.c \
 	$(SRCDIR)/parsing/expand_env.c \
+	$(SRCDIR)/parsing/expand_utils.c \
+	$(SRCDIR)/parsing/expand_sizer.c \
 	$(SRCDIR)/signal/handler.c \
 	$(SRCDIR)/utils/char_utils.c \
 	$(SRCDIR)/utils/char_utils2.c \

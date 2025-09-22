@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 19:21:13 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/22 19:57:26 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/09/22 23:34:54 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,12 @@ typedef struct s_command
 	t_redirection			*redirections;
 	struct s_command		*next;
 }							t_command;
+typedef struct s_expand_ctx
+{
+	char	*result;
+	char	**envp;
+	int		j;
+}	t_expand_ctx;
 
 /////////////////////////FUNCTIONS////////////////////////
 
@@ -231,11 +237,13 @@ extern int					g_last_exit_status;
 typedef int					(*builtin_func)(char **args, char ***envp);
 
 // Parsing functions
+size_t	calculate_expanded_size(char *str, char **envp);
 void						pre_token(char *line);
 t_pre_token					*tokenize_input(char *line);
 void						free_token_list(t_pre_token *head);
 t_command					*parse_token(char *line, char **envp);
 void						print_token(t_pre_token *token);
+char	*trim_leading_spaces(char *result);
 
 t_pre_token					*identify_token(char *line);
 t_command					*build_pipeline(t_pre_token *tokens, char **envp);
