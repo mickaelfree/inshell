@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/08 11:59:24 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/21 19:36:47 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/22 18:11:18 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void	ft_free_commands(t_command *head)
 {
 	t_command		*current;
 	t_command		*next;
-	int				i;
 
 	current = head;
 	while (current)

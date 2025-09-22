@@ -6,12 +6,11 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 03:33:53 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/06 20:39:56 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/22 18:13:32 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mandatoshell.h"
-
 
 char	*ft_strchr(const char *s, int c)
 {

@@ -25,6 +25,7 @@ SRCS = $(SRCDIR)/main.c \
 	$(SRCDIR)/exec/heredoc.c \
 	$(SRCDIR)/exec/find_path.c \
 	$(SRCDIR)/exec/redirections.c \
+	$(SRCDIR)/exec/utils_redir.c \
 	$(SRCDIR)/parsing/identify_token.c \
 	$(SRCDIR)/parsing/token_utils.c \
 	$(SRCDIR)/parsing/parsing.c \

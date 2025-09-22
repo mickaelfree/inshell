@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 19:21:13 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/21 19:36:06 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/22 18:48:50 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 
 // INCLUDES
 # include <dirent.h>
+# include <stdio.h>
 # include <errno.h>
 # include <fcntl.h>
 # include <libft.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
-# include <stdio.h>
 # include <stdlib.h>
 # include <sys/ioctl.h>
 # include <sys/resource.h>
@@ -247,14 +247,6 @@ char						*expand_variables(char *str, char **envp);
 char						*expand_token(char *token, int is_quoted);
 
 // Execution functions
-<<<<<<< HEAD
-void						ft_error(char *msg);
-void						execute(char **av, char **env);
-char						*find_path(char *cmd, char **env);
-char						*process_heredoc(char *delimiter);
-void						execute_cmd(t_command *cmds, char ***envp);
-int							execute_builtin(char **args, char ***envp);
-=======
 void					ft_error(char *msg);
 void					execute(char **av, char **env);
 char					*find_path(char *cmd, char **env);
@@ -269,8 +261,8 @@ typedef struct s_redir_entry {
 	t_redir_fn  fn;
 } t_redir_entry;
 
+void	init_redir_table(t_redir_entry *func);
 int handle_redirections(t_command *cmd);
->>>>>>> new-exec
 
 // Token identification helpers
 void						test_parsing(void);

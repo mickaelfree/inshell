@@ -6,12 +6,11 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 21:20:51 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/22 17:27:47 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/09/22 18:12:53 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mandatoshell.h"
-
 
 static int	count_pipeline(t_command *cmds)
 {
@@ -27,7 +26,6 @@ static int	count_pipeline(t_command *cmds)
 	}
 	return (count);
 }
-
 
 static t_pipeline	*create_pipeline(int cmd_count)
 {
@@ -91,9 +89,9 @@ static void	execute_child(t_command *cmd, int index, t_pipeline *pipeline,
 		char ***envp)
 {
 	int	i;
-        signal(SIGINT, SIG_DFL);
-        signal(SIGQUIT, SIG_DFL);
 
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
 	if (index > 0)
 		dup2(pipeline->pipes[index - 1][0], STDIN_FILENO);
 	if (index < pipeline->cmd_count - 1)
@@ -105,9 +103,9 @@ static void	execute_child(t_command *cmd, int index, t_pipeline *pipeline,
 		close(pipeline->pipes[i][1]);
 		i++;
 	}
-        destroy_pipeline(pipeline);
-	if(!handle_redirections(cmd))
-                exit(1);
+	destroy_pipeline(pipeline);
+	if (!handle_redirections(cmd))
+		exit(1);
 	if (cmd->args && cmd->args[0])
 	{
 		if (is_builtin(cmd->args) != -1)
@@ -164,10 +162,10 @@ static void	execute_builtin_in_parent(t_command *cmd, char ***envp)
 		saved_stdout = dup(STDOUT_FILENO);
 	}
 	if (!handle_redirections(cmd))
-        {
-            g_last_exit_status = 1;
-            return ;
-        }
+	{
+		g_last_exit_status = 1;
+		return ;
+	}
 	builtin_ret = execute_builtin(cmd->args, envp);
 	g_last_exit_status = builtin_ret;
 	if (saved_stdin != -1)
