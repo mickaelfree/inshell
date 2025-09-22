@@ -35,6 +35,7 @@
 
 /////////////////////////MACRO////////////////////////
 
+#define NB_REDIRS_FUNC 3
 # define AST_WORD 0
 # define AST_CMD 1
 # define AST_REDIRECT 2
@@ -246,12 +247,30 @@ char						*expand_variables(char *str, char **envp);
 char						*expand_token(char *token, int is_quoted);
 
 // Execution functions
+<<<<<<< HEAD
 void						ft_error(char *msg);
 void						execute(char **av, char **env);
 char						*find_path(char *cmd, char **env);
 char						*process_heredoc(char *delimiter);
 void						execute_cmd(t_command *cmds, char ***envp);
 int							execute_builtin(char **args, char ***envp);
+=======
+void					ft_error(char *msg);
+void					execute(char **av, char **env);
+char					*find_path(char *cmd, char **env);
+char					*process_heredoc(char *delimiter);
+void					execute_cmd(t_command *cmds, char ***envp);
+int						execute_builtin(char **args, char ***envp);
+//redirections
+typedef int (*t_redir_fn)(t_redirection *r);
+
+typedef struct s_redir_entry {
+	int         type;
+	t_redir_fn  fn;
+} t_redir_entry;
+
+int handle_redirections(t_command *cmd);
+>>>>>>> new-exec
 
 // Token identification helpers
 void						test_parsing(void);
