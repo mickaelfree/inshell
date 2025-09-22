@@ -24,6 +24,8 @@ SRCS = $(SRCDIR)/main.c \
 	$(SRCDIR)/exec/execute_cmd.c \
 	$(SRCDIR)/exec/heredoc.c \
 	$(SRCDIR)/exec/find_path.c \
+	$(SRCDIR)/exec/pipeline_utils.c \
+	$(SRCDIR)/exec/pipeline_exec.c \
 	$(SRCDIR)/exec/redirections.c \
 	$(SRCDIR)/exec/utils_redir.c \
 	$(SRCDIR)/parsing/identify_token.c \

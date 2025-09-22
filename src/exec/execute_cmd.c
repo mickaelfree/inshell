@@ -6,146 +6,24 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 21:20:51 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/22 18:12:53 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/09/22 20:01:31 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mandatoshell.h"
 
-static int	count_pipeline(t_command *cmds)
+static void	restore_std_fds(int saved_stdin, int saved_stdout)
 {
-	int			count;
-	t_command	*cur;
-
-	count = 0;
-	cur = cmds;
-	while (cur)
+	if (saved_stdin != -1)
 	{
-		count++;
-		cur = cur->next;
+		dup2(saved_stdin, STDIN_FILENO);
+		close(saved_stdin);
 	}
-	return (count);
-}
-
-static t_pipeline	*create_pipeline(int cmd_count)
-{
-	t_pipeline	*pipeline;
-
-	pipeline = malloc(sizeof(t_pipeline));
-	if (!pipeline)
-		return (NULL);
-	pipeline->cmd_count = cmd_count;
-	pipeline->pipe_count = cmd_count - 1;
-	pipeline->pids = malloc(cmd_count * sizeof(pid_t));
-	pipeline->pipes = NULL;
-	if (cmd_count > 1)
-		pipeline->pipes = malloc(pipeline->pipe_count * sizeof(int[2]));
-	if (!pipeline->pids || (cmd_count > 1 && !pipeline->pipes))
+	if (saved_stdout != -1)
 	{
-		free(pipeline->pids);
-		free(pipeline->pipes);
-		free(pipeline);
-		return (NULL);
+		dup2(saved_stdout, STDOUT_FILENO);
+		close(saved_stdout);
 	}
-	return (pipeline);
-}
-
-static void	destroy_pipeline(t_pipeline *pipeline)
-{
-	if (!pipeline)
-		return ;
-	free(pipeline->pids);
-	free(pipeline->pipes);
-	free(pipeline);
-}
-
-static int	setup_pipes(t_pipeline *pipeline)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < pipeline->pipe_count)
-	{
-		if (pipe(pipeline->pipes[i]) == -1)
-		{
-			j = 0;
-			while (j < i)
-			{
-				close(pipeline->pipes[j][0]);
-				close(pipeline->pipes[j][1]);
-				j++;
-			}
-			perror("pipe");
-			g_last_exit_status = 1;
-			return (0);
-		}
-		i++;
-	}
-	return (1);
-}
-
-static void	execute_child(t_command *cmd, int index, t_pipeline *pipeline,
-		char ***envp)
-{
-	int	i;
-
-	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
-	if (index > 0)
-		dup2(pipeline->pipes[index - 1][0], STDIN_FILENO);
-	if (index < pipeline->cmd_count - 1)
-		dup2(pipeline->pipes[index][1], STDOUT_FILENO);
-	i = 0;
-	while (i < pipeline->pipe_count)
-	{
-		close(pipeline->pipes[i][0]);
-		close(pipeline->pipes[i][1]);
-		i++;
-	}
-	destroy_pipeline(pipeline);
-	if (!handle_redirections(cmd))
-		exit(1);
-	if (cmd->args && cmd->args[0])
-	{
-		if (is_builtin(cmd->args) != -1)
-			exit(execute_builtin(cmd->args, envp));
-		execute(cmd->args, *envp);
-	}
-	exit(0);
-}
-
-static int	fork_all_processes(t_command *cmds, t_pipeline *pipeline,
-		char ***envp)
-{
-	t_command	*cur;
-	int			i;
-	int			j;
-
-	cur = cmds;
-	i = 0;
-	while (i < pipeline->cmd_count)
-	{
-		pipeline->pids[i] = fork();
-		if (pipeline->pids[i] == -1)
-		{
-			perror("fork");
-			j = 0;
-			while (j < i)
-			{
-				kill(pipeline->pids[j], SIGTERM);
-				j++;
-			}
-			return (0);
-		}
-		else if (pipeline->pids[i] == 0)
-		{
-			execute_child(cur, i, pipeline, envp);
-		}
-		cur = cur->next;
-		i++;
-	}
-	return (1);
 }
 
 static void	execute_builtin_in_parent(t_command *cmd, char ***envp)
@@ -164,86 +42,12 @@ static void	execute_builtin_in_parent(t_command *cmd, char ***envp)
 	if (!handle_redirections(cmd))
 	{
 		g_last_exit_status = 1;
+		restore_std_fds(saved_stdin, saved_stdout);
 		return ;
 	}
 	builtin_ret = execute_builtin(cmd->args, envp);
 	g_last_exit_status = builtin_ret;
-	if (saved_stdin != -1)
-	{
-		dup2(saved_stdin, STDIN_FILENO);
-		close(saved_stdin);
-	}
-	if (saved_stdout != -1)
-	{
-		dup2(saved_stdout, STDOUT_FILENO);
-		close(saved_stdout);
-	}
-}
-
-static void	close_parent_pipes(t_pipeline *pipeline)
-{
-	int	i;
-
-	i = 0;
-	while (i < pipeline->pipe_count)
-	{
-		close(pipeline->pipes[i][0]);
-		close(pipeline->pipes[i][1]);
-		i++;
-	}
-}
-static void	wait_all_children(t_pipeline *pipeline)
-{
-	int	status;
-	int	last_exit_status;
-	int	sig;
-	int	i;
-
-	last_exit_status = 0;
-	i = 0;
-	while (i < pipeline->cmd_count)
-	{
-		waitpid(pipeline->pids[i], &status, 0);
-		if (i == pipeline->cmd_count - 1)
-			last_exit_status = status;
-		i++;
-	}
-	if (WIFSIGNALED(last_exit_status))
-	{
-		sig = WTERMSIG(last_exit_status);
-		g_last_exit_status = 128 + sig;
-		if (sig == SIGQUIT)
-			write(STDERR_FILENO, "Quit (core dumped)\n", 19);
-	}
-	else if (WIFEXITED(last_exit_status))
-		g_last_exit_status = WEXITSTATUS(last_exit_status);
-	else
-		g_last_exit_status = 1;
-}
-static void	execute_pipeline(t_command *cmds, int cmd_count, char ***envp)
-{
-	t_pipeline	*pipeline;
-
-	pipeline = create_pipeline(cmd_count);
-	if (!pipeline)
-	{
-		perror("create_pipeline failed");
-		g_last_exit_status = 1;
-		return ;
-	}
-	if (pipeline->pipe_count > 0 && !setup_pipes(pipeline))
-	{
-		destroy_pipeline(pipeline);
-		return ;
-	}
-	if (!fork_all_processes(cmds, pipeline, envp))
-	{
-		destroy_pipeline(pipeline);
-		return ;
-	}
-	close_parent_pipes(pipeline);
-	wait_all_children(pipeline);
-	destroy_pipeline(pipeline);
+	restore_std_fds(saved_stdin, saved_stdout);
 }
 
 void	execute_cmd(t_command *cmds, char ***envp)

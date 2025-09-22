@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 19:21:13 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/22 18:48:50 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/09/22 19:57:26 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -263,6 +263,13 @@ typedef struct s_redir_entry {
 
 void	init_redir_table(t_redir_entry *func);
 int handle_redirections(t_command *cmd);
+
+void	execute_pipeline(t_command *cmds, int cmd_count, char ***envp);
+int	count_pipeline(t_command *cmds);
+t_pipeline	*create_pipeline(int cmd_count);
+void	destroy_pipeline(t_pipeline *pipeline);
+int	setup_pipes(t_pipeline *pipeline);
+void	close_parent_pipes(t_pipeline *pipeline);
 
 // Token identification helpers
 void						test_parsing(void);
