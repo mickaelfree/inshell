@@ -30,7 +30,7 @@ void	free_args_and_redir(t_command *current)
 {
 	t_redirection	*redir;
 	t_redirection	*next_redir;
-	int i;
+	int				i;
 
 	if (current->args)
 	{
