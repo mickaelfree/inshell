@@ -43,8 +43,9 @@ static int	change_and_get_paths(char *target_dir, char **old_pwd,
 	*old_pwd = getcwd(NULL, 0);
 	if (!*old_pwd)
 	{
-		perror("cd");
-		return (EXIT_FAILURE);
+		*old_pwd = ft_strdup("");
+		if (!*old_pwd)
+			return (EXIT_FAILURE);
 	}
 	if (chdir(target_dir) == -1)
 	{
