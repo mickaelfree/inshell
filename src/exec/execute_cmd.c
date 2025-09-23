@@ -65,5 +65,9 @@ void	execute_cmd(t_command *cmds, char ***envp)
 			return ;
 		}
 	}
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 	execute_pipeline(cmds, cmd_count, envp);
+	signal(SIGINT, ft_handle_sig);
+	signal(SIGQUIT, ft_handle_sig);
 }

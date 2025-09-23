@@ -60,8 +60,11 @@ static int	remove_env_var(char ***envp_ptr, char *name)
 	new_env = malloc((ft_count((void **)envp) + 1) * sizeof(char *));
 	if (!new_env)
 		return (EXIT_FAILURE);
-	if (!rm_var(envp, new_env, name))
+	if (rm_var(envp, new_env, name) != EXIT_SUCCESS)
+	{
+		ft_free_env(new_env);
 		return (EXIT_FAILURE);
+	}
 	ft_free_env(*envp_ptr);
 	*envp_ptr = new_env;
 	return (EXIT_SUCCESS);
