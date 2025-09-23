@@ -31,6 +31,10 @@ SRCS = $(SRCDIR)/main.c \
 	$(SRCDIR)/parsing/identify_token.c \
 	$(SRCDIR)/parsing/token_utils.c \
 	$(SRCDIR)/parsing/parsing.c \
+	$(SRCDIR)/parsing/redirection_handler.c \
+	$(SRCDIR)/parsing/redirection_utils.c \
+	$(SRCDIR)/parsing/can_token.c \
+	$(SRCDIR)/parsing/handle_token.c \
 	$(SRCDIR)/parsing/build_pipeline.c \
 	$(SRCDIR)/parsing/expand_env.c \
 	$(SRCDIR)/parsing/expand_utils.c \

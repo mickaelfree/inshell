@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 19:21:13 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/22 23:34:54 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/09/23 22:14:03 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,20 @@ typedef struct s_expand_ctx
 	int		j;
 }	t_expand_ctx;
 
+typedef int (*t_redir_fn)(t_redirection *r);
+
+typedef struct s_redir_entry {
+	int         type;
+	t_redir_fn  fn;
+} t_redir_entry;
+
+typedef struct s_token_handler
+{
+	int	(*can_handle)(t_pre_token *token);
+	int	(*handle)(t_command **current, t_pre_token **token, 
+			char **envp, t_command **head);
+}	t_token_handler;
+
 /////////////////////////FUNCTIONS////////////////////////
 
 //-----------------------------BUILTINS----------------------------//
@@ -237,6 +251,8 @@ extern int					g_last_exit_status;
 typedef int					(*builtin_func)(char **args, char ***envp);
 
 // Parsing functions
+
+
 size_t	calculate_expanded_size(char *str, char **envp);
 void						pre_token(char *line);
 t_pre_token					*tokenize_input(char *line);
@@ -244,6 +260,15 @@ void						free_token_list(t_pre_token *head);
 t_command					*parse_token(char *line, char **envp);
 void						print_token(t_pre_token *token);
 char	*trim_leading_spaces(char *result);
+int	can_handle_word(t_pre_token *token);
+int	can_handle_pipe(t_pre_token *token);
+int	can_handle_redirection(t_pre_token *token);
+void	add_argument(t_command *cmd, char *value, char **envp);
+char	*expand_variables_with_quote(char *str, char **envp, int quote_type);
+int	handle_redirection(t_command *cmd, t_pre_token **token, char **envp);
+void	init_command(t_command *cmd);
+int	process_token(t_pre_token **token, t_command **current, t_command **head, char **envp);
+int	create_and_add_redirection(t_command *cmd, int type, char *filename);
 
 t_pre_token					*identify_token(char *line);
 t_command					*build_pipeline(t_pre_token *tokens, char **envp);
@@ -262,12 +287,6 @@ char					*process_heredoc(char *delimiter);
 void					execute_cmd(t_command *cmds, char ***envp);
 int						execute_builtin(char **args, char ***envp);
 //redirections
-typedef int (*t_redir_fn)(t_redirection *r);
-
-typedef struct s_redir_entry {
-	int         type;
-	t_redir_fn  fn;
-} t_redir_entry;
 
 void	init_redir_table(t_redir_entry *func);
 int handle_redirections(t_command *cmd);

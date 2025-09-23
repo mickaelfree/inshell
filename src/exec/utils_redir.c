@@ -6,7 +6,7 @@
 /*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 18:37:55 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/22 18:51:40 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/09/23 21:45:02 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,14 @@ int	rd_in(t_redirection *r)
 	if (fd < 0)
 	{
 		perror(r->filename);
+                g_last_exit_status = 1;
 		return (0);
 	}
 	if (dup2(fd, STDIN_FILENO) == -1)
 	{
 		perror("dup2");
 		close(fd);
+                g_last_exit_status = 1;
 		return (0);
 	}
 	close(fd);
