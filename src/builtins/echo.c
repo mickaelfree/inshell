@@ -6,20 +6,28 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:35:33 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/06 20:28:49 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/24 00:00:31 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mandatoshell.h"
 #include "libft.h"
+#include "mandatoshell.h"
 
 static int	has_newline_option(char ***args)
 {
-	int	nline;
+	int		nline;
+	char	*arg;
+	int		i;
 
 	nline = 1;
-	while (**args && !ft_strncmp(**args, "-n", 2))
+	while (**args && ***args == '-')
 	{
+		arg = **args;
+		i = 1;
+		while (arg[i] && arg[i] == 'n')
+			i++;
+		if (arg[i] != '\0')
+			break ;
 		nline = 0;
 		(*args)++;
 	}
