@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 16:52:39 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/07 02:08:06 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/23 02:57:13 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,3 @@ void	clear_token_quotes(char **token)
 	free(*token);
 	*token = result;
 }
-
