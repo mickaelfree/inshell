@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 21:20:51 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/22 22:38:47 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/09/24 00:14:37 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	execute_builtin_in_parent(t_command *cmd, char ***envp)
 
 	saved_stdin = -1;
 	saved_stdout = -1;
-	if (cmd->input_file || cmd->output_file)
+	if (cmd->redirections)
 	{
 		saved_stdin = dup(STDIN_FILENO);
 		saved_stdout = dup(STDOUT_FILENO);

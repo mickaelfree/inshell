@@ -20,14 +20,14 @@ int	rd_in(t_redirection *r)
 	if (fd < 0)
 	{
 		perror(r->filename);
-                g_last_exit_status = 1;
+		g_last_exit_status = 1;
 		return (0);
 	}
 	if (dup2(fd, STDIN_FILENO) == -1)
 	{
 		perror("dup2");
 		close(fd);
-                g_last_exit_status = 1;
+		g_last_exit_status = 1;
 		return (0);
 	}
 	close(fd);
