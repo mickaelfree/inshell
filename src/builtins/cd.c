@@ -103,14 +103,17 @@ int	builtin_cd(char **args, char ***envp)
 {
 	int		print_pwd;
 	char	*target_dir;
+	int		reslut;
 
 	if (args[1] && args[2])
 	{
 		cd_err(" too many arguments\n", 2);
-		return (g_last_exit_status);
+		return (2);
 	}
 	target_dir = get_target_directory(args, &print_pwd, *envp);
 	if (!target_dir)
 		return (g_last_exit_status);
-	return (update_directory(target_dir, print_pwd, envp));
+	reslut = update_directory(target_dir, print_pwd, envp);
+	g_last_exit_status = reslut;
+	return (reslut);
 }
