@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 18:00:45 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/07 02:06:56 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/24 03:30:45 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ t_pre_token	*identify_token(char *line)
 	}
 	return (head);
 }
+
 char	*remove_quotes(char *token, int len)
 {
 	char	*result;
@@ -139,18 +140,4 @@ char	*remove_quotes(char *token, int len)
 	}
 	result[j] = '\0';
 	return (result);
-}
-void	print_token(t_pre_token *token)
-{
-	int token_num = 0;
-	
-	printf("=== DEBUG TOKENS ===\n");
-	while (token)
-	{
-		printf("Token %d: '%.*s' (type: %d, len: %d)\n", 
-			token_num, token->len, token->start, token->type, token->len);
-		token = token->next;
-		token_num++;
-	}
-	printf("=== END TOKENS ===\n");
 }

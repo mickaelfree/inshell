@@ -40,12 +40,12 @@ SRCS = $(SRCDIR)/main.c \
 	$(SRCDIR)/parsing/expand_utils.c \
 	$(SRCDIR)/parsing/expand_sizer.c \
 	$(SRCDIR)/signal/handler.c \
+	$(SRCDIR)/utils/char_check_one.c \
+	$(SRCDIR)/utils/char_check_two.c \
 	$(SRCDIR)/utils/char_utils.c \
-	$(SRCDIR)/utils/char_utils2.c \
-	$(SRCDIR)/utils/char_utils3.c \
+	$(SRCDIR)/utils/debug.c \
 	$(SRCDIR)/utils/ft_error.c \
 	$(SRCDIR)/utils/ft_free.c \
-	$(SRCDIR)/utils/ft_free2.c \
 	$(SRCDIR)/utils/utils.c
 
 # Directory structure for object files
@@ -62,9 +62,9 @@ MAKEFLAGS += --no-print-directory  # Avoid flooding the console
 all: $(MINISHELL)
 
 $(MINISHELL): $(OBJS) $(LIBFT)
-	@echo -n "$(GREY)🔨 "
+	@printf "$(GREY)🔨 "
 	$(CC) $(CFLAGS) $(NORELINK) $(INCLUDE) -o $@ $(OBJS) $(LIBS) $(LIBFT)
-	@echo -n "\n $(GREEN)✅ Build done!$(RESET)\n"
+	@printf "\n $(GREEN)✅ Build done!$(RESET)\n"
 
 $(LIBFT): FORCE
 	@$(MAKE) -C ./libft
@@ -75,25 +75,25 @@ FORCE:
 
 # Individual source file rule
 $(BUILDDIR)/%.o: $(SRCDIR)/%.c
-	@echo -n "$(GREY)🔨 "
+	@printf "$(GREY)🔨 "
 	mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(NORELINK) $(INCLUDE) -o $@ -c $<
-	@echo -n "$(RESET)"
+	@printf "$(RESET)"
 
 # Cleaning features
 .PHONY: clean fclean
 clean:
-	@echo -n "$(RED)🗑️  "
+	@printf "$(RED)🗑️  "
 	@$(MAKE) clean -C ./libft > /dev/null
 	$(RM) -r $(BUILDDIR)
-	@echo -n "$(RESET)\n"
+	@printf "$(RESET)\n"
 
 
 fclean: clean
-	@echo -n "$(RED)🗑️  "
+	@printf "$(RED)🗑️  "
 	@$(MAKE) fclean -C ./libft > /dev/null
 	$(RM) $(MINISHELL)
-	@echo -n "$(RESET)\n"
+	@printf "$(RESET)\n"
 
 # Clean build
 .PHONY: re

@@ -83,34 +83,34 @@ all: $(NAME)
 
 # Creating all directories
 %/:
-	@echo "$(YELLOW)Creating directory $(GREEN)$@$(RESET)"
+	@printf "$(YELLOW)Creating directory $(GREEN)$@$(RESET)"
 	@mkdir -p $@
 
 # Compile .c to .o
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
-	@echo "$(YELLOW)Compiling objects and dependencies... $(GREEN)$@ $(YELLOW)from $(GREEN)$<$(RESET)"
+	@printf "$(YELLOW)Compiling objects and dependencies... $(GREEN)$@ $(YELLOW)from $(GREEN)$<$(RESET)\n"
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -c $< -o $@ 
 
 $(NAME): $(OBJ_DIR) $(OBJECTS) Makefile
-	@echo "$(YELLOW)\nCreating Archive... $(GREEN)$@$(RESET)\n"
+	@printf "$(YELLOW)\nCreating Archive... $(GREEN)$@$(RESET)\n"
 	@$(AR) $@ $(OBJECTS)
 	@ranlib $(NAME)
 
 .PHONY: bonus
 bonus:
-	@echo "$(GREEN)Adding bonuses to library...$(RESET)"
+	@printf "$(GREEN)Adding bonuses to library...$(RESET)\n"
 	@$(MAKE) --no-print-directory all SRCS="$(SRCS) $(SRCBONUS)"
 
 # Clean part
 .PHONY: clean
 clean:
-	@echo "$(RED)Cleaning... \n$(YELLOW)Removing $(RED)$(OBJ_DIR)$(RESET)"
+	@printf "$(RED)Cleaning... \n$(YELLOW)Removing $(RED)$(OBJ_DIR)$(RESET)"
 	@rm -rf $(OBJ_DIR)
 
 .PHONY: fclean
 fclean: clean
-	@echo "$(YELLOW)Removing $(RED)$(NAME)$(RESET)\n"
+	@printf "$(YELLOW)Removing $(RED)$(NAME)$(RESET)\n"
 	@rm -rf $(NAME)
 
 .PHONY: re

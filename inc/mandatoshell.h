@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 19:21:13 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/23 22:14:03 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/09/24 03:24:01 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,11 @@
 
 // INCLUDES
 # include <dirent.h>
-# include <stdio.h>
 # include <errno.h>
 # include <fcntl.h>
 # include <libft.h>
-# include <readline/history.h>
-# include <readline/readline.h>
 # include <signal.h>
+# include <stdio.h>
 # include <stdlib.h>
 # include <sys/ioctl.h>
 # include <sys/resource.h>
@@ -32,10 +30,12 @@
 # include <termcap.h>
 # include <termios.h>
 # include <unistd.h>
+# include <readline/history.h>
+# include <readline/readline.h>
 
 /////////////////////////MACRO////////////////////////
 
-#define NB_REDIRS_FUNC 3
+# define NB_REDIRS_FUNC 3
 # define AST_WORD 0
 # define AST_CMD 1
 # define AST_REDIRECT 2
@@ -141,24 +141,25 @@ typedef struct s_command
 }							t_command;
 typedef struct s_expand_ctx
 {
-	char	*result;
-	char	**envp;
-	int		j;
-}	t_expand_ctx;
+	char					*result;
+	char					**envp;
+	int						j;
+}							t_expand_ctx;
 
-typedef int (*t_redir_fn)(t_redirection *r);
+typedef int					(*t_redir_fn)(t_redirection *r);
 
-typedef struct s_redir_entry {
-	int         type;
-	t_redir_fn  fn;
-} t_redir_entry;
+typedef struct s_redir_entry
+{
+	int						type;
+	t_redir_fn				fn;
+}							t_redir_entry;
 
 typedef struct s_token_handler
 {
-	int	(*can_handle)(t_pre_token *token);
-	int	(*handle)(t_command **current, t_pre_token **token, 
-			char **envp, t_command **head);
-}	t_token_handler;
+	int						(*can_handle)(t_pre_token *token);
+	int						(*handle)(t_command **current, t_pre_token **token,
+								char **envp, t_command **head);
+}							t_token_handler;
 
 /////////////////////////FUNCTIONS////////////////////////
 
@@ -236,9 +237,9 @@ void						ft_free_tab(void **ptrs);
 void						ft_free(char **arr);
 void						ft_free_ast(t_ast *node);
 void						ft_free_env(char **env);
-void						ft_free_split(char **split);
 void						ft_free_commands(t_command *head);
 void						free_args_and_redir(t_command *current);
+void						display_parsed_command(t_command *cmd);
 
 void						clear_token_quotes(char **token);
 void						concatenate_argument_to_cmd(t_ast *cmd_node,
@@ -252,23 +253,28 @@ typedef int					(*builtin_func)(char **args, char ***envp);
 
 // Parsing functions
 
-
-size_t	calculate_expanded_size(char *str, char **envp);
+size_t						calculate_expanded_size(char *str, char **envp);
 void						pre_token(char *line);
 t_pre_token					*tokenize_input(char *line);
 void						free_token_list(t_pre_token *head);
 t_command					*parse_token(char *line, char **envp);
 void						print_token(t_pre_token *token);
-char	*trim_leading_spaces(char *result);
-int	can_handle_word(t_pre_token *token);
-int	can_handle_pipe(t_pre_token *token);
-int	can_handle_redirection(t_pre_token *token);
-void	add_argument(t_command *cmd, char *value, char **envp);
-char	*expand_variables_with_quote(char *str, char **envp, int quote_type);
-int	handle_redirection(t_command *cmd, t_pre_token **token, char **envp);
-void	init_command(t_command *cmd);
-int	process_token(t_pre_token **token, t_command **current, t_command **head, char **envp);
-int	create_and_add_redirection(t_command *cmd, int type, char *filename);
+char						*trim_leading_spaces(char *result);
+int							can_handle_word(t_pre_token *token);
+int							can_handle_pipe(t_pre_token *token);
+int							can_handle_redirection(t_pre_token *token);
+void						add_argument(t_command *cmd, char *value,
+								char **envp);
+char						*expand_variables_with_quote(char *str, char **envp,
+								int quote_type);
+int							handle_redirection(t_command *cmd,
+								t_pre_token **token, char **envp);
+void						init_command(t_command *cmd);
+int							process_token(t_pre_token **token,
+								t_command **current, t_command **head,
+								char **envp);
+int							create_and_add_redirection(t_command *cmd, int type,
+								char *filename);
 
 t_pre_token					*identify_token(char *line);
 t_command					*build_pipeline(t_pre_token *tokens, char **envp);
@@ -280,23 +286,24 @@ char						*expand_variables(char *str, char **envp);
 char						*expand_token(char *token, int is_quoted);
 
 // Execution functions
-void					ft_error(char *msg);
-void					execute(char **av, char **env);
-char					*find_path(char *cmd, char **env);
-char					*process_heredoc(char *delimiter);
-void					execute_cmd(t_command *cmds, char ***envp);
-int						execute_builtin(char **args, char ***envp);
-//redirections
+void						ft_error(char *msg);
+void						execute(char **av, char **env);
+char						*find_path(char *cmd, char **env);
+char						*process_heredoc(char *delimiter);
+void						execute_cmd(t_command *cmds, char ***envp);
+int							execute_builtin(char **args, char ***envp);
+// redirections
 
-void	init_redir_table(t_redir_entry *func);
-int handle_redirections(t_command *cmd);
+void						init_redir_table(t_redir_entry *func);
+int							handle_redirections(t_command *cmd);
 
-void	execute_pipeline(t_command *cmds, int cmd_count, char ***envp);
-int	count_pipeline(t_command *cmds);
-t_pipeline	*create_pipeline(int cmd_count);
-void	destroy_pipeline(t_pipeline *pipeline);
-int	setup_pipes(t_pipeline *pipeline);
-void	close_parent_pipes(t_pipeline *pipeline);
+void						execute_pipeline(t_command *cmds, int cmd_count,
+								char ***envp);
+int							count_pipeline(t_command *cmds);
+t_pipeline					*create_pipeline(int cmd_count);
+void						destroy_pipeline(t_pipeline *pipeline);
+int							setup_pipes(t_pipeline *pipeline);
+void						close_parent_pipes(t_pipeline *pipeline);
 
 // Token identification helpers
 void						test_parsing(void);
