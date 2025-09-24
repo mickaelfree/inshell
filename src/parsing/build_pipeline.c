@@ -134,12 +134,9 @@ void	add_argument(t_command *cmd, char *value, char **envp)
 		free(value);
 		return ;
 	}
-	i = 0;
-	while (i < cmd->arg_count)
-	{
+	i = -1;
+	while (++i < cmd->arg_count)
 		new_args[i] = cmd->args[i];
-		i++;
-	}
 	new_args[cmd->arg_count] = expanded_value;
 	new_args[cmd->arg_count + 1] = NULL;
 	if (cmd->args)
@@ -169,10 +166,10 @@ t_command	*build_pipeline(t_pre_token *tokens, char **envp)
 			head = current;
 		}
 		if (!process_token(&token, &current, &head, envp))
-                {
-                        ft_free_commands(head);
+		{
+			ft_free_commands(head);
 			return (NULL);
-                }
+		}
 	}
 	return (head);
 }
