@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 02:06:38 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/24 03:23:04 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/24 03:40:27 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,14 @@
 
 void	print_token(t_pre_token *token)
 {
-	int token_num = 0;
-	
+	int	token_num;
+
+	token_num = 0;
 	printf("=== DEBUG TOKENS ===\n");
 	while (token)
 	{
-		printf("Token %d: '%.*s' (type: %d, len: %d)\n", 
-			token_num, token->len, token->start, token->type, token->len);
+		printf("Token %d: '%.*s' (type: %d, len: %d)\n", token_num, token->len,
+			token->start, token->type, token->len);
 		token = token->next;
 		token_num++;
 	}

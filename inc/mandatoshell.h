@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 19:21:13 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/24 03:24:01 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/24 05:10:49 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ typedef struct s_ast
 typedef struct s_pipeline
 {
 	pid_t					*pids;
-	int (*pipes)[2];
+	int						(*pipes)[2];
 	int						cmd_count;
 	int						pipe_count;
 }							t_pipeline;
@@ -158,7 +158,7 @@ typedef struct s_token_handler
 {
 	int						(*can_handle)(t_pre_token *token);
 	int						(*handle)(t_command **current, t_pre_token **token,
-								char **envp, t_command **head);
+			char **envp, t_command **head);
 }							t_token_handler;
 
 /////////////////////////FUNCTIONS////////////////////////
@@ -181,9 +181,10 @@ void						execute_node(t_ast *node, char ***envp);
 
 // TOKEN UTILS
 void						skip_whitespace(char **line);
-t_pre_token					*add_new_token(t_pre_token **head,
-								t_pre_token **current, char *start, int len,
-								int type);
+t_pre_token					*add_word_token(t_pre_token **head,
+								t_pre_token **current, char *start, int len);
+t_pre_token					*add_type_token(t_pre_token **head,
+								t_pre_token **current, char **start, int type);
 int							char_type(char *c);
 
 //-----------------------------PARSING-----------------------------//
@@ -249,7 +250,7 @@ void						concatenate_argument_to_cmd(t_ast *cmd_node,
 // GLOBALS (To check if it's needed since we can use errno)
 extern int					g_last_exit_status;
 
-typedef int					(*builtin_func)(char **args, char ***envp);
+typedef int					(*t_builtin_func)(char **args, char ***envp);
 
 // Parsing functions
 

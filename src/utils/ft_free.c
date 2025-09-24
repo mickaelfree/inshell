@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/08 11:59:24 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/24 03:24:33 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/24 03:41:06 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,9 @@ void	free_token_list(t_pre_token *head)
 
 void	free_args_and_redir(t_command *current)
 {
-	t_redirection *redir;
-	t_redirection *next_redir;
-	int i;
+	t_redirection	*redir;
+	t_redirection	*next_redir;
+	int				i;
 
 	if (current->args)
 	{

@@ -62,6 +62,18 @@
 "C_Cpp_Runner.msvcSecureNoWarnings": false,
 "files.associations": {
   "mandatoshell.h": "c",
-  "signal.h": "c"
+  "signal.h": "c",
+  "any": "c",
+  "array": "c",
+  "charconv": "c",
+  "compare": "c",
+  "complex": "c",
+  "format": "c",
+  "functional": "c",
+  "ratio": "c",
+  "tuple": "c",
+  "type_traits": "c",
+  "utility": "c",
+  "variant": "c"
 }
 }

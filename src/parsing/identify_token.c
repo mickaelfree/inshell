@@ -6,11 +6,38 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 18:00:45 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/24 03:30:45 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/24 05:05:15 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mandatoshell.h"
+
+static int	create_type_token(t_pre_token **head, t_pre_token **current,
+		char **ptr)
+{
+	int	type;
+
+	if (is_append(*ptr))
+		type = TOKEN_APPEND;
+	else if (is_heredoc(*ptr))
+		type = TOKEN_HEREDOC;
+	else if (*(*ptr) == '>')
+		type = TOKEN_REDIR_OUT;
+	else if (*(*ptr) == '<')
+		type = TOKEN_REDIR_IN;
+	else
+		type = TOKEN_PIPE;
+	if (!add_type_token(head, current, ptr, type))
+	{
+		free_token_list(*head);
+		return (0);
+	}
+	if (type == TOKEN_PIPE || type == TOKEN_REDIR_IN || type == TOKEN_REDIR_OUT)
+		(*ptr)++;
+	else
+		(*ptr) += 2;
+	return (1);
+}
 
 t_pre_token	*identify_token(char *line)
 {
@@ -20,7 +47,6 @@ t_pre_token	*identify_token(char *line)
 	char		*token_start;
 	int			quote_state;
 	char		quote_char;
-	int			type;
 
 	head = NULL;
 	current = NULL;
@@ -31,42 +57,11 @@ t_pre_token	*identify_token(char *line)
 	while (*ptr)
 	{
 		token_start = ptr;
-		if (is_pipe(*ptr))
+		if (is_pipe(*ptr) || is_redir(*ptr) || is_heredoc(ptr)
+			|| is_append(ptr))
 		{
-			if (!add_new_token(&head, &current, ptr, 1, TOKEN_PIPE))
-			{
-				free_token_list(head);
+			if (!create_type_token(&head, &current, &ptr))
 				return (NULL);
-			}
-			ptr++;
-		}
-		else if (is_heredoc(ptr))
-		{
-			if (!add_new_token(&head, &current, ptr, 2, TOKEN_HEREDOC))
-			{
-				free_token_list(head);
-				return (NULL);
-			}
-			ptr += 2;
-		}
-		else if (is_append(ptr))
-		{
-			if (!add_new_token(&head, &current, ptr, 2, TOKEN_APPEND))
-			{
-				free_token_list(head);
-				return (NULL);
-			}
-			ptr += 2;
-		}
-		else if (is_redir(*ptr))
-		{
-			type = (*ptr == '<') ? TOKEN_REDIR_IN : TOKEN_REDIR_OUT;
-			if (!add_new_token(&head, &current, ptr, 1, type))
-			{
-				free_token_list(head);
-				return (NULL);
-			}
-			ptr++;
 		}
 		else
 		{
@@ -100,8 +95,8 @@ t_pre_token	*identify_token(char *line)
 				free_token_list(head);
 				return (NULL);
 			}
-			if (!add_new_token(&head, &current, token_start, ptr - token_start,
-				TOKEN_WORD))
+			if (!add_word_token(&head, &current, token_start, ptr
+					- token_start))
 			{
 				free_token_list(head);
 				return (NULL);
@@ -115,12 +110,16 @@ t_pre_token	*identify_token(char *line)
 char	*remove_quotes(char *token, int len)
 {
 	char	*result;
-	int		i = 0, j;
-	int		in_single = 0, in_double;
+	int		i;
+	int		j;
+	int		in_single;
+	int		in_double;
 
 	result = malloc(len + 1);
-	i = 0, j = 0;
-	in_single = 0, in_double = 0;
+	i = 0;
+	j = 0;
+	in_single = 0;
+	in_double = 0;
 	while (i < len)
 	{
 		if (token[i] == '\'' && !in_double)
@@ -134,9 +133,7 @@ char	*remove_quotes(char *token, int len)
 			i++; // Skip the quote
 		}
 		else
-		{
 			result[j++] = token[i++];
-		}
 	}
 	result[j] = '\0';
 	return (result);

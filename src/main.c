@@ -6,13 +6,13 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 21:30:44 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/24 03:18:15 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/24 05:16:18 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mandatoshell.h"
 
-int		g_last_exit_status = 0;
+int			g_last_exit_status = 0;
 
 void	test_parsing(void)
 {
@@ -41,6 +41,18 @@ void	test_parsing(void)
 		ft_free_commands(cmds);
 }
 
+static void	rl_check_and_exit(char *line, char ***new_env)
+{
+	if (!line)
+	{
+		printf("exit\n");
+		rl_clear_history();
+		if (*new_env)
+			ft_free_env(*new_env);
+		exit(0);
+	}
+}
+
 void	update(char ***new_env)
 {
 	char		*line;
@@ -49,14 +61,7 @@ void	update(char ***new_env)
 	while (1)
 	{
 		line = readline("Mandatoshell>");
-		if (!line)
-		{
-			printf("exit\n");
-			rl_clear_history();
-			if (*new_env)
-				ft_free_env(*new_env);
-			exit(0);
-		}
+		rl_check_and_exit(line, new_env);
 		if (*line)
 			add_history(line);
 		else
@@ -76,7 +81,7 @@ void	update(char ***new_env)
 
 int	main(int argc, char **argv, char **envp)
 {
-	char		**new_env;
+	char	**new_env;
 
 	(void)argc;
 	(void)argv;
