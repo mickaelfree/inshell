@@ -51,6 +51,16 @@ static int	quote_state_check(int quote_state, t_pre_token **head)
 	return (1);
 }
 
+static void	quote_state_update(char **ptr, int *quote_state, char *quote_char)
+{
+	*quote_char = *(*ptr);
+	if (*quote_char == '\'')
+		*quote_state = 1;
+	else if (*quote_char == '"')
+		*quote_state = 2;
+	(*ptr)++;
+}
+
 int	check_for_quotes(t_pre_token **head, char **ptr)
 {
 	int		quote_state;
@@ -64,12 +74,7 @@ int	check_for_quotes(t_pre_token **head, char **ptr)
 			break ;
 		if (quote_state == 0 && is_quote(*(*ptr)))
 		{
-			quote_char = *(*ptr);
-			if (quote_char == '\'')
-				quote_state = 1;
-			else if (quote_char == '"')
-				quote_state = 2;
-			(*ptr)++;
+			quote_state_update(ptr, &quote_state, &quote_char);
 			continue ;
 		}
 		if (quote_state > 0 && *(*ptr) == quote_char)
