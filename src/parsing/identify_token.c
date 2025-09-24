@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 18:00:45 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/24 05:42:24 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/24 17:29:51 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static int	check_for_quotes(t_pre_token **head, char **ptr)
 			(*ptr)++;
 			continue ;
 		}
-		if (*(*ptr) == quote_char && quote_state > 0)
+		if (quote_state > 0 && *(*ptr) == quote_char)
 		{
 			quote_state = 0;
 			(*ptr)++;
@@ -112,26 +112,29 @@ t_pre_token	*identify_token(char *line)
 	return (head);
 }
 
-char	*remove_quotes(char *token, int len)
+char    *remove_quotes(char *token, int len)
 {
-	char	*result;
-	int		i;
-	int		in_single;
-	int		in_double;
+    char    *result;
+    char    *write_ptr;
+    int     i;
+    int     in_single;
+    int     in_double;
 
-	result = malloc(sizeof(char) * len + 1);
-	i = 0;
-	in_single = 0;
-	in_double = 0;
-	while (i < len)
-	{
-		if (token[i++] == '\'' && !in_double)
-			in_single = !in_single;
-		else if (token[i++] == '"' && !in_single)
-			in_double = !in_double;
-		else
-			*result++ = token[i++];
-	}
-	*result = '\0';
-	return (result);
+    result = malloc(len + 1);
+    write_ptr = result;
+    i = 0;
+    in_single = 0;
+    in_double = 0;
+    while (i < len)
+    {
+        if (token[i] == '\'' && !in_double)
+            in_single = !in_single;
+        else if (token[i] == '"' && !in_single)
+            in_double = !in_double;
+        else
+            *write_ptr++ = token[i];
+		i++;
+    }
+    *write_ptr = '\0';
+    return (result);
 }
