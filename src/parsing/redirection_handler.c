@@ -44,7 +44,7 @@ static char	*process_filename(t_pre_token *token, char **envp)
 		write(STDERR_FILENO, "malloc error\n", 13);
 		return (NULL);
 	}
-	expanded_value = expand_variables_with_quote(value, envp, 0);
+	expanded_value = expand_variables_with_quote(value, envp);
 	free(value);
 	if (!expanded_value)
 		return (ft_strdup(""));

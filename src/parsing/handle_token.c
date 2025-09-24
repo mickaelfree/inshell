@@ -52,7 +52,7 @@ int	handle_word_token(t_command **current, t_pre_token **token, char **envp,
 
 	(void)head;
 	value = ft_strndup((*token)->start, (*token)->len);
-	expanded_value = expand_variables_with_quote(value, envp, 0);
+	expanded_value = expand_variables_with_quote(value, envp);
 	if (!expanded_value)
 		expanded_value = ft_strdup("");
 	trimmed = expanded_value;

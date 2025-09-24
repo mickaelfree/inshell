@@ -25,7 +25,47 @@ void	init_command(t_command *cmd)
 	cmd->next = NULL;
 }
 
-char	*expand_variables_with_quote(char *str, char **envp, int quote_type)
+// static int	expand_quote_check(char *str, char **envp)
+// {
+// 	size_t	i;
+// 	int		in_single;
+// 	int		in_double;
+
+// 	i = 0;
+// 	in_single = 0;
+// 	in_double = 0;
+// 	while (str[i])
+// 	{
+// 		if (str[i] == '\'' && !in_double)
+// 		{
+// 			if (i > start)
+// 			{
+// 				segment = ft_strndup(str + start, i - start);
+// 				if (in_single)
+// 					expanded = ft_strdup(segment);
+// 				else
+// 					expanded = expand_variables(segment, envp);
+// 				tmp = result;
+// 				if (expanded)
+// 				{
+// 					result = ft_strjoin(result, expanded);
+// 					free(expanded);
+// 				}
+// 				else
+// 					result = ft_strjoin(result, segment);
+// 				free(tmp);
+// 				free(segment);
+// 			}
+// 			in_single = !in_single;
+// 			start = i + 1;
+// 			i++;
+// 			continue ;
+// 		}
+// 		i++;
+// 	}
+// }
+
+char	*expand_variables_with_quote(char *str, char **envp)
 {
 	char	*result;
 	size_t	i;
@@ -36,7 +76,6 @@ char	*expand_variables_with_quote(char *str, char **envp, int quote_type)
 	char	*tmp;
 	char	*expanded;
 
-	(void)quote_type;
 	if (!str)
 		return (NULL);
 	result = ft_strdup("");
@@ -124,7 +163,7 @@ void	add_argument(t_command *cmd, char *value, char **envp)
 	char	**new_args;
 	int		i;
 
-	expanded_value = expand_variables_with_quote(value, envp, 0);
+	expanded_value = expand_variables_with_quote(value, envp);
 	if (!expanded_value)
 		expanded_value = ft_strdup("");
 	new_args = malloc(sizeof(char *) * (cmd->arg_count + 2));

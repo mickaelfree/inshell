@@ -270,8 +270,7 @@ int							can_handle_pipe(t_pre_token *token);
 int							can_handle_redirection(t_pre_token *token);
 void						add_argument(t_command *cmd, char *value,
 								char **envp);
-char						*expand_variables_with_quote(char *str, char **envp,
-								int quote_type);
+char						*expand_variables_with_quote(char *str, char **envp);
 int							handle_redirection(t_command *cmd,
 								t_pre_token **token, char **envp);
 void						init_command(t_command *cmd);
