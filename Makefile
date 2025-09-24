@@ -28,17 +28,18 @@ SRCS = $(SRCDIR)/main.c \
 	$(SRCDIR)/exec/pipeline_exec.c \
 	$(SRCDIR)/exec/redirections.c \
 	$(SRCDIR)/exec/utils_redir.c \
+	$(SRCDIR)/parsing/build_pipeline.c \
+	$(SRCDIR)/parsing/can_token.c \
+	$(SRCDIR)/parsing/expand_env.c \
+	$(SRCDIR)/parsing/expand_sizer.c \
+	$(SRCDIR)/parsing/expand_utils.c \
+	$(SRCDIR)/parsing/handle_token.c \
 	$(SRCDIR)/parsing/identify_token.c \
-	$(SRCDIR)/parsing/token_utils.c \
 	$(SRCDIR)/parsing/parsing.c \
+	$(SRCDIR)/parsing/quote_handler.c \
 	$(SRCDIR)/parsing/redirection_handler.c \
 	$(SRCDIR)/parsing/redirection_utils.c \
-	$(SRCDIR)/parsing/can_token.c \
-	$(SRCDIR)/parsing/handle_token.c \
-	$(SRCDIR)/parsing/build_pipeline.c \
-	$(SRCDIR)/parsing/expand_env.c \
-	$(SRCDIR)/parsing/expand_utils.c \
-	$(SRCDIR)/parsing/expand_sizer.c \
+	$(SRCDIR)/parsing/token_utils.c \
 	$(SRCDIR)/signal/handler.c \
 	$(SRCDIR)/utils/char_check_one.c \
 	$(SRCDIR)/utils/char_check_two.c \

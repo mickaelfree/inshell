@@ -189,6 +189,10 @@ int							char_type(char *c);
 
 //-----------------------------PARSING-----------------------------//
 
+//quote_handler.c
+int							check_for_quotes(t_pre_token **head, char **ptr);
+char						*remove_quotes(char *token, int len);
+
 char						**ast_to_args(t_ast *root);
 void						print_doublechar(char **args);
 char						*remove_quotes(char *token, int len);

@@ -10,72 +10,77 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mandatoshell.h"
 #include "libft.h"
+#include "mandatoshell.h"
 
-static char	*init_clear_quote_state(char *input)
+char	*remove_quotes(char *token, int len)
 {
-	int		len;
-	char	*res;
-
-	len = ft_strlen(input);
-	res = malloc(sizeof(char) * len + 1);
-	if (!res)
-		return (NULL);
-	return (res);
-}
-
-static int	process_escape(char *input, char *result, int *i, int *j)
-{
-	(*i)++;
-	if (input[*i])
-	{
-		result[(*j)++] = input[*i];
-		return (1);
-	}
-	result[(*j)++] = '\\';
-	return (0);
-}
-
-static int	process_clear_quotes(char *input, char *result, int *inside_double,
-		int *inside_single)
-{
-	int	i;
-	int	j;
-
-	i = -1;
-	j = 0;
-	while (input[++i])
-	{
-		if (input[i] == '\\')
-		{
-			if (!process_escape(input, result, &i, &j))
-				break ;
-		}
-		else if (input[i] == '"' && !*inside_single)
-			*inside_double = !*inside_double;
-		else if (input[i] == '\'' && !*inside_double)
-			*inside_single = !*inside_single;
-		else
-			result[j++] = input[i];
-	}
-	return (j);
-}
-
-void	clear_token_quotes(char **token)
-{
-	char	*input;
 	char	*result;
-	int		inside_double;
-	int		inside_single;
-	int		j;
+	char	*write_ptr;
+	int		i;
+	int		in_single;
+	int		in_double;
 
-	input = *token;
-	inside_double = 0;
-	inside_single = 0;
-	result = init_clear_quote_state(input);
-	j = process_clear_quotes(input, result, &inside_double, &inside_single);
-	result[j] = '\0';
-	free(*token);
-	*token = result;
+	result = malloc(len + 1);
+	write_ptr = result;
+	i = 0;
+	in_single = 0;
+	in_double = 0;
+	while (i < len)
+	{
+		if (token[i] == '\'' && !in_double)
+			in_single = !in_single;
+		else if (token[i] == '"' && !in_single)
+			in_double = !in_double;
+		else
+			*write_ptr++ = token[i];
+		i++;
+	}
+	*write_ptr = '\0';
+	return (result);
+}
+
+static int	quote_state_check(int quote_state, t_pre_token **head)
+{
+	if (quote_state > 0)
+	{
+		printf("Error: unclosed quote\n");
+		free_token_list(*head);
+		return (0);
+	}
+	return (1);
+}
+
+int	check_for_quotes(t_pre_token **head, char **ptr)
+{
+	int		quote_state;
+	char	quote_char;
+
+	quote_state = 0;
+	while (*(*ptr))
+	{
+		if (quote_state == 0 && (is_whitespace(*(*ptr))
+				|| is_operator(*(*ptr))))
+			break ;
+		if (quote_state == 0 && is_quote(*(*ptr)))
+		{
+			quote_char = *(*ptr);
+			if (quote_char == '\'')
+				quote_state = 1;
+			else if (quote_char == '"')
+				quote_state = 2;
+			(*ptr)++;
+			continue ;
+		}
+		if (quote_state > 0 && *(*ptr) == quote_char)
+		{
+			quote_state = 0;
+			(*ptr)++;
+			continue ;
+		}
+		(*ptr)++;
+	}
+	if (!quote_state_check(quote_state, head))
+		return (0);
+	return (1);
 }
