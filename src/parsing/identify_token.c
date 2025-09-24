@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 18:00:45 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/24 05:05:15 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/24 05:42:24 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,20 +39,53 @@ static int	create_type_token(t_pre_token **head, t_pre_token **current,
 	return (1);
 }
 
+static int	check_for_quotes(t_pre_token **head, char **ptr)
+{
+	int		quote_state;
+	char	quote_char;
+
+	quote_state = 0;
+	while (*(*ptr))
+	{
+		if (quote_state == 0 && (is_whitespace(*(*ptr)) || is_operator(*(*ptr))))
+			break ;
+		if (is_quote(*(*ptr)) && quote_state == 0)
+		{
+			quote_char = *(*ptr);
+			if (quote_char == '\'')
+				quote_state = 1;
+			else if (quote_char == '"')
+				quote_state = 2;
+			(*ptr)++;
+			continue ;
+		}
+		if (*(*ptr) == quote_char && quote_state > 0)
+		{
+			quote_state = 0;
+			(*ptr)++;
+			continue ;
+		}
+		(*ptr)++;
+	}
+	if (quote_state > 0)
+	{
+		printf("Error: unclosed quote\n");
+		free_token_list(*head);
+		return (0);
+	}
+	return (1);
+}
+
 t_pre_token	*identify_token(char *line)
 {
 	t_pre_token	*head;
 	t_pre_token	*current;
 	char		*ptr;
 	char		*token_start;
-	int			quote_state;
-	char		quote_char;
 
 	head = NULL;
 	current = NULL;
 	ptr = line;
-	quote_state = 0;
-	quote_char = 0;
 	skip_whitespace(&ptr);
 	while (*ptr)
 	{
@@ -65,36 +98,8 @@ t_pre_token	*identify_token(char *line)
 		}
 		else
 		{
-			quote_state = 0;
-			while (*ptr)
-			{
-				if (quote_state == 0 && (is_whitespace(*ptr)
-						|| is_operator(*ptr)))
-					break ;
-				if (is_quote(*ptr) && quote_state == 0)
-				{
-					quote_char = *ptr;
-					if (quote_char == '\'')
-						quote_state = 1;
-					else if (quote_char == '"')
-						quote_state = 2;
-					ptr++;
-					continue ;
-				}
-				if (*ptr == quote_char && quote_state > 0)
-				{
-					quote_state = 0;
-					ptr++;
-					continue ;
-				}
-				ptr++;
-			}
-			if (quote_state > 0)
-			{
-				printf("Error: unclosed quote\n");
-				free_token_list(head);
+			if (!check_for_quotes(&head, &ptr))
 				return (NULL);
-			}
 			if (!add_word_token(&head, &current, token_start, ptr
 					- token_start))
 			{
@@ -111,30 +116,22 @@ char	*remove_quotes(char *token, int len)
 {
 	char	*result;
 	int		i;
-	int		j;
 	int		in_single;
 	int		in_double;
 
-	result = malloc(len + 1);
+	result = malloc(sizeof(char) * len + 1);
 	i = 0;
-	j = 0;
 	in_single = 0;
 	in_double = 0;
 	while (i < len)
 	{
-		if (token[i] == '\'' && !in_double)
-		{
+		if (token[i++] == '\'' && !in_double)
 			in_single = !in_single;
-			i++; // Skip the quote
-		}
-		else if (token[i] == '"' && !in_single)
-		{
+		else if (token[i++] == '"' && !in_single)
 			in_double = !in_double;
-			i++; // Skip the quote
-		}
 		else
-			result[j++] = token[i++];
+			*result++ = token[i++];
 	}
-	result[j] = '\0';
+	*result = '\0';
 	return (result);
 }
