@@ -148,7 +148,16 @@ typedef struct s_expand_ctx
 	char					**envp;
 	int						j;
 }							t_expand_ctx;
-
+typedef struct s_quote_ctx
+{
+	char	                                *str;
+	char	                                *result;
+	char	                                **envp;
+	size_t	                                        i;
+	size_t	                                    start;
+	int		                        in_single;
+	int		                        in_double;
+}	t_quote_ctx;
 typedef int					(*t_redir_fn)(t_redirection *r);
 
 typedef struct s_redir_entry
