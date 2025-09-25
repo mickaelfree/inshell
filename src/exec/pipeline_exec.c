@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline_exec.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 19:46:11 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/22 22:41:10 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/09/25 16:40:45 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	execute_child(t_command *cmd, int index, t_pipeline *pipeline,
 		i++;
 	}
 	destroy_pipeline(pipeline);
-	if (!handle_redirections(cmd))
+	if (!handle_redirections_exec(cmd))
 		exit(1);
 	if (cmd->args && cmd->args[0])
 	{

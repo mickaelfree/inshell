@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 22:29:00 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/22 23:36:32 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/09/25 16:32:06 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*get_env_value(char *name, char **envp)
 	return (NULL);
 }
 
-char	*ft_parse_name(char *name)
+static char	*ft_parse_name(char *name)
 {
 	char	*rname;
 	int		j;

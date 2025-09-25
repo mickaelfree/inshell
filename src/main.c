@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 21:30:44 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/25 02:01:10 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/25 16:50:56 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,32 @@
 
 int			g_last_exit_status = 0;
 
-void	test_parsing(void)
-{
-	char		*line;
-	t_command	*cmds;
-	t_command	*cur;
-	int			i;
+// static void	test_parsing(void)
+// {
+// 	char		*line;
+// 	t_command	*cmds;
+// 	t_command	*cur;
+// 	int			i;
 
-	line = "ls -l | grep \"test file\" > output.txt >> append.txt << END";
-	cmds = parse_token(line, NULL);
-	if (!cmds)
-		return ;
-	cur = cmds;
-	while (cur)
-	{
-		printf("Command args: ");
-		i = -1;
-		while (++i < cur->arg_count)
-			printf("%s ", cur->args[i]);
-		printf("\nInput: %s\nOutput: %s (append: %d)\nHeredoc: %s\n---\n",
-			cur->input_file, cur->output_file, cur->append_mode,
-			cur->heredoc_delim);
-		cur = cur->next;
-	}
-	if (cmds)
-		ft_free_commands(cmds);
-}
+// 	line = "ls -l | grep \"test file\" > output.txt >> append.txt << END";
+// 	cmds = parse_token(line, NULL);
+// 	if (!cmds)
+// 		return ;
+// 	cur = cmds;
+// 	while (cur)
+// 	{
+// 		printf("Command args: ");
+// 		i = -1;
+// 		while (++i < cur->arg_count)
+// 			printf("%s ", cur->args[i]);
+// 		printf("\nInput: %s\nOutput: %s (append: %d)\nHeredoc: %s\n---\n",
+// 			cur->input_file, cur->output_file, cur->append_mode,
+// 			cur->heredoc_delim);
+// 		cur = cur->next;
+// 	}
+// 	if (cmds)
+// 		ft_free_commands(cmds);
+// }
 
 static void	rl_check_and_exit(char *line, char ***new_env)
 {

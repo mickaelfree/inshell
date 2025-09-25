@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   handle_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 19:27:29 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/23 20:15:43 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/09/25 16:30:22 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mandatoshell.h"
 
-int	handle_redirection_token(t_command **current, t_pre_token **token,
+static int	handle_redirection_token(t_command **current, t_pre_token **token,
 		char **envp, t_command **head)
 {
 	(void)head;
@@ -21,7 +21,7 @@ int	handle_redirection_token(t_command **current, t_pre_token **token,
 	return (1);
 }
 
-int	handle_pipe_token(t_command **current, t_pre_token **token, char **envp,
+static int	handle_pipe_token(t_command **current, t_pre_token **token, char **envp,
 		t_command **head)
 {
 	t_command	*new_cmd;
@@ -43,7 +43,7 @@ int	handle_pipe_token(t_command **current, t_pre_token **token, char **envp,
 	return (1);
 }
 
-int	handle_word_token(t_command **current, t_pre_token **token, char **envp,
+static int	handle_word_token(t_command **current, t_pre_token **token, char **envp,
 		t_command **head)
 {
 	char	*value;
@@ -67,7 +67,7 @@ int	handle_word_token(t_command **current, t_pre_token **token, char **envp,
 	return (1);
 }
 
-void	init_handlers(t_token_handler *handlers)
+static void	init_handlers(t_token_handler *handlers)
 {
 	handlers[0] = (t_token_handler){can_handle_pipe, handle_pipe_token};
 	handlers[1] = (t_token_handler){can_handle_redirection,

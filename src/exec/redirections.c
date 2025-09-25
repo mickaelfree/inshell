@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 15:28:20 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/22 18:48:57 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/09/25 16:40:45 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	apply_redirection(t_redirection *r)
 	return (1);
 }
 
-int	handle_redirections(t_command *cmd)
+int	handle_redirections_exec(t_command *cmd)
 {
 	t_redirection	*rd;
 

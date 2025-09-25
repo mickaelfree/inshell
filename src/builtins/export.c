@@ -6,13 +6,13 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 14:01:33 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/19 23:54:01 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/09/25 16:47:07 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mandatoshell.h"
 
-int	is_valide_export(char *args)
+static int	is_valid_export(char *args)
 {
 	int		i;
 	char	*k_end;
@@ -132,7 +132,7 @@ int	builtin_export(char **args, char ***envp)
 	args++;
 	while (*args)
 	{
-		if (!is_valide_export(*args))
+		if (!is_valid_export(*args))
 			export_error(*args);
 		else if (ft_strchr(*args, '=') && update_env_var(envp,
 				*args) != EXIT_SUCCESS)

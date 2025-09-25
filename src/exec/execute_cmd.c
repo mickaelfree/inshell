@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 21:20:51 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/24 00:14:37 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/09/25 16:40:45 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	execute_builtin_in_parent(t_command *cmd, char ***envp)
 		saved_stdin = dup(STDIN_FILENO);
 		saved_stdout = dup(STDOUT_FILENO);
 	}
-	if (!handle_redirections(cmd))
+	if (!handle_redirections_exec(cmd))
 	{
 		g_last_exit_status = 1;
 		restore_std_fds(saved_stdin, saved_stdout);

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   utils_redir.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 18:37:55 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/23 21:45:02 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/09/25 16:38:34 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mandatoshell.h"
 
-int	rd_in(t_redirection *r)
+static int	rd_in(t_redirection *r)
 {
 	int	fd;
 
@@ -34,7 +34,7 @@ int	rd_in(t_redirection *r)
 	return (1);
 }
 
-int	rd_out(t_redirection *r)
+static int	rd_out(t_redirection *r)
 {
 	int	fd;
 	int	flags;
@@ -60,7 +60,7 @@ int	rd_out(t_redirection *r)
 	return (1);
 }
 
-int	cleanup_heredoc(char *tmp, int fd, int success)
+static int	cleanup_heredoc(char *tmp, int fd, int success)
 {
 	if (fd >= 0)
 		close(fd);
@@ -72,7 +72,7 @@ int	cleanup_heredoc(char *tmp, int fd, int success)
 	return (success);
 }
 
-int	rd_heredoc(t_redirection *r)
+static int	rd_heredoc(t_redirection *r)
 {
 	char	*tmp;
 	int		fd;
