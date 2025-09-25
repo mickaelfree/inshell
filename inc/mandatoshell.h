@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 19:21:13 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/25 16:50:14 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/25 16:53:22 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,7 +199,6 @@ int							builtin_unset(char **args, char ***envp);
 
 //-------------------------------EXEC------------------------------//
 
-
 //execute_cmd.c
 void						execute_cmd(t_command *cmds, char ***envp);
 
@@ -335,11 +334,5 @@ int							is_heredoc(char *c);
 unsigned int				ft_count(void **ptrs);
 void						ft_free_tab(void **ptrs);
 int							error_alloc(char *ptr, char **ptrs);
-
-
-
-//------------MERGING(WIP)-----------------------------
-// GLOBALS (To check if it's needed since we can use errno)
-
 
 #endif

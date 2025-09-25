@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 19:27:29 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/25 16:30:22 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/25 16:52:45 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ static int	handle_redirection_token(t_command **current, t_pre_token **token,
 	return (1);
 }
 
-static int	handle_pipe_token(t_command **current, t_pre_token **token, char **envp,
-		t_command **head)
+static int	handle_pipe_token(t_command **current, t_pre_token **token,
+		char **envp, t_command **head)
 {
 	t_command	*new_cmd;
 
@@ -43,8 +43,8 @@ static int	handle_pipe_token(t_command **current, t_pre_token **token, char **en
 	return (1);
 }
 
-static int	handle_word_token(t_command **current, t_pre_token **token, char **envp,
-		t_command **head)
+static int	handle_word_token(t_command **current, t_pre_token **token,
+		char **envp, t_command **head)
 {
 	char	*value;
 	char	*expanded_value;
