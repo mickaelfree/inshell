@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 21:30:44 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/24 05:16:18 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/25 02:01:10 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,45 @@ void	update(char ***new_env)
 	}
 }
 
+//PLS REMOVE BEFORE LAST PUSH
+void	update_for_tester(char ***new_env)
+{
+	char		*line;
+	t_command	*cmd;
+	char		*raw_line;
+
+	while (1)
+	{
+		if (isatty(fileno(stdin)))
+		{
+			line = readline("Mandatoshell>");
+		}
+		else
+		{
+			raw_line = get_next_line(fileno(stdin));
+			if (!raw_line)
+				break ;
+			line = ft_strtrim(raw_line, "\n");
+			free(raw_line);
+		}
+		rl_check_and_exit(line, new_env);
+		if (*line)
+			add_history(line);
+		else
+		{
+			free(line);
+			continue ;
+		}
+		cmd = parse_token(line, *new_env);
+		if (DEBUG_MODE)
+			display_parsed_command(cmd);
+		if (cmd)
+			execute_cmd(cmd, new_env);
+		ft_free_commands(cmd);
+		free(line);
+	}
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	char	**new_env;
@@ -88,7 +127,11 @@ int	main(int argc, char **argv, char **envp)
 	new_env = init_env(&envp);
 	signal(SIGINT, ft_handle_sig);
 	signal(SIGQUIT, ft_handle_sig);
-	update(&new_env);
+	//REMOVE BEFORE LAST PUSH
+	if (!TESTER)
+		update(&new_env);
+	else
+		update_for_tester(&new_env);
 	rl_clear_history();
 	if (new_env)
 		ft_free_env(new_env);

@@ -103,13 +103,10 @@ re: fclean all
 # Debug build
 .PHONY: debug
 debug: CFLAGS = -Wall -Wextra -Werror -g3 -DDEBUG_MODE=1
-debug: fclean all
-	DEBUG_MODE=1 valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./minishell 
 
-.PHONY: test
-test: fclean all
-	cd minishell_tester; pwd;\
-	./tester; cd ..; make fclean
+debug: fclean all
+	DEBUG_MODE=1 valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./minishell
+
 # Norminette for source and include
 .PHONY: norm
 norm:
@@ -118,6 +115,10 @@ norm:
 .PHONY: gdb
 gdb:
 	gdb ./$(MINISHELL) -ex "break main"
+
+.PHONY: tester
+tester: CFLAGS = -Wall -Wextra -Werror -g3 -DTESTER=1
+tester: fclean all
 
 -include $(DEPS)
 

@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 19:21:13 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/24 05:10:49 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/25 02:03:14 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@
 #  define DEBUG_MODE 0
 # endif
 
+# ifndef TESTER
+#  define TESTER 0
+# endif
 /////////////////////////ENUMS////////////////////////
 
 typedef enum e_char_type
