@@ -44,12 +44,12 @@ int	builtin_exit(char **args, char ***envp)
 
 	if (args[1] && !is_numeric(args[1]))
 	{
-		write(STDERR_FILENO, " numeric argument required\n", 26);
+		write(STDERR_FILENO, " numeric argument required\n", 27);
 		exit_with_cleanup(envp, 2);
 	}
 	if (args[1] && args[2])
 	{
-		write(STDERR_FILENO, " too many arguments\n", 19);
+		write(STDERR_FILENO, " too many arguments\n", 20);
 		g_last_exit_status = 2;
 		return (2);
 	}
