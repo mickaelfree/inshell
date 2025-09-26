@@ -30,7 +30,6 @@ static int	execute_child(t_command *cmd, int index, t_pipeline *pipeline,
 		close(pipeline->pipes[i][1]);
 		i++;
 	}
-	destroy_pipeline(pipeline);
 	if (!handle_redirections_exec(cmd))
 		return (1);
 	if (cmd->args && cmd->args[0])
@@ -45,12 +44,23 @@ static int	execute_child(t_command *cmd, int index, t_pipeline *pipeline,
 static int	handle_fork_error(t_pipeline *pipeline, int failed_index)
 {
 	int	j;
+	int	status;
 
 	perror("fork");
 	j = 0;
 	while (j < failed_index)
 	{
 		kill(pipeline->pids[j], SIGTERM);
+		j++;
+	}
+	j = 0;
+	while (j < failed_index)
+	{
+		while (waitpid(pipeline->pids[j], &status, 0) == -1)
+		{
+			if (errno != EINTR)
+				break ;
+		}
 		j++;
 	}
 	return (0);
@@ -61,6 +71,7 @@ static int	fork_all_processes(t_command *cmds, t_pipeline *pipeline,
 {
 	t_command	*cur;
 	int			i;
+	int			exitcode;
 
 	cur = cmds;
 	i = 0;
@@ -71,7 +82,7 @@ static int	fork_all_processes(t_command *cmds, t_pipeline *pipeline,
 			return (handle_fork_error(pipeline, i));
 		else if (pipeline->pids[i] == 0)
 		{
-			int exitcode = execute_child(cur, i, pipeline, envp);
+			exitcode = execute_child(cur, i, pipeline, envp);
 			ft_free_commands(cmds);
 			exit(exitcode);
 		}
