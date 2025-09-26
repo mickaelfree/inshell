@@ -3,4 +3,5 @@
    Memcheck:Leak
    ...
    obj:*/libreadline.so*
+   obj:/usr/*
 }

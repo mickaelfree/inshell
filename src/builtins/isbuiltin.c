@@ -6,13 +6,13 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 17:49:57 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/06 21:33:29 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/24 05:10:49 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mandatoshell.h"
 
-static void	init_builtin(builtin_func *builtin)
+static void	init_builtin(t_builtin_func *builtin)
 {
 	builtin[BUILTIN_ECHO] = builtin_echo;
 	builtin[BUILTIN_PWD] = builtin_pwd;
@@ -66,11 +66,11 @@ int	is_builtin(char **args)
 int	execute_builtin(char **args, char ***envp)
 {
 	t_builtin_type	type;
-	builtin_func	builtin_functions[7];
+	t_builtin_func	t_builtin_functions[7];
 
-	init_builtin(builtin_functions);
+	init_builtin(t_builtin_functions);
 	type = get_builtin_type(args[0]);
 	if (type == BUILTIN_UNKNOWN)
 		return (-1);
-	return (builtin_functions[type](args, envp));
+	return (t_builtin_functions[type](args, envp));
 }

@@ -6,12 +6,12 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/08 12:01:51 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/07 02:15:24 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/21 19:25:18 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mandatoshell.h"
 #include "libft.h"
+#include "mandatoshell.h"
 
 void	error_exit(void)
 {
@@ -47,4 +47,19 @@ void	ft_error(char *msg)
 	}
 	g_last_exit_status = 1;
 	exit(1);
+}
+
+void	export_error(char *arg)
+{
+	write(STDERR_FILENO, "export: `", 9);
+	write(STDERR_FILENO, arg, ft_strlen(arg));
+	write(STDERR_FILENO, "': not a valid identifier\n", 26);
+	g_last_exit_status = 1;
+}
+
+char	*cd_err(const char *msg, int status)
+{
+	write(STDERR_FILENO, msg, (int)ft_strlen(msg));
+	g_last_exit_status = status;
+	return (NULL);
 }

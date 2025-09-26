@@ -24,18 +24,31 @@ SRCS = $(SRCDIR)/main.c \
 	$(SRCDIR)/exec/execute_cmd.c \
 	$(SRCDIR)/exec/heredoc.c \
 	$(SRCDIR)/exec/find_path.c \
-	$(SRCDIR)/parsing/identify_token.c \
-	$(SRCDIR)/parsing/token_utils.c \
-	$(SRCDIR)/parsing/parsing.c \
+	$(SRCDIR)/exec/pipeline_utils.c \
+	$(SRCDIR)/exec/pipeline_exec.c \
+	$(SRCDIR)/exec/redirections.c \
+	$(SRCDIR)/exec/utils_redir.c \
 	$(SRCDIR)/parsing/build_pipeline.c \
+	$(SRCDIR)/parsing/can_token.c \
 	$(SRCDIR)/parsing/expand_env.c \
+	$(SRCDIR)/parsing/expand_sizer.c \
+	$(SRCDIR)/parsing/expand_utils.c \
+	$(SRCDIR)/parsing/expand_quoted.c \
+	$(SRCDIR)/parsing/handle_token.c \
+	$(SRCDIR)/parsing/identify_token.c \
+	$(SRCDIR)/parsing/parsing.c \
+	$(SRCDIR)/parsing/quote_handler.c \
+	$(SRCDIR)/parsing/redirection_handler.c \
+	$(SRCDIR)/parsing/redirection_utils.c \
+	$(SRCDIR)/parsing/token_utils.c \
 	$(SRCDIR)/signal/handler.c \
 	$(SRCDIR)/utils/char_utils.c \
-	$(SRCDIR)/utils/char_utils2.c \
-	$(SRCDIR)/utils/char_utils3.c \
+	$(SRCDIR)/utils/debug.c \
 	$(SRCDIR)/utils/ft_error.c \
 	$(SRCDIR)/utils/ft_free.c \
-	$(SRCDIR)/utils/ft_free2.c
+	$(SRCDIR)/utils/is_char.c \
+	$(SRCDIR)/utils/is_type.c \
+	$(SRCDIR)/utils/utils.c
 
 # Directory structure for object files
 OBJS = $(SRCS:$(SRCDIR)/%.c=$(BUILDDIR)/%.o)
@@ -51,9 +64,9 @@ MAKEFLAGS += --no-print-directory  # Avoid flooding the console
 all: $(MINISHELL)
 
 $(MINISHELL): $(OBJS) $(LIBFT)
-	@echo -n "$(GREY)🔨 "
+	@printf "$(GREY)🔨 "
 	$(CC) $(CFLAGS) $(NORELINK) $(INCLUDE) -o $@ $(OBJS) $(LIBS) $(LIBFT)
-	@echo -n "\n $(GREEN)✅ Build done!$(RESET)\n"
+	@printf "\n $(GREEN)✅ Build done!$(RESET)\n"
 
 $(LIBFT): FORCE
 	@$(MAKE) -C ./libft
@@ -64,25 +77,25 @@ FORCE:
 
 # Individual source file rule
 $(BUILDDIR)/%.o: $(SRCDIR)/%.c
-	@echo -n "$(GREY)🔨 "
+	@printf "$(GREY)🔨 "
 	mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(NORELINK) $(INCLUDE) -o $@ -c $<
-	@echo -n "$(RESET)"
+	@printf "$(RESET)"
 
 # Cleaning features
 .PHONY: clean fclean
 clean:
-	@echo -n "$(RED)🗑️  "
+	@printf "$(RED)🗑️  "
 	@$(MAKE) clean -C ./libft > /dev/null
 	$(RM) -r $(BUILDDIR)
-	@echo -n "$(RESET)\n"
+	@printf "$(RESET)\n"
 
 
 fclean: clean
-	@echo -n "$(RED)🗑️  "
+	@printf "$(RED)🗑️  "
 	@$(MAKE) fclean -C ./libft > /dev/null
 	$(RM) $(MINISHELL)
-	@echo -n "$(RESET)\n"
+	@printf "$(RESET)\n"
 
 # Clean build
 .PHONY: re
@@ -91,13 +104,10 @@ re: fclean all
 # Debug build
 .PHONY: debug
 debug: CFLAGS = -Wall -Wextra -Werror -g3 -DDEBUG_MODE=1
-debug: fclean all
-	DEBUG_MODE=1 valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./minishell 
 
-.PHONY: test
-test: fclean all
-	cd minishell_tester; pwd;\
-	./tester; cd ..; make fclean
+debug: fclean all
+	DEBUG_MODE=1 valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=readline.supp --trace-children=yes ./minishell
+
 # Norminette for source and include
 .PHONY: norm
 norm:
@@ -106,6 +116,10 @@ norm:
 .PHONY: gdb
 gdb:
 	gdb ./$(MINISHELL) -ex "break main"
+
+.PHONY: tester
+tester: CFLAGS = -Wall -Wextra -Werror -g3 -DTESTER=1
+tester: fclean all
 
 -include $(DEPS)
 

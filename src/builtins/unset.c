@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:36:20 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/07 02:27:58 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/19 21:52:45 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,37 +26,45 @@ static int	is_valid_identifier(char *name)
 	return (1);
 }
 
-static int	remove_env_var(char ***envp_ptr, char *name)
+static int	rm_var(char **envp, char **new_env, char *name)
 {
-	char	**envp = *envp_ptr;
-	char	**new_env;
-	int		len = 0;
-	int		i = 0;
-	int		j = 0;
-	size_t	name_len = ft_strlen(name);
+	int		i;
+	int		j;
+	size_t	name_len;
 
-	while (envp[len])
-		len++;
-	new_env = malloc((len + 1) * sizeof(char *));
-	if (!new_env)
-		return (EXIT_FAILURE);
+	name_len = ft_strlen(name);
+	i = 0;
+	j = 0;
 	while (envp[i])
 	{
-		if (!(ft_strncmp(envp[i], name, name_len) == 0 && envp[i][name_len] == '='))
+		if (!(ft_strncmp(envp[i], name, name_len) == 0
+				&& envp[i][name_len] == '='))
 		{
 			new_env[j] = ft_strdup(envp[i]);
-			if (!new_env[j])
-			{
-				while (--j >= 0)
-					free(new_env[j]);
-				free(new_env);
+			if (error_alloc(new_env[j], new_env))
 				return (EXIT_FAILURE);
-			}
 			j++;
 		}
 		i++;
 	}
 	new_env[j] = NULL;
+	return (EXIT_SUCCESS);
+}
+
+static int	remove_env_var(char ***envp_ptr, char *name)
+{
+	char	**envp;
+	char	**new_env;
+
+	envp = *envp_ptr;
+	new_env = malloc((ft_count((void **)envp) + 1) * sizeof(char *));
+	if (!new_env)
+		return (EXIT_FAILURE);
+	if (rm_var(envp, new_env, name) != EXIT_SUCCESS)
+	{
+		ft_free_env(new_env);
+		return (EXIT_FAILURE);
+	}
 	ft_free_env(*envp_ptr);
 	*envp_ptr = new_env;
 	return (EXIT_SUCCESS);

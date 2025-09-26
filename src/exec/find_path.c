@@ -6,27 +6,12 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 03:33:53 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/06 20:39:56 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/25 16:06:11 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mandatoshell.h"
-
-
-char	*ft_strchr(const char *s, int c)
-{
-	if (!s)
-		return (NULL);
-	while (*s)
-	{
-		if (*s == (char)c)
-			return ((char *)s);
-		s++;
-	}
-	if (*s == (char)c)
-		return ((char *)s);
-	return (NULL);
-}
+#include "libft.h"
 
 static char	*try_absolute_path(char *cmd, int *status)
 {
