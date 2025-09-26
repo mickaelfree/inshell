@@ -23,6 +23,8 @@ t_pre_token	*add_type_token(t_pre_token **head, t_pre_token **current,
 		new_len = 1;
 	else if (type == TOKEN_APPEND || type == TOKEN_HEREDOC)
 		new_len = 2;
+	else
+		return (NULL);
 	new = malloc(sizeof(t_pre_token));
 	if (!new)
 		return (NULL);
