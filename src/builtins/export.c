@@ -122,6 +122,7 @@ int	builtin_export(char **args, char ***envp)
 
 	if (!envp)
 		return (EXIT_FAILURE);
+	g_last_exit_status = 0;
 	if (!args[1])
 	{
 		i = 0;
