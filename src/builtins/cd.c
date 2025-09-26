@@ -26,7 +26,7 @@ static char	*get_target_directory(char **args, int *print_pwd, char **envp)
 			return (cd_err(" HOME not set\n", 1));
 		return (home);
 	}
-	if (!ft_strncmp(args[1], "-", 1))
+	if (args[1][0] == '-' && args[1][1] == '\0')
 	{
 		old = get_env_value("OLDPWD", envp);
 		if (!old || !*old)
