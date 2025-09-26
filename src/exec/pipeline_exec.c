@@ -12,7 +12,7 @@
 
 #include "mandatoshell.h"
 
-static void	execute_child(t_command *cmd, int index, t_pipeline *pipeline,
+static int	execute_child(t_command *cmd, int index, t_pipeline *pipeline,
 		char ***envp)
 {
 	int	i;
@@ -32,14 +32,14 @@ static void	execute_child(t_command *cmd, int index, t_pipeline *pipeline,
 	}
 	destroy_pipeline(pipeline);
 	if (!handle_redirections_exec(cmd))
-		exit(1);
+		return (1);
 	if (cmd->args && cmd->args[0])
 	{
 		if (is_builtin(cmd->args) != -1)
-			exit(execute_builtin(cmd->args, envp));
+			return (execute_builtin(cmd->args, envp));
 		execute(cmd->args, *envp);
 	}
-	exit(0);
+	return (0);
 }
 
 static int	handle_fork_error(t_pipeline *pipeline, int failed_index)
@@ -70,7 +70,11 @@ static int	fork_all_processes(t_command *cmds, t_pipeline *pipeline,
 		if (pipeline->pids[i] == -1)
 			return (handle_fork_error(pipeline, i));
 		else if (pipeline->pids[i] == 0)
-			execute_child(cur, i, pipeline, envp);
+		{
+			int exitcode = execute_child(cur, i, pipeline, envp);
+			ft_free_commands(cmds);
+			exit(exitcode);
+		}
 		cur = cur->next;
 		i++;
 	}

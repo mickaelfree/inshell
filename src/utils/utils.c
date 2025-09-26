@@ -39,6 +39,17 @@ void	ft_free_tab(void **ptrs)
 	free(ptrs);
 }
 
+void	ft_free_ctx(t_quote_ctx *ctx)
+{
+	if (ctx->str)
+		free(ctx->str);
+	if (ctx->result)
+		free(ctx->result);
+	if (ctx->envp)
+		ft_free_env(ctx->envp);
+	free(ctx);
+}
+
 int	error_alloc(char *ptr, char **ptrs)
 {
 	if (!ptr)

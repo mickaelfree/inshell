@@ -35,7 +35,9 @@
 
 /////////////////////////MACRO////////////////////////
 
-# define NB_REDIRS_FUNC 3
+# ifndef NB_REDIRS_FUNC
+#  define NB_REDIRS_FUNC 3
+# endif
 
 # ifndef DEBUG_MODE
 #  define DEBUG_MODE 0
@@ -149,6 +151,7 @@ typedef struct s_quote_ctx
 	int						in_single;
 	int						in_double;
 }							t_quote_ctx;
+
 typedef int					(*t_redir_fn)(t_redirection *r);
 
 typedef struct s_redir_entry
@@ -334,5 +337,6 @@ int							is_heredoc(char *c);
 unsigned int				ft_count(void **ptrs);
 void						ft_free_tab(void **ptrs);
 int							error_alloc(char *ptr, char **ptrs);
+void						ft_free_ctx(t_quote_ctx *ctx);
 
 #endif
