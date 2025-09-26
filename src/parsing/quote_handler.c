@@ -13,6 +13,17 @@
 #include "libft.h"
 #include "mandatoshell.h"
 
+static void	handle_quote_char(char c, int *in_single, int *in_double,
+		char **write_ptr)
+{
+	if (c == '\'' && !(*in_double))
+		*in_single = !(*in_single);
+	else if (c == '"' && !(*in_single))
+		*in_double = !(*in_double);
+	else
+		*(*write_ptr)++ = c;
+}
+
 char	*remove_quotes(char *token, int len)
 {
 	char	*result;
@@ -22,18 +33,15 @@ char	*remove_quotes(char *token, int len)
 	int		in_double;
 
 	result = malloc(len + 1);
+	if (!result)
+		return (NULL);
 	write_ptr = result;
 	i = 0;
 	in_single = 0;
 	in_double = 0;
 	while (i < len)
 	{
-		if (token[i] == '\'' && !in_double)
-			in_single = !in_single;
-		else if (token[i] == '"' && !in_single)
-			in_double = !in_double;
-		else
-			*write_ptr++ = token[i];
+		handle_quote_char(token[i], &in_single, &in_double, &write_ptr);
 		i++;
 	}
 	*write_ptr = '\0';
@@ -46,6 +54,7 @@ static int	quote_state_check(int quote_state, t_pre_token **head)
 	{
 		printf("Error: unclosed quote\n");
 		free_token_list(*head);
+		*head = NULL;
 		return (0);
 	}
 	return (1);
