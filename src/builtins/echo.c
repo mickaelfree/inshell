@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:35:33 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/24 00:00:31 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/09/26 18:20:20 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,14 @@ static int	has_newline_option(char ***args)
 
 static void	print_arguments(char **args)
 {
+	int i;
+
+	i = 0;
 	while (*args)
 	{
-		write(1, *args, ft_strlen(*args));
+		if (*args[i] == '$')
+			i++;
+		write(1, *args + i, ft_strlen(*args));
 		if (*(args + 1))
 			write(1, " ", 1);
 		args++;

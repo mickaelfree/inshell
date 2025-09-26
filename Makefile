@@ -103,10 +103,10 @@ re: fclean all
 
 # Debug build
 .PHONY: debug
-debug: CFLAGS = -Wall -Wextra -Werror -g3 -DDEBUG_MODE=0
+debug: CFLAGS = -Wall -Wextra -Werror -g3 -DDEBUG_MODE=1
 
 debug: fclean all
-	DEBUG_MODE=0 valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=readline.supp --trace-children=yes ./minishell
+	DEBUG_MODE=1 valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=readline.supp --trace-children=yes ./minishell
 
 # Norminette for source and include
 .PHONY: norm
