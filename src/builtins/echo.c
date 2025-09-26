@@ -24,6 +24,8 @@ static int	has_newline_option(char ***args)
 	{
 		arg = **args;
 		i = 1;
+		if (!arg[i])
+			break ;
 		while (arg[i] && arg[i] == 'n')
 			i++;
 		if (arg[i] != '\0')
