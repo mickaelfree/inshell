@@ -1,38 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   char_utils2.c                                      :+:      :+:    :+:   */
+/*   skip_charset.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/07 01:35:26 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/07 01:38:41 by zsonie           ###   ########lyon.fr   */
+/*   Created: 2025/09/27 22:18:02 by zsonie            #+#    #+#             */
+/*   Updated: 2025/09/27 22:18:10 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mandatoshell.h"
-
-int	is_escape(char c)
+char	*skip_charset(char *str, char charset)
 {
-	return (c == '\\');
-}
-
-int	is_quote(char c)
-{
-	return (is_single_quote(c) || is_double_quote(c));
-}
-
-int	is_double_quote(char c)
-{
-	return (c == '"');
-}
-
-int	is_single_quote(char c)
-{
-	return (c == '\'');
-}
-
-int	is_special(char c)
-{
-	return (c == ';' || c == '&' || c == '(' || c == ')' || c == '$');
+	while (*str == charset)
+		str++;
+	return (str);
 }

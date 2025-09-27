@@ -6,11 +6,18 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 21:30:44 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/27 17:11:17 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/28 00:28:42 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_structs.h"
+#include "ft_enum.h"
 #include "mandatoshell.h"
+#include "ft_signal.h"
+#include "builtins.h"
+#include "ft_parsing.h"
+#include "libft.h"
+#include "utils.h"
 
 int			g_last_exit_status = 0;
 

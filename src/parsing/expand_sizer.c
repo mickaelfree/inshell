@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   expand_sizer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 22:32:06 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/22 23:07:57 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/09/28 00:28:25 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "ft_parsing.h"
 #include "mandatoshell.h"
 
 static size_t	handle_status_var(int *i)

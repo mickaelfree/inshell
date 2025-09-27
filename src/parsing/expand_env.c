@@ -6,11 +6,12 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 22:25:08 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/22 23:57:04 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/09/28 00:28:25 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "ft_parsing.h"
 #include "mandatoshell.h"
 
 static int	expand_status_variable(char *result, int *j)

@@ -6,12 +6,14 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 14:01:33 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/27 18:11:16 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/27 23:54:12 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mandatoshell.h"
 #include "error.h"
+#include "utils.h"
+#include "libft.h"
+#include "mandatoshell.h"
 
 static int	is_valid_export(char *args)
 {

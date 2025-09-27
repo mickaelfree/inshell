@@ -6,11 +6,13 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 19:46:11 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/25 16:40:45 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/27 23:39:04 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mandatoshell.h"
+#include "builtins.h"
+#include "utils.h"
 
 static int	execute_child(t_command *cmd, int index, t_pipeline *pipeline,
 		char ***envp)

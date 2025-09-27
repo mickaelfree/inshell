@@ -42,13 +42,24 @@ SRCS = $(SRCDIR)/main.c \
 	$(SRCDIR)/parsing/redirection_utils.c \
 	$(SRCDIR)/parsing/token_utils.c \
 	$(SRCDIR)/signal/handler.c \
+	$(SRCDIR)/utils/is_char/is_append.c \
+	$(SRCDIR)/utils/is_char/is_double_quote.c \
+	$(SRCDIR)/utils/is_char/is_escape.c \
+	$(SRCDIR)/utils/is_char/is_heredoc.c \
+	$(SRCDIR)/utils/is_char/is_operator.c \
+	$(SRCDIR)/utils/is_char/is_pipe.c \
+	$(SRCDIR)/utils/is_char/is_quote.c \
+	$(SRCDIR)/utils/is_char/is_redir.c \
+	$(SRCDIR)/utils/is_char/is_single_quote.c \
+	$(SRCDIR)/utils/is_char/is_special.c \
+	$(SRCDIR)/utils/is_char/is_whitespace.c \
+	$(SRCDIR)/utils/skip/skip_charset.c \
+	$(SRCDIR)/utils/skip/skip_whitespace.c \
 	$(SRCDIR)/utils/char_utils.c \
 	$(SRCDIR)/utils/debug.c \
 	$(SRCDIR)/utils/error.c \
 	$(SRCDIR)/utils/ft_error.c \
 	$(SRCDIR)/utils/ft_free.c \
-	$(SRCDIR)/utils/is_char.c \
-	$(SRCDIR)/utils/is_type.c \
 	$(SRCDIR)/utils/utils.c
 
 # Directory structure for object files

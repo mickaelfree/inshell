@@ -6,11 +6,14 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:33:23 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/20 01:41:11 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/09/28 00:28:25 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "builtins.h"
+#include "utils.h"
+#include "ft_parsing.h"
 #include "mandatoshell.h"
 
 static char	*get_target_directory(char **args, int *print_pwd, char **envp)

@@ -6,12 +6,13 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 19:21:42 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/19 22:33:51 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/09/27 23:38:20 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "mandatoshell.h"
+#include "utils.h"
 
 static int	is_numeric(char *str)
 {

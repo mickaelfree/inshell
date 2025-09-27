@@ -6,11 +6,12 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 17:49:57 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/24 05:10:49 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/27 23:52:19 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mandatoshell.h"
+#include "builtins.h"
+#include "libft.h"
 
 static void	init_builtin(t_builtin_func *builtin)
 {

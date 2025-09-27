@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_handler.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 21:26:37 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/23 22:06:30 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/09/28 00:28:25 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mandatoshell.h"
+#include "ft_parsing.h"
+#include "libft.h"
 
 static int	validate_redirection_token(t_pre_token *token)
 {

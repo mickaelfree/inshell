@@ -6,12 +6,15 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:36:20 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/27 18:11:31 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/27 23:53:29 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mandatoshell.h"
 #include "error.h"
+#include "utils.h"
+#include "libft.h"
+#include <stdlib.h>
+#include <stdio.h>
 
 static int	is_valid_identifier(char *name)
 {

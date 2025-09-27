@@ -6,11 +6,11 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/08 11:59:24 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/24 03:41:06 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/27 23:40:43 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mandatoshell.h"
+#include "utils.h"
 #include <libft.h>
 
 void	ft_free(char **arr)

@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   expand_quoted.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 01:58:32 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/25 03:16:14 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/09/28 00:30:05 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mandatoshell.h"
+#include "ft_structs.h"
+#include "ft_parsing.h"
+#include "libft.h"
 
 static void	init_quote_ctx(t_quote_ctx *ctx, char *str, char **envp)
 {

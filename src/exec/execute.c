@@ -6,11 +6,13 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 18:40:00 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/22 18:12:02 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/09/27 23:54:28 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mandatoshell.h"
+#include "utils.h"
+#include "libft.h"
 
 static void	handle_command_not_found(char **cmd)
 {

@@ -6,11 +6,13 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 21:20:51 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/25 16:40:45 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/28 00:29:12 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mandatoshell.h"
+#include "builtins.h"
+#include "ft_signal.h"
 
 static void	restore_std_fds(int saved_stdin, int saved_stdout)
 {

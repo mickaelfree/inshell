@@ -1,34 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   char_utils3.c                                      :+:      :+:    :+:   */
+/*   char_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 01:35:56 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/19 22:58:51 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/09/28 00:03:39 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mandatoshell.h"
-
-int	is_operator(char c)
-{
-	return (is_pipe(c) || is_redir(c) || c == '<' || c == '>');
-}
-
-void	skip_whitespace(char **line)
-{
-	while (**line && is_whitespace((unsigned char)**line))
-		(*line)++;
-}
-
-char	*skip_charset(char *str, char charset)
-{
-	while (*str == charset)
-		str++;
-	return (str);
-}
+#include "is_char.h"
+#include "ft_enum.h"
+#include "libft.h"
 
 int	char_type(char *c)
 {
