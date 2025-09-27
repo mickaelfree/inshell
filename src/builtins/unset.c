@@ -6,11 +6,12 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:36:20 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/19 21:52:45 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/09/27 18:11:31 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mandatoshell.h"
+#include "error.h"
 
 static int	is_valid_identifier(char *name)
 {
@@ -59,7 +60,7 @@ static int	remove_env_var(char ***envp_ptr, char *name)
 	envp = *envp_ptr;
 	new_env = malloc((ft_count((void **)envp) + 1) * sizeof(char *));
 	if (!new_env)
-		return (EXIT_FAILURE);
+		return (print_error_and_ret(ERR_ALLOC_UNSET, 1));
 	if (rm_var(envp, new_env, name) != EXIT_SUCCESS)
 	{
 		ft_free_env(new_env);

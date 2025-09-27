@@ -6,12 +6,13 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 17:12:14 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/25 01:59:17 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/09/27 18:11:00 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "mandatoshell.h"
+#include "error.h"
 
 void	init_command(t_command *cmd)
 {
@@ -37,6 +38,7 @@ void	add_argument(t_command *cmd, char *value, char **envp)
 	new_args = malloc(sizeof(char *) * (cmd->arg_count + 2));
 	if (!new_args)
 	{
+		print_custom_error(ERR_ALLOC_PIPE_BUILD);
 		free(expanded_value);
 		free(value);
 		return ;
@@ -68,7 +70,7 @@ t_command	*build_pipeline(t_pre_token *tokens, char **envp)
 		{
 			current = malloc(sizeof(t_command));
 			if (!current)
-				return (NULL);
+				return (print_error_and_ret(ERR_ALLOC_PIPE_BUILD, 0));
 			init_command(current);
 			head = current;
 		}

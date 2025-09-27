@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 19:12:13 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/22 22:39:02 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/09/27 18:04:16 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mandatoshell.h"
+#include "error.h"
 
 int	count_pipeline(t_command *cmds)
 {
@@ -42,6 +43,7 @@ t_pipeline	*create_pipeline(int cmd_count)
 		pipeline->pipes = malloc(pipeline->pipe_count * sizeof(int [2]));
 	if (!pipeline->pids || (cmd_count > 1 && !pipeline->pipes))
 	{
+		print_custom_error(ERR_ALLOC_PIPE_UTILS);
 		free(pipeline->pids);
 		free(pipeline->pipes);
 		free(pipeline);
