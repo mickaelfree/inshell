@@ -44,6 +44,7 @@ SRCS = $(SRCDIR)/main.c \
 	$(SRCDIR)/signal/handler.c \
 	$(SRCDIR)/utils/char_utils.c \
 	$(SRCDIR)/utils/debug.c \
+	$(SRCDIR)/utils/error.c \
 	$(SRCDIR)/utils/ft_error.c \
 	$(SRCDIR)/utils/ft_free.c \
 	$(SRCDIR)/utils/is_char.c \

@@ -6,11 +6,12 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:35:41 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/19 21:56:33 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/09/27 17:39:08 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mandatoshell.h"
+#include "error.h"
 
 char	**init_env(char ***envp)
 {
@@ -25,7 +26,10 @@ char	**init_env(char ***envp)
 	count = ft_count((void **)cur_env);
 	new_env = malloc(sizeof(char *) * (count + 1));
 	if (!new_env)
+	{
+		print_custom_error(ERR_ALLOC_ENV);
 		return (NULL);
+	}
 	i = 0;
 	while (i < count)
 	{

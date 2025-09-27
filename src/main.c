@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 21:30:44 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/25 16:50:56 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/27 17:11:17 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,8 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	new_env = init_env(&envp);
+	if (!new_env)
+		return (g_last_exit_status);
 	signal(SIGINT, ft_handle_sig);
 	signal(SIGQUIT, ft_handle_sig);
 	//REMOVE BEFORE LAST PUSH
