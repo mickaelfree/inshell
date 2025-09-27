@@ -63,14 +63,14 @@ int	is_builtin(char **args)
 	return ((int)type);
 }
 
-int	execute_builtin(char **args, char ***envp)
+int	execute_builtin(t_command *cmd, char ***envp)
 {
 	t_builtin_type	type;
 	t_builtin_func	t_builtin_functions[7];
 
 	init_builtin(t_builtin_functions);
-	type = get_builtin_type(args[0]);
+	type = get_builtin_type(cmd->args[0]);
 	if (type == BUILTIN_UNKNOWN)
 		return (-1);
-	return (t_builtin_functions[type](args, envp));
+	return (t_builtin_functions[type](cmd, cmd->args, envp));
 }

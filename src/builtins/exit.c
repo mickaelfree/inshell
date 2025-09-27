@@ -31,21 +31,23 @@ static int	is_numeric(char *str)
 	return (1);
 }
 
-static void	exit_with_cleanup(char ***envp, int code)
+static void	exit_with_cleanup(t_command *cmd, char ***envp, int code)
 {
+	if (cmd)
+		ft_free_commands(cmd);
 	if (envp && *envp)
 		ft_free_env(*envp);
 	exit(code);
 }
 
-int	builtin_exit(char **args, char ***envp)
+int	builtin_exit(t_command *cmd, char **args, char ***envp)
 {
 	long	status;
 
 	if (args[1] && !is_numeric(args[1]))
 	{
 		write(STDERR_FILENO, " numeric argument required\n", 27);
-		exit_with_cleanup(envp, 2);
+		exit_with_cleanup(cmd, envp, 2);
 	}
 	if (args[1] && args[2])
 	{
@@ -54,8 +56,8 @@ int	builtin_exit(char **args, char ***envp)
 		return (2);
 	}
 	if (!args[1])
-		exit_with_cleanup(envp, 0);
+		exit_with_cleanup(cmd, envp, 0);
 	status = ft_atoi(args[1]);
-	exit_with_cleanup(envp, (unsigned char)status);
+	exit_with_cleanup(cmd, envp, (unsigned char)status);
 	return (0);
 }

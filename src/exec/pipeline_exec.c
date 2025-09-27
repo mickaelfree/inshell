@@ -35,7 +35,7 @@ static int	execute_child(t_command *cmd, int index, t_pipeline *pipeline,
 	if (cmd->args && cmd->args[0])
 	{
 		if (is_builtin(cmd->args) != -1)
-			return (execute_builtin(cmd->args, envp));
+			return (execute_builtin(cmd, envp));
 		execute(cmd->args, *envp);
 	}
 	return (0);
@@ -84,6 +84,8 @@ static int	fork_all_processes(t_command *cmds, t_pipeline *pipeline,
 		{
 			exitcode = execute_child(cur, i, pipeline, envp);
 			ft_free_commands(cmds);
+			destroy_pipeline(pipeline);
+			ft_free_env(*envp);
 			exit(exitcode);
 		}
 		cur = cur->next;

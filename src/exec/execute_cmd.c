@@ -45,7 +45,7 @@ static void	execute_builtin_in_parent(t_command *cmd, char ***envp)
 		restore_std_fds(saved_stdin, saved_stdout);
 		return ;
 	}
-	builtin_ret = execute_builtin(cmd->args, envp);
+	builtin_ret = execute_builtin(cmd, envp);
 	g_last_exit_status = builtin_ret;
 	restore_std_fds(saved_stdin, saved_stdout);
 }

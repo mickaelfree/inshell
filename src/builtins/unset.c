@@ -70,10 +70,11 @@ static int	remove_env_var(char ***envp_ptr, char *name)
 	return (EXIT_SUCCESS);
 }
 
-int	builtin_unset(char **args, char ***envp)
+int	builtin_unset(t_command *cmd, char **args, char ***envp)
 {
 	int	ret;
 
+	(void)cmd;
 	ret = 0;
 	if (!args[1])
 		return (0);

@@ -99,12 +99,13 @@ static int	update_directory(char *target_dir, int print_pwd, char ***envp)
 	return (EXIT_SUCCESS);
 }
 
-int	builtin_cd(char **args, char ***envp)
+int	builtin_cd(t_command *cmd, char **args, char ***envp)
 {
 	int		print_pwd;
 	char	*target_dir;
-	int		reslut;
+	int		result;
 
+	(void)cmd;
 	if (args[1] && args[2])
 	{
 		cd_err(" too many arguments\n", 2);
@@ -113,7 +114,7 @@ int	builtin_cd(char **args, char ***envp)
 	target_dir = get_target_directory(args, &print_pwd, *envp);
 	if (!target_dir)
 		return (g_last_exit_status);
-	reslut = update_directory(target_dir, print_pwd, envp);
-	g_last_exit_status = reslut;
-	return (reslut);
+	result = update_directory(target_dir, print_pwd, envp);
+	g_last_exit_status = result;
+	return (result);
 }

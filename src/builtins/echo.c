@@ -52,10 +52,11 @@ static void	print_arguments(char **args)
 	}
 }
 
-int	builtin_echo(char **args, char ***envp)
+int	builtin_echo(t_command *cmd, char **args, char ***envp)
 {
 	int	nline;
 
+	(void)cmd;
 	(void)envp;
 	if (!args[1])
 	{

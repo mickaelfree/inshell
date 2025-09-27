@@ -116,10 +116,11 @@ int	update_env_var(char ***envp_ptr, char *var)
 	return (add_new_var(envp_ptr, var));
 }
 
-int	builtin_export(char **args, char ***envp)
+int	builtin_export(t_command *cmd, char **args, char ***envp)
 {
 	int	i;
 
+	(void)cmd;
 	if (!envp)
 		return (EXIT_FAILURE);
 	g_last_exit_status = 0;

@@ -38,10 +38,11 @@ char	**init_env(char ***envp)
 	return (new_env);
 }
 
-int	builtin_env(char **args, char ***envp)
+int	builtin_env(t_command *cmd, char **args, char ***envp)
 {
 	int	i;
 
+	(void)cmd;
 	i = 0;
 	if (args[1])
 	{

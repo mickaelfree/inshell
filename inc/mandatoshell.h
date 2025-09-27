@@ -167,38 +167,38 @@ typedef struct s_token_handler
 			char **envp, t_command **head);
 }							t_token_handler;
 
-typedef int					(*t_builtin_func)(char **args, char ***envp);
+typedef int					(*t_builtin_func)(t_command *cmd, char **args, char ***envp);
 
 /////////////////////////FUNCTIONS////////////////////////
 
 //-----------------------------BUILTINS----------------------------//
 
 //cd.c
-int							builtin_cd(char **args, char ***envp);
+int							builtin_cd(t_command *cmd, char **args, char ***envp);
 
 //echo.c
-int							builtin_echo(char **args, char ***envp);
+int							builtin_echo(t_command *cmd, char **args, char ***envp);
 
 //env.c
 char						**init_env(char ***envp);
-int							builtin_env(char **args, char ***envp);
+int							builtin_env(t_command *cmd, char **args, char ***envp);
 
 //exit.c
-int							builtin_exit(char **args, char ***envp);
+int							builtin_exit(t_command *cmd, char **args, char ***envp);
 
 //export.c
 int							update_env_var(char ***envp_ptr, char *var);
-int							builtin_export(char **args, char ***envp);
+int							builtin_export(t_command *cmd, char **args, char ***envp);
 
 //is_builin.c
 int							is_builtin(char **args);
-int							execute_builtin(char **args, char ***envp);
+int							execute_builtin(t_command *cmd, char ***envp);
 
 //pwd.c
-int							builtin_pwd(char **args, char ***envp);
+int							builtin_pwd(t_command *cmd, char **args, char ***envp);
 
 //unset.c
-int							builtin_unset(char **args, char ***envp);
+int							builtin_unset(t_command *cmd, char **args, char ***envp);
 
 //-------------------------------EXEC------------------------------//
 

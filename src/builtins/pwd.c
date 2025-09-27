@@ -12,10 +12,11 @@
 
 #include "mandatoshell.h"
 
-int	builtin_pwd(char **argv, char ***envp)
+int	builtin_pwd(t_command *cmd, char **argv, char ***envp)
 {
 	char	*line;
 
+	(void)cmd;
 	(void)argv;
 	(void)envp;
 	line = NULL;
