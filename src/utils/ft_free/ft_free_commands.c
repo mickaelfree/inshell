@@ -1,30 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   ft_free_commands.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/20 19:52:34 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/28 00:43:05 by zsonie           ###   ########lyon.fr   */
+/*   Created: 2025/09/28 00:43:41 by zsonie            #+#    #+#             */
+/*   Updated: 2025/09/28 00:46:08 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mandatoshell.h"
-#include "ft_parsing.h"
-#include "utils.h"
+#include<ft_structs.h>
+#include<utils.h>
+#include<stdlib.h>
 
-t_command	*parse_token(char *line, char **envp)
+void	ft_free_commands(t_command *head)
 {
-	t_pre_token	*tokens;
-	t_command	*commands;
+	t_command	*current;
+	t_command	*next;
 
-	tokens = identify_token(line);
-	if (!tokens)
-		return (NULL);
-	if (DEBUG_MODE)
-		print_token(tokens);
-	commands = build_pipeline(tokens, envp);
-	ft_free_token_list(tokens);
-	return (commands);
+	current = head;
+	while (current)
+	{
+		next = current->next;
+		ft_free_args_and_redir(current);
+		free(current->input_file);
+		free(current->output_file);
+		free(current->heredoc_delim);
+		free(current);
+		current = next;
+	}
 }

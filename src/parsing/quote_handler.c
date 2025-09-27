@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 16:52:39 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/27 23:40:18 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/28 00:43:05 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static int	quote_state_check(int quote_state, t_pre_token **head)
 	if (quote_state > 0)
 	{
 		printf("Error: unclosed quote\n");
-		free_token_list(*head);
+		ft_free_token_list(*head);
 		*head = NULL;
 		return (0);
 	}

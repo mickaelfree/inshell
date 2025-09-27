@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 18:00:45 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/28 00:28:25 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/28 00:43:05 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	create_type_token(t_pre_token **head, t_pre_token **current,
 		type = TOKEN_PIPE;
 	if (!add_type_token(head, current, ptr, type))
 	{
-		free_token_list(*head);
+		ft_free_token_list(*head);
 		return (0);
 	}
 	if (type == TOKEN_PIPE || type == TOKEN_REDIR_IN || type == TOKEN_REDIR_OUT)
@@ -50,7 +50,7 @@ static int	create_word_token(t_pre_token **head, t_pre_token **current,
 		return (0);
 	if (!add_word_token(head, current, *token_start, *ptr - *token_start))
 	{
-		free_token_list(*head);
+		ft_free_token_list(*head);
 		return (0);
 	}
 	skip_whitespace(ptr);

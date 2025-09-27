@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 22:29:03 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/27 22:33:56 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/28 00:43:05 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ char						*cd_err(const char *msg, int status);
 void						ft_free(char **arr);
 void						ft_free_commands(t_command *head);
 void						ft_free_env(char **env);
-void						free_token_list(t_pre_token *head);
-void						free_args_and_redir(t_command *current);
+void						ft_free_token_list(t_pre_token *head);
+void						ft_free_args_and_redir(t_command *current);
 
 //utils.c
 unsigned int				ft_count(void **ptrs);
