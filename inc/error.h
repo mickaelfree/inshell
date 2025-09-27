@@ -29,6 +29,7 @@
 
 //FUNCTIONS
 void	print_custom_error(int err);
-int		print_error_and_ret(int err, int ret);
+int		print_error_ret_err(int err);
+void	*print_error_ret_NULL(int err);
 
 #endif

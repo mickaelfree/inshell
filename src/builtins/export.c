@@ -44,7 +44,7 @@ static int	replace_existing_var(char ***envp_ptr, char *var, int index)
 	len = ft_count((void **)envp);
 	new_env = malloc((len + 1) * sizeof(char *));
 	if (!new_env)
-		return (print_error_and_ret(ERR_ALLOC_EXPORT, 1));
+		return (print_error_ret_err(ERR_ALLOC_EXPORT));
 	j = 0;
 	while (j < len)
 	{
@@ -53,7 +53,7 @@ static int	replace_existing_var(char ***envp_ptr, char *var, int index)
 		else
 			new_env[j] = ft_strdup(envp[j]);
 		if (error_alloc(new_env[j], new_env))
-			return (print_error_and_ret(ERR_ALLOC_EXPORT, 1));
+			return (print_error_ret_err(ERR_ALLOC_EXPORT));
 		j++;
 	}
 	new_env[len] = NULL;
@@ -73,18 +73,18 @@ static int	add_new_var(char ***envp_ptr, char *var)
 	len = ft_count((void **)envp);
 	new_env = malloc((len + 2) * sizeof(char *));
 	if (!new_env)
-		return (print_error_and_ret(ERR_ALLOC_EXPORT, 1));
+		return (print_error_ret_err(ERR_ALLOC_EXPORT));
 	j = 0;
 	while (j < len)
 	{
 		new_env[j] = ft_strdup(envp[j]);
 		if (error_alloc(new_env[j], new_env))
-			return (print_error_and_ret(ERR_ALLOC_EXPORT, 1));
+			return (print_error_ret_err(ERR_ALLOC_EXPORT));
 		j++;
 	}
 	new_env[len] = ft_strdup(var);
 	if (error_alloc(new_env[len], new_env))
-		return (print_error_and_ret(ERR_ALLOC_EXPORT, 1));
+		return (print_error_ret_err(ERR_ALLOC_EXPORT));
 	new_env[len + 1] = NULL;
 	ft_free_env(*envp_ptr);
 	*envp_ptr = new_env;

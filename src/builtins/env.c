@@ -26,10 +26,7 @@ char	**init_env(char ***envp)
 	count = ft_count((void **)cur_env);
 	new_env = malloc(sizeof(char *) * (count + 1));
 	if (!new_env)
-	{
-		print_custom_error(ERR_ALLOC_ENV);
-		return (NULL);
-	}
+		return (print_error_ret_NULL(ERR_ALLOC_ENV));
 	i = 0;
 	while (i < count)
 	{

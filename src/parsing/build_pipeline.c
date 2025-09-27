@@ -70,7 +70,7 @@ t_command	*build_pipeline(t_pre_token *tokens, char **envp)
 		{
 			current = malloc(sizeof(t_command));
 			if (!current)
-				return (print_error_and_ret(ERR_ALLOC_PIPE_BUILD, 0));
+				return (NULL);
 			init_command(current);
 			head = current;
 		}

@@ -29,11 +29,14 @@ void	print_custom_error(int err)
 		printf(ERR_MESSAGE "%sUnknown error\n%s", RED, RESET);
 }
 
-int	print_error_and_ret(int err, int ret)
+int	print_error_ret_err(int err)
 {
 	print_custom_error(err);
-	if (ret == 1)
-		return (1);
-	else
-		return (NULL);
+	return (1);
+}
+
+void	*print_error_ret_NULL(int err)
+{
+	print_custom_error(err);
+	return (NULL);
 }
