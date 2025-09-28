@@ -1,4 +1,3 @@
-# Base params
 MINISHELL = minishell
 CFLAGS = -Wall -Wextra -Werror
 NORELINK = -MMD -MP
@@ -12,25 +11,21 @@ MKFILES=src/builtins/builtins.mk\
 	src/signal/signal.mk\
 	src/utils/utils.mk
 
-# Project files structure
 SRCDIR = src
 BUILDDIR = obj
 
-# Source
 SRCS = $(SRCDIR)/main.c
 
 -include $(MKFILES)
-# Directory structure for object files
+
 OBJS = $(SRCS:$(SRCDIR)/%.c=$(BUILDDIR)/%.o)
 DEPS = $(OBJS:.o=.d)
 
-# Other
-MAKEFLAGS += --no-print-directory  # Avoid flooding the console
+MAKEFLAGS += --no-print-directory
 
 .DEFAULT_GOAL = all  # Set default goal to make all
 
 # Base rule
-.PHONY: all
 all: $(MINISHELL)
 
 $(MINISHELL): $(OBJS) $(LIBFT)
@@ -42,9 +37,7 @@ $(LIBFT): FORCE
 	@$(MAKE) -C ./libft
 
 # Relink prevention for linked projects
-.PHONY: FORCE
 FORCE:
-
 # Individual source file rule
 $(BUILDDIR)/%.o: $(SRCDIR)/%.c
 	@printf "$(GREY)🔨 "
@@ -52,8 +45,6 @@ $(BUILDDIR)/%.o: $(SRCDIR)/%.c
 	$(CC) $(CFLAGS) $(NORELINK) $(INCLUDE) -o $@ -c $<
 	@printf "$(RESET)"
 
-# Cleaning features
-.PHONY: clean fclean
 clean:
 	@printf "$(RED)🗑️  "
 	@$(MAKE) clean -C ./libft > /dev/null
@@ -67,31 +58,32 @@ fclean: clean
 	$(RM) $(MINISHELL)
 	@printf "$(RESET)\n"
 
-# Clean build
-.PHONY: re
 re: fclean all
 
-# Debug build
-.PHONY: debug
-debug: CFLAGS = -Wall -Wextra -Werror -g3 -DDEBUG_MODE=1
-
+# Compile for valgrind
+debug: CFLAGS = -Wall -Wextra -Werror -g3
 debug: fclean all
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=readline.supp --trace-children=yes ./minishell
+
+# Compile for debug mode + valgrind
+fdebug: CFLAGS = -Wall -Wextra -Werror -g3 -DDEBUG_MODE=1
+fdebug: fclean all
 	DEBUG_MODE=1 valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=readline.supp --trace-children=yes ./minishell
 
 # Norminette for source and include
-.PHONY: norm
 norm:
 	norminette src/ inc/
 
-.PHONY: gdb
 gdb:
 	gdb ./$(MINISHELL) -ex "break main"
 
-.PHONY: tester
+# Compile for tester from https://github.com/zstenger93/42_minishell_tester
 tester: CFLAGS = -Wall -Wextra -Werror -g3 -DTESTER=1
 tester: fclean all
 
 -include $(DEPS)
+
+.PHONY: all FORCE clean fclean re debug gdb tester
 
 # COLORS
 RESET = \033[0m
