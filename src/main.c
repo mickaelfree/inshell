@@ -6,19 +6,19 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 21:30:44 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/28 06:56:41 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/28 07:10:55 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft_builtins.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <mandatoshell.h>
+#include <ft_structs.h>
 #include <ft_enum.h>
+#include <ft_builtins.h>
 #include <ft_parsing.h>
 #include <ft_signal.h>
-#include <ft_structs.h>
-#include <libft.h>
-#include <mandatoshell.h>
 #include <signal.h>
-#include <stdio.h>
 #include <ft_utils.h>
 #include <readline/history.h>
 #include <readline/readline.h>

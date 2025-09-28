@@ -86,6 +86,8 @@
   "utils.h": "c",
   "stdio.h": "c",
   "error.h": "c",
-  "readline.h": "c"
+  "readline.h": "c",
+  "ft_signal.h": "c",
+  "ft_utils.h": "c"
 }
 }
