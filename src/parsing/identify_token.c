@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 18:00:45 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/28 00:43:05 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/28 02:06:41 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "ft_parsing.h"
 #include "is_char.h"
 #include "utils.h"
+#include <unistd.h>
 
 static int	create_type_token(t_pre_token **head, t_pre_token **current,
 		char **ptr)

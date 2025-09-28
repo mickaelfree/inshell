@@ -45,11 +45,13 @@ SRCS = $(SRCDIR)/main.c \
 	$(SRCDIR)/utils/debug/display_parsed_command.c \
 	$(SRCDIR)/utils/debug/print_error.c \
 	$(SRCDIR)/utils/debug/print_token.c \
-	$(SRCDIR)/utils/ft_free/ft_free_args_and_redir.c \
-	$(SRCDIR)/utils/ft_free/ft_free_commands.c \
-	$(SRCDIR)/utils/ft_free/ft_free_env.c \
-	$(SRCDIR)/utils/ft_free/ft_free_token_list.c \
-	$(SRCDIR)/utils/ft_free/ft_free.c \
+	$(SRCDIR)/utils/error/ft_error.c \
+	$(SRCDIR)/utils/error/cd_err.c \
+	$(SRCDIR)/utils/free/ft_free_args_and_redir.c \
+	$(SRCDIR)/utils/free/ft_free_commands.c \
+	$(SRCDIR)/utils/free/ft_free_env.c \
+	$(SRCDIR)/utils/free/ft_free_token_list.c \
+	$(SRCDIR)/utils/free/ft_free.c \
 	$(SRCDIR)/utils/is_char/is_append.c \
 	$(SRCDIR)/utils/is_char/is_double_quote.c \
 	$(SRCDIR)/utils/is_char/is_escape.c \
@@ -64,7 +66,6 @@ SRCS = $(SRCDIR)/main.c \
 	$(SRCDIR)/utils/skip/skip_charset.c \
 	$(SRCDIR)/utils/skip/skip_whitespace.c \
 	$(SRCDIR)/utils/char_utils.c \
-	$(SRCDIR)/utils/ft_error.c \
 	$(SRCDIR)/utils/utils.c
 
 # Directory structure for object files

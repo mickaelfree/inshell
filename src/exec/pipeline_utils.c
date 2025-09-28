@@ -6,12 +6,15 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 19:12:13 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/27 18:04:16 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/28 02:03:16 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mandatoshell.h"
 #include "error.h"
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 int	count_pipeline(t_command *cmds)
 {

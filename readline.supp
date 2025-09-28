@@ -8,5 +8,5 @@
    Readline_All_Functions
    Memcheck:Leak
    ...
-   obj:/usr/*
+   obj:/usr/bin/*
 }

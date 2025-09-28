@@ -6,12 +6,13 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/08 12:01:51 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/21 19:25:18 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/28 02:15:53 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "mandatoshell.h"
+#include <errno.h>
 
 void	error_exit(void)
 {
@@ -35,12 +36,12 @@ void	ft_error(char *msg)
 {
 	write(STDERR_FILENO, msg, ft_strlen(msg));
 	write(STDERR_FILENO, "\n", 1);
-	if (strstr(msg, " No such file or directory"))
+	if (ft_strnstr(msg, " No such file or directory", 27))
 	{
 		g_last_exit_status = 127;
 		exit(127);
 	}
-	if (strstr(msg, "Permission denied"))
+	if (ft_strnstr(msg, "Permission denied", 18))
 	{
 		g_last_exit_status = 126;
 		exit(126);
@@ -55,11 +56,4 @@ void	export_error(char *arg)
 	write(STDERR_FILENO, arg, ft_strlen(arg));
 	write(STDERR_FILENO, "': not a valid identifier\n", 26);
 	g_last_exit_status = 1;
-}
-
-char	*cd_err(const char *msg, int status)
-{
-	write(STDERR_FILENO, msg, (int)ft_strlen(msg));
-	g_last_exit_status = status;
-	return (NULL);
 }

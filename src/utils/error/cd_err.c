@@ -1,32 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   cd_err.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/26 14:36:16 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/28 01:56:20 by zsonie           ###   ########lyon.fr   */
+/*   Created: 2025/09/28 01:50:20 by zsonie            #+#    #+#             */
+/*   Updated: 2025/09/28 02:11:01 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mandatoshell.h"
-#include "stdlib.h"
-#include "stdio.h"
-#include "unistd.h"
+#include<mandatoshell.h>
+#include<unistd.h>
+#include<libft.h>
 
-int	builtin_pwd(t_command *cmd, char **argv, char ***envp)
+char	*cd_err(const char *msg, int status)
 {
-	char	*line;
-
-	(void)cmd;
-	(void)argv;
-	(void)envp;
-	line = NULL;
-	line = getcwd(line, 0);
-	if (!line)
-		return (EXIT_FAILURE);
-	printf("%s\n", line);
-	free(line);
-	return (EXIT_SUCCESS);
+	write(STDERR_FILENO, msg, (int)ft_strlen(msg));
+	g_last_exit_status = status;
+	return (NULL);
 }

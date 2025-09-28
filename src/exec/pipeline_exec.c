@@ -6,13 +6,19 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 19:46:11 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/27 23:39:04 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/28 02:05:02 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mandatoshell.h"
 #include "builtins.h"
 #include "utils.h"
+#include <signal.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/wait.h>
+#include <errno.h>
 
 static int	execute_child(t_command *cmd, int index, t_pipeline *pipeline,
 		char ***envp)

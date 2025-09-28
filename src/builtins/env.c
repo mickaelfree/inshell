@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:35:41 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/27 23:52:42 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/28 01:57:29 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "error.h"
 #include "libft.h"
 #include "utils.h"
+#include "stdio.h"
 
 char	**init_env(char ***envp)
 {

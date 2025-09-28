@@ -6,11 +6,15 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 18:37:55 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/25 16:38:34 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/28 02:05:58 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mandatoshell.h"
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <fcntl.h>
 
 static int	rd_in(t_redirection *r)
 {

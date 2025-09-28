@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 16:52:39 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/28 00:43:05 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/28 02:07:25 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "mandatoshell.h"
 #include "is_char.h"
 #include "utils.h"
+#include <stdio.h>
 
 static void	handle_quote_char(char c, int *in_single, int *in_double,
 		char **write_ptr)

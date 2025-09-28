@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 19:21:13 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/28 00:27:14 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/28 01:55:52 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,6 @@
 # define MANDATOSHELL_H
 
 // INCLUDES
-# include <dirent.h>
-# include <errno.h>
-# include <fcntl.h>
-# include <signal.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <sys/resource.h>
-# include <sys/stat.h>
-# include <sys/wait.h>
-# include <term.h>
-# include <termcap.h>
-# include <termios.h>
-# include <unistd.h>
-# include <readline/history.h>
-# include <readline/readline.h>
 # include <ft_structs.h>
 # include <ft_enum.h>
 
@@ -80,8 +65,5 @@ int							handle_redirections_exec(t_command *cmd);
 
 //utils_redir.c
 void						init_redir_table(t_redir_entry *func);
-
-
-//-----------------------------SIGNAL------------------------------//
 
 #endif

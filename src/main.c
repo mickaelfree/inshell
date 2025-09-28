@@ -6,18 +6,22 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 21:30:44 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/28 00:28:42 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/28 01:54:08 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_structs.h"
-#include "ft_enum.h"
-#include "mandatoshell.h"
-#include "ft_signal.h"
-#include "builtins.h"
-#include "ft_parsing.h"
-#include "libft.h"
-#include "utils.h"
+#include <builtins.h>
+#include <ft_enum.h>
+#include <ft_parsing.h>
+#include <ft_signal.h>
+#include <ft_structs.h>
+#include <libft.h>
+#include <mandatoshell.h>
+#include <stdio.h>
+#include <readline/history.h>
+#include <readline/readline.h>
+#include <signal.h>
+#include <utils.h>
 
 int			g_last_exit_status = 0;
 
@@ -86,7 +90,7 @@ void	update(char ***new_env)
 	}
 }
 
-//PLS REMOVE BEFORE LAST PUSH
+// PLS REMOVE BEFORE LAST PUSH
 void	update_for_tester(char ***new_env)
 {
 	char		*line;
@@ -136,7 +140,7 @@ int	main(int argc, char **argv, char **envp)
 		return (g_last_exit_status);
 	signal(SIGINT, ft_handle_sig);
 	signal(SIGQUIT, ft_handle_sig);
-	//REMOVE BEFORE LAST PUSH
+	// REMOVE BEFORE LAST PUSH
 	if (!TESTER)
 		update(&new_env);
 	else

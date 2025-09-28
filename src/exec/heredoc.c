@@ -6,12 +6,12 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 13:58:19 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/22 18:23:15 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/09/28 02:01:00 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "mandatoshell.h"
+#include <libft.h>
+#include <readline/readline.h>
 
 char	*process_heredoc(char *delimiter)
 {
