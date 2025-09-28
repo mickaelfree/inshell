@@ -13,8 +13,8 @@
 #include "ft_error.h"
 #include "ft_utils.h"
 #include "libft.h"
-#include "stdio.h"
 #include "mandatoshell.h"
+#include "stdio.h"
 
 static int	is_valid_export(char *args)
 {
@@ -140,8 +140,7 @@ int	builtin_export(t_command *cmd, char **args, char ***envp)
 	{
 		if (!is_valid_export(*args))
 			export_error(*args);
-		else if (ft_strchr(*args, '=') && update_env_var(envp,
-				*args) != EXIT_SUCCESS)
+		else if (update_env_var(envp, *args) != EXIT_SUCCESS)
 			g_last_exit_status = 1;
 		args++;
 	}

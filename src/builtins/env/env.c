@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <ft_structs.h>
+#include <libft.h>
 #include <stdio.h>
 
 int	builtin_env(t_command *cmd, char **args, char ***envp)
@@ -26,7 +27,8 @@ int	builtin_env(t_command *cmd, char **args, char ***envp)
 	}
 	while ((*envp)[i])
 	{
-		printf("%s\n", (*envp)[i]);
+		if (ft_strchr((*envp)[i], '='))
+			printf("%s\n", (*envp)[i]);
 		i++;
 	}
 	return (0);

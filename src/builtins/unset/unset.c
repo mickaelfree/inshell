@@ -41,8 +41,7 @@ static int	rm_var(char **envp, char **new_env, char *name)
 	j = 0;
 	while (envp[i])
 	{
-		if (!(ft_strncmp(envp[i], name, name_len) == 0
-				&& envp[i][name_len] == '='))
+		if (!(ft_strncmp(envp[i], name, name_len) == 0))
 		{
 			new_env[j] = ft_strdup(envp[i]);
 			if (error_alloc(new_env[j], new_env))
