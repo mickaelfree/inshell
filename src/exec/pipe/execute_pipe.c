@@ -27,10 +27,8 @@ static int	execute_child(t_command *cmd, int index, t_pipeline *pipeline,
 
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
-	if (index > 0)
-		dup2(pipeline->pipes[index - 1][0], STDIN_FILENO);
-	if (index < pipeline->cmd_count - 1)
-		dup2(pipeline->pipes[index][1], STDOUT_FILENO);
+	if (!setup_child_pipes(index, pipeline))
+		return (1);
 	i = 0;
 	while (i < pipeline->pipe_count)
 	{

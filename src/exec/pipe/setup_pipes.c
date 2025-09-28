@@ -11,8 +11,29 @@
 /* ************************************************************************** */
 
 #include <mandatoshell.h>
-#include <unistd.h>
 #include <stdio.h>
+#include <unistd.h>
+
+int	setup_child_pipes(int index, t_pipeline *pipeline)
+{
+	if (index > 0)
+	{
+		if (dup2(pipeline->pipes[index - 1][0], STDIN_FILENO) == -1)
+		{
+			perror("dup2");
+			return (0);
+		}
+	}
+	if (index < pipeline->cmd_count - 1)
+	{
+		if (dup2(pipeline->pipes[index][1], STDOUT_FILENO) == -1)
+		{
+			perror("dup2");
+			return (0);
+		}
+	}
+	return (1);
+}
 
 int	setup_pipes(t_pipeline *pipeline)
 {
