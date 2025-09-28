@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 22:30:07 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/28 00:27:50 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/28 02:47:06 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ typedef struct s_token_handler
 {
 	int						(*can_handle)(t_pre_token *token);
 	int						(*handle)(t_command **current, t_pre_token **token,
-								char **envp, t_command **head);
+			char **envp, t_command **head);
 }							t_token_handler;
 
 #endif

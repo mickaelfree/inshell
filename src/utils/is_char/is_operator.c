@@ -6,11 +6,11 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 22:17:26 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/27 22:24:39 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/28 02:52:03 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include<is_char.h>
+#include <is_char.h>
 
 int	is_operator(char c)
 {

@@ -6,11 +6,11 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 00:46:22 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/28 00:50:28 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/28 02:47:52 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include<stdlib.h>
+#include <stdlib.h>
 
 void	ft_free_env(char **env)
 {

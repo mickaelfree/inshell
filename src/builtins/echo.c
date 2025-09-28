@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:35:33 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/26 18:20:20 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/28 02:52:25 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	has_newline_option(char ***args)
 
 static void	print_arguments(char **args)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (*args)

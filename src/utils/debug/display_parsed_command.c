@@ -6,12 +6,12 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 00:33:04 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/28 00:33:46 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/28 02:51:58 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include<ft_structs.h>
-#include<stdio.h>
+#include <ft_structs.h>
+#include <stdio.h>
 
 void	display_parsed_command(t_command *cmd)
 {

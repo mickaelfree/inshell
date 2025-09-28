@@ -6,12 +6,12 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 00:39:06 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/28 00:42:21 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/28 02:47:42 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include<ft_structs.h>
-#include<stdlib.h>
+#include <ft_structs.h>
+#include <stdlib.h>
 
 void	ft_free_args_and_redir(t_command *current)
 {

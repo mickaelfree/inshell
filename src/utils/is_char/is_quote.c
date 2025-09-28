@@ -6,11 +6,11 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 22:15:59 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/27 22:26:47 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/28 02:52:07 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include<is_char.h>
+#include <is_char.h>
 
 int	is_quote(char c)
 {

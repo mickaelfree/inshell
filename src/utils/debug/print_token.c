@@ -6,12 +6,12 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 00:31:22 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/28 00:32:39 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/28 02:49:20 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include<ft_structs.h>
-#include<stdio.h>
+#include <ft_structs.h>
+#include <stdio.h>
 
 void	print_token(t_pre_token *token)
 {

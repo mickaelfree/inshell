@@ -6,13 +6,13 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 00:43:41 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/28 00:46:08 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/28 02:49:06 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include<ft_structs.h>
-#include<utils.h>
-#include<stdlib.h>
+#include <ft_structs.h>
+#include <stdlib.h>
+#include <utils.h>
 
 void	ft_free_commands(t_command *head)
 {

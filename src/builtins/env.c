@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:35:41 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/28 01:57:29 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/28 02:51:44 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	**init_env(char ***envp)
 	count = ft_count((void **)cur_env);
 	new_env = malloc(sizeof(char *) * (count + 1));
 	if (!new_env)
-		return (print_error_ret_NULL(ERR_ALLOC_ENV));
+		return (print_error_ret_null(ERR_ALLOC_ENV));
 	i = 0;
 	while (i < count)
 	{
