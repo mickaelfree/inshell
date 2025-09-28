@@ -34,7 +34,8 @@ t_builtin_type	get_builtin_type(char *cmd)
 	init_lookup(builtin_lookup);
 	while (builtin_lookup[i].name)
 	{
-		if (!ft_strncmp((char *)builtin_lookup[i].name, cmd, ft_strlen(builtin_lookup[i].name)))
+		if (!ft_strncmp((char *)builtin_lookup[i].name, cmd,
+				ft_strlen(builtin_lookup[i].name)))
 			return (builtin_lookup[i].type);
 		i++;
 	}

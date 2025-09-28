@@ -10,18 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mandatoshell.h"
-#include "ft_utils.h"
-#include "stdio.h"
 #include "errno.h"
+#include "ft_structs.h"
+#include "ft_utils.h"
 #include "libft.h"
+#include "mandatoshell.h"
+#include "stdio.h"
 
-static void	handle_command_not_found(char **cmd)
+static void	handle_command_not_found(char **cmd, char **env, t_command *cmds)
 {
 	write(STDERR_FILENO, "command not found: ", 19);
 	write(STDERR_FILENO, cmd[0], ft_strlen(cmd[0]));
 	write(STDERR_FILENO, "\n", 1);
-	ft_free(cmd);
+	ft_free_env(env);
+	ft_free_commands(cmds);
 	exit(127);
 }
 
@@ -48,6 +50,7 @@ static void	execute_command(char *path, char **cmd, char **env)
 	{
 		free(path);
 		ft_free(cmd);
+		ft_free_env(env);
 		if (errno == ENOENT)
 		{
 			write(STDERR_FILENO, "command not found\n", 18);
@@ -68,13 +71,13 @@ static void	execute_command(char *path, char **cmd, char **env)
 	}
 }
 
-void	execute(char **av, char **env)
+void	execute(char **av, char **env, t_command *cmd)
 {
 	char	*path;
 
 	path = find_path(*av, env);
 	if (path == NULL)
-		handle_command_not_found(av);
+		handle_command_not_found(av, env, cmd);
 	check_file_permissions(path, av);
 	execute_command(path, av, env);
 }
