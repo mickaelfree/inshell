@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mandatoshell.h"
-#include "libft.h"
 #include "ft_utils.h"
+#include "libft.h"
+#include "mandatoshell.h"
 
 static char	*try_absolute_path(char *cmd, int *status)
 {
@@ -81,6 +81,17 @@ static char	**get_path_directories(char **env)
 	return (NULL);
 }
 
+static char	*try_current_directory(char *cmd)
+{
+	char	*path;
+
+	path = ft_strjoin("./", cmd);
+	if (path && access(path, F_OK | X_OK) == 0)
+		return (path);
+	free(path);
+	return (NULL);
+}
+
 char	*find_path(char *cmd, char **env)
 {
 	char	**paths;
@@ -103,7 +114,7 @@ char	*find_path(char *cmd, char **env)
 		return (path);
 	paths = get_path_directories(env);
 	if (!paths)
-		return (NULL);
+		return (try_current_directory(cmd));
 	path = try_path_directories(cmd, paths);
 	ft_free(paths);
 	return (path);
