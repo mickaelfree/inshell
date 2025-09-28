@@ -1,33 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_commands.c                                 :+:      :+:    :+:   */
+/*   ft_colors.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/28 00:43:41 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/28 06:33:18 by zsonie           ###   ########lyon.fr   */
+/*   Created: 2025/09/28 06:36:52 by zsonie            #+#    #+#             */
+/*   Updated: 2025/09/28 06:37:33 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft_structs.h>
-#include <stdlib.h>
-#include <ft_utils.h>
+#ifndef FT_COLORS_H
+# define FT_COLORS_H
 
-void	ft_free_commands(t_command *head)
-{
-	t_command	*current;
-	t_command	*next;
+// COLORS
+# define RED "\e[31m"
+# define GREEN "\e[32m"
+# define YELLOW "\e[33m"
+# define CYAN "\033[36m"
+# define RESET "\e[0m"
 
-	current = head;
-	while (current)
-	{
-		next = current->next;
-		ft_free_args_and_redir(current);
-		free(current->input_file);
-		free(current->output_file);
-		free(current->heredoc_delim);
-		free(current);
-		current = next;
-	}
-}
+#endif

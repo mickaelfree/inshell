@@ -1,33 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_commands.c                                 :+:      :+:    :+:   */
+/*   is_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/28 00:43:41 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/28 06:33:18 by zsonie           ###   ########lyon.fr   */
+/*   Created: 2025/06/20 17:49:57 by mickmart          #+#    #+#             */
+/*   Updated: 2025/09/28 06:32:57 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft_structs.h>
-#include <stdlib.h>
-#include <ft_utils.h>
+#include "ft_builtins.h"
 
-void	ft_free_commands(t_command *head)
+int	is_builtin(char **args)
 {
-	t_command	*current;
-	t_command	*next;
+	t_builtin_type	type;
 
-	current = head;
-	while (current)
-	{
-		next = current->next;
-		ft_free_args_and_redir(current);
-		free(current->input_file);
-		free(current->output_file);
-		free(current->heredoc_delim);
-		free(current);
-		current = next;
-	}
+	if (!args || !args[0])
+		return (-1);
+	type = get_builtin_type(args[0]);
+	if (type == BUILTIN_UNKNOWN)
+		type = -1;
+	return ((int)type);
 }

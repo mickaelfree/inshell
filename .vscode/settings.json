@@ -81,6 +81,11 @@
   "types.h": "c",
   "unistd.h": "c",
   "dirent.h": "c",
-  "ft_structs.h": "c"
+  "ft_structs.h": "c",
+  "builtins.h": "c",
+  "utils.h": "c",
+  "stdio.h": "c",
+  "error.h": "c",
+  "readline.h": "c"
 }
 }

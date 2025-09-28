@@ -1,33 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_commands.c                                 :+:      :+:    :+:   */
+/*   setup_pipes.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/28 00:43:41 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/28 06:33:18 by zsonie           ###   ########lyon.fr   */
+/*   Created: 2025/09/28 06:23:57 by zsonie            #+#    #+#             */
+/*   Updated: 2025/09/28 06:31:05 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft_structs.h>
-#include <stdlib.h>
-#include <ft_utils.h>
+#include <mandatoshell.h>
+#include <unistd.h>
+#include <stdio.h>
 
-void	ft_free_commands(t_command *head)
+int	setup_pipes(t_pipeline *pipeline)
 {
-	t_command	*current;
-	t_command	*next;
+	int	i;
+	int	j;
 
-	current = head;
-	while (current)
+	i = 0;
+	while (i < pipeline->pipe_count)
 	{
-		next = current->next;
-		ft_free_args_and_redir(current);
-		free(current->input_file);
-		free(current->output_file);
-		free(current->heredoc_delim);
-		free(current);
-		current = next;
+		if (pipe(pipeline->pipes[i]) == -1)
+		{
+			j = 0;
+			while (j < i)
+			{
+				close(pipeline->pipes[j][0]);
+				close(pipeline->pipes[j][1]);
+				j++;
+			}
+			perror("pipe");
+			g_last_exit_status = 1;
+			return (0);
+		}
+		i++;
 	}
+	return (1);
 }

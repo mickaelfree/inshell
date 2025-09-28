@@ -1,0 +1,28 @@
+SRCS += $(addprefix src/utils/, \
+	debug/display_parsed_command.c\
+	debug/print_error.c\
+	debug/print_token.c\
+	debug/update_for_tester.c\
+	error/cd_err.c\
+	error/ft_error.c\
+	free/ft_free_args_and_redir.c\
+	free/ft_free_commands.c\
+	free/ft_free_env.c\
+	free/ft_free_token_list.c\
+	free/ft_free.c\
+	is_char/is_append.c\
+	is_char/is_double_quote.c\
+	is_char/is_escape.c\
+	is_char/is_heredoc.c\
+	is_char/is_operator.c\
+	is_char/is_pipe.c\
+	is_char/is_quote.c\
+	is_char/is_redir.c\
+	is_char/is_single_quote.c\
+	is_char/is_special.c\
+	is_char/is_whitespace.c\
+	skip/skip_charset.c\
+	skip/skip_whitespace.c\
+	char_utils.c\
+	utils.c\
+)

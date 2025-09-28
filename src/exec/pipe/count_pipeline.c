@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_commands.c                                 :+:      :+:    :+:   */
+/*   count_pipeline.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/28 00:43:41 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/28 06:33:18 by zsonie           ###   ########lyon.fr   */
+/*   Created: 2025/09/28 06:21:20 by zsonie            #+#    #+#             */
+/*   Updated: 2025/09/28 06:34:48 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_structs.h>
-#include <stdlib.h>
-#include <ft_utils.h>
 
-void	ft_free_commands(t_command *head)
+int	count_pipeline(t_command *cmds)
 {
-	t_command	*current;
-	t_command	*next;
+	int			count;
+	t_command	*cur;
 
-	current = head;
-	while (current)
+	count = 0;
+	cur = cmds;
+	while (cur)
 	{
-		next = current->next;
-		ft_free_args_and_redir(current);
-		free(current->input_file);
-		free(current->output_file);
-		free(current->heredoc_delim);
-		free(current);
-		current = next;
+		count++;
+		cur = cur->next;
 	}
+	return (count);
 }

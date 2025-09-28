@@ -6,12 +6,12 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 17:35:38 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/27 23:41:20 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/28 06:33:18 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "utils.h"
+#include "ft_utils.h"
 
 unsigned int	ft_count(void **ptrs)
 {

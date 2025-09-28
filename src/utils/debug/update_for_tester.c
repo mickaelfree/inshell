@@ -1,29 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   update_for_tester.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/23 21:30:44 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/28 06:56:41 by zsonie           ###   ########lyon.fr   */
+/*   Created: 2025/09/28 06:38:23 by zsonie            #+#    #+#             */
+/*   Updated: 2025/09/28 06:54:34 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft_builtins.h>
-#include <ft_enum.h>
-#include <ft_parsing.h>
-#include <ft_signal.h>
-#include <ft_structs.h>
-#include <libft.h>
-#include <mandatoshell.h>
-#include <signal.h>
 #include <stdio.h>
+#include <unistd.h>
+#include <ft_structs.h>
+#include <mandatoshell.h>
+#include <libft.h>
 #include <ft_utils.h>
-#include <readline/history.h>
+#include <ft_parsing.h>
 #include <readline/readline.h>
-
-int			g_last_exit_status = 0;
+#include <readline/history.h>
 
 static void	rl_check_and_exit(char *line, char ***new_env)
 {
@@ -37,14 +32,44 @@ static void	rl_check_and_exit(char *line, char ***new_env)
 	}
 }
 
-void	update(char ***new_env)
+static int	check_gnl(char **raw_line, char **line)
+{
+	*raw_line = get_next_line(fileno(stdin));
+	if (!(*raw_line))
+		return (0);
+	*line = ft_strtrim(*raw_line, "\n");
+	free(*raw_line);
+	return (1);
+}
+
+static void	check_update(t_command **cmd, char *line, char ***new_env)
+{
+	*cmd = parse_token(line, *new_env);
+	if (DEBUG_MODE)
+		display_parsed_command(*cmd);
+	if (*cmd)
+		execute_cmd(*cmd, new_env);
+	ft_free_commands(*cmd);
+	free(line);
+}
+
+void	update_for_tester(char ***new_env)
 {
 	char		*line;
 	t_command	*cmd;
+	char		*raw_line;
 
 	while (1)
 	{
-		line = readline("Mandatoshell>");
+		if (isatty(fileno(stdin)))
+		{
+			line = readline("Mandatoshell>");
+		}
+		else
+		{
+			if (!check_gnl(&raw_line, &line))
+				break ;
+		}
 		rl_check_and_exit(line, new_env);
 		if (*line)
 			add_history(line);
@@ -53,33 +78,6 @@ void	update(char ***new_env)
 			free(line);
 			continue ;
 		}
-		cmd = parse_token(line, *new_env);
-		if (DEBUG_MODE)
-			display_parsed_command(cmd);
-		if (cmd)
-			execute_cmd(cmd, new_env);
-		ft_free_commands(cmd);
-		free(line);
+		check_update(&cmd, line, new_env);
 	}
-}
-
-int	main(int argc, char **argv, char **envp)
-{
-	char	**new_env;
-
-	(void)argc;
-	(void)argv;
-	new_env = init_env(&envp);
-	if (!new_env)
-		return (g_last_exit_status);
-	signal(SIGINT, ft_handle_sig);
-	signal(SIGQUIT, ft_handle_sig);
-	if (!TESTER)
-		update(&new_env);
-	else
-		update_for_tester(&new_env);
-	rl_clear_history();
-	if (new_env)
-		ft_free_env(new_env);
-	return (g_last_exit_status);
 }

@@ -6,11 +6,11 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 17:29:57 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/28 02:51:47 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/28 06:34:09 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <error.h>
+#include <ft_error.h>
 #include <stdio.h>
 
 void	print_custom_error(int err)

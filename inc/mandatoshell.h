@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 19:21:13 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/28 01:55:52 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/28 06:27:20 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char						*find_path(char *cmd, char **env);
 char						*process_heredoc(char *delimiter);
 
 //pipeline_exec.c
-void						execute_pipeline(t_command *cmds, int cmd_count,
+void						execute_pipe(t_command *cmds, int cmd_count,
 								char ***envp);
 
 //pipeline_utils.c
@@ -61,7 +61,7 @@ int							setup_pipes(t_pipeline *pipeline);
 void						close_parent_pipes(t_pipeline *pipeline);
 
 //redirections.c
-int							handle_redirections_exec(t_command *cmd);
+int							exec_redirections(t_command *cmd);
 
 //utils_redir.c
 void						init_redir_table(t_redir_entry *func);

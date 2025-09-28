@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_commands.c                                 :+:      :+:    :+:   */
+/*   close_parent_pipes.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/28 00:43:41 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/28 06:33:18 by zsonie           ###   ########lyon.fr   */
+/*   Created: 2025/09/22 19:12:13 by mickmart          #+#    #+#             */
+/*   Updated: 2025/09/28 06:34:17 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <ft_error.h>
 #include <ft_structs.h>
-#include <stdlib.h>
-#include <ft_utils.h>
+#include <unistd.h>
 
-void	ft_free_commands(t_command *head)
+void	close_parent_pipes(t_pipeline *pipeline)
 {
-	t_command	*current;
-	t_command	*next;
+	int	i;
 
-	current = head;
-	while (current)
+	i = 0;
+	while (i < pipeline->pipe_count)
 	{
-		next = current->next;
-		ft_free_args_and_redir(current);
-		free(current->input_file);
-		free(current->output_file);
-		free(current->heredoc_delim);
-		free(current);
-		current = next;
+		close(pipeline->pipes[i][0]);
+		close(pipeline->pipes[i][1]);
+		i++;
 	}
 }
