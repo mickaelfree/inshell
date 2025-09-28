@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 22:31:45 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/27 22:32:19 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/28 11:47:07 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef enum e_char_type
 	CHAR_DOUBLE_QUOTE,
 	CHAR_ESCAPE,
 	CHAR_SPECIAL,
-}							t_char_type;
+}	t_char_type;
 
 typedef enum e_token_type
 {
@@ -38,8 +38,8 @@ typedef enum e_token_type
 	TOKEN_REDIR_OUT,
 	TOKEN_HEREDOC,
 	TOKEN_APPEND,
-        TOKEN_WHITESPACE_QUOTE,
-}							t_token_type;
+	TOKEN_WHITESPACE_QUOTE,
+}	t_token_type;
 
 typedef enum e_builtin_type
 {
@@ -51,6 +51,6 @@ typedef enum e_builtin_type
 	BUILTIN_PWD,
 	BUILTIN_UNSET,
 	BUILTIN_UNKNOWN,
-}							t_builtin_type;
+}	t_builtin_type;
 
 #endif

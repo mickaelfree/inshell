@@ -6,6 +6,7 @@ SRCS += $(addprefix src/parsing/, \
 	pipe/build_pipeline.c\
 	redir/redirection_handler.c\
 	redir/redirection_utils.c\
+	token/process_token.c\
 	token/can_token.c\
 	token/handle_token.c\
 	token/identify_token.c\

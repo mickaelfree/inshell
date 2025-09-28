@@ -6,13 +6,13 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 19:27:29 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/28 09:59:32 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/09/28 11:00:53 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "ft_parsing.h"
 #include "libft.h"
+#include <stdio.h>
 
 static int	handle_redirection_token(t_command **current, t_pre_token **token,
 		char **envp, t_command **head)
@@ -45,15 +45,31 @@ static int	handle_pipe_token(t_command **current, t_pre_token **token,
 	return (1);
 }
 
-static int	handle_whitespace_quote_token(t_command **current, t_pre_token **token,
-		char **envp, t_command **head)
+static int	handle_whitespace_quote_token(t_command **current,
+		t_pre_token **token, char **envp, t_command **head)
 {
 	char	*value;
+	char	**new_args;
+	int		i;
 
 	(void)head;
 	(void)envp;
 	value = ft_strndup((*token)->start, (*token)->len);
-	add_argument(*current, value, envp);
+	new_args = malloc(sizeof(char *) * ((*current)->arg_count + 2));
+	if (!new_args)
+	{
+		free(value);
+		return (0);
+	}
+	i = -1;
+	while (++i < (*current)->arg_count)
+		new_args[i] = (*current)->args[i];
+	new_args[(*current)->arg_count] = value;
+	new_args[(*current)->arg_count + 1] = NULL;
+	if ((*current)->args)
+		free((*current)->args);
+	(*current)->args = new_args;
+	(*current)->arg_count++;
 	*token = (*token)->next;
 	return (1);
 }
@@ -82,29 +98,13 @@ static int	handle_word_token(t_command **current, t_pre_token **token,
 	return (1);
 }
 
-static void	init_handlers(t_token_handler *handlers)
+void	init_handlers(t_token_handler *handlers)
 {
 	handlers[0] = (t_token_handler){can_handle_pipe, handle_pipe_token};
 	handlers[1] = (t_token_handler){can_handle_redirection,
 		handle_redirection_token};
-        handlers[2] = (t_token_handler){can_handle_whitespace_quote, handle_whitespace_quote_token};
-	handlers[3] = (t_token_handler){can_handle_word, handle_word_token};
+	handlers[2] = (t_token_handler){can_handle_word, handle_word_token};
+	handlers[3] = (t_token_handler){can_handle_whitespace_quote,
+		handle_whitespace_quote_token};
 	handlers[4] = (t_token_handler){NULL, NULL};
-}
-
-int	process_token(t_pre_token **token, t_command **current, t_command **head,
-		char **envp)
-{
-	t_token_handler	handlers[5];
-	int				i;
-
-	init_handlers(handlers);
-	i = 0;
-	while (handlers[i].can_handle)
-	{
-		if (handlers[i].can_handle(*token))
-			return (handlers[i].handle(current, token, envp, head));
-		i++;
-	}
-	return (0);
 }

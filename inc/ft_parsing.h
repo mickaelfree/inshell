@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 23:56:13 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/28 10:13:52 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/09/28 11:45:21 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_command	*build_pipeline(t_pre_token *tokens, char **envp);
 int			can_handle_pipe(t_pre_token *token);
 int			can_handle_redirection(t_pre_token *token);
 int			can_handle_word(t_pre_token *token);
-int	                can_handle_whitespace_quote(t_pre_token *token);
+int			can_handle_whitespace_quote(t_pre_token *token);
 // expand_env.c
 char		*expand_variables(char *str, char **envp);
 
@@ -42,6 +42,7 @@ char		*trim_leading_spaces(char *result);
 // handle_token.c
 int			process_token(t_pre_token **token, t_command **current,
 				t_command **head, char **envp);
+void		init_handlers(t_token_handler *handlers);
 
 // identify_token.c
 t_pre_token	*identify_token(char *line);
@@ -66,7 +67,7 @@ t_pre_token	*add_type_token(t_pre_token **head, t_pre_token **current,
 				char **start, int type);
 t_pre_token	*add_word_token(t_pre_token **head, t_pre_token **current,
 				char *start, int len);
-t_pre_token	*add_whitespace_quote_token(t_pre_token **head, t_pre_token **current,
-				char *start, int len);
+t_pre_token	*add_whitespace_quote_token(t_pre_token **head,
+				t_pre_token **current, char *start, int len);
 
 #endif

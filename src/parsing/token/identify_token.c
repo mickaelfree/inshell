@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 18:00:45 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/28 10:19:02 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/09/28 11:56:15 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,33 +43,33 @@ static int	create_type_token(t_pre_token **head, t_pre_token **current,
 	skip_whitespace(ptr);
 	return (1);
 }
+
 static int	is_only_whitespace_in_quotes(char *start, int len)
 {
 	int		i;
 	int		in_quotes;
 	char	quote_char;
+	int		has_quotes;
 
 	i = 0;
 	in_quotes = 0;
 	quote_char = 0;
+	has_quotes = 0;
 	while (i < len)
 	{
 		if (!in_quotes && is_quote(start[i]))
 		{
 			in_quotes = 1;
 			quote_char = start[i];
+			has_quotes = 1;
 		}
 		else if (in_quotes && start[i] == quote_char)
-		{
 			in_quotes = 0;
-		}
 		else if (in_quotes && !is_whitespace(start[i]))
-		{
 			return (0);
-		}
 		i++;
 	}
-	return (1);
+	return (has_quotes);
 }
 
 static int	create_word_token(t_pre_token **head, t_pre_token **current,
