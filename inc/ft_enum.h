@@ -38,6 +38,7 @@ typedef enum e_token_type
 	TOKEN_REDIR_OUT,
 	TOKEN_HEREDOC,
 	TOKEN_APPEND,
+        TOKEN_WHITESPACE_QUOTE,
 }							t_token_type;
 
 typedef enum e_builtin_type

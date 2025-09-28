@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 15:48:37 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/24 04:38:56 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/28 10:12:02 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,25 @@ t_pre_token	*add_type_token(t_pre_token **head, t_pre_token **current,
 	new->start = (*start);
 	new->len = new_len;
 	new->type = type;
+	new->next = NULL;
+	if (!*head)
+		*head = new;
+	else
+		(*current)->next = new;
+	*current = new;
+	return (new);
+}
+t_pre_token	*add_whitespace_quote_token(t_pre_token **head,
+		t_pre_token **current, char *start, int len)
+{
+	t_pre_token	*new;
+
+	new = malloc(sizeof(t_pre_token));
+	if (!new)
+		return (NULL);
+	new->start = start;
+	new->len = len;
+	new->type = TOKEN_WHITESPACE_QUOTE;
 	new->next = NULL;
 	if (!*head)
 		*head = new;

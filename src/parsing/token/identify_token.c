@@ -6,14 +6,14 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 18:00:45 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/28 06:33:18 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/28 10:19:02 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mandatoshell.h"
 #include "ft_parsing.h"
-#include "is_char.h"
 #include "ft_utils.h"
+#include "is_char.h"
+#include "mandatoshell.h"
 #include <unistd.h>
 
 static int	create_type_token(t_pre_token **head, t_pre_token **current,
@@ -43,16 +43,56 @@ static int	create_type_token(t_pre_token **head, t_pre_token **current,
 	skip_whitespace(ptr);
 	return (1);
 }
+static int	is_only_whitespace_in_quotes(char *start, int len)
+{
+	int		i;
+	int		in_quotes;
+	char	quote_char;
+
+	i = 0;
+	in_quotes = 0;
+	quote_char = 0;
+	while (i < len)
+	{
+		if (!in_quotes && is_quote(start[i]))
+		{
+			in_quotes = 1;
+			quote_char = start[i];
+		}
+		else if (in_quotes && start[i] == quote_char)
+		{
+			in_quotes = 0;
+		}
+		else if (in_quotes && !is_whitespace(start[i]))
+		{
+			return (0);
+		}
+		i++;
+	}
+	return (1);
+}
 
 static int	create_word_token(t_pre_token **head, t_pre_token **current,
 		char **ptr, char **token_start)
 {
 	if (!check_for_quotes(head, ptr))
 		return (0);
-	if (!add_word_token(head, current, *token_start, *ptr - *token_start))
+	if (is_only_whitespace_in_quotes(*token_start, *ptr - *token_start))
 	{
-		ft_free_token_list(*head);
-		return (0);
+		if (!add_whitespace_quote_token(head, current, *token_start, *ptr
+				- *token_start))
+		{
+			ft_free_token_list(*head);
+			return (0);
+		}
+	}
+	else
+	{
+		if (!add_word_token(head, current, *token_start, *ptr - *token_start))
+		{
+			ft_free_token_list(*head);
+			return (0);
+		}
 	}
 	skip_whitespace(ptr);
 	return (1);

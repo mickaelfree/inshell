@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 19:27:29 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/28 00:28:25 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/28 09:59:32 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,19 @@ static int	handle_pipe_token(t_command **current, t_pre_token **token,
 	return (1);
 }
 
+static int	handle_whitespace_quote_token(t_command **current, t_pre_token **token,
+		char **envp, t_command **head)
+{
+	char	*value;
+
+	(void)head;
+	(void)envp;
+	value = ft_strndup((*token)->start, (*token)->len);
+	add_argument(*current, value, envp);
+	*token = (*token)->next;
+	return (1);
+}
+
 static int	handle_word_token(t_command **current, t_pre_token **token,
 		char **envp, t_command **head)
 {
@@ -74,14 +87,15 @@ static void	init_handlers(t_token_handler *handlers)
 	handlers[0] = (t_token_handler){can_handle_pipe, handle_pipe_token};
 	handlers[1] = (t_token_handler){can_handle_redirection,
 		handle_redirection_token};
-	handlers[2] = (t_token_handler){can_handle_word, handle_word_token};
-	handlers[3] = (t_token_handler){NULL, NULL};
+        handlers[2] = (t_token_handler){can_handle_whitespace_quote, handle_whitespace_quote_token};
+	handlers[3] = (t_token_handler){can_handle_word, handle_word_token};
+	handlers[4] = (t_token_handler){NULL, NULL};
 }
 
 int	process_token(t_pre_token **token, t_command **current, t_command **head,
 		char **envp)
 {
-	t_token_handler	handlers[4];
+	t_token_handler	handlers[5];
 	int				i;
 
 	init_handlers(handlers);

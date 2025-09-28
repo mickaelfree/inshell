@@ -6,7 +6,7 @@
 /*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 19:21:00 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/23 20:17:19 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/09/28 10:01:43 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,9 @@ int	can_handle_word(t_pre_token *token)
 	return (token->type == TOKEN_WORD || token->type == TOKEN_QUOTED
 		|| token->type == TOKEN_DOUBLE_QUOTE
 		|| token->type == TOKEN_SINGLE_QUOTE);
+}
+
+int	can_handle_whitespace_quote(t_pre_token *token)
+{
+	return (token->type == TOKEN_WHITESPACE_QUOTE);
 }
