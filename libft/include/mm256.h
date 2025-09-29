@@ -6,14 +6,14 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 14:12:45 by dderny            #+#    #+#             */
-/*   Updated: 2025/09/29 20:36:52 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/30 00:29:34 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MM256_H
 # define MM256_H
 
-#include <immintrin.h>
+# include <immintrin.h>
 
 /**
 ** @brief Perform a left logical shift on a 256-bit integer vector.
