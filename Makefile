@@ -5,6 +5,10 @@ INCLUDE = -I inc -I libft/include
 LIBFT = libft/libft.a
 LIBS ?= -lreadline -lncurses
 
+PRINTSTART = @printf "\n$(MAGENTA)🔨Compiling minishell🔨$(RESET)\n"
+printstart:
+	$(PRINTSTART)
+
 MKFILES=src/builtins/builtins.mk\
 	src/exec/exec.mk\
 	src/parsing/parsing.mk\
@@ -26,12 +30,13 @@ MAKEFLAGS += --no-print-directory
 .DEFAULT_GOAL = all  # Set default goal to make all
 
 # Base rule
-all: $(MINISHELL)
+all: printstart $(MINISHELL)
 
 $(MINISHELL): $(OBJS) $(LIBFT)
-	@printf "$(GREY)🔨 "
-	$(CC) $(CFLAGS) $(NORELINK) $(INCLUDE) -o $@ $(OBJS) $(LIBS) $(LIBFT)
-	@printf "\n $(GREEN)✅ Build done!$(RESET)\n"
+	@printf "\n$(MAGENTA)🔨Compile exec🔨$(CYAN)\n"
+	@printf "$(YELLOW)Compile $(CYAN)$@ $(YELLOW)from $(CYAN)$^$(RESET)\n"
+	@$(CC) $(CFLAGS) $(NORELINK) $(INCLUDE) -o $@ $(OBJS) $(LIBS) $(LIBFT)
+	@printf "\n$(YELLOW)✅ Build done!$(RESET)\n\n"
 
 $(LIBFT): FORCE
 	@$(MAKE) -C ./libft
@@ -40,10 +45,10 @@ $(LIBFT): FORCE
 FORCE:
 # Individual source file rule
 $(BUILDDIR)/%.o: $(SRCDIR)/%.c
-	@printf "$(GREY)🔨 "
-	mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(NORELINK) $(INCLUDE) -o $@ -c $<
-	@printf "$(RESET)"
+	@mkdir -p $(dir $@)
+	@printf "$(GREEN)🔨Compiling $(CYAN) $@ $(GREEN)from $(CYAN)$<"
+	@$(CC) $(CFLAGS) $(NORELINK) $(INCLUDE) -o $@ -c $<
+	@printf "$(RESET)\n"
 
 clean:
 	@printf "$(RED)🗑️  "

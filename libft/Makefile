@@ -24,6 +24,8 @@ MKFILES = src/char/char.mk\
 	src/time/time.mk\
 	src/write/write.mk
 
+PRINTSTART = @printf "\n$(MAGENTA)🔨Compiling libft🔨$(RESET)\n"
+
 SRCS =
 -include $(MKFILES)
 
@@ -35,20 +37,23 @@ DEPS = $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)%.d, $(SRCS))
 DIRS := $(sort $(dir $(OBJECTS)))
 
 # Build the library
+printstart:
+	$(PRINTSTART)
+
 .PHONY: all
-all: $(DIRS) $(NAME)
+all: printstart $(DIRS) $(NAME)
 
 $(DIRS):
 	@mkdir -p $@
 
 # Compile .c to .o
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
-	@printf "$(YELLOW)Compiling objects and dependencies... $(GREEN)$@ $(YELLOW)from $(GREEN)$<$(RESET)\n"
+	@printf "$(YELLOW)🔨Compiling objects and dependencies... $(GREEN)$@ $(YELLOW)from $(GREEN)$<$(RESET)\n"
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -c $< -o $@ 
 
 $(NAME): $(OBJECTS) Makefile
-	@printf "$(YELLOW)\nCreating Archive... $(GREEN)$@$(RESET)\n"
+	@printf "$(YELLOW)\n✅ Archive Created... $(GREEN)$@$(RESET)\n"
 	@$(AR) $@ $(OBJECTS)
 	@ranlib $(NAME)
 
@@ -69,8 +74,14 @@ re:
 	@$(MAKE) --no-print-directory all
 
 .DEFAULT_GOAL = all
+
 # COLORS
-RED    = \033[31m
-GREEN  = \033[32m
-YELLOW = \033[33m
-RESET  = \033[0m
+RESET = \033[0m
+RED = \033[1;31m
+GREEN = \033[1;32m
+YELLOW = \033[1;33m
+BLUE = \033[1;34m
+MAGENTA = \033[1;35m
+CYAN = \033[1;36m
+WHITE = \033[1;37m
+GREY = \033[1;90m
