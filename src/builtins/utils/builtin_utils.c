@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 05:57:02 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/29 19:57:03 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/29 21:27:44 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_builtin_type	get_builtin_type(char *cmd)
 	while (builtin_lookup[i].name)
 	{
 		if (!ft_strncmp((char *)builtin_lookup[i].name, cmd,
-				ft_strlen(builtin_lookup[i].name)))
+				ft_strlen(builtin_lookup[i].name) + 1))
 			return (builtin_lookup[i].type);
 		i++;
 	}
