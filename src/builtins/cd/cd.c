@@ -6,15 +6,18 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:33:23 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/28 06:33:23 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/29 19:51:54 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <ft_strings.h>
+
+#include <mandatoshell.h>
 #include <ft_builtins.h>
 #include <ft_parsing.h>
 #include <ft_utils.h>
-#include <libft.h>
-#include <mandatoshell.h>
+
+#include <stdlib.h>
 #include <stdio.h>
 
 static char	*get_target_directory(char **args, int *print_pwd, char **envp)

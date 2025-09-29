@@ -6,15 +6,18 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 17:12:14 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/28 06:34:09 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/29 20:05:56 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "mandatoshell.h"
-#include "ft_error.h"
-#include "ft_parsing.h"
-#include "ft_utils.h"
+#include <ft_strings.h>
+
+#include <mandatoshell.h>
+#include <ft_error.h>
+#include <ft_parsing.h>
+#include <ft_utils.h>
+
+#include <stdlib.h>
 
 void	init_command(t_command *cmd)
 {

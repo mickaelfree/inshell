@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   can_token.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 19:21:00 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/28 10:01:43 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/09/29 20:07:13 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mandatoshell.h"
+#include <ft_structs.h>
 
 int	can_handle_pipe(t_pre_token *token)
 {

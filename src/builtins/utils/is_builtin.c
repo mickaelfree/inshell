@@ -6,11 +6,11 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 17:49:57 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/28 06:32:57 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/29 19:57:13 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_builtins.h"
+#include <ft_builtins.h>
 
 int	is_builtin(char **args)
 {

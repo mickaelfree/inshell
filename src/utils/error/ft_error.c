@@ -6,12 +6,17 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/08 12:01:51 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/28 02:15:53 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/29 20:13:48 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "mandatoshell.h"
+#include <ft_strings.h>
+#include <ft_write.h>
+
+#include <mandatoshell.h>
+
+#include <unistd.h>
+#include <stdlib.h>
 #include <errno.h>
 
 void	error_exit(void)

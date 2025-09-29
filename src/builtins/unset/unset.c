@@ -6,13 +6,16 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:36:20 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/28 06:34:09 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/29 19:56:29 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_error.h"
-#include "ft_utils.h"
-#include "libft.h"
+#include <ft_char.h>
+#include <ft_strings.h>
+
+#include <ft_error.h>
+#include <ft_utils.h>
+
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -90,9 +93,7 @@ int	builtin_unset(t_command *cmd, char **args, char ***envp)
 			ret = 1;
 		}
 		else
-		{
 			remove_env_var(envp, *args);
-		}
 		args++;
 	}
 	return (ret);

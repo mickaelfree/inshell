@@ -6,11 +6,12 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 17:48:57 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/28 05:44:24 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/29 20:11:39 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mandatoshell.h"
+#include <mandatoshell.h>
+
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>

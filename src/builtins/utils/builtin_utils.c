@@ -6,12 +6,13 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 05:57:02 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/28 06:32:57 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/29 19:57:03 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_builtins.h"
-#include "libft.h"
+#include <ft_strings.h>
+
+#include <ft_builtins.h>
 
 static void	init_lookup(t_builtin_entry *builtin_lookup)
 {

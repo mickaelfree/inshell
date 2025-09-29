@@ -6,13 +6,14 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 01:35:56 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/28 00:03:39 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/29 20:12:18 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "is_char.h"
-#include "ft_enum.h"
-#include "libft.h"
+#include <ft_strings.h>
+
+#include <is_char.h>
+#include <ft_enum.h>
 
 int	char_type(char *c)
 {

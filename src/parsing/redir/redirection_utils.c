@@ -6,13 +6,14 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 22:02:57 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/28 02:08:11 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/29 20:06:49 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <ft_structs.h>
+
 #include <unistd.h>
 #include <stdlib.h>
-#include <ft_structs.h>
 
 static int	add_redirection_to_list(t_command *cmd, t_redirection *new_redir)
 {

@@ -6,13 +6,16 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 01:58:32 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/28 00:30:05 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/29 20:03:44 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_structs.h"
-#include "ft_parsing.h"
-#include "libft.h"
+#include <ft_strings.h>
+
+#include <ft_structs.h>
+#include <ft_parsing.h>
+
+#include <stdlib.h>
 
 static void	init_quote_ctx(t_quote_ctx *ctx, char *str, char **envp)
 {

@@ -6,11 +6,11 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 15:28:20 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/28 06:34:24 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/29 19:58:54 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mandatoshell.h"
+#include <mandatoshell.h>
 
 static int	apply_redirection(t_redirection *r)
 {

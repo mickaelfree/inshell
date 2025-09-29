@@ -6,13 +6,17 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 03:33:53 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/28 06:33:18 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/29 19:59:47 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_utils.h"
-#include "libft.h"
-#include "mandatoshell.h"
+#include <ft_strings.h>
+
+#include <ft_utils.h>
+#include <mandatoshell.h>
+
+#include <unistd.h>
+#include <stdlib.h>
 
 static char	*try_absolute_path(char *cmd, int *status)
 {

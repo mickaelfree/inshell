@@ -6,14 +6,15 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 18:00:45 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/28 11:56:15 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/09/29 20:08:15 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_parsing.h"
-#include "ft_utils.h"
-#include "is_char.h"
-#include "mandatoshell.h"
+#include <mandatoshell.h>
+#include <ft_parsing.h>
+#include <ft_utils.h>
+#include <is_char.h>
+
 #include <unistd.h>
 
 static int	create_type_token(t_pre_token **head, t_pre_token **current,

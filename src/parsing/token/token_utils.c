@@ -6,12 +6,13 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 15:48:37 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/28 11:48:27 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/09/29 20:10:09 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "mandatoshell.h"
+#include <ft_structs.h>
+
+#include <stdlib.h>
 
 t_pre_token	*add_type_token(t_pre_token **head, t_pre_token **current,
 		char **start, int type)

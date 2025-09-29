@@ -10,9 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_builtins.h"
-#include "ft_utils.h"
-#include "mandatoshell.h"
+#include <ft_builtins.h>
+#include <ft_utils.h>
+#include <mandatoshell.h>
+
 #include <errno.h>
 #include <signal.h>
 #include <stdio.h>

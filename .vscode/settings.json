@@ -91,6 +91,10 @@
   "ft_utils.h": "c",
   "random": "cpp",
   "stdlib.h": "c",
-  "cstdlib": "c"
+  "cstdlib": "c",
+  "ft_error.h": "c",
+  "libft.h": "c",
+  "ft_strings.h": "c",
+  "ft_parsing.h": "c"
 }
 }

@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   process_token.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 09:58:28 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/28 11:59:00 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/09/29 20:08:46 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_parsing.h"
-#include "libft.h"
+#include <ft_parsing.h>
+
 #include <stdio.h>
 
 int	process_token(t_pre_token **token, t_command **current, t_command **head,

@@ -6,13 +6,14 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 19:52:34 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/28 06:33:18 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/29 20:10:38 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mandatoshell.h"
-#include "ft_parsing.h"
-#include "ft_utils.h"
+#include <mandatoshell.h>
+#include <ft_parsing.h>
+#include <ft_utils.h>
+
 #include <unistd.h>
 
 t_command	*parse_token(char *line, char **envp)

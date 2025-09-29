@@ -6,16 +6,19 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 18:40:00 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/28 06:33:18 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/29 20:01:52 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "errno.h"
-#include "ft_structs.h"
-#include "ft_utils.h"
-#include "libft.h"
-#include "mandatoshell.h"
-#include "stdio.h"
+#include <ft_strings.h>
+
+#include <mandatoshell.h>
+#include <ft_structs.h>
+#include <ft_utils.h>
+
+#include <errno.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 
 static void	cleanup_path_and_ctx(char *path, t_child_ctx ctx, int exit_code)

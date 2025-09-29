@@ -6,17 +6,21 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 06:38:23 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/28 06:54:34 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/29 20:14:57 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <ft_strings.h>
+#include <get_next_line.h>
+
+#include <mandatoshell.h>
+#include <ft_parsing.h>
+#include <ft_structs.h>
+#include <ft_utils.h>
+
 #include <stdio.h>
 #include <unistd.h>
-#include <ft_structs.h>
-#include <mandatoshell.h>
-#include <libft.h>
-#include <ft_utils.h>
-#include <ft_parsing.h>
+#include <stdlib.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 

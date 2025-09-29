@@ -6,13 +6,17 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 13:58:19 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/28 06:34:54 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/29 20:00:09 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <ft_convert.h>
+#include <ft_memory.h>
+#include <ft_strings.h>
+
 #include <fcntl.h>
-#include <libft.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <readline/readline.h>
 
 void	ft_itoa_append(char *dest, int n)

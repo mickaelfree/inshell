@@ -6,12 +6,15 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 22:29:00 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/25 16:32:06 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/29 20:05:13 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "mandatoshell.h"
+#include <ft_strings.h>
+
+#include <mandatoshell.h>
+
+#include <stdlib.h>
 
 char	*get_env_value(char *name, char **envp)
 {

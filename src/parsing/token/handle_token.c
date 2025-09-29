@@ -6,13 +6,16 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 19:27:29 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/28 11:00:53 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/09/29 20:07:53 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_parsing.h"
-#include "libft.h"
+#include <ft_strings.h>
+
+#include <ft_parsing.h>
+
 #include <stdio.h>
+#include <stdlib.h>
 
 static int	handle_redirection_token(t_command **current, t_pre_token **token,
 		char **envp, t_command **head)

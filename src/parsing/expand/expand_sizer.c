@@ -6,13 +6,18 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 22:32:06 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/28 00:28:25 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/29 20:04:45 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "ft_parsing.h"
-#include "mandatoshell.h"
+#include <ft_char.h>
+#include <ft_convert.h>
+#include <ft_strings.h>
+
+#include <mandatoshell.h>
+#include <ft_parsing.h>
+
+#include <stdlib.h>
 
 static size_t	handle_status_var(int *i)
 {

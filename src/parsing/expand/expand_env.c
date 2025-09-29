@@ -6,13 +6,19 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 22:25:08 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/28 00:28:25 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/29 20:03:02 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "ft_parsing.h"
-#include "mandatoshell.h"
+#include <ft_char.h>
+#include <ft_convert.h>
+#include <ft_strings.h>
+#include <ft_memory.h>
+
+#include <mandatoshell.h>
+#include <ft_parsing.h>
+
+#include <stdlib.h>
 
 static int	expand_status_variable(char *result, int *j)
 {

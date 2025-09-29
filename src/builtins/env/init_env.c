@@ -6,14 +6,16 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 05:58:28 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/28 06:57:10 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/29 19:54:13 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_error.h>
-#include <libft.h>
-#include <stdio.h>
+#include <ft_strings.h>
 #include <ft_utils.h>
+
+#include <stdio.h>
+#include <stdlib.h>
 
 char	**init_env(char ***envp)
 {

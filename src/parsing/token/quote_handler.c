@@ -6,15 +6,16 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 16:52:39 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/28 06:33:18 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/29 20:09:31 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "mandatoshell.h"
-#include "is_char.h"
-#include "ft_utils.h"
+#include <mandatoshell.h>
+#include <is_char.h>
+#include <ft_utils.h>
+
 #include <stdio.h>
+#include <stdlib.h>
 
 static void	handle_quote_char(char c, int *in_single, int *in_double,
 		char **write_ptr)

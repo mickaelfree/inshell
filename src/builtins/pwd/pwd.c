@@ -6,14 +6,15 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:36:16 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/28 01:56:20 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/29 19:55:40 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mandatoshell.h"
-#include "stdlib.h"
-#include "stdio.h"
-#include "unistd.h"
+#include <mandatoshell.h>
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <unistd.h>
 
 int	builtin_pwd(t_command *cmd, char **argv, char ***envp)
 {

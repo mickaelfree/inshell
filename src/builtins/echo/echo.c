@@ -6,12 +6,13 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:35:33 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/28 02:52:25 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/29 19:52:51 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "mandatoshell.h"
+#include <ft_strings.h>
+#include <mandatoshell.h>
+#include <stdlib.h>
 
 static int	has_newline_option(char ***args)
 {
