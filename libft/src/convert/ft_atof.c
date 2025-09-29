@@ -6,11 +6,12 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 16:58:29 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/21 18:39:41 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/29 19:19:27 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
+#include <ft_char.h>
+#include <ft_convert.h>
 #include <limits.h>
 #include <math.h>
 
@@ -37,10 +38,3 @@ double	ft_atof(const char *str)
 	num = num + (double)ft_atoi(precision_part) / (double)precision_factor;
 	return (num);
 }
-
-// int main(int ac, char **av)
-// {
-// 	printf("%.5f\n", atof(av[1]));
-// 	printf("%.5f\n", ft_atof(av[1]));
-// 	return (1);
-// }

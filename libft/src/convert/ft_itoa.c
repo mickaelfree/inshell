@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zsonie <zsonie@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 19:06:04 by zsonie            #+#    #+#             */
-/*   Updated: 2024/11/24 17:44:44 by zsonie           ###   ########.fr       */
+/*   Updated: 2025/09/29 19:19:44 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,3 @@ char	*ft_itoa(int n)
 		res[0] = '-';
 	return (res);
 }
-
-// int	main(int ac, char **av)
-// {
-// 	(void) ac;
-// 	__builtin_printf("%s\n",ft_itoa(0));
-// 	__builtin_printf("%s\n",ft_itoa(-0));
-// 	return (0);
-// }

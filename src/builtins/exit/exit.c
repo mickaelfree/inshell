@@ -6,13 +6,16 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 19:21:42 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/28 06:33:18 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/29 19:30:00 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_char.h"
+#include "ft_convert.h"
 #include "mandatoshell.h"
 #include "ft_utils.h"
+#include "stdlib.h"
+#include "unistd.h"
 
 static int	is_numeric(char *str)
 {

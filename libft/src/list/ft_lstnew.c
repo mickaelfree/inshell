@@ -6,11 +6,13 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 07:23:19 by zsonie            #+#    #+#             */
-/*   Updated: 2025/08/30 19:08:22 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/29 19:34:28 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_list.h"
+#include "unistd.h"
+#include "stdlib.h"
 
 t_list	*ft_lstnew(void *content)
 {

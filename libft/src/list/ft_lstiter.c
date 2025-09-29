@@ -6,11 +6,11 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 01:26:43 by zsonie            #+#    #+#             */
-/*   Updated: 2025/08/30 19:09:59 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/29 19:27:53 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_list.h"
 
 void	ft_lstiter(t_list *lst, void (*f)(void *))
 {

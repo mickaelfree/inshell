@@ -88,6 +88,9 @@
   "error.h": "c",
   "readline.h": "c",
   "ft_signal.h": "c",
-  "ft_utils.h": "c"
+  "ft_utils.h": "c",
+  "random": "cpp",
+  "stdlib.h": "c",
+  "cstdlib": "c"
 }
 }

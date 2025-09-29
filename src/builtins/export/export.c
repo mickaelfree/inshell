@@ -6,15 +6,17 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 14:01:33 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/28 06:34:09 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/29 19:45:54 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_char.h"
+#include "ft_strings.h"
+#include "stdio.h"
+#include <stdlib.h>
+#include "mandatoshell.h"
 #include "ft_error.h"
 #include "ft_utils.h"
-#include "libft.h"
-#include "mandatoshell.h"
-#include "stdio.h"
 
 static int	is_valid_export(char *args)
 {

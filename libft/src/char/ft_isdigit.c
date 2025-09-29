@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zsonie <zsonie@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 17:07:39 by zsonie            #+#    #+#             */
-/*   Updated: 2024/11/09 23:04:16 by zsonie           ###   ########.fr       */
+/*   Updated: 2025/09/29 19:18:57 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,3 @@ int	ft_isdigit(int c)
 {
 	return ((int) c >= 48 && c <= 57);
 }
-
-/*
-int	main(int ac, char **av)
-{
-	if (ac 	!= 2)
-		return(0);
-	__builtin_printf("%d",ft_isdigit(av[1][0]));
-}*/

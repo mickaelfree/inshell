@@ -6,11 +6,11 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 23:27:51 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/21 18:42:44 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/29 19:34:48 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "unistd.h"
 
 int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
