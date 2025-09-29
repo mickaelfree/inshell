@@ -16,12 +16,18 @@
 #include "libft.h"
 #include "mandatoshell.h"
 #include "stdio.h"
+#include <unistd.h>
 
-static void	handle_command_not_found(char **cmd, char **env, t_command *cmds)
+static void	handle_command_not_found(char **cmd, char **env, t_command *cmds,
+		int close_stdin, int close_stdout)
 {
 	write(STDERR_FILENO, "command not found: ", 19);
 	write(STDERR_FILENO, cmd[0], ft_strlen(cmd[0]));
 	write(STDERR_FILENO, "\n", 1);
+	if (close_stdin)
+		close(STDIN_FILENO);
+	if (close_stdout)
+		close(STDOUT_FILENO);
 	ft_free_env(env);
 	ft_free_commands(cmds);
 	exit(127);
@@ -71,13 +77,14 @@ static void	execute_command(char *path, char **cmd, char **env)
 	}
 }
 
-void	execute(char **av, char **env, t_command *cmd)
+void	execute(char **av, char **env, t_command *cmd_head, int close_stdin,
+		int close_stdout)
 {
 	char	*path;
 
 	path = find_path(*av, env);
 	if (path == NULL)
-		handle_command_not_found(av, env, cmd);
+		handle_command_not_found(av, env, cmd_head, close_stdin, close_stdout);
 	check_file_permissions(path, av);
 	execute_command(path, av, env);
 }

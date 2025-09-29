@@ -41,7 +41,8 @@ extern int	g_last_exit_status;
 void		execute_cmd(t_command *cmds, char ***envp);
 
 // execute.c
-void		execute(char **av, char **env, t_command *cmd);
+void		execute(char **av, char **env, t_command *cmd_head, int close_stdin,
+				int close_stdout);
 
 // find_path.c
 char		*find_path(char *cmd, char **env);
