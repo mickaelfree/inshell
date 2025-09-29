@@ -20,36 +20,31 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-static int	execute_child(t_command *head, t_command *cmd, int index,
-		t_pipeline *pipeline, char ***envp)
+static int	execute_child(t_child_ctx *ctx)
 {
 	int	i;
-	int	close_in;
-	int	close_out;
 
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
-	close_in = (index > 0);
-	close_out = (index < pipeline->cmd_count - 1);
-	if (!setup_child_pipes(index, pipeline))
+	if (!setup_child_pipes(ctx->index, ctx->pipeline))
 		return (1);
 	i = 0;
-	while (i < pipeline->pipe_count)
+	while (i < ctx->pipeline->pipe_count)
 	{
-		close(pipeline->pipes[i][0]);
-		close(pipeline->pipes[i][1]);
+		close(ctx->pipeline->pipes[i][0]);
+		close(ctx->pipeline->pipes[i][1]);
 		i++;
 	}
-	if (!exec_redirections(cmd))
+	if (!exec_redirections(ctx->cmd))
 		return (1);
-	if (cmd->args && cmd->args[0])
+	if (ctx->cmd->args && ctx->cmd->args[0])
 	{
-		if (is_builtin(cmd->args) != -1)
-			return (execute_builtin(cmd, envp));
-		destroy_pipeline(pipeline);
-		execute(cmd->args, *envp, head, close_in, close_out);
-		ft_free_commands(head);
-		ft_free_env(*envp);
+		if (is_builtin(ctx->cmd->args) != -1)
+			return (execute_builtin(ctx->cmd, ctx->envp));
+		destroy_pipeline(ctx->pipeline);
+		execute(*ctx);
+		ft_free_commands(ctx->head);
+		ft_free_env(*(ctx->envp));
 	}
 	return (0);
 }
@@ -83,6 +78,7 @@ static int	fork_all_processes(t_command *cmds, t_pipeline *pipeline,
 		char ***envp)
 {
 	t_command	*cur;
+	t_child_ctx	ctx;
 	int			i;
 	int			exitcode;
 
@@ -95,7 +91,8 @@ static int	fork_all_processes(t_command *cmds, t_pipeline *pipeline,
 			return (handle_fork_error(pipeline, i));
 		else if (pipeline->pids[i] == 0)
 		{
-			exitcode = execute_child(cmds, cur, i, pipeline, envp);
+			ctx = (t_child_ctx){cmds, cur, i, pipeline, envp};
+			exitcode = execute_child(&ctx);
 			ft_free_commands(cmds);
 			destroy_pipeline(pipeline);
 			ft_free_env(*envp);
