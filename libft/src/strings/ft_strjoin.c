@@ -6,11 +6,12 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 23:51:51 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/06 20:33:22 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/29 20:18:08 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <ft_strings.h>
+#include <stdlib.h>
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {

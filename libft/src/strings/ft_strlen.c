@@ -6,11 +6,11 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 20:30:22 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/06 20:33:22 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/29 20:18:57 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "stddef.h"
+#include <stddef.h>
 
 size_t	ft_strlen(const char *s)
 {

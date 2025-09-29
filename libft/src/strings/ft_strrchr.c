@@ -6,11 +6,11 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 23:30:35 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/21 18:41:35 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/29 20:19:59 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <ft_strings.h>
 
 char	*ft_strrchr(const char *s, int c)
 {

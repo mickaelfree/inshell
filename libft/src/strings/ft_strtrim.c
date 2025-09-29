@@ -6,11 +6,13 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 01:19:01 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/21 18:42:11 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/29 20:20:25 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <ft_strings.h>
+#include <stddef.h>
+#include <stdlib.h>
 
 static int	ft_check_charset(const char *set, char c)
 {

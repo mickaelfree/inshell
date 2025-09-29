@@ -6,12 +6,11 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 04:13:49 by sarunomane        #+#    #+#             */
-/*   Updated: 2025/09/21 18:38:38 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/29 20:21:14 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "time_manager.h"
+#include <time_manager.h>
 #include <fcntl.h>
 #include <stdio.h>
 

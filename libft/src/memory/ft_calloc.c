@@ -6,12 +6,12 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 03:05:58 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/29 19:33:59 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/29 20:28:52 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_memory.h"
-#include "stdlib.h"
+#include <ft_memory.h>
+#include <stdlib.h>
 
 void	*ft_calloc(size_t nmemb, size_t size)
 {

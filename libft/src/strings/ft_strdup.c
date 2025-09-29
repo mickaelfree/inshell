@@ -6,11 +6,11 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 17:05:15 by zsonie            #+#    #+#             */
-/*   Updated: 2025/08/30 19:12:37 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/29 20:17:31 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stdlib.h>
 
 char	*ft_strdup(char *src)
 {

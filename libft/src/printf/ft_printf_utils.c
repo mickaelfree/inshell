@@ -6,12 +6,12 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 04:06:56 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/29 19:39:20 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/29 20:26:46 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_strings.h"
-#include "ft_write.h"
+#include <ft_strings.h>
+#include <ft_write.h>
 
 static int	ft_base_is_valid(char *base)
 {

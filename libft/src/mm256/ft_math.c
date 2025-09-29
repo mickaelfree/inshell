@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/18 20:02:23 by dderny            #+#    #+#             */
-/*   Updated: 2025/09/21 18:37:57 by zsonie           ###   ########lyon.fr   */
+/*   Created: 2025/01/18 20:02:23 by zsonie            #+#    #+#             */
+/*   Updated: 2025/09/29 20:27:33 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mm256.h"
+#include <immintrin.h>
 
 __m256i	ft_mm256_sub(__m256i __a, __m256i __b)
 {

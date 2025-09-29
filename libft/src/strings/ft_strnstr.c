@@ -6,11 +6,11 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 16:57:39 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/21 18:40:13 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/29 20:19:47 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "stddef.h"
+#include <stddef.h>
 
 char	*ft_strnstr(const char *big, const char *little, size_t len)
 {

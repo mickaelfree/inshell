@@ -6,11 +6,11 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 05:06:03 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/21 18:40:41 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/29 20:16:56 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stdlib.h>
 #include <stdio.h>
 
 static int	ft_count_word(char *s, char c)
@@ -96,26 +96,3 @@ char	**ft_split(char const *s, char c)
 	res[i] = NULL;
 	return (res);
 }
-
-// int	main(void)
-// {
-// 	char	*str;
-// 	char	**strtab;
-// 	char	c;
-// 	int		i;
-
-// 	str = "Monkeys are in the place,you pissed us and
-// 		you will pay for it,
-// 		fucking bastards!";
-// 	c = 'a';
-// 	i = 0;
-// 	strtab = ft_split(str, c);
-// 	while (strtab[i])
-// 	{
-// 		__builtin_printf("%s", strtab[i]);
-// 		free(strtab[i]);
-// 		i++;
-// 	}
-// 	free(strtab);
-// 	return (0);
-// }

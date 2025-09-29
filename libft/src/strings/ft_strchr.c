@@ -6,11 +6,11 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 23:28:11 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/21 18:42:02 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/29 20:17:16 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "stddef.h"
+#include <stddef.h>
 
 char	*ft_strchr(const char *s, int c)
 {

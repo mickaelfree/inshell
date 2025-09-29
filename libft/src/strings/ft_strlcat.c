@@ -6,11 +6,11 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 16:23:26 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/06 20:37:06 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/29 20:18:26 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <ft_strings.h>
 
 unsigned int	ft_strlcat(char *dest, char *src, unsigned int size)
 {

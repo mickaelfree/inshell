@@ -95,6 +95,7 @@
   "ft_error.h": "c",
   "libft.h": "c",
   "ft_strings.h": "c",
-  "ft_parsing.h": "c"
+  "ft_parsing.h": "c",
+  "stdarg.h": "c"
 }
 }

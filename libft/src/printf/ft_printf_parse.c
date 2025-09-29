@@ -6,11 +6,13 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 07:31:36 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/06 20:33:22 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/29 20:26:05 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include <ft_printf.h>
+#include <ft_strings.h>
+#include <ft_write.h>
 
 static int	ft_putchar_fsize_incr(char c, int fd, size_t *fsize)
 {
