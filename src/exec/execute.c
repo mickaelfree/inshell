@@ -25,12 +25,6 @@ static void	cleanup_path_and_ctx(char *path, t_child_ctx ctx, int exit_code)
 {
 	if (path)
 		free(path);
-	if (ctx.cmd->args)
-		ft_free(ctx.cmd->args);
-	if (ctx.index > 0)
-		close(STDIN_FILENO);
-	if (ctx.index < ctx.pipeline->cmd_count - 1)
-		close(STDOUT_FILENO);
 	if (ctx.head)
 		ft_free_commands(ctx.head);
 	if (*(ctx.envp))
