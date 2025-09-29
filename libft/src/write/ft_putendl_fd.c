@@ -6,11 +6,12 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 02:06:53 by zsonie            #+#    #+#             */
-/*   Updated: 2025/08/30 19:12:37 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/29 20:35:09 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <ft_write.h>
+#include <unistd.h>
 
 void	ft_putendl_fd(char *s, int fd)
 {

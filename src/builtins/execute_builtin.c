@@ -6,12 +6,11 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 05:59:50 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/28 06:32:57 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/29 20:36:03 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_builtins.h"
-#include "libft.h"
+#include <ft_builtins.h>
 
 static void	init_builtin(t_builtin_func *builtin)
 {
