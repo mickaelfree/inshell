@@ -77,6 +77,15 @@ typedef struct s_quote_ctx
 	int						in_double;
 }							t_quote_ctx;
 
+typedef struct s_child_ctx
+{
+	t_command				*head;
+	t_command				*cmd;
+	int						index;
+	t_pipeline				*pipeline;
+	char					***envp;
+}							t_child_ctx;
+
 typedef int					(*t_redir_fn)(t_redirection *r);
 
 typedef int					(*t_builtin_func)(t_command *cmd, char **args,
