@@ -10,13 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_structs.h"
 #include <ft_strings.h>
-
 #include <ft_utils.h>
 #include <mandatoshell.h>
-
-#include <unistd.h>
+#include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 static char	*try_absolute_path(char *cmd, int *status)
 {
@@ -96,7 +96,7 @@ static char	*try_current_directory(char *cmd)
 	return (NULL);
 }
 
-char	*find_path(char *cmd, char **env)
+char	*find_path(char *cmd, char **env, t_child_ctx ctx)
 {
 	char	**paths;
 	char	*path;
@@ -107,13 +107,7 @@ char	*find_path(char *cmd, char **env)
 		return (NULL);
 	path = try_absolute_path(cmd, &status);
 	if (!path && status != 0)
-	{
-		if (status == 127)
-			ft_error(" No such file or directory");
-		else if (status == 126)
-			ft_error(" Permission denied");
-		exit(status);
-	}
+		handle_error_ctx(NULL, status, ctx);
 	if (path)
 		return (path);
 	paths = get_path_directories(env);

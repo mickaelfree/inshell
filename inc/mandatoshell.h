@@ -42,9 +42,11 @@ void		execute_cmd(t_command *cmds, char ***envp);
 
 // execute.c
 void		execute(t_child_ctx ctx);
+void		cleanup_path_and_ctx(char *path, t_child_ctx ctx, int exit_code);
+void		handle_error_ctx(char *patch, int status, t_child_ctx ctx);
 
 // find_path.c
-char		*find_path(char *cmd, char **env);
+char		*find_path(char *cmd, char **env, t_child_ctx _ctx);
 
 // heredoc.c
 char		*process_heredoc(char *delimiter);

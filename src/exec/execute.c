@@ -10,18 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <errno.h>
 #include <ft_strings.h>
-
-#include <mandatoshell.h>
 #include <ft_structs.h>
 #include <ft_utils.h>
-
-#include <errno.h>
+#include <mandatoshell.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 
-static void	cleanup_path_and_ctx(char *path, t_child_ctx ctx, int exit_code)
+void	cleanup_path_and_ctx(char *path, t_child_ctx ctx, int exit_code)
 {
 	if (path)
 		free(path);
@@ -34,8 +32,8 @@ static void	cleanup_path_and_ctx(char *path, t_child_ctx ctx, int exit_code)
 
 static void	handle_command_not_found(t_child_ctx ctx)
 {
-	write(STDERR_FILENO, "command not found: ", 19);
 	write(STDERR_FILENO, ctx.cmd->args[0], ft_strlen(ctx.cmd->args[0]));
+	write(STDERR_FILENO, ": command not found", 19);
 	write(STDERR_FILENO, "\n", 1);
 	cleanup_path_and_ctx(NULL, ctx, 127);
 }
@@ -53,16 +51,10 @@ static void	execute_command(char *path, t_child_ctx ctx)
 {
 	if (execve(path, ctx.cmd->args, *(ctx.envp)) == -1)
 	{
-		if (errno == ENOENT)
-		{
-			write(STDERR_FILENO, "command not found\n", 18);
-			cleanup_path_and_ctx(path, ctx, 127);
-		}
+		if (errno == ENOENT || ctx.cmd->args[0][0] == '.')
+			handle_command_not_found(ctx);
 		else if (errno == EACCES)
-		{
-			write(STDERR_FILENO, " Permission denied\n", 19);
-			cleanup_path_and_ctx(path, ctx, 126);
-		}
+			handle_error_ctx(path, 126, ctx);
 		else
 		{
 			perror("execve");
@@ -75,7 +67,7 @@ void	execute(t_child_ctx ctx)
 {
 	char	*path;
 
-	path = find_path(ctx.cmd->args[0], *(ctx.envp));
+	path = find_path(ctx.cmd->args[0], *(ctx.envp), ctx);
 	if (path == NULL)
 		handle_command_not_found(ctx);
 	check_file_permissions(path, ctx);

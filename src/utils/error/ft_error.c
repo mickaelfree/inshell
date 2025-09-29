@@ -10,14 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <errno.h>
 #include <ft_strings.h>
 #include <ft_write.h>
-
 #include <mandatoshell.h>
-
-#include <unistd.h>
 #include <stdlib.h>
-#include <errno.h>
+#include <unistd.h>
 
 void	error_exit(void)
 {
@@ -35,6 +33,22 @@ void	error_exit(void)
 		exit(126);
 	}
 	exit(1);
+}
+
+void	handle_error_ctx(char *patch, int status, t_child_ctx ctx)
+{
+	if (status == 127)
+	{
+		write(STDERR_FILENO, ctx.cmd->args[0], ft_strlen(ctx.cmd->args[0]));
+		write(2, ": No such file or directory",
+			sizeof(": No such file or directory"));
+	}
+	else if (status == 126)
+	{
+		write(STDERR_FILENO, ctx.cmd->args[0], ft_strlen(ctx.cmd->args[0]));
+		write(2, ": Permission denied", sizeof(": Permission denied"));
+	}
+	cleanup_path_and_ctx(patch, ctx, status);
 }
 
 void	ft_error(char *msg)
