@@ -10,10 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft_strings.h>
-
 #include <ft_parsing.h>
-
+#include <ft_strings.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -57,7 +55,7 @@ static int	handle_whitespace_quote_token(t_command **current,
 
 	(void)head;
 	(void)envp;
-	value = ft_strdup(" ");
+	value = ft_strndup((*token)->start + 1, (*token)->len - 2);
 	new_args = malloc(sizeof(char *) * ((*current)->arg_count + 2));
 	if (!new_args)
 	{

@@ -10,11 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mandatoshell.h>
 #include <ft_parsing.h>
 #include <ft_utils.h>
 #include <is_char.h>
-
+#include <mandatoshell.h>
 #include <unistd.h>
 
 static int	create_type_token(t_pre_token **head, t_pre_token **current,
@@ -68,6 +67,8 @@ static int	is_only_whitespace_in_quotes(char *start, int len)
 			in_quotes = 0;
 		else if (in_quotes && !is_whitespace(start[i]))
 			return (0);
+		else if (!in_quotes && !is_whitespace(start[i]))
+			return (0);
 		i++;
 	}
 	return (has_quotes);
@@ -80,6 +81,8 @@ static int	create_word_token(t_pre_token **head, t_pre_token **current,
 		return (0);
 	if (is_only_whitespace_in_quotes(*token_start, *ptr - *token_start))
 	{
+                // if((*current)->len == 2)
+                //         return 0 ;
 		if (!add_whitespace_quote_token(head, current, *token_start, *ptr
 				- *token_start))
 		{
