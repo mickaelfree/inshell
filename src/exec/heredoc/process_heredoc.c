@@ -6,18 +6,17 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 13:58:19 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/29 20:00:09 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/30 05:19:37 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <fcntl.h>
 #include <ft_convert.h>
 #include <ft_memory.h>
 #include <ft_strings.h>
-
-#include <fcntl.h>
+#include <readline/readline.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <readline/readline.h>
 
 void	ft_itoa_append(char *dest, int n)
 {
@@ -67,7 +66,9 @@ char	*process_heredoc(char *delimiter)
 		line = readline("> ");
 		if (!line)
 			break ;
-		if (ft_strncmp(line, delimiter, ft_strlen(delimiter)) == 0)
+		if (ft_strncmp(line, delimiter, ft_strlen(delimiter)) == 0
+			&& (line[ft_strlen(delimiter)] == '\0'
+				|| line[ft_strlen(delimiter)] == '\n'))
 		{
 			free(line);
 			break ;

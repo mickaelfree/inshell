@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:33:23 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/29 19:51:54 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/30 06:25:26 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static int	change_and_get_paths(char *target_dir, char **old_pwd,
 	*new_pwd = getcwd(NULL, 0);
 	if (!*new_pwd)
 	{
-		perror("cd");
+		// perror("cd");
 		chdir(*old_pwd);
 		free(*old_pwd);
 		*old_pwd = NULL;

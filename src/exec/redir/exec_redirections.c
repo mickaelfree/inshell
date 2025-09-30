@@ -6,13 +6,13 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 15:28:20 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/29 19:58:54 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/30 05:00:29 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <mandatoshell.h>
 
-static int	apply_redirection(t_redirection *r)
+static int	apply_redirection(t_redirection *r, int saved_stdin)
 {
 	t_redir_entry	func[NB_REDIRS_FUNC];
 	int				i;
@@ -26,21 +26,21 @@ static int	apply_redirection(t_redirection *r)
 		if (func[i].type == r->type || (r->type == TOKEN_APPEND
 				&& func[i].type == TOKEN_REDIR_OUT))
 		{
-			return (func[i].fn(r));
+			return (func[i].fn(r, saved_stdin));
 		}
 		i++;
 	}
 	return (1);
 }
 
-int	exec_redirections(t_command *cmd)
+int	exec_redirections(t_command *cmd, int saved_stdin)
 {
 	t_redirection	*rd;
 
 	rd = cmd->redirections;
 	while (rd)
 	{
-		if (!apply_redirection(rd))
+		if (!apply_redirection(rd, saved_stdin))
 			return (0);
 		rd = rd->next;
 	}

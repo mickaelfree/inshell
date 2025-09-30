@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 19:21:13 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/28 06:27:20 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/30 05:00:02 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int			setup_child_pipes(int index, t_pipeline *pipeline);
 void		close_parent_pipes(t_pipeline *pipeline);
 
 // redirections.c
-int			exec_redirections(t_command *cmd);
+int			exec_redirections(t_command *cmd, int saved_stdin);
 
 // utils_redir.c
 void		init_redir_table(t_redir_entry *func);

@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 22:30:07 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/28 02:47:06 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/30 04:44:44 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ typedef struct s_child_ctx
 	char					***envp;
 }							t_child_ctx;
 
-typedef int					(*t_redir_fn)(t_redirection *r);
+typedef int					(*t_redir_fn)(t_redirection *r, int saved_stdin);
 
 typedef int					(*t_builtin_func)(t_command *cmd, char **args,
 						char ***envp);

@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:35:33 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/30 02:46:20 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/30 05:45:04 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ static void	print_arguments(char **args)
 	i = 0;
 	while (*args)
 	{
-		if (*args[i] == '$')
-			i++;
 		write(1, *args + i, ft_strlen(*args));
 		if (*(args + 1) && ft_strlen(*args) != 0)
 			write(1, " ", 1);

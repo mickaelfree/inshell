@@ -68,12 +68,12 @@ re: fclean all
 # Compile for valgrind
 debug: CFLAGS = -Wall -Wextra -Werror -g3
 debug: fclean all
-	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=readline.supp --trace-children=yes ./minishell
+	valgrind $(shell cat .valgrindrc) ./minishell
 
 # Compile for debug mode + valgrind
 fdebug: CFLAGS = -Wall -Wextra -Werror -g3 -DDEBUG_MODE=1
 fdebug: fclean all
-	DEBUG_MODE=1 valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=readline.supp --trace-children=yes ./minishell
+	DEBUG_MODE=1 valgrind $(shell cat .valgrindrc) --trace-children=yes ./minishell
 
 # Norminette for source and include
 norm:

@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 18:37:55 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/28 06:33:50 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/30 05:11:22 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,11 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-static int	rd_in(t_redirection *r)
+static int	rd_in(t_redirection *r, int saved_stdin)
 {
 	int	fd;
 
+	(void)saved_stdin;
 	fd = open(r->filename, O_RDONLY);
 	if (fd < 0)
 	{
@@ -38,11 +39,12 @@ static int	rd_in(t_redirection *r)
 	return (1);
 }
 
-static int	rd_out(t_redirection *r)
+static int	rd_out(t_redirection *r, int saved_stdin)
 {
 	int	fd;
 	int	flags;
 
+	(void)saved_stdin;
 	flags = O_WRONLY | O_CREAT;
 	if (r->append_mode)
 		flags |= O_APPEND;
@@ -76,11 +78,16 @@ static int	cleanup_heredoc(char *tmp, int fd, int success)
 	return (success);
 }
 
-static int	rd_heredoc(t_redirection *r)
+static int	rd_heredoc(t_redirection *r, int saved_stdin)
 {
 	char	*tmp;
 	int		fd;
 
+	if (saved_stdin != -1 && dup2(saved_stdin, STDIN_FILENO) == -1)
+	{
+		perror("dup2");
+		return (cleanup_heredoc(NULL, 0, 0));
+	}
 	tmp = process_heredoc(r->filename);
 	if (!tmp)
 	{

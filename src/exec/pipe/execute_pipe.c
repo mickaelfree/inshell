@@ -24,6 +24,7 @@
 static int	execute_child(t_child_ctx *ctx)
 {
 	int	i;
+	int saved_stdin;
 
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
@@ -36,8 +37,13 @@ static int	execute_child(t_child_ctx *ctx)
 		close(ctx->pipeline->pipes[i][1]);
 		i++;
 	}
-	if (!exec_redirections(ctx->cmd))
+	saved_stdin = dup(STDIN_FILENO);
+	if (!exec_redirections(ctx->cmd, saved_stdin))
+	{
+		close(saved_stdin);
 		return (1);
+	}
+	close(saved_stdin);
 	if (ctx->cmd->args && ctx->cmd->args[0])
 	{
 		if (is_builtin(ctx->cmd->args) != -1)

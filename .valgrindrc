@@ -1,5 +1,6 @@
 --leak-check=full
 --show-leak-kinds=all
---suppressions=readline.supp
+--suppressions=/home/zsonie/mandatoshell/readline.supp
+--track-fds=yes
 --track-origins=yes
 --trace-children=yes

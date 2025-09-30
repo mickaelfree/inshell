@@ -6,13 +6,17 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 04:13:49 by sarunomane        #+#    #+#             */
-/*   Updated: 2025/09/29 20:21:14 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/30 05:36:04 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <time_manager.h>
+#include <unistd.h>
 #include <fcntl.h>
 #include <stdio.h>
+#include "time_manager.h"
+#include "ft_strings.h"
+#include "ft_convert.h"
+#include "ft_char.h"
 
 double	get_proc_uptime(void)
 {
