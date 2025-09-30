@@ -20,6 +20,8 @@ int				builtin_echo(t_command *cmd, char **args, char ***envp);
 int				builtin_env(t_command *cmd, char **args, char ***envp);
 char			**init_env(char ***envp);
 int				builtin_exit(t_command *cmd, char **args, char ***envp);
+int				builtin_exit_child(t_command *head, t_command *cmd, char **args,
+					char ***envp);
 int				builtin_export(t_command *cmd, char **args, char ***envp);
 int				update_env_var(char ***envp_ptr, char *var);
 int				builtin_pwd(t_command *cmd, char **args, char ***envp);
