@@ -65,9 +65,8 @@ static int	is_only_whitespace_in_quotes(char *start, int len)
 		}
 		else if (in_quotes && start[i] == quote_char)
 			in_quotes = 0;
-		else if (in_quotes && !is_whitespace(start[i]))
-			return (0);
-		else if (!in_quotes && !is_whitespace(start[i]))
+		else if ((in_quotes && !is_whitespace(start[i]))
+			|| (!in_quotes && !is_whitespace(start[i])))
 			return (0);
 		i++;
 	}
