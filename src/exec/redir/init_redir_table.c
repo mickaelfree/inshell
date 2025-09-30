@@ -68,6 +68,8 @@ static int	rd_out(t_redirection *r, int saved_stdin)
 
 static int	cleanup_heredoc(char *tmp, int fd, int success)
 {
+	if (!success)
+		perror("dup2");
 	if (fd >= 0)
 		close(fd);
 	if (tmp)
@@ -84,10 +86,7 @@ static int	rd_heredoc(t_redirection *r, int saved_stdin)
 	int		fd;
 
 	if (saved_stdin != -1 && dup2(saved_stdin, STDIN_FILENO) == -1)
-	{
-		perror("dup2");
 		return (cleanup_heredoc(NULL, 0, 0));
-	}
 	tmp = process_heredoc(r->filename);
 	if (!tmp)
 	{
@@ -101,10 +100,7 @@ static int	rd_heredoc(t_redirection *r, int saved_stdin)
 		return (cleanup_heredoc(tmp, -1, 0));
 	}
 	if (dup2(fd, STDIN_FILENO) == -1)
-	{
-		perror("dup2");
 		return (cleanup_heredoc(tmp, fd, 0));
-	}
 	return (cleanup_heredoc(tmp, fd, 1));
 }
 
