@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_enum.h"
+#include <errno.h>
 #include <ft_builtins.h>
 #include <ft_utils.h>
 #include <mandatoshell.h>
-
-#include <errno.h>
 #include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -24,7 +24,7 @@
 static int	execute_child(t_child_ctx *ctx)
 {
 	int	i;
-	int saved_stdin;
+	int	saved_stdin;
 
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
@@ -46,7 +46,12 @@ static int	execute_child(t_child_ctx *ctx)
 	close(saved_stdin);
 	if (ctx->cmd->args && ctx->cmd->args[0])
 	{
-		if (is_builtin(ctx->cmd->args) != -1)
+                if (is_builtin(ctx->cmd->args) == BUILTIN_EXIT)
+		{
+		        destroy_pipeline(ctx->pipeline);
+                        builtin_exit_child(ctx->head,ctx->cmd,ctx->cmd->args,ctx->envp);
+		}
+                else if (is_builtin(ctx->cmd->args) != -1)
 			return (execute_builtin(ctx->cmd, ctx->envp));
 		destroy_pipeline(ctx->pipeline);
 		execute(*ctx);

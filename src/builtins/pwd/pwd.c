@@ -11,9 +11,8 @@
 /* ************************************************************************** */
 
 #include <mandatoshell.h>
-
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 
 int	builtin_pwd(t_command *cmd, char **argv, char ***envp)
@@ -26,7 +25,12 @@ int	builtin_pwd(t_command *cmd, char **argv, char ***envp)
 	line = NULL;
 	line = getcwd(line, 0);
 	if (!line)
+	{
+		perror("pwd: error retrieving current directory:");
+		perror(" getcwd: cannot access parent directories:");
+		perror(" No such file or directory");
 		return (EXIT_FAILURE);
+	}
 	printf("%s\n", line);
 	free(line);
 	return (EXIT_SUCCESS);
