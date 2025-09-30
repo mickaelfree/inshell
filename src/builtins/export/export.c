@@ -6,19 +6,17 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 14:01:33 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/30 02:31:01 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/30 04:09:33 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_char.h>
+#include <ft_error.h>
 #include <ft_strings.h>
-
+#include <ft_utils.h>
+#include <mandatoshell.h>
 #include <stdio.h>
 #include <stdlib.h>
-
-#include <mandatoshell.h>
-#include <ft_error.h>
-#include <ft_utils.h>
 
 static int	is_valid_export(char *args)
 {
@@ -55,7 +53,7 @@ static int	replace_existing_var(char ***envp_ptr, char *var, int index)
 	j = 0;
 	while (j < len)
 	{
-		if (j == index)
+		if (j == index && ft_strchr(var, '='))
 			new_env[j] = ft_strdup(var);
 		else
 			new_env[j] = ft_strdup(envp[j]);
@@ -113,7 +111,8 @@ int	update_env_var(char ***envp_ptr, char *var)
 	i = 0;
 	while (envp[i])
 	{
-		if (!ft_strncmp(envp[i], key, key_len))
+		if (!ft_strncmp(envp[i], key, key_len) && (envp[i][key_len] == '\0'
+				|| envp[i][key_len] == '='))
 		{
 			free(key);
 			return (replace_existing_var(envp_ptr, var, i));

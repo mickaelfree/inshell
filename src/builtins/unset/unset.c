@@ -6,18 +6,16 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:36:20 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/30 02:30:53 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/30 04:06:54 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_char.h>
-#include <ft_strings.h>
-
 #include <ft_error.h>
+#include <ft_strings.h>
 #include <ft_utils.h>
-
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 static int	is_valid_identifier(char *name)
 {
@@ -44,7 +42,8 @@ static int	rm_var(char **envp, char **new_env, char *name)
 	j = 0;
 	while (envp[i])
 	{
-		if (ft_strncmp(envp[i], name, ft_strlen(envp[i])))
+		if (!(!ft_strncmp(envp[i], name, name_len) && (envp[i][name_len] == '\0'
+				|| envp[i][name_len] == '=')))
 		{
 			new_env[j] = ft_strdup(envp[i]);
 			if (error_alloc(new_env[j], new_env))
