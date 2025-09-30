@@ -96,6 +96,8 @@
   "libft.h": "c",
   "ft_strings.h": "c",
   "ft_parsing.h": "c",
-  "stdarg.h": "c"
-}
+  "stdarg.h": "c",
+  "ft_enum.h": "c"
+},
+"makefile.configureOnOpen": false
 }

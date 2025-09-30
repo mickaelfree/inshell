@@ -6,18 +6,15 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 19:21:13 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/30 05:00:02 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/10/01 00:18:20 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MANDATOSHELL_H
 # define MANDATOSHELL_H
 
-// INCLUDES
 # include <ft_enum.h>
 # include <ft_structs.h>
-
-/////////////////////////MACRO////////////////////////
 
 # ifndef NB_REDIRS_FUNC
 #  define NB_REDIRS_FUNC 3
@@ -33,39 +30,21 @@
 
 extern int	g_last_exit_status;
 
-/////////////////////////FUNCTIONS////////////////////////
-
-//-------------------------------EXEC------------------------------//
-
-// execute_cmd.c
 void		execute_cmd(t_command *cmds, char ***envp);
-
-// execute.c
+int			execute_child(t_child_ctx *ctx);
 void		execute(t_child_ctx ctx);
 void		cleanup_path_and_ctx(char *path, t_child_ctx ctx, int exit_code);
 void		handle_error_ctx(char *patch, int status, t_child_ctx ctx);
-
-// find_path.c
 char		*find_path(char *cmd, char **env, t_child_ctx _ctx);
-
-// heredoc.c
 char		*process_heredoc(char *delimiter);
-
-// pipeline_exec.c
 void		execute_pipe(t_command *cmds, int cmd_count, char ***envp);
-
-// pipeline_utils.c
 int			count_pipeline(t_command *cmds);
 t_pipeline	*create_pipeline(int cmd_count);
 void		destroy_pipeline(t_pipeline *pipeline);
 int			setup_pipes(t_pipeline *pipeline);
 int			setup_child_pipes(int index, t_pipeline *pipeline);
 void		close_parent_pipes(t_pipeline *pipeline);
-
-// redirections.c
 int			exec_redirections(t_command *cmd, int saved_stdin);
-
-// utils_redir.c
 void		init_redir_table(t_redir_entry *func);
 
 #endif

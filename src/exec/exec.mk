@@ -5,6 +5,7 @@ SRCS += $(addprefix src/exec/, \
 	pipe/count_pipeline.c\
 	pipe/create_pipeline.c\
 	pipe/destroy_pipeline.c\
+	pipe/execute_child.c\
 	pipe/execute_pipe.c\
 	pipe/setup_pipes.c\
 	redir/exec_redirections.c\
