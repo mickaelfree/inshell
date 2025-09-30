@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:36:20 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/29 19:56:29 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/30 02:30:53 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	rm_var(char **envp, char **new_env, char *name)
 	j = 0;
 	while (envp[i])
 	{
-		if (!(ft_strncmp(envp[i], name, name_len) == 0))
+		if (ft_strncmp(envp[i], name, ft_strlen(envp[i])))
 		{
 			new_env[j] = ft_strdup(envp[i]);
 			if (error_alloc(new_env[j], new_env))

@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 14:01:33 by mickmart          #+#    #+#             */
-/*   Updated: 2025/09/29 19:55:17 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/09/30 02:31:01 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int	update_env_var(char ***envp_ptr, char *var)
 	i = 0;
 	while (envp[i])
 	{
-		if (!ft_strncmp(envp[i], key, key_len) && envp[i][key_len] == '=')
+		if (!ft_strncmp(envp[i], key, key_len))
 		{
 			free(key);
 			return (replace_existing_var(envp_ptr, var, i));
