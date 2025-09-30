@@ -30,12 +30,12 @@ void	cleanup_path_and_ctx(char *path, t_child_ctx ctx, int exit_code)
 	exit(exit_code);
 }
 
-static void	handle_command_not_found(t_child_ctx ctx)
+static void	handle_command_not_found(t_child_ctx ctx, char *path)
 {
 	write(STDERR_FILENO, ctx.cmd->args[0], ft_strlen(ctx.cmd->args[0]));
 	write(STDERR_FILENO, ": command not found", 19);
 	write(STDERR_FILENO, "\n", 1);
-	cleanup_path_and_ctx(NULL, ctx, 127);
+	cleanup_path_and_ctx(path, ctx, 127);
 }
 
 static void	check_file_permissions(char *path, t_child_ctx ctx)
@@ -52,7 +52,7 @@ static void	execute_command(char *path, t_child_ctx ctx)
 	if (execve(path, ctx.cmd->args, *(ctx.envp)) == -1)
 	{
 		if (errno == ENOENT || ctx.cmd->args[0][0] == '.')
-			handle_command_not_found(ctx);
+			handle_command_not_found(ctx, path);
 		else if (errno == EACCES)
 			handle_error_ctx(path, 126, ctx);
 		else
@@ -69,7 +69,7 @@ void	execute(t_child_ctx ctx)
 
 	path = find_path(ctx.cmd->args[0], *(ctx.envp), ctx);
 	if (path == NULL)
-		handle_command_not_found(ctx);
+		handle_command_not_found(ctx, NULL);
 	check_file_permissions(path, ctx);
 	execute_command(path, ctx);
 }

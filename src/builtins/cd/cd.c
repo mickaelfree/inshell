@@ -64,7 +64,6 @@ static int	change_and_get_paths(char *target_dir, char **old_pwd,
 	*new_pwd = getcwd(NULL, 0);
 	if (!*new_pwd)
 	{
-		// perror("cd");
 		chdir(*old_pwd);
 		free(*old_pwd);
 		*old_pwd = NULL;
