@@ -81,8 +81,6 @@ static int	create_word_token(t_pre_token **head, t_pre_token **current,
 		return (0);
 	if (is_only_whitespace_in_quotes(*token_start, *ptr - *token_start))
 	{
-                // if((*current)->len == 2)
-                //         return 0 ;
 		if (!add_whitespace_quote_token(head, current, *token_start, *ptr
 				- *token_start))
 		{

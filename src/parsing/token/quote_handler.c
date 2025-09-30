@@ -94,7 +94,7 @@ int	check_for_quotes(t_pre_token **head, char **ptr)
 		{
 			quote_state = 0;
                         (*ptr)++;
-			break ;
+                        continue ;
 		}
 		(*ptr)++;
 	}

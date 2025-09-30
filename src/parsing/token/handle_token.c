@@ -80,17 +80,13 @@ static int	handle_word_token(t_command **current, t_pre_token **token,
 {
 	char	*value;
 	char	*expanded_value;
-	char	*trimmed;
 
 	(void)head;
 	value = ft_strndup((*token)->start, (*token)->len);
 	expanded_value = expand_variables_with_quote(value, envp);
 	if (!expanded_value)
 		expanded_value = ft_strdup("");
-	trimmed = expanded_value;
-	while (*trimmed == ' ' || *trimmed == '\t')
-		trimmed++;
-	if (*trimmed != '\0')
+	if (*expanded_value != '\0')
 		add_argument(*current, value, envp);
 	else
 		free(value);

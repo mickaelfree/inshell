@@ -125,5 +125,5 @@ char	*expand_variables(char *str, char **envp)
 	result = process_expansion_loop(str, &ctx);
 	if (!result)
 		return (NULL);
-	return (trim_leading_spaces(result));
+	return (result);
 }
