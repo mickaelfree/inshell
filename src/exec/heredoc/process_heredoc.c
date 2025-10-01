@@ -10,11 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_signal.h"
+#include "ft_write.h"
 #include <fcntl.h>
 #include <ft_convert.h>
 #include <ft_memory.h>
 #include <ft_strings.h>
 #include <readline/readline.h>
+#include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -52,6 +55,12 @@ static int	create_temp_file(char *template)
 	return (-1);
 }
 
+static void	ft_putheredoc(char *line, int fd)
+{
+	write(fd, line, ft_strlen(line));
+	write(fd, "\n", 1);
+}
+
 char	*process_heredoc(char *delimiter)
 {
 	char	*line;
@@ -59,6 +68,7 @@ char	*process_heredoc(char *delimiter)
 	int		fd;
 
 	fd = create_temp_file(template);
+	signal(SIGINT, ft_handle_sig);
 	if (fd == -1)
 		return (NULL);
 	while (1)
@@ -73,8 +83,7 @@ char	*process_heredoc(char *delimiter)
 			free(line);
 			break ;
 		}
-		write(fd, line, ft_strlen(line));
-		write(fd, "\n", 1);
+		ft_putheredoc(line, fd);
 		free(line);
 	}
 	close(fd);
