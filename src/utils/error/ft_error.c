@@ -40,13 +40,24 @@ void	handle_error_ctx(char *patch, int status, t_child_ctx ctx)
 	if (status == 127)
 	{
 		write(STDERR_FILENO, ctx.cmd->args[0], ft_strlen(ctx.cmd->args[0]));
-		write(2, ": No such file or directory",
-			sizeof(": No such file or directory"));
+		write(2, ": No such file or directory\n",
+			sizeof(": No such file or directory\n"));
+	}
+	else if (ft_strlen((const char *)ctx.cmd->args[0]) == 0)
+	{
+		write(STDERR_FILENO, " ", 1);
+		write(2, ": command not found\n", sizeof(": command not found\n"));
+		status = 127;
+	}
+	else if (ctx.cmd->args[0][0] == '/')
+	{
+		write(STDERR_FILENO, ctx.cmd->args[0], ft_strlen(ctx.cmd->args[0]));
+		write(2, ": Is a directory\n", sizeof(": Is a directory\n"));
 	}
 	else if (status == 126)
 	{
 		write(STDERR_FILENO, ctx.cmd->args[0], ft_strlen(ctx.cmd->args[0]));
-		write(2, ": Permission denied", sizeof(": Permission denied"));
+		write(2, ": Permission denied\n", sizeof(": Permission denied\n"));
 	}
 	cleanup_path_and_ctx(patch, ctx, status);
 }
