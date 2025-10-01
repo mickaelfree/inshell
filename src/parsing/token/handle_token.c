@@ -32,9 +32,9 @@ static int	handle_pipe_token(t_command **current, t_pre_token **token,
 	(void)head;
 	(void)envp;
 	*token = (*token)->next;
-	if (!*token)
+	if (!*token || (*current == *head && (*current)->arg_count == 0))
 	{
-		printf("Syntax error: pipe at end\n");
+		printf(" syntax error near unexpected token `|'\n");
 		return (0);
 	}
 	new_cmd = malloc(sizeof(t_command));
