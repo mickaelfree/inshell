@@ -6,7 +6,7 @@
 /*   By: zsonie <zsonie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 06:38:23 by zsonie            #+#    #+#             */
-/*   Updated: 2025/09/29 20:14:57 by zsonie           ###   ########lyon.fr   */
+/*   Updated: 2025/10/01 03:38:48 by zsonie           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	rl_check_and_exit(char *line, char ***new_env)
 
 static int	check_gnl(char **raw_line, char **line)
 {
-	*raw_line = get_next_line(fileno(stdin));
+	*raw_line = get_next_line(STDIN_FILENO);
 	if (!(*raw_line))
 		return (0);
 	*line = ft_strtrim(*raw_line, "\n");
@@ -65,10 +65,8 @@ void	update_for_tester(char ***new_env)
 
 	while (1)
 	{
-		if (isatty(fileno(stdin)))
-		{
+		if (isatty(STDIN_FILENO))
 			line = readline("Mandatoshell>");
-		}
 		else
 		{
 			if (!check_gnl(&raw_line, &line))
